@@ -3,18 +3,45 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B8DA403E715044B695F9FC8 /* Pods_pindergartenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4815660692CFCCFE76EF034E /* Pods_pindergartenTests.framework */; };
 		24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6A92725423A00FD519D /* AppDelegate.swift */; };
 		24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6AB2725423A00FD519D /* SceneDelegate.swift */; };
 		24C4D6AE2725423A00FD519D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6AD2725423A00FD519D /* ViewController.swift */; };
-		24C4D6B12725423A00FD519D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6AF2725423A00FD519D /* Main.storyboard */; };
 		24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6B22725423B00FD519D /* Assets.xcassets */; };
 		24C4D6B62725423B00FD519D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6B42725423B00FD519D /* LaunchScreen.storyboard */; };
 		24C4D6C12725423B00FD519D /* pindergartenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6C02725423B00FD519D /* pindergartenTests.swift */; };
 		24C4D6CC2725423B00FD519D /* pindergartenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6CB2725423B00FD519D /* pindergartenUITests.swift */; };
+		24C4D6DA272590DB00FD519D /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6D9272590DB00FD519D /* BaseTabBarController.swift */; };
+		24C4D6DD2725929800FD519D /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6DC2725929800FD519D /* Constant.swift */; };
+		24C4D6E02725946C00FD519D /* JwtToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6DF2725946C00FD519D /* JwtToken.swift */; };
+		24C4D6E62725953400FD519D /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6E52725953300FD519D /* Date.swift */; };
+		24C4D6E82725956600FD519D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6E72725956600FD519D /* String.swift */; };
+		24C4D6EA2725956D00FD519D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6E92725956D00FD519D /* Color.swift */; };
+		24C4D6EC272597DB00FD519D /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6EB272597DB00FD519D /* UIViewController.swift */; };
+		24C4D6EE272597FF00FD519D /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6ED272597FF00FD519D /* IndicatorView.swift */; };
+		24C4D6F02725982600FD519D /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6EF2725982600FD519D /* Device.swift */; };
+		24C4D6F3272599DF00FD519D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6F2272599DF00FD519D /* BaseViewController.swift */; };
+		24C4D6F627259B1800FD519D /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6F527259B1800FD519D /* SplashViewController.swift */; };
+		24C4D6FC2727D6B300FD519D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6FB2727D6B300FD519D /* LoginViewController.swift */; };
+		24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6FF2727DE9300FD519D /* CustomTextField.swift */; };
+		24C4D7022727DFA500FD519D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7012727DFA500FD519D /* UIView.swift */; };
+		24C4D7062728044E00FD519D /* SignUpNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7052728044E00FD519D /* SignUpNumberViewController.swift */; };
+		24C4D70A2728229800FD519D /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D7092728229800FD519D /* View.xib */; };
+		24C4D70F2728393500FD519D /* BMDOHYEON_otf.otf in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D70D2728393500FD519D /* BMDOHYEON_otf.otf */; };
+		24C4D7102728393500FD519D /* SDSwagger.otf in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D70E2728393500FD519D /* SDSwagger.otf */; };
+		24C4D71427287A6200FD519D /* CustomNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D71327287A6200FD519D /* CustomNavBar.swift */; };
+		24C4D7162728839600FD519D /* CustomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7152728839600FD519D /* CustomInputView.swift */; };
+		24C4D7182729EAE600FD519D /* SignUpPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7172729EAE600FD519D /* SignUpPasswordViewController.swift */; };
+		24C4D71A2729EDD800FD519D /* BaseSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7192729EDD800FD519D /* BaseSignUpViewController.swift */; };
+		24F742F8272C6C9100238E20 /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F742F7272C6C9100238E20 /* NickNameViewController.swift */; };
+		24F742FA272C733F00238E20 /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F742F9272C733F00238E20 /* FindPasswordViewController.swift */; };
+		24F742FC272C770900238E20 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F742FB272C770900238E20 /* ResetPasswordViewController.swift */; };
+		30DBCDDE0E47CB1A97F5EAC2 /* Pods_pindergarten_pindergartenUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93BF9369AB1EAA7DB6DA1A17 /* Pods_pindergarten_pindergartenUITests.framework */; };
+		727E05025A1293FEFDB46744 /* Pods_pindergarten.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8BCF539DD527F66AF2CF8F0 /* Pods_pindergarten.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +66,6 @@
 		24C4D6A92725423A00FD519D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24C4D6AB2725423A00FD519D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		24C4D6AD2725423A00FD519D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		24C4D6B02725423A00FD519D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		24C4D6B22725423B00FD519D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		24C4D6B52725423B00FD519D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		24C4D6B72725423B00FD519D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +75,40 @@
 		24C4D6C72725423B00FD519D /* pindergartenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pindergartenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C4D6CB2725423B00FD519D /* pindergartenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pindergartenUITests.swift; sourceTree = "<group>"; };
 		24C4D6CD2725423B00FD519D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		24C4D6D9272590DB00FD519D /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		24C4D6DC2725929800FD519D /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		24C4D6DF2725946C00FD519D /* JwtToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JwtToken.swift; sourceTree = "<group>"; };
+		24C4D6E52725953300FD519D /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		24C4D6E72725956600FD519D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		24C4D6E92725956D00FD519D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		24C4D6EB272597DB00FD519D /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		24C4D6ED272597FF00FD519D /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
+		24C4D6EF2725982600FD519D /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		24C4D6F2272599DF00FD519D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		24C4D6F527259B1800FD519D /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		24C4D6FB2727D6B300FD519D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		24C4D6FF2727DE9300FD519D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		24C4D7012727DFA500FD519D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		24C4D7052728044E00FD519D /* SignUpNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNumberViewController.swift; sourceTree = "<group>"; };
+		24C4D7092728229800FD519D /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		24C4D70D2728393500FD519D /* BMDOHYEON_otf.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BMDOHYEON_otf.otf; sourceTree = "<group>"; };
+		24C4D70E2728393500FD519D /* SDSwagger.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDSwagger.otf; sourceTree = "<group>"; };
+		24C4D71327287A6200FD519D /* CustomNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavBar.swift; sourceTree = "<group>"; };
+		24C4D7152728839600FD519D /* CustomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputView.swift; sourceTree = "<group>"; };
+		24C4D7172729EAE600FD519D /* SignUpPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPasswordViewController.swift; sourceTree = "<group>"; };
+		24C4D7192729EDD800FD519D /* BaseSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSignUpViewController.swift; sourceTree = "<group>"; };
+		24F742F7272C6C9100238E20 /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
+		24F742F9272C733F00238E20 /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
+		24F742FB272C770900238E20 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		2B31FB682395B1475359C8E1 /* Pods-pindergartenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pindergartenTests.release.xcconfig"; path = "Target Support Files/Pods-pindergartenTests/Pods-pindergartenTests.release.xcconfig"; sourceTree = "<group>"; };
+		4815660692CFCCFE76EF034E /* Pods_pindergartenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pindergartenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DD568A7A64EBA83755BB587 /* Pods-pindergarten.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pindergarten.release.xcconfig"; path = "Target Support Files/Pods-pindergarten/Pods-pindergarten.release.xcconfig"; sourceTree = "<group>"; };
+		8AB0308F840462634BE671AD /* Pods-pindergarten-pindergartenUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pindergarten-pindergartenUITests.release.xcconfig"; path = "Target Support Files/Pods-pindergarten-pindergartenUITests/Pods-pindergarten-pindergartenUITests.release.xcconfig"; sourceTree = "<group>"; };
+		93BF9369AB1EAA7DB6DA1A17 /* Pods_pindergarten_pindergartenUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pindergarten_pindergartenUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BFB8A38A8E44AC7D3C0EFC8 /* Pods-pindergarten-pindergartenUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pindergarten-pindergartenUITests.debug.xcconfig"; path = "Target Support Files/Pods-pindergarten-pindergartenUITests/Pods-pindergarten-pindergartenUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		BA10CCBCAC9F0CE752428F57 /* Pods-pindergartenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pindergartenTests.debug.xcconfig"; path = "Target Support Files/Pods-pindergartenTests/Pods-pindergartenTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CEB838AA6C898D27DCC976E1 /* Pods-pindergarten.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pindergarten.debug.xcconfig"; path = "Target Support Files/Pods-pindergarten/Pods-pindergarten.debug.xcconfig"; sourceTree = "<group>"; };
+		E8BCF539DD527F66AF2CF8F0 /* Pods_pindergarten.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pindergarten.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				727E05025A1293FEFDB46744 /* Pods_pindergarten.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B8DA403E715044B695F9FC8 /* Pods_pindergartenTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +132,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30DBCDDE0E47CB1A97F5EAC2 /* Pods_pindergarten_pindergartenUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12903833E32E47FE42A18C8F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CEB838AA6C898D27DCC976E1 /* Pods-pindergarten.debug.xcconfig */,
+				6DD568A7A64EBA83755BB587 /* Pods-pindergarten.release.xcconfig */,
+				9BFB8A38A8E44AC7D3C0EFC8 /* Pods-pindergarten-pindergartenUITests.debug.xcconfig */,
+				8AB0308F840462634BE671AD /* Pods-pindergarten-pindergartenUITests.release.xcconfig */,
+				BA10CCBCAC9F0CE752428F57 /* Pods-pindergartenTests.debug.xcconfig */,
+				2B31FB682395B1475359C8E1 /* Pods-pindergartenTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		24C4D69D2725423A00FD519D = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +159,8 @@
 				24C4D6BF2725423B00FD519D /* pindergartenTests */,
 				24C4D6CA2725423B00FD519D /* pindergartenUITests */,
 				24C4D6A72725423A00FD519D /* Products */,
+				12903833E32E47FE42A18C8F /* Pods */,
+				F46CB97A3A9F913F32CA2ECD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,10 +177,14 @@
 		24C4D6A82725423A00FD519D /* pindergarten */ = {
 			isa = PBXGroup;
 			children = (
+				24C4D6DB2725928B00FD519D /* Configuration */,
+				24C4D6F427259B0A00FD519D /* Splash */,
+				24C4D6F827259C2E00FD519D /* Model */,
+				24C4D6F927259C3100FD519D /* View */,
+				24C4D6F727259C0A00FD519D /* Controller */,
 				24C4D6A92725423A00FD519D /* AppDelegate.swift */,
 				24C4D6AB2725423A00FD519D /* SceneDelegate.swift */,
 				24C4D6AD2725423A00FD519D /* ViewController.swift */,
-				24C4D6AF2725423A00FD519D /* Main.storyboard */,
 				24C4D6B22725423B00FD519D /* Assets.xcassets */,
 				24C4D6B42725423B00FD519D /* LaunchScreen.storyboard */,
 				24C4D6B72725423B00FD519D /* Info.plist */,
@@ -128,6 +210,124 @@
 			path = pindergartenUITests;
 			sourceTree = "<group>";
 		};
+		24C4D6DB2725928B00FD519D /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D6DC2725929800FD519D /* Constant.swift */,
+				24C4D7092728229800FD519D /* View.xib */,
+				24C4D6DE2725945500FD519D /* Secret */,
+				24C4D6E2272594D600FD519D /* Font */,
+				24C4D6E12725949900FD519D /* Extension */,
+				24C4D6E4272594E600FD519D /* CommonClass */,
+				24C4D6F1272599CD00FD519D /* Base */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		24C4D6DE2725945500FD519D /* Secret */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D6DF2725946C00FD519D /* JwtToken.swift */,
+			);
+			path = Secret;
+			sourceTree = "<group>";
+		};
+		24C4D6E12725949900FD519D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D6E52725953300FD519D /* Date.swift */,
+				24C4D6E72725956600FD519D /* String.swift */,
+				24C4D6E92725956D00FD519D /* Color.swift */,
+				24C4D6EB272597DB00FD519D /* UIViewController.swift */,
+				24C4D7012727DFA500FD519D /* UIView.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		24C4D6E2272594D600FD519D /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D70D2728393500FD519D /* BMDOHYEON_otf.otf */,
+				24C4D70E2728393500FD519D /* SDSwagger.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		24C4D6E4272594E600FD519D /* CommonClass */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D6ED272597FF00FD519D /* IndicatorView.swift */,
+				24C4D6EF2725982600FD519D /* Device.swift */,
+			);
+			path = CommonClass;
+			sourceTree = "<group>";
+		};
+		24C4D6F1272599CD00FD519D /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D6D9272590DB00FD519D /* BaseTabBarController.swift */,
+				24C4D6F2272599DF00FD519D /* BaseViewController.swift */,
+				24C4D7192729EDD800FD519D /* BaseSignUpViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		24C4D6F427259B0A00FD519D /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D6F527259B1800FD519D /* SplashViewController.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		24C4D6F727259C0A00FD519D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D6FA2727D69A00FD519D /* Login */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		24C4D6F827259C2E00FD519D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		24C4D6F927259C3100FD519D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D6FF2727DE9300FD519D /* CustomTextField.swift */,
+				24C4D71327287A6200FD519D /* CustomNavBar.swift */,
+				24C4D7152728839600FD519D /* CustomInputView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		24C4D6FA2727D69A00FD519D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D6FB2727D6B300FD519D /* LoginViewController.swift */,
+				24C4D7052728044E00FD519D /* SignUpNumberViewController.swift */,
+				24C4D7172729EAE600FD519D /* SignUpPasswordViewController.swift */,
+				24F742F7272C6C9100238E20 /* NickNameViewController.swift */,
+				24F742F9272C733F00238E20 /* FindPasswordViewController.swift */,
+				24F742FB272C770900238E20 /* ResetPasswordViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		F46CB97A3A9F913F32CA2ECD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E8BCF539DD527F66AF2CF8F0 /* Pods_pindergarten.framework */,
+				93BF9369AB1EAA7DB6DA1A17 /* Pods_pindergarten_pindergartenUITests.framework */,
+				4815660692CFCCFE76EF034E /* Pods_pindergartenTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +335,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24C4D6D02725423B00FD519D /* Build configuration list for PBXNativeTarget "pindergarten" */;
 			buildPhases = (
+				83744181A8A5D14C3C0DBB69 /* [CP] Check Pods Manifest.lock */,
 				24C4D6A22725423A00FD519D /* Sources */,
 				24C4D6A32725423A00FD519D /* Frameworks */,
 				24C4D6A42725423A00FD519D /* Resources */,
+				A95ECDEB4BD29672F13D8C47 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +354,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24C4D6D32725423B00FD519D /* Build configuration list for PBXNativeTarget "pindergartenTests" */;
 			buildPhases = (
+				0E5085C16527DB373556E795 /* [CP] Check Pods Manifest.lock */,
 				24C4D6B82725423B00FD519D /* Sources */,
 				24C4D6B92725423B00FD519D /* Frameworks */,
 				24C4D6BA2725423B00FD519D /* Resources */,
@@ -170,9 +373,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24C4D6D62725423B00FD519D /* Build configuration list for PBXNativeTarget "pindergartenUITests" */;
 			buildPhases = (
+				A1948331501EF6E28E163951 /* [CP] Check Pods Manifest.lock */,
 				24C4D6C32725423B00FD519D /* Sources */,
 				24C4D6C42725423B00FD519D /* Frameworks */,
 				24C4D6C52725423B00FD519D /* Resources */,
+				859AB7F459A74657BDDE944B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -232,8 +437,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				24C4D6B62725423B00FD519D /* LaunchScreen.storyboard in Resources */,
+				24C4D7102728393500FD519D /* SDSwagger.otf in Resources */,
+				24C4D70F2728393500FD519D /* BMDOHYEON_otf.otf in Resources */,
+				24C4D70A2728229800FD519D /* View.xib in Resources */,
 				24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */,
-				24C4D6B12725423A00FD519D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,14 +460,139 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0E5085C16527DB373556E795 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pindergartenTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83744181A8A5D14C3C0DBB69 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pindergarten-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		859AB7F459A74657BDDE944B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-pindergarten-pindergartenUITests/Pods-pindergarten-pindergartenUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-pindergarten-pindergartenUITests/Pods-pindergarten-pindergartenUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pindergarten-pindergartenUITests/Pods-pindergarten-pindergartenUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1948331501EF6E28E163951 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-pindergarten-pindergartenUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A95ECDEB4BD29672F13D8C47 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-pindergarten/Pods-pindergarten-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-pindergarten/Pods-pindergarten-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pindergarten/Pods-pindergarten-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		24C4D6A22725423A00FD519D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24F742F8272C6C9100238E20 /* NickNameViewController.swift in Sources */,
+				24C4D71427287A6200FD519D /* CustomNavBar.swift in Sources */,
+				24C4D6F3272599DF00FD519D /* BaseViewController.swift in Sources */,
 				24C4D6AE2725423A00FD519D /* ViewController.swift in Sources */,
+				24F742FA272C733F00238E20 /* FindPasswordViewController.swift in Sources */,
 				24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */,
+				24C4D6FC2727D6B300FD519D /* LoginViewController.swift in Sources */,
+				24F742FC272C770900238E20 /* ResetPasswordViewController.swift in Sources */,
+				24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */,
+				24C4D6E62725953400FD519D /* Date.swift in Sources */,
+				24C4D7062728044E00FD519D /* SignUpNumberViewController.swift in Sources */,
+				24C4D6F02725982600FD519D /* Device.swift in Sources */,
+				24C4D6F627259B1800FD519D /* SplashViewController.swift in Sources */,
+				24C4D6DD2725929800FD519D /* Constant.swift in Sources */,
+				24C4D6EE272597FF00FD519D /* IndicatorView.swift in Sources */,
+				24C4D6EC272597DB00FD519D /* UIViewController.swift in Sources */,
+				24C4D6DA272590DB00FD519D /* BaseTabBarController.swift in Sources */,
 				24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */,
+				24C4D7022727DFA500FD519D /* UIView.swift in Sources */,
+				24C4D6E82725956600FD519D /* String.swift in Sources */,
+				24C4D71A2729EDD800FD519D /* BaseSignUpViewController.swift in Sources */,
+				24C4D6E02725946C00FD519D /* JwtToken.swift in Sources */,
+				24C4D7182729EAE600FD519D /* SignUpPasswordViewController.swift in Sources */,
+				24C4D7162728839600FD519D /* CustomInputView.swift in Sources */,
+				24C4D6EA2725956D00FD519D /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,14 +628,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		24C4D6AF2725423A00FD519D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				24C4D6B02725423A00FD519D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		24C4D6B42725423B00FD519D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -433,11 +757,14 @@
 		};
 		24C4D6D12725423B00FD519D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEB838AA6C898D27DCC976E1 /* Pods-pindergarten.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = pindergarten/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -451,11 +778,14 @@
 		};
 		24C4D6D22725423B00FD519D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DD568A7A64EBA83755BB587 /* Pods-pindergarten.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = pindergarten/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -469,6 +799,7 @@
 		};
 		24C4D6D42725423B00FD519D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BA10CCBCAC9F0CE752428F57 /* Pods-pindergartenTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -490,6 +821,7 @@
 		};
 		24C4D6D52725423B00FD519D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B31FB682395B1475359C8E1 /* Pods-pindergartenTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -511,6 +843,7 @@
 		};
 		24C4D6D72725423B00FD519D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BFB8A38A8E44AC7D3C0EFC8 /* Pods-pindergarten-pindergartenUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -530,6 +863,7 @@
 		};
 		24C4D6D82725423B00FD519D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8AB0308F840462634BE671AD /* Pods-pindergarten-pindergartenUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
