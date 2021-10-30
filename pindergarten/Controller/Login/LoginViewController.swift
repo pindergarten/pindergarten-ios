@@ -6,19 +6,20 @@
 //
 
 import UIKit
+import AnyFormatKit
 
 class LoginViewController: BaseViewController {
     //MARK: - Properties
 
-    private let backButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "backButton"), for: .normal)
-        button.tintColor = .mainTextColor
-        button.setDimensions(height: 30, width: 30)
-        button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
-        return button
-    }()
-    
+//    private let backButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setImage(UIImage(named: "backButton"), for: .normal)
+//        button.tintColor = .mainTextColor
+//        button.setDimensions(height: 30, width: 30)
+//        button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+//        return button
+//    }()
+    lazy var loginDataManager: LoginDataManager = LoginDataManager()
     private let titleLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 26))
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 17)
@@ -34,12 +35,14 @@ class LoginViewController: BaseViewController {
     
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("로그인", for: .normal)
         button.backgroundColor = .white
         button.tintColor = .mainTextColor
+        button.setAttributedTitle(NSMutableAttributedString(string: "로그인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 16)!]), for: .normal)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.mainLightYellow.cgColor
+        button.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        button.isUserInteractionEnabled = false
         return button
     }()
     
@@ -73,25 +76,51 @@ class LoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        phoneNumberStack.textField.delegate = self
+        self.dismissKeyboardWhenTappedAround()
+        
+//        phoneNumberStack.textField.delegate = self
+        phoneNumberStack.textField.becomeFirstResponder()
+        
+        phoneNumberStack.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordStack.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+      
         configureUI()
         
     }
     
     //MARK: - Action
     @objc func didTapBackButton() {
-        navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func didTapFindPasswordLabel(sender: UITapGestureRecognizer) {
-        print("DEBUG")
+        navigationController?.pushViewController(FindPasswordViewController(), animated: true)
     }
     
     @objc func didTapGoSignUpLabel(sender: UITapGestureRecognizer) {
-        print("gotoSign uP")
+        navigationController?.pushViewController(SignUpNumberViewController(), animated: true)
     }
     
+    @objc func didTapLoginButton() {
+        loginDataManager.login(LoginRequest(phone: "01035123584", password: passwordStack.textField.text ?? ""), delegate: self)
+    }
+    
+    @objc func textFieldDidChange(_ sender: Any?) {
+        checkLoginInfo()
+    }
+        
     //MARK: - Helpers
+    private func checkLoginInfo() {
+        if let password = passwordStack.textField.text, let phoneNumber = phoneNumberStack.textField.text {
+            if password.count >= 8 && password.count <= 16 && phoneNumber.count == 11 {
+                loginButton.isUserInteractionEnabled = true
+                loginButton.backgroundColor = .mainLightYellow
+            } else {
+                loginButton.isUserInteractionEnabled = false
+                loginButton.backgroundColor = .white
+            }
+        }
+    }
     private func configureUI() {
 
         let tapFindPasswordGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapFindPasswordLabel(sender:)))
@@ -101,7 +130,7 @@ class LoginViewController: BaseViewController {
         findPasswordLabel.addGestureRecognizer(tapFindPasswordGestureRecognizer)
         goSignUpLabel.addGestureRecognizer(tapGoSignUpGestureRecognizer)
         
-        view.addSubview(backButton)
+//        view.addSubview(backButton)
         view.addSubview(titleLabel)
         view.addSubview(phoneNumberStack)
         view.addSubview(passwordStack)
@@ -110,10 +139,10 @@ class LoginViewController: BaseViewController {
         view.addSubview(seperatelineLabel)
         view.addSubview(goSignUpLabel)
         
-        backButton.snp.makeConstraints { make in
-            make.centerY.equalTo(titleLabel)
-            make.left.equalTo(view).offset(8)
-        }
+//        backButton.snp.makeConstraints { make in
+//            make.centerY.equalTo(titleLabel)
+//            make.left.equalTo(view).offset(8)
+//        }
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view).offset(73)
             make.centerX.equalTo(view)
@@ -151,7 +180,33 @@ class LoginViewController: BaseViewController {
 }
 
 extension LoginViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        guard let text = textField.text else {
+            return false
+        }
+        let characterSet = CharacterSet(charactersIn: string)
+        if CharacterSet.decimalDigits.isSuperset(of: characterSet) == false {
+            return false
+        }
+
+        let formatter = DefaultTextInputFormatter(textPattern: "###-####-####")
+        let result = formatter.formatInput(currentText: text, range: range, replacementString: string)
+        textField.text = result.formattedText
+        let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
+        textField.selectedTextRange = textField.textRange(from: position, to: position)
+        return false
+    }
+}
+
+// 네트워크 함수
+extension LoginViewController {
+    func didSuccessLogin(_ result: LoginResult) {
+        //        changeRootViewController(<#T##viewControllerToPresent: UIViewController##UIViewController#>)
+        print("DEBUG: Enable to Login")
+    }
+    
+    func failedToLogin(message: String) {
+        print("DEBUG: FAILED LOGIN")
     }
 }

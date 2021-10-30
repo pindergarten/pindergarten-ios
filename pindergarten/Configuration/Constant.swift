@@ -8,6 +8,6 @@
 import Alamofire
 
 struct Constant {
-    static let BASE_URL = ""
+    static let BASE_URL = "http://pindergarten.site:3000"
     static var HEADERS: HTTPHeaders = ["" : JwtToken.token]
 }

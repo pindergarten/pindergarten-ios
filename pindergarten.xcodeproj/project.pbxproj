@@ -40,6 +40,27 @@
 		24F742F8272C6C9100238E20 /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F742F7272C6C9100238E20 /* NickNameViewController.swift */; };
 		24F742FA272C733F00238E20 /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F742F9272C733F00238E20 /* FindPasswordViewController.swift */; };
 		24F742FC272C770900238E20 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F742FB272C770900238E20 /* ResetPasswordViewController.swift */; };
+		24F74303272CEBD800238E20 /* SendAuthNumberDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74302272CEBD800238E20 /* SendAuthNumberDataManager.swift */; };
+		24F74306272CEC2700238E20 /* SendAuthNumberResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74305272CEC2700238E20 /* SendAuthNumberResponse.swift */; };
+		24F74308272CECCD00238E20 /* SendAuthNumberRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74307272CECCD00238E20 /* SendAuthNumberRequest.swift */; };
+		24F7430A272CF53800238E20 /* CheckAuthNumberDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74309272CF53800238E20 /* CheckAuthNumberDataManager.swift */; };
+		24F7430C272CF55100238E20 /* CheckAuthNumberRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7430B272CF55100238E20 /* CheckAuthNumberRequest.swift */; };
+		24F7430E272CF55A00238E20 /* CheckAuthNumberResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7430D272CF55A00238E20 /* CheckAuthNumberResponse.swift */; };
+		24F74310272D028F00238E20 /* CheckNickNameDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7430F272D028F00238E20 /* CheckNickNameDataManager.swift */; };
+		24F74312272D02B400238E20 /* CheckNickNameRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74311272D02B400238E20 /* CheckNickNameRequest.swift */; };
+		24F74314272D02BA00238E20 /* CheckNickNameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74313272D02BA00238E20 /* CheckNickNameResponse.swift */; };
+		24F74316272D0A5E00238E20 /* CheckUserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74315272D0A5E00238E20 /* CheckUserDataManager.swift */; };
+		24F74318272D0A9C00238E20 /* CheckUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74317272D0A9C00238E20 /* CheckUserRequest.swift */; };
+		24F7431A272D0AA900238E20 /* CheckUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74319272D0AA900238E20 /* CheckUserResponse.swift */; };
+		24F7431C272D11B700238E20 /* ResetPasswordDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7431B272D11B700238E20 /* ResetPasswordDataManager.swift */; };
+		24F7431E272D11DC00238E20 /* ResetPasswordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7431D272D11DC00238E20 /* ResetPasswordRequest.swift */; };
+		24F74320272D11E400238E20 /* ResetPasswordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7431F272D11E400238E20 /* ResetPasswordResponse.swift */; };
+		24F74322272D166200238E20 /* RegisterUserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74321272D166200238E20 /* RegisterUserDataManager.swift */; };
+		24F74324272D168000238E20 /* RegisterUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74323272D168000238E20 /* RegisterUserRequest.swift */; };
+		24F74326272D168800238E20 /* RegisterUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74325272D168800238E20 /* RegisterUserResponse.swift */; };
+		24F74328272D1D9900238E20 /* LoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74327272D1D9900238E20 /* LoginDataManager.swift */; };
+		24F7432A272D1E1200238E20 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F74329272D1E1100238E20 /* LoginRequest.swift */; };
+		24F7432C272D1E1D00238E20 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7432B272D1E1D00238E20 /* LoginResponse.swift */; };
 		30DBCDDE0E47CB1A97F5EAC2 /* Pods_pindergarten_pindergartenUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93BF9369AB1EAA7DB6DA1A17 /* Pods_pindergarten_pindergartenUITests.framework */; };
 		727E05025A1293FEFDB46744 /* Pods_pindergarten.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8BCF539DD527F66AF2CF8F0 /* Pods_pindergarten.framework */; };
 /* End PBXBuildFile section */
@@ -100,6 +121,27 @@
 		24F742F7272C6C9100238E20 /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
 		24F742F9272C733F00238E20 /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
 		24F742FB272C770900238E20 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		24F74302272CEBD800238E20 /* SendAuthNumberDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAuthNumberDataManager.swift; sourceTree = "<group>"; };
+		24F74305272CEC2700238E20 /* SendAuthNumberResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAuthNumberResponse.swift; sourceTree = "<group>"; };
+		24F74307272CECCD00238E20 /* SendAuthNumberRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAuthNumberRequest.swift; sourceTree = "<group>"; };
+		24F74309272CF53800238E20 /* CheckAuthNumberDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAuthNumberDataManager.swift; sourceTree = "<group>"; };
+		24F7430B272CF55100238E20 /* CheckAuthNumberRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAuthNumberRequest.swift; sourceTree = "<group>"; };
+		24F7430D272CF55A00238E20 /* CheckAuthNumberResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAuthNumberResponse.swift; sourceTree = "<group>"; };
+		24F7430F272D028F00238E20 /* CheckNickNameDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNickNameDataManager.swift; sourceTree = "<group>"; };
+		24F74311272D02B400238E20 /* CheckNickNameRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNickNameRequest.swift; sourceTree = "<group>"; };
+		24F74313272D02BA00238E20 /* CheckNickNameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNickNameResponse.swift; sourceTree = "<group>"; };
+		24F74315272D0A5E00238E20 /* CheckUserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUserDataManager.swift; sourceTree = "<group>"; };
+		24F74317272D0A9C00238E20 /* CheckUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUserRequest.swift; sourceTree = "<group>"; };
+		24F74319272D0AA900238E20 /* CheckUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUserResponse.swift; sourceTree = "<group>"; };
+		24F7431B272D11B700238E20 /* ResetPasswordDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordDataManager.swift; sourceTree = "<group>"; };
+		24F7431D272D11DC00238E20 /* ResetPasswordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordRequest.swift; sourceTree = "<group>"; };
+		24F7431F272D11E400238E20 /* ResetPasswordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordResponse.swift; sourceTree = "<group>"; };
+		24F74321272D166200238E20 /* RegisterUserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserDataManager.swift; sourceTree = "<group>"; };
+		24F74323272D168000238E20 /* RegisterUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRequest.swift; sourceTree = "<group>"; };
+		24F74325272D168800238E20 /* RegisterUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserResponse.swift; sourceTree = "<group>"; };
+		24F74327272D1D9900238E20 /* LoginDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataManager.swift; sourceTree = "<group>"; };
+		24F74329272D1E1100238E20 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		24F7432B272D1E1D00238E20 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		2B31FB682395B1475359C8E1 /* Pods-pindergartenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pindergartenTests.release.xcconfig"; path = "Target Support Files/Pods-pindergartenTests/Pods-pindergartenTests.release.xcconfig"; sourceTree = "<group>"; };
 		4815660692CFCCFE76EF034E /* Pods_pindergartenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pindergartenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DD568A7A64EBA83755BB587 /* Pods-pindergarten.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pindergarten.release.xcconfig"; path = "Target Support Files/Pods-pindergarten/Pods-pindergarten.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,6 +224,7 @@
 				24C4D6F827259C2E00FD519D /* Model */,
 				24C4D6F927259C3100FD519D /* View */,
 				24C4D6F727259C0A00FD519D /* Controller */,
+				24F74300272CEBA300238E20 /* Networking */,
 				24C4D6A92725423A00FD519D /* AppDelegate.swift */,
 				24C4D6AB2725423A00FD519D /* SceneDelegate.swift */,
 				24C4D6AD2725423A00FD519D /* ViewController.swift */,
@@ -291,6 +334,7 @@
 		24C4D6F827259C2E00FD519D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				24F742FD272C847B00238E20 /* Login */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -316,6 +360,57 @@
 				24F742FB272C770900238E20 /* ResetPasswordViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		24F742FD272C847B00238E20 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		24F74300272CEBA300238E20 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				24F74301272CEBAB00238E20 /* User */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		24F74301272CEBAB00238E20 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				24F74327272D1D9900238E20 /* LoginDataManager.swift */,
+				24F74315272D0A5E00238E20 /* CheckUserDataManager.swift */,
+				24F74302272CEBD800238E20 /* SendAuthNumberDataManager.swift */,
+				24F74309272CF53800238E20 /* CheckAuthNumberDataManager.swift */,
+				24F7430F272D028F00238E20 /* CheckNickNameDataManager.swift */,
+				24F74321272D166200238E20 /* RegisterUserDataManager.swift */,
+				24F7431B272D11B700238E20 /* ResetPasswordDataManager.swift */,
+				24F74304272CEC0D00238E20 /* Entity */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		24F74304272CEC0D00238E20 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				24F74329272D1E1100238E20 /* LoginRequest.swift */,
+				24F7432B272D1E1D00238E20 /* LoginResponse.swift */,
+				24F74307272CECCD00238E20 /* SendAuthNumberRequest.swift */,
+				24F74305272CEC2700238E20 /* SendAuthNumberResponse.swift */,
+				24F7430B272CF55100238E20 /* CheckAuthNumberRequest.swift */,
+				24F7430D272CF55A00238E20 /* CheckAuthNumberResponse.swift */,
+				24F74311272D02B400238E20 /* CheckNickNameRequest.swift */,
+				24F74313272D02BA00238E20 /* CheckNickNameResponse.swift */,
+				24F74323272D168000238E20 /* RegisterUserRequest.swift */,
+				24F74325272D168800238E20 /* RegisterUserResponse.swift */,
+				24F74317272D0A9C00238E20 /* CheckUserRequest.swift */,
+				24F74319272D0AA900238E20 /* CheckUserResponse.swift */,
+				24F7431D272D11DC00238E20 /* ResetPasswordRequest.swift */,
+				24F7431F272D11E400238E20 /* ResetPasswordResponse.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		F46CB97A3A9F913F32CA2ECD /* Frameworks */ = {
@@ -570,22 +665,43 @@
 			files = (
 				24F742F8272C6C9100238E20 /* NickNameViewController.swift in Sources */,
 				24C4D71427287A6200FD519D /* CustomNavBar.swift in Sources */,
+				24F7432C272D1E1D00238E20 /* LoginResponse.swift in Sources */,
 				24C4D6F3272599DF00FD519D /* BaseViewController.swift in Sources */,
 				24C4D6AE2725423A00FD519D /* ViewController.swift in Sources */,
 				24F742FA272C733F00238E20 /* FindPasswordViewController.swift in Sources */,
+				24F7430C272CF55100238E20 /* CheckAuthNumberRequest.swift in Sources */,
+				24F74322272D166200238E20 /* RegisterUserDataManager.swift in Sources */,
+				24F7431A272D0AA900238E20 /* CheckUserResponse.swift in Sources */,
 				24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */,
+				24F74314272D02BA00238E20 /* CheckNickNameResponse.swift in Sources */,
 				24C4D6FC2727D6B300FD519D /* LoginViewController.swift in Sources */,
+				24F74328272D1D9900238E20 /* LoginDataManager.swift in Sources */,
 				24F742FC272C770900238E20 /* ResetPasswordViewController.swift in Sources */,
+				24F74320272D11E400238E20 /* ResetPasswordResponse.swift in Sources */,
+				24F74312272D02B400238E20 /* CheckNickNameRequest.swift in Sources */,
+				24F74318272D0A9C00238E20 /* CheckUserRequest.swift in Sources */,
 				24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */,
 				24C4D6E62725953400FD519D /* Date.swift in Sources */,
+				24F7432A272D1E1200238E20 /* LoginRequest.swift in Sources */,
 				24C4D7062728044E00FD519D /* SignUpNumberViewController.swift in Sources */,
+				24F7431C272D11B700238E20 /* ResetPasswordDataManager.swift in Sources */,
+				24F7430E272CF55A00238E20 /* CheckAuthNumberResponse.swift in Sources */,
+				24F74326272D168800238E20 /* RegisterUserResponse.swift in Sources */,
 				24C4D6F02725982600FD519D /* Device.swift in Sources */,
 				24C4D6F627259B1800FD519D /* SplashViewController.swift in Sources */,
 				24C4D6DD2725929800FD519D /* Constant.swift in Sources */,
+				24F74303272CEBD800238E20 /* SendAuthNumberDataManager.swift in Sources */,
+				24F74316272D0A5E00238E20 /* CheckUserDataManager.swift in Sources */,
+				24F74306272CEC2700238E20 /* SendAuthNumberResponse.swift in Sources */,
+				24F74310272D028F00238E20 /* CheckNickNameDataManager.swift in Sources */,
+				24F74324272D168000238E20 /* RegisterUserRequest.swift in Sources */,
 				24C4D6EE272597FF00FD519D /* IndicatorView.swift in Sources */,
+				24F7431E272D11DC00238E20 /* ResetPasswordRequest.swift in Sources */,
 				24C4D6EC272597DB00FD519D /* UIViewController.swift in Sources */,
 				24C4D6DA272590DB00FD519D /* BaseTabBarController.swift in Sources */,
+				24F7430A272CF53800238E20 /* CheckAuthNumberDataManager.swift in Sources */,
 				24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */,
+				24F74308272CECCD00238E20 /* SendAuthNumberRequest.swift in Sources */,
 				24C4D7022727DFA500FD519D /* UIView.swift in Sources */,
 				24C4D6E82725956600FD519D /* String.swift in Sources */,
 				24C4D71A2729EDD800FD519D /* BaseSignUpViewController.swift in Sources */,

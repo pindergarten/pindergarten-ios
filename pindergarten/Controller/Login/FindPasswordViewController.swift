@@ -9,6 +9,10 @@ import UIKit
 
 class FindPasswordViewController: BaseViewController {
     //MARK: - Properties
+    lazy var checkUserDataManager: CheckUserDataManager = CheckUserDataManager()
+    lazy var sendAuthNumberDataManager: SendAuthNumberDataManager = SendAuthNumberDataManager()
+    lazy var checkAuthNumberDataManager: CheckAuthNumberDataManager = CheckAuthNumberDataManager()
+    
     private let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -50,6 +54,7 @@ class FindPasswordViewController: BaseViewController {
         tf.keyboardAppearance = .light
         tf.attributedPlaceholder = NSAttributedString(string: "휴대폰 번호를 입력해주세요.", attributes: [.foregroundColor:UIColor.mainPlaceholerColor, .font:UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!])
         tf.isSecureTextEntry = false
+        tf.addTarget(self, action: #selector(didChangePhoneNumberTextField), for: .editingChanged)
         return tf
     }()
     
@@ -79,8 +84,10 @@ class FindPasswordViewController: BaseViewController {
         tf.keyboardAppearance = .light
         tf.attributedPlaceholder = NSAttributedString(string: "인증번호", attributes: [.foregroundColor:UIColor.mainPlaceholerColor, .font:UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!])
         tf.isSecureTextEntry = false
+        tf.addTarget(self, action: #selector(didChangeAuthNumberTextField), for: .editingChanged)
         return tf
     }()
+    
     private var timeLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
         label.text = "02:55"
@@ -103,7 +110,7 @@ class FindPasswordViewController: BaseViewController {
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(hex: 0xD8D8D8).cgColor
-        button.addTarget(self, action: #selector(didTapSendNumber), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapCheckNumber), for: .touchUpInside)
         return button
     }()
     
@@ -131,6 +138,8 @@ class FindPasswordViewController: BaseViewController {
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.mainLightYellow.cgColor
+        button.isUserInteractionEnabled = false
+        button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         return button
     }()
     
@@ -140,17 +149,17 @@ class FindPasswordViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.dismissKeyboardWhenTappedAround()
         configureUI()
-        addTarget()
     }
     //MARK: - Action
-    @objc func didTapBackButton() {
-        navigationController?.popViewController(animated: true)
+    @objc private func didTapBackButton() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func didChangePhoneNumberTextField() {
         sendAuthNumberButton.backgroundColor = .white
-        if phoneNumberTextField.text?.count == 13 {
+        if phoneNumberTextField.text?.count == 11 {
             sendAuthNumberButton.backgroundColor = .mainLightYellow
             isCorrectPhoneNumber = true
             sendAuthNumberButton.isUserInteractionEnabled = true
@@ -164,8 +173,8 @@ class FindPasswordViewController: BaseViewController {
     
     @objc func didChangeAuthNumberTextField() {
         checkAuthNumberButton.backgroundColor = .white
-        if authNumberTextField.text?.count == 6 {
-            sendAuthNumberButton.backgroundColor = .mainLightYellow
+        if authNumberTextField.text?.count == 4 {
+            checkAuthNumberButton.backgroundColor = .mainLightYellow
             isCorrectAuthNumber = true
             checkAuthNumberButton.isUserInteractionEnabled = true
             correctAuthNumberLabel.isHidden = true
@@ -177,31 +186,26 @@ class FindPasswordViewController: BaseViewController {
     }
     
     @objc func didTapSendNumber() {
-        if isCorrectPhoneNumber {
-            
-            var remainTime: Int = 175
-            _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { timer in
-                DispatchQueue.global().async {
-                    remainTime -= 1
-                    if remainTime == 0 {
-                        timer.invalidate()
-                    }
-                    DispatchQueue.main.async {
-                        self.timeLabel.text = "\(String(format: "%02d", remainTime / 60)):\(String(format: "%02d", remainTime % 60))"
-                    }
-                }
-            })
-        }
+        checkUserDataManager.checkUser(CheckUserRequest(phone: "01035123584"), delegate: self)
 
     }
     
     @objc func didTapCheckNumber() {
-        
+        checkAuthNumberDataManager.checkAuthNumber(CheckAuthNumberRequest(phone: "01035123584", verifyCode: authNumberTextField.text ?? ""), delegate: self)
+    }
+    
+    @objc func didTapNextButton() {
+        navigationController?.pushViewController(ResetPasswordViewController(), animated: true)
     }
     //MARK: - Helpers
     private func configureUI() {
 
-        
+        authNumberTextField.isHidden = true
+        timeLabel.isHidden = true
+        authNumberLine.isHidden = true
+        checkAuthNumberButton.isHidden = true
+        correctPhoneNumberLabel.isHidden = true
+        correctAuthNumberLabel.isHidden = true
         
         view.addSubview(backButton)
         view.addSubview(progressBar)
@@ -288,10 +292,62 @@ class FindPasswordViewController: BaseViewController {
             make.height.equalTo(50)
         }
     }
+}
+
+// 네트워크 함수
+extension FindPasswordViewController {
+    func didSuccessCheckUser() {
+//        self.presentAlert(title: message)
+    }
     
-    private func addTarget() {
-        backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
-        phoneNumberTextField.addTarget(self, action: #selector(didChangePhoneNumberTextField), for: .editingChanged)
-        authNumberTextField.addTarget(self, action: #selector(didChangeAuthNumberTextField), for: .editingChanged)
+    func failedToCheckUser(message: String) {
+        self.sendAuthNumberDataManager.sendAuthNumber(SendAuthNumberRequest(phone: "01035123584"), delegate: self)
+    }
+    
+    func didSuccessSendAuthNumber() {
+        print("DEBUG: SENDED AUTH NUMBER")
+       
+        sendAuthNumberButton.isUserInteractionEnabled = false
+        sendAuthNumberButton.backgroundColor = .white
+        phoneNumberTextField.isUserInteractionEnabled = false
+        authNumberTextField.isHidden = false
+        timeLabel.isHidden = false
+        authNumberLine.isHidden = false
+        checkAuthNumberButton.isHidden = false
+        
+        var remainTime: Int = 175
+
+        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            DispatchQueue.global().async {
+                remainTime -= 1
+                if remainTime == 0 {
+                    DispatchQueue.main.async {
+                        self.checkAuthNumberButton.backgroundColor = .white
+                        self.checkAuthNumberButton.isUserInteractionEnabled = false
+                    }
+                    timer.invalidate()
+                }
+                DispatchQueue.main.async {
+                    self.timeLabel.text = "\(String(format: "%02d", remainTime / 60)):\(String(format: "%02d", remainTime % 60))"
+                }
+            }
+        }
+        
+    }
+
+    
+    func didSuccessCheckAuthNumber() {
+        self.presentAlert(title: "인증 되었습니다.") { [weak self] _ in
+            self?.nextButton.isUserInteractionEnabled = true
+            self?.nextButton.backgroundColor = .mainLightYellow
+        }
+    }
+    
+    func failedToSendAuthNumber(message: String) {
+        self.presentAlert(title: message)
+    }
+    
+    func failedToCheckAuthNumber(message: String) {
+        self.presentAlert(title: message)
     }
 }

@@ -55,19 +55,51 @@ class SignUpPasswordViewController: BaseViewController {
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.mainLightYellow.cgColor
+        button.isUserInteractionEnabled = false
+        button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         return button
     }()
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.dismissKeyboardWhenTappedAround()
+        
         configureUI()
+        correctPasswordLabel.isHidden = true
+
+        checkPasswordStack.textField.addTarget(self, action: #selector(didChangePasswordCheckTextField), for: .editingChanged)
+        
     }
     //MARK: - Action
     @objc func didTapBackButton() {
-        navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func didChangePasswordCheckTextField() {
+        checkPasswordEqual()
+    }
+    
+    @objc func didTapNextButton() {
+        print("DEBUG: CHECKED PASSWORD")
+        navigationController?.pushViewController(NickNameViewController(), animated: true)
     }
     //MARK: - Helpers
+
+    private func checkPasswordEqual() {
+        if let password = passwordStack.textField.text, let checkPassword = checkPasswordStack.textField.text {
+            if password == checkPassword && password.count >= 8 && password.count <= 16 {
+                correctPasswordLabel.isHidden = true
+                nextButton.backgroundColor = .mainLightYellow
+                nextButton.isUserInteractionEnabled = true
+            } else {
+                nextButton.backgroundColor = .white
+                nextButton.isUserInteractionEnabled = false
+                correctPasswordLabel.isHidden = false
+            }
+        }
+    }
+    
     private func configureUI() {
 
         view.addSubview(backButton)
@@ -113,4 +145,5 @@ class SignUpPasswordViewController: BaseViewController {
             make.height.equalTo(50)
         }
     }
+    
 }

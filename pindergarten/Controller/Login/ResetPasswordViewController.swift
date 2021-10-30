@@ -9,6 +9,8 @@ import UIKit
 
 class ResetPasswordViewController: BaseViewController {
     //MARK: - Properties
+    lazy var resetDataManager: ResetPasswordDataManager = ResetPasswordDataManager()
+    
     private let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -43,6 +45,7 @@ class ResetPasswordViewController: BaseViewController {
         label.text = "*비밀번호가 일치하지 않습니다."
         label.textColor = .mainBrown
         label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 12)
+        label.isHidden = true
         return label
     }()
 
@@ -54,19 +57,47 @@ class ResetPasswordViewController: BaseViewController {
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.mainLightYellow.cgColor
+        button.isUserInteractionEnabled = false
+        button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         return button
     }()
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.dismissKeyboardWhenTappedAround()
+        passwordStack.textField.becomeFirstResponder()
+        
         configureUI()
+        checkPasswordStack.textField.addTarget(self, action: #selector(didChangePasswordCheckTextField), for: .editingChanged)
     }
     //MARK: - Action
     @objc func didTapBackButton() {
-        navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func didChangePasswordCheckTextField() {
+        checkPasswordEqual()
+    }
+    
+    @objc func didTapNextButton() {
+        resetDataManager.resetPassword(ResetPasswordRequest(phone: "01035123584", password: passwordStack.textField.text ?? "", password_check: checkPasswordStack.textField.text ?? ""), delegate: self)
     }
     //MARK: - Helpers
+    private func checkPasswordEqual() {
+        if let password = passwordStack.textField.text, let checkPassword = checkPasswordStack.textField.text {
+            if password == checkPassword && password.count >= 8 && password.count <= 16 {
+                correctPasswordLabel.isHidden = true
+                nextButton.backgroundColor = .mainLightYellow
+                nextButton.isUserInteractionEnabled = true
+            } else {
+                nextButton.backgroundColor = .white
+                nextButton.isUserInteractionEnabled = false
+                correctPasswordLabel.isHidden = false
+            }
+        }
+    }
+    
     private func configureUI() {
 
         view.addSubview(backButton)
@@ -111,5 +142,21 @@ class ResetPasswordViewController: BaseViewController {
             make.right.equalTo(view).offset(-20)
             make.height.equalTo(50)
         }
+    }
+}
+
+// 네트워크 함수
+extension ResetPasswordViewController {
+    func didSuccessResetPassword() {
+        self.presentAlert(title: """
+            변경완료되었습니다.
+            로그인 화면으로 이동합니다.
+            """) { [weak self] _ in
+            self?.changeRootViewController(LoginViewController())
+        }
+    }
+    
+    func failedToResetPassword(message: String) {
+        
     }
 }

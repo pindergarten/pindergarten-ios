@@ -9,6 +9,8 @@ import UIKit
 
 class NickNameViewController: BaseViewController {
     //MARK: - Properties
+    lazy var checkNickNameDataManager: CheckNickNameDataManager = CheckNickNameDataManager()
+    lazy var registerUserDataManager: RegisterUserDataManager = RegisterUserDataManager()
     
     private let backButton: UIButton = {
         let button = UIButton(type: .system)
@@ -51,6 +53,7 @@ class NickNameViewController: BaseViewController {
         tf.keyboardAppearance = .light
         tf.attributedPlaceholder = NSAttributedString(string: "2자이상 입력해주세요.", attributes: [.foregroundColor:UIColor.mainPlaceholerColor, .font:UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!])
         tf.isSecureTextEntry = false
+        tf.addTarget(self, action: #selector(didChangeNickNameTextField), for: .editingChanged)
         return tf
     }()
     
@@ -62,6 +65,7 @@ class NickNameViewController: BaseViewController {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(hex: 0xD8D8D8).cgColor
         button.addTarget(self, action: #selector(didTapCheckNickNameButton), for: .touchUpInside)
+        button.isUserInteractionEnabled = false
         return button
     }()
     
@@ -97,23 +101,59 @@ class NickNameViewController: BaseViewController {
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.mainLightYellow.cgColor
+        button.isUserInteractionEnabled = false
+        button.addTarget(self, action: #selector(didTapFinishButton), for: .touchUpInside)
         return button
     }()
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.dismissKeyboardWhenTappedAround()
+        nickNameTextField.becomeFirstResponder()
+        
         configureUI()
     }
     //MARK: - Action
     @objc func didTapBackButton() {
-        navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func didChangeNickNameTextField() {
+        checkNickName()
     }
     
     @objc func didTapCheckNickNameButton() {
-        print("1")
+        checkNickNameDataManager.checkNickName(CheckNickNameRequest(nickname: nickNameTextField.text ?? ""), delegate: self)
+    }
+    
+    @objc func didTapFinishButton() {
+        registerUserDataManager.registerUser(RegisterUserRequest(phone: "01035123584", password: "11111111", password_check: "11111111", nickname: nickNameTextField.text ?? ""), delegate: self)
     }
     //MARK: - Helpers
+    private func checkNickName() {
+        let nickNamePattern = "^[A-Za-z0-9_.]{2,}$"
+        let regex = try? NSRegularExpression(pattern: nickNamePattern)
+
+        if let nickName = nickNameTextField.text {
+            if let _ = regex?.firstMatch(in: nickName, options: [], range: NSRange(location: 0, length: nickName.count)) {
+                correctNickNameLabel.isHidden = true
+                checkNickNameButton.backgroundColor = .mainLightYellow
+                checkNickNameButton.isUserInteractionEnabled = true
+            } else if nickName.count < 2 && nickName.count > 0{
+                correctNickNameLabel.text = "2자이상 입력해주세요."
+                correctNickNameLabel.isHidden = false
+                checkNickNameButton.backgroundColor = .white
+                checkNickNameButton.isUserInteractionEnabled = false
+            } else {
+                correctNickNameLabel.text = "*계정 이름에는 영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다."
+                correctNickNameLabel.isHidden = false
+                checkNickNameButton.backgroundColor = .white
+                checkNickNameButton.isUserInteractionEnabled = false
+            }
+        }
+    }
+    
     private func configureUI() {
 
         view.addSubview(backButton)
@@ -177,5 +217,38 @@ class NickNameViewController: BaseViewController {
             make.right.equalTo(view).offset(-20)
             make.height.equalTo(50)
         }
+    }
+}
+
+// 네트워크 함수
+extension NickNameViewController {
+    func didSuccessRegisterUser() {
+        
+        self.presentAlert(title: """
+            회원가입이 완료 되었습니다!
+            로그인 화면으로 이동합니다.
+            """) { [weak self] _ in
+            self?.changeRootViewController(LoginViewController())
+        }
+        
+    }
+    
+    func failedToRegisterUser(message: String) {
+        print("DEBUG: FAILED TO REGISTER USER")
+    }
+    
+    func didSuccessCheckNickName() {
+        self.presentAlert(title: "사용하실 수 있는 계정 이름입니다.") { [weak self] _ in
+            self?.checkNickNameButton.setAttributedTitle(NSMutableAttributedString(string: "중복확인 완료", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
+            self?.checkNickNameButton.backgroundColor = .white
+            self?.checkNickNameButton.isUserInteractionEnabled = false
+            self?.finishButton.backgroundColor = .mainLightYellow
+            self?.finishButton.isUserInteractionEnabled = true
+        }
+    }
+    
+    func failedToCheckNickName(message: String) {
+        correctNickNameLabel.isHidden = false
+        correctNickNameLabel.text = message
     }
 }

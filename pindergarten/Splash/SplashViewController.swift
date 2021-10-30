@@ -70,6 +70,7 @@ class SplashViewController: UIViewController {
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.spacing = 13
+        stack.alpha = 0
         return stack
     }()
     
@@ -85,6 +86,11 @@ class SplashViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.isHidden = true
+        
+        UIView.animate(withDuration: 1.0, delay: 1.0, options: .curveEaseInOut) {
+            self.buttonStackView.alpha = 1
+        }
+
     }
     //MARK: - Action
     @objc func didTapLoginButton() {

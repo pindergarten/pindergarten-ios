@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.tabBar.isTranslucent = false
         
         window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
-//        window?.rootViewController = ResetPasswordViewController()
+//        window?.rootViewController = NickNameViewController()
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
     }
