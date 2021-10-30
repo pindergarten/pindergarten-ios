@@ -327,6 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				24C4D6FA2727D69A00FD519D /* Login */,
+				24F7432E272DA1EB00238E20 /* Pindergarten */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -373,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				24F74301272CEBAB00238E20 /* User */,
+				24F7432D272DA1D500238E20 /* Feed */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -411,6 +413,20 @@
 				24F7431F272D11E400238E20 /* ResetPasswordResponse.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		24F7432D272DA1D500238E20 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		24F7432E272DA1EB00238E20 /* Pindergarten */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pindergarten;
 			sourceTree = "<group>";
 		};
 		F46CB97A3A9F913F32CA2ECD /* Frameworks */ = {
