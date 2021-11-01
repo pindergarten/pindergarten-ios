@@ -344,18 +344,18 @@ extension SignUpNumberViewController {
         
         var remainTime: Int = 175
 
-        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
             DispatchQueue.global().async {
                 remainTime -= 1
                 if remainTime == 0 {
                     DispatchQueue.main.async {
-                        self.checkAuthNumberButton.backgroundColor = .white
-                        self.checkAuthNumberButton.isUserInteractionEnabled = false
+                        self?.checkAuthNumberButton.backgroundColor = .white
+                        self?.checkAuthNumberButton.isUserInteractionEnabled = false
                     }
                     timer.invalidate()
                 }
                 DispatchQueue.main.async {
-                    self.timeLabel.text = "\(String(format: "%02d", remainTime / 60)):\(String(format: "%02d", remainTime % 60))"
+                    self?.timeLabel.text = "\(String(format: "%02d", remainTime / 60)):\(String(format: "%02d", remainTime % 60))"
                 }
             }
         }

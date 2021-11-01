@@ -17,6 +17,14 @@ class SplashViewController: UIViewController {
         return imageView
     }()
     
+    private let splashLabel: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.image = UIImage(named: "splashLabel")
+        return imageView
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 265, height: 50))
         var paragraphStyle = NSMutableParagraphStyle()
@@ -105,26 +113,31 @@ class SplashViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(backgroundImageView)
-        view.addSubview(titleLabel)
-        view.addSubview(subtitleLabel)
+        view.addSubview(splashLabel)
+//        view.addSubview(titleLabel)
+//        view.addSubview(subtitleLabel)
         view.addSubview(buttonStackView)
         
         backgroundImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
-        titleLabel.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.width.equalTo(265)
-            make.left.equalTo(view).offset(43)
+        splashLabel.snp.makeConstraints { make in
             make.top.equalTo(view).offset(94)
-        }
-        subtitleLabel.snp.makeConstraints { make in
-            make.height.equalTo(44)
-            make.width.equalTo(249)
             make.left.equalTo(view).offset(43)
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
+//        titleLabel.snp.makeConstraints { make in
+//            make.height.equalTo(50)
+//            make.width.equalTo(265)
+//            make.left.equalTo(view).offset(43)
+//            make.top.equalTo(view).offset(94)
+//        }
+//        subtitleLabel.snp.makeConstraints { make in
+//            make.height.equalTo(44)
+//            make.width.equalTo(249)
+//            make.left.equalTo(view).offset(43)
+//            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+//        }
 
         buttonStackView.snp.makeConstraints { make in
             make.left.equalTo(view).offset(20)

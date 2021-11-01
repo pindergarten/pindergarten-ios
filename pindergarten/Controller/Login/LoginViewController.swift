@@ -72,6 +72,13 @@ class LoginViewController: BaseViewController {
         stroke.layer.borderColor = UIColor.subLightTextColor.cgColor
         return label
     }()
+    
+    private lazy var labelStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [findPasswordLabel, seperatelineLabel, goSignUpLabel])
+        stack.axis = .horizontal
+        stack.spacing = 14
+        return stack
+    }()
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,6 +142,7 @@ class LoginViewController: BaseViewController {
         view.addSubview(phoneNumberStack)
         view.addSubview(passwordStack)
         view.addSubview(loginButton)
+//        view.addSubview(labelStack)
         view.addSubview(findPasswordLabel)
         view.addSubview(seperatelineLabel)
         view.addSubview(goSignUpLabel)
@@ -163,13 +171,17 @@ class LoginViewController: BaseViewController {
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(50)
         }
+//        labelStack.snp.makeConstraints { make in
+//            make.top.equalTo(loginButton.snp.bottom).offset(10)
+//            make.centerX.equalTo(view)
+//        }
         findPasswordLabel.snp.makeConstraints { make in
             make.top.equalTo(loginButton.snp.bottom).offset(10)
-            make.left.equalTo(view).offset(120)
+            make.right.equalTo(seperatelineLabel.snp.left).offset(-14)
         }
         seperatelineLabel.snp.makeConstraints { make in
             make.top.equalTo(loginButton.snp.bottom).offset(10)
-            make.left.equalTo(findPasswordLabel.snp.right).offset(14)
+            make.centerX.equalTo(view)
         }
         goSignUpLabel.snp.makeConstraints { make in
             make.top.equalTo(loginButton.snp.bottom).offset(10)

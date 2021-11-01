@@ -17,13 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
+        window?.backgroundColor = .white
+
         
-        let tabBarController = BaseTabBarController()
-        
-        tabBarController.tabBar.isTranslucent = false
-        
-        window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
-//        window?.rootViewController = NickNameViewController()
+//        window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
+        window?.rootViewController = HomeTabBarController()
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
     }
