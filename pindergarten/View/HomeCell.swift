@@ -6,10 +6,17 @@
 //
 
 import UIKit
+protocol HomeCellDelegate: AnyObject {
+    func didTapHeartButton()
+}
+
+
 
 class HomeCell: UICollectionViewCell {
     //MARK: - Properties
     static let identifier = "HomeCell"
+    weak var delegate: HomeCellDelegate?
+
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -24,14 +31,14 @@ class HomeCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "heartButton"), for: .normal)
         button.setImage(UIImage(named: "filledHeartButton"), for: .selected)
-        button.addTarget(PindergartenViewController.self, action: #selector(didTapHeartButton), for: .touchUpInside)
+        button.tintColor = .clear
         return button
     }()
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "4")
-        imageView.layer.cornerRadius = 7
+        imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -57,7 +64,9 @@ class HomeCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureUI()
-        layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.6, x: 0, y: 5)
+        heartButton.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
+        
+        layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.6, x: 0, y: 5, blur: 15)
         clipsToBounds = true
         layer.masksToBounds = false
         layer.cornerRadius = 10
@@ -68,10 +77,22 @@ class HomeCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        heartButton.isSelected = false
+    }
+    
     //MARK: - Action
     @objc func didTapHeartButton() {
-        heartButton.isSelected ? !heartButton.isSelected : heartButton.isSelected
+        delegate?.didTapHeartButton()
         print("DEBUG: TAPPED HEART BUTTON")
+        if !heartButton.isSelected {
+            heartButton.isSelected = true
+        } else {
+            heartButton.isSelected = false
+        }
+        print(heartButton.isSelected)
     }
     //MARK: - Helpers
     private func configureUI() {
@@ -92,7 +113,7 @@ class HomeCell: UICollectionViewCell {
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(8)
             make.left.equalTo(imageView.snp.left).offset(10)
-            make.width.height.equalTo(14)
+            make.width.height.equalTo(20)
         }
         
         nameLabel.snp.makeConstraints { make in
@@ -108,8 +129,8 @@ class HomeCell: UICollectionViewCell {
         }
         
         heartButton.snp.makeConstraints { make in
-            make.width.height.equalTo(37)
-            make.bottom.right.equalTo(imageView).offset(-10)
+            make.width.height.equalTo(50)
+            make.bottom.right.equalTo(imageView).offset(-5)
         }
     }
 }

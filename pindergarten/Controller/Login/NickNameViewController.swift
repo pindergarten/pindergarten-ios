@@ -168,7 +168,7 @@ class NickNameViewController: BaseViewController {
         view.addSubview(finishButton)
         
         backButton.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(62)
+            make.top.equalTo(view.snp.topMargin).offset(22)
             make.left.equalTo(view).offset(8)
         }
         progressBar.snp.makeConstraints { make in

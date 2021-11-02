@@ -25,15 +25,17 @@ class PindergartenViewController: BaseViewController {
         return label
     }()
     
-    private let plusButton: UIButton = {
+    private lazy var plusButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plusButton"), for: .normal)
+        button.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
         return button
     }()
     
-    private let eventButton: UIButton = {
+    private lazy var eventButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "eventButton"), for: .normal)
+        button.addTarget(self, action: #selector(didTapEventButton), for: .touchUpInside)
         return button
     }()
     
@@ -49,6 +51,7 @@ class PindergartenViewController: BaseViewController {
         configureUI()
         collectionView.delegate = self
         collectionView.dataSource = self
+        
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: HomeCell.identifier)
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 40, right: 12)
         
@@ -59,8 +62,20 @@ class PindergartenViewController: BaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     //MARK: - Action
-
+    @objc func didTapPlusButton() {
+        
+    }
+    
+    @objc func didTapEventButton() {
+        navigationController?.pushViewController(EventViewController(), animated: true)
+    }
     //MARK: - Helpers
     func configureUI() {
         view.addSubview(titleLabel)
@@ -104,6 +119,8 @@ extension PindergartenViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
+ 
+        cell.delegate = self
         cell.imageView.image = imageList[indexPath.row]
 
         
@@ -123,6 +140,13 @@ extension PindergartenViewController: PinterestLayoutDelegate {
 
 
         return imageRatio * cellWidth
+    }
+}
+
+extension PindergartenViewController: HomeCellDelegate {
+    func didTapHeartButton() {
+        
+
     }
     
     
@@ -148,12 +172,12 @@ extension PindergartenViewController: PinterestLayoutDelegate {
 //                PindergartenViewControllerRepresentable()
 //                    .ignoresSafeArea()
 //                    .previewDisplayName(/*@START_MENU_TOKEN@*/"Preview"/*@END_MENU_TOKEN@*/)
-//                    .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro"))
+//                    .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
 //            } else {
 //                PindergartenViewControllerRepresentable()
 ////                    .ignoresSafeArea()
 //                    .previewDisplayName(/*@START_MENU_TOKEN@*/"Preview"/*@END_MENU_TOKEN@*/)
-//                    .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro"))
+//                    .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
 //            }
 //        }
 //

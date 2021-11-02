@@ -20,6 +20,7 @@ class LoginViewController: BaseViewController {
 //        return button
 //    }()
     lazy var loginDataManager: LoginDataManager = LoginDataManager()
+    
     private let titleLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 26))
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 17)
@@ -109,7 +110,8 @@ class LoginViewController: BaseViewController {
     }
     
     @objc func didTapLoginButton() {
-        loginDataManager.login(LoginRequest(phone: "01035123584", password: passwordStack.textField.text ?? ""), delegate: self)
+        changeRootViewController(HomeTabBarController())
+        loginDataManager.login(LoginRequest(phone: phoneNumberStack.textField.text ?? "", password: passwordStack.textField.text ?? ""), delegate: self)
     }
     
     @objc func textFieldDidChange(_ sender: Any?) {
@@ -152,7 +154,7 @@ class LoginViewController: BaseViewController {
 //            make.left.equalTo(view).offset(8)
 //        }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(73)
+            make.top.equalTo(view.snp.topMargin).offset(33)
             make.centerX.equalTo(view)
         }
         phoneNumberStack.snp.makeConstraints { make in
@@ -214,7 +216,7 @@ extension LoginViewController: UITextFieldDelegate {
 // 네트워크 함수
 extension LoginViewController {
     func didSuccessLogin(_ result: LoginResult) {
-        //        changeRootViewController(<#T##viewControllerToPresent: UIViewController##UIViewController#>)
+        changeRootViewController(HomeTabBarController())
         print("DEBUG: Enable to Login")
     }
     

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1B8DA403E715044B695F9FC8 /* Pods_pindergartenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4815660692CFCCFE76EF034E /* Pods_pindergartenTests.framework */; };
+		240B8D762731685800078404 /* DetailEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D752731685800078404 /* DetailEventController.swift */; };
+		240B8D78273168AE00078404 /* EventCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D77273168AE00078404 /* EventCommentController.swift */; };
+		240B8D7A27316E8000078404 /* BaseCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D7927316E8000078404 /* BaseCommentController.swift */; };
+		240B8D7C2731A7F300078404 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D7B2731A7F300078404 /* CommentCell.swift */; };
+		24595AE2273123E1008B5194 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE1273123E1008B5194 /* EventCell.swift */; };
 		24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6A92725423A00FD519D /* AppDelegate.swift */; };
 		24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6AB2725423A00FD519D /* SceneDelegate.swift */; };
 		24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6B22725423B00FD519D /* Assets.xcassets */; };
@@ -66,6 +71,7 @@
 		24F74346272EF1CC00238E20 /* AppleSDGothicNeoEB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24F74345272EF1CC00238E20 /* AppleSDGothicNeoEB.ttf */; };
 		24F743482730330F00238E20 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F743472730330F00238E20 /* HomeCell.swift */; };
 		24F7434A27303AFB00238E20 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7434927303AFB00238E20 /* PinterestLayout.swift */; };
+		24F7434F27306B8600238E20 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7434E27306B8600238E20 /* EventViewController.swift */; };
 		30DBCDDE0E47CB1A97F5EAC2 /* Pods_pindergarten_pindergartenUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93BF9369AB1EAA7DB6DA1A17 /* Pods_pindergarten_pindergartenUITests.framework */; };
 		727E05025A1293FEFDB46744 /* Pods_pindergarten.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8BCF539DD527F66AF2CF8F0 /* Pods_pindergarten.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +94,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		240B8D752731685800078404 /* DetailEventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEventController.swift; sourceTree = "<group>"; };
+		240B8D77273168AE00078404 /* EventCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCommentController.swift; sourceTree = "<group>"; };
+		240B8D7927316E8000078404 /* BaseCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCommentController.swift; sourceTree = "<group>"; };
+		240B8D7B2731A7F300078404 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		24595AE1273123E1008B5194 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		24C4D6A62725423A00FD519D /* pindergarten.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pindergarten.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C4D6A92725423A00FD519D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24C4D6AB2725423A00FD519D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +163,7 @@
 		24F74345272EF1CC00238E20 /* AppleSDGothicNeoEB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoEB.ttf; sourceTree = "<group>"; };
 		24F743472730330F00238E20 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		24F7434927303AFB00238E20 /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
+		24F7434E27306B8600238E20 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		2B31FB682395B1475359C8E1 /* Pods-pindergartenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pindergartenTests.release.xcconfig"; path = "Target Support Files/Pods-pindergartenTests/Pods-pindergartenTests.release.xcconfig"; sourceTree = "<group>"; };
 		4815660692CFCCFE76EF034E /* Pods_pindergartenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pindergartenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DD568A7A64EBA83755BB587 /* Pods-pindergarten.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pindergarten.release.xcconfig"; path = "Target Support Files/Pods-pindergarten/Pods-pindergarten.release.xcconfig"; sourceTree = "<group>"; };
@@ -320,6 +332,7 @@
 			children = (
 				24C4D6F2272599DF00FD519D /* BaseViewController.swift */,
 				24C4D7192729EDD800FD519D /* BaseSignUpViewController.swift */,
+				240B8D7927316E8000078404 /* BaseCommentController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -345,7 +358,6 @@
 		24C4D6F827259C2E00FD519D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				24F742FD272C847B00238E20 /* Login */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -357,6 +369,8 @@
 				24C4D71327287A6200FD519D /* CustomNavBar.swift */,
 				24C4D7152728839600FD519D /* CustomInputView.swift */,
 				24F743472730330F00238E20 /* HomeCell.swift */,
+				24595AE1273123E1008B5194 /* EventCell.swift */,
+				240B8D7B2731A7F300078404 /* CommentCell.swift */,
 				24F7434927303AFB00238E20 /* PinterestLayout.swift */,
 			);
 			path = View;
@@ -371,13 +385,6 @@
 				24F742F7272C6C9100238E20 /* NickNameViewController.swift */,
 				24F742F9272C733F00238E20 /* FindPasswordViewController.swift */,
 				24F742FB272C770900238E20 /* ResetPasswordViewController.swift */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
-		24F742FD272C847B00238E20 /* Login */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -437,11 +444,22 @@
 		24F7432E272DA1EB00238E20 /* Pindergarten */ = {
 			isa = PBXGroup;
 			children = (
+				24F7434D27306B7900238E20 /* Event */,
 				24F74331272DB68700238E20 /* PindergartenViewController.swift */,
 				24F74333272DB6AB00238E20 /* SearchViewController.swift */,
 				24F74335272DB6CC00238E20 /* MeAndPetViewController.swift */,
 			);
 			path = Pindergarten;
+			sourceTree = "<group>";
+		};
+		24F7434D27306B7900238E20 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				24F7434E27306B8600238E20 /* EventViewController.swift */,
+				240B8D752731685800078404 /* DetailEventController.swift */,
+				240B8D77273168AE00078404 /* EventCommentController.swift */,
+			);
+			path = Event;
 			sourceTree = "<group>";
 		};
 		F46CB97A3A9F913F32CA2ECD /* Frameworks */ = {
@@ -703,6 +721,7 @@
 				24F742FA272C733F00238E20 /* FindPasswordViewController.swift in Sources */,
 				24F7430C272CF55100238E20 /* CheckAuthNumberRequest.swift in Sources */,
 				24F74322272D166200238E20 /* RegisterUserDataManager.swift in Sources */,
+				240B8D78273168AE00078404 /* EventCommentController.swift in Sources */,
 				24F7431A272D0AA900238E20 /* CheckUserResponse.swift in Sources */,
 				24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */,
 				24F7434A27303AFB00238E20 /* PinterestLayout.swift in Sources */,
@@ -715,7 +734,9 @@
 				24F74318272D0A9C00238E20 /* CheckUserRequest.swift in Sources */,
 				24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */,
 				24C4D6E62725953400FD519D /* Date.swift in Sources */,
+				24595AE2273123E1008B5194 /* EventCell.swift in Sources */,
 				24F7432A272D1E1200238E20 /* LoginRequest.swift in Sources */,
+				240B8D762731685800078404 /* DetailEventController.swift in Sources */,
 				24C4D7062728044E00FD519D /* SignUpNumberViewController.swift in Sources */,
 				24F7431C272D11B700238E20 /* ResetPasswordDataManager.swift in Sources */,
 				24F743482730330F00238E20 /* HomeCell.swift in Sources */,
@@ -734,6 +755,7 @@
 				24C4D6EC272597DB00FD519D /* UIViewController.swift in Sources */,
 				24F74330272DB4EE00238E20 /* HomeTabBarController.swift in Sources */,
 				24F7430A272CF53800238E20 /* CheckAuthNumberDataManager.swift in Sources */,
+				240B8D7A27316E8000078404 /* BaseCommentController.swift in Sources */,
 				24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */,
 				24F74308272CECCD00238E20 /* SendAuthNumberRequest.swift in Sources */,
 				24C4D7022727DFA500FD519D /* UIView.swift in Sources */,
@@ -745,6 +767,8 @@
 				24C4D7182729EAE600FD519D /* SignUpPasswordViewController.swift in Sources */,
 				24C4D7162728839600FD519D /* CustomInputView.swift in Sources */,
 				24C4D6EA2725956D00FD519D /* Color.swift in Sources */,
+				24F7434F27306B8600238E20 /* EventViewController.swift in Sources */,
+				240B8D7C2731A7F300078404 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
