@@ -65,6 +65,7 @@ class EventCommentController: BaseViewController {
     
     private let commentTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .onDrag
         return tableView
@@ -208,9 +209,8 @@ extension EventCommentController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
-        cell.textLabel?.text = "꿀떡이"
+        cell.selectionStyle = .none
         return cell
     }
-
 
 }

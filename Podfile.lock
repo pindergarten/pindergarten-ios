@@ -1,6 +1,17 @@
 PODS:
   - Alamofire (5.4.3)
+  - AlamofireImage (4.2.0):
+    - Alamofire (~> 5.4)
+  - AlamofireNetworkActivityIndicator (3.1.0):
+    - Alamofire (~> 5.1)
   - AnyFormatKit (2.5.1)
+  - ImageSlideshow (1.9.2):
+    - ImageSlideshow/Core (= 1.9.2)
+  - ImageSlideshow/Alamofire (1.9.2):
+    - AlamofireImage (~> 4.0)
+    - ImageSlideshow/Core
+  - ImageSlideshow/Core (1.9.2)
+  - Kingfisher (6.3.0)
   - Pageboy (3.6.2)
   - SnapKit (5.0.1)
   - Tabman (2.11.1):
@@ -8,25 +19,37 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.4)
+  - AlamofireNetworkActivityIndicator
   - AnyFormatKit (~> 2.5.1)
+  - ImageSlideshow (~> 1.9.0)
+  - ImageSlideshow/Alamofire
+  - Kingfisher
   - SnapKit (~> 5.0.0)
   - Tabman (~> 2.11)
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AlamofireImage
+    - AlamofireNetworkActivityIndicator
     - AnyFormatKit
+    - ImageSlideshow
+    - Kingfisher
     - Pageboy
     - SnapKit
     - Tabman
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
+  AlamofireNetworkActivityIndicator: 6564782bd7b9e6c430ae67d9277af01907b01ca4
   AnyFormatKit: 4ef60ad3f48c69962d482bb2de0a6d3214e8527b
+  ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
+  Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
 
-PODFILE CHECKSUM: fefed453886a2c4905cac0feb57ed40b28711af9
+PODFILE CHECKSUM: 40a4f9d7c5ba64748f158cee5f002da4c4d41789
 
 COCOAPODS: 1.10.1

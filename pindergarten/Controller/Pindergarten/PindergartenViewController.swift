@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import Kingfisher
 
 let imageList: [UIImage] = [#imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3") , #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3")  ,#imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3")]
 
 class PindergartenViewController: BaseViewController {
     //MARK: - Properties
+    lazy var getAllFeedDataManager: GetAllFeedDataManager = GetAllFeedDataManager()
+    
+    private var feed: [GetAllFeedResult] = []
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .mainTextColor
@@ -44,9 +49,15 @@ class PindergartenViewController: BaseViewController {
         collectionView.backgroundColor = .white
         return collectionView
     }()
+    
+    var completionHandler: ((Int)->(Int))?
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.showIndicator()
+        getAllFeedDataManager.getAllFeed(delegate: self)
         
         configureUI()
         collectionView.delegate = self
@@ -60,6 +71,8 @@ class PindergartenViewController: BaseViewController {
         if let layout = collectionView.collectionViewLayout as? PinterestLayout {
           layout.delegate = self
         }
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,19 +127,28 @@ class PindergartenViewController: BaseViewController {
 extension PindergartenViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageList.count
+        return feed.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
  
         cell.delegate = self
-        cell.imageView.image = imageList[indexPath.row]
+        
+        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg))
+        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail))
+        cell.nameLabel.text = feed[indexPath.item].nickname
+        cell.scriptionLabel.text = feed[indexPath.item].content
 
         
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailVC = DetailFeedController()
+        detailVC.postId = feed[indexPath.item].id
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
     
 }
 
@@ -145,11 +167,22 @@ extension PindergartenViewController: PinterestLayoutDelegate {
 
 extension PindergartenViewController: HomeCellDelegate {
     func didTapHeartButton() {
-        
+    }
+}
 
+// 네트워크 함수
+extension PindergartenViewController {
+    func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
+        self.dismissIndicator()
+        print("DEBUG: GET ALL FEED")
+        feed = result
+        self.collectionView.reloadData()
+        print(result)
     }
     
-    
+    func failedToGetAllFeed(message: String) {
+        print("DEBUG: FAILED TO GET ALL FEED")
+    }
 }
 
 //#if DEBUG

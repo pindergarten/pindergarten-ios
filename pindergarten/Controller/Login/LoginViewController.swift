@@ -111,7 +111,7 @@ class LoginViewController: BaseViewController {
     
     @objc func didTapLoginButton() {
         changeRootViewController(HomeTabBarController())
-        loginDataManager.login(LoginRequest(phone: phoneNumberStack.textField.text ?? "", password: passwordStack.textField.text ?? ""), delegate: self)
+//        loginDataManager.login(LoginRequest(phone: phoneNumberStack.textField.text ?? "", password: passwordStack.textField.text ?? ""), delegate: self)
     }
     
     @objc func textFieldDidChange(_ sender: Any?) {
@@ -121,9 +121,19 @@ class LoginViewController: BaseViewController {
     //MARK: - Helpers
     private func checkLoginInfo() {
         if let password = passwordStack.textField.text, let phoneNumber = phoneNumberStack.textField.text {
-            if password.count >= 8 && password.count <= 16 && phoneNumber.count == 11 {
-                loginButton.isUserInteractionEnabled = true
-                loginButton.backgroundColor = .mainLightYellow
+            let phoneNumberPattern = "^[0-9]{11}$"
+            let regex = try? NSRegularExpression(pattern: phoneNumberPattern)
+            
+            if let _ = regex?.firstMatch(in: phoneNumber, options: [], range: NSRange(location: 0, length: phoneNumber.count)) {
+                
+                if password.count >= 8 && password.count <= 16  {
+                    loginButton.isUserInteractionEnabled = true
+                    loginButton.backgroundColor = .mainLightYellow
+                } else {
+                    loginButton.isUserInteractionEnabled = false
+                    loginButton.backgroundColor = .white
+                }
+
             } else {
                 loginButton.isUserInteractionEnabled = false
                 loginButton.backgroundColor = .white
@@ -221,6 +231,7 @@ extension LoginViewController {
     }
     
     func failedToLogin(message: String) {
+        self.presentAlert(title: "로그인에 실패하였습니다.")
         print("DEBUG: FAILED LOGIN")
     }
 }

@@ -159,18 +159,29 @@ class FindPasswordViewController: BaseViewController {
     
     @objc func didChangePhoneNumberTextField() {
         sendAuthNumberButton.backgroundColor = .white
-        if phoneNumberTextField.text?.count == 11 {
-            sendAuthNumberButton.backgroundColor = .mainLightYellow
-            isCorrectPhoneNumber = true
-            sendAuthNumberButton.isUserInteractionEnabled = true
-            correctPhoneNumberLabel.isHidden = true
+        let phoneNumberPattern = "^[0-9]{11}$"
+        let regex = try? NSRegularExpression(pattern: phoneNumberPattern)
+        
+        if let _ = regex?.firstMatch(in: phoneNumberTextField.text ?? "", options: [], range: NSRange(location: 0, length: phoneNumberTextField.text?.count ?? 0)) {
+            
+            if phoneNumberTextField.text?.count == 11 {
+                sendAuthNumberButton.backgroundColor = .mainLightYellow
+                isCorrectPhoneNumber = true
+                sendAuthNumberButton.isUserInteractionEnabled = true
+                correctPhoneNumberLabel.isHidden = true
+            } else {
+                isCorrectPhoneNumber = false
+                sendAuthNumberButton.isUserInteractionEnabled = false
+                correctPhoneNumberLabel.isHidden = false
+            }
         } else {
             isCorrectPhoneNumber = false
             sendAuthNumberButton.isUserInteractionEnabled = false
             correctPhoneNumberLabel.isHidden = false
         }
+ 
     }
-    
+
     @objc func didChangeAuthNumberTextField() {
         checkAuthNumberButton.backgroundColor = .white
         if authNumberTextField.text?.count == 4 {

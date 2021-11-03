@@ -35,11 +35,11 @@ class HomeTabBarController: UITabBarController {
             var tabFrame = tabBar.frame
 
             if !Device.isNotch {
-                tabFrame.size.height = 80
-                tabFrame.origin.y = view.frame.size.height - 80
+                tabFrame.size.height = 60
+                tabFrame.origin.y = view.frame.size.height - 60
             } else {
-                tabFrame.size.height = 80 + Device.bottomInset
-                tabFrame.origin.y = view.frame.size.height - (80 + Device.bottomInset)
+                tabFrame.size.height = 60 + Device.bottomInset
+                tabFrame.origin.y = view.frame.size.height - (60 + Device.bottomInset)
             }
             
             tabBar.frame = tabFrame
@@ -83,8 +83,8 @@ class HomeTabBarController: UITabBarController {
 //        nav.tabBarItem.selectedImage = selectedImage
         nav.tabBarItem.title = title
         
-//        tabBarItem.imageInsets = UIEdgeInsets(top: -5, left: 0, bottom: 0, right: 0)
-        nav.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -18)
+        nav.tabBarItem.imageInsets = UIEdgeInsets(top: -7, left: 0, bottom: 0, right: 0)
+        nav.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -10)
     
         return nav
     }

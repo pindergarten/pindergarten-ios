@@ -12,7 +12,13 @@
 		240B8D78273168AE00078404 /* EventCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D77273168AE00078404 /* EventCommentController.swift */; };
 		240B8D7A27316E8000078404 /* BaseCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D7927316E8000078404 /* BaseCommentController.swift */; };
 		240B8D7C2731A7F300078404 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D7B2731A7F300078404 /* CommentCell.swift */; };
+		240B8D83273268B300078404 /* GetAllFeedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D82273268B300078404 /* GetAllFeedDataManager.swift */; };
+		240B8D85273268C900078404 /* GetDetailFeedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D84273268C900078404 /* GetDetailFeedDataManager.swift */; };
+		240B8D8D273269E700078404 /* AllFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D8C273269E700078404 /* AllFeedResponse.swift */; };
+		240B8D9027326CB000078404 /* DetailFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D8F27326CB000078404 /* DetailFeedController.swift */; };
+		240B8D9427326D6E00078404 /* DetailFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D9327326D6E00078404 /* DetailFeedResponse.swift */; };
 		24595AE2273123E1008B5194 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE1273123E1008B5194 /* EventCell.swift */; };
+		24595AE42732730A008B5194 /* DetailFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE32732730A008B5194 /* DetailFeedCell.swift */; };
 		24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6A92725423A00FD519D /* AppDelegate.swift */; };
 		24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6AB2725423A00FD519D /* SceneDelegate.swift */; };
 		24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6B22725423B00FD519D /* Assets.xcassets */; };
@@ -98,7 +104,13 @@
 		240B8D77273168AE00078404 /* EventCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCommentController.swift; sourceTree = "<group>"; };
 		240B8D7927316E8000078404 /* BaseCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCommentController.swift; sourceTree = "<group>"; };
 		240B8D7B2731A7F300078404 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		240B8D82273268B300078404 /* GetAllFeedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllFeedDataManager.swift; sourceTree = "<group>"; };
+		240B8D84273268C900078404 /* GetDetailFeedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDetailFeedDataManager.swift; sourceTree = "<group>"; };
+		240B8D8C273269E700078404 /* AllFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFeedResponse.swift; sourceTree = "<group>"; };
+		240B8D8F27326CB000078404 /* DetailFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedController.swift; sourceTree = "<group>"; };
+		240B8D9327326D6E00078404 /* DetailFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedResponse.swift; sourceTree = "<group>"; };
 		24595AE1273123E1008B5194 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
+		24595AE32732730A008B5194 /* DetailFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedCell.swift; sourceTree = "<group>"; };
 		24C4D6A62725423A00FD519D /* pindergarten.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pindergarten.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C4D6A92725423A00FD519D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24C4D6AB2725423A00FD519D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +228,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		240B8D812732689700078404 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				240B8D8C273269E700078404 /* AllFeedResponse.swift */,
+				240B8D9327326D6E00078404 /* DetailFeedResponse.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		240B8D8E27326C9D00078404 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				240B8D8F27326CB000078404 /* DetailFeedController.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
 		24C4D69D2725423A00FD519D = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +275,8 @@
 				24C4D6F827259C2E00FD519D /* Model */,
 				24C4D6F927259C3100FD519D /* View */,
 				24C4D6F727259C0A00FD519D /* Controller */,
+				24F74335272DB6CC00238E20 /* MeAndPetViewController.swift */,
+				24F74333272DB6AB00238E20 /* SearchViewController.swift */,
 				24F74300272CEBA300238E20 /* Networking */,
 				24C4D6A92725423A00FD519D /* AppDelegate.swift */,
 				24C4D6AB2725423A00FD519D /* SceneDelegate.swift */,
@@ -371,6 +402,7 @@
 				24F743472730330F00238E20 /* HomeCell.swift */,
 				24595AE1273123E1008B5194 /* EventCell.swift */,
 				240B8D7B2731A7F300078404 /* CommentCell.swift */,
+				24595AE32732730A008B5194 /* DetailFeedCell.swift */,
 				24F7434927303AFB00238E20 /* PinterestLayout.swift */,
 			);
 			path = View;
@@ -393,7 +425,7 @@
 			isa = PBXGroup;
 			children = (
 				24F74301272CEBAB00238E20 /* User */,
-				24F7432D272DA1D500238E20 /* Feed */,
+				24F7432D272DA1D500238E20 /* Community */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -434,20 +466,22 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
-		24F7432D272DA1D500238E20 /* Feed */ = {
+		24F7432D272DA1D500238E20 /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				240B8D82273268B300078404 /* GetAllFeedDataManager.swift */,
+				240B8D84273268C900078404 /* GetDetailFeedDataManager.swift */,
+				240B8D812732689700078404 /* Entity */,
 			);
-			path = Feed;
+			path = Community;
 			sourceTree = "<group>";
 		};
 		24F7432E272DA1EB00238E20 /* Pindergarten */ = {
 			isa = PBXGroup;
 			children = (
-				24F7434D27306B7900238E20 /* Event */,
 				24F74331272DB68700238E20 /* PindergartenViewController.swift */,
-				24F74333272DB6AB00238E20 /* SearchViewController.swift */,
-				24F74335272DB6CC00238E20 /* MeAndPetViewController.swift */,
+				240B8D8E27326C9D00078404 /* Feed */,
+				24F7434D27306B7900238E20 /* Event */,
 			);
 			path = Pindergarten;
 			sourceTree = "<group>";
@@ -717,6 +751,7 @@
 				24C4D71427287A6200FD519D /* CustomNavBar.swift in Sources */,
 				24F7432C272D1E1D00238E20 /* LoginResponse.swift in Sources */,
 				24C4D6F3272599DF00FD519D /* BaseViewController.swift in Sources */,
+				240B8D9027326CB000078404 /* DetailFeedController.swift in Sources */,
 				24F74336272DB6CC00238E20 /* MeAndPetViewController.swift in Sources */,
 				24F742FA272C733F00238E20 /* FindPasswordViewController.swift in Sources */,
 				24F7430C272CF55100238E20 /* CheckAuthNumberRequest.swift in Sources */,
@@ -724,6 +759,7 @@
 				240B8D78273168AE00078404 /* EventCommentController.swift in Sources */,
 				24F7431A272D0AA900238E20 /* CheckUserResponse.swift in Sources */,
 				24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */,
+				240B8D83273268B300078404 /* GetAllFeedDataManager.swift in Sources */,
 				24F7434A27303AFB00238E20 /* PinterestLayout.swift in Sources */,
 				24F74314272D02BA00238E20 /* CheckNickNameResponse.swift in Sources */,
 				24C4D6FC2727D6B300FD519D /* LoginViewController.swift in Sources */,
@@ -731,6 +767,7 @@
 				24F742FC272C770900238E20 /* ResetPasswordViewController.swift in Sources */,
 				24F74320272D11E400238E20 /* ResetPasswordResponse.swift in Sources */,
 				24F74312272D02B400238E20 /* CheckNickNameRequest.swift in Sources */,
+				240B8D85273268C900078404 /* GetDetailFeedDataManager.swift in Sources */,
 				24F74318272D0A9C00238E20 /* CheckUserRequest.swift in Sources */,
 				24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */,
 				24C4D6E62725953400FD519D /* Date.swift in Sources */,
@@ -760,6 +797,9 @@
 				24F74308272CECCD00238E20 /* SendAuthNumberRequest.swift in Sources */,
 				24C4D7022727DFA500FD519D /* UIView.swift in Sources */,
 				24C4D6E82725956600FD519D /* String.swift in Sources */,
+				240B8D8D273269E700078404 /* AllFeedResponse.swift in Sources */,
+				240B8D9427326D6E00078404 /* DetailFeedResponse.swift in Sources */,
+				24595AE42732730A008B5194 /* DetailFeedCell.swift in Sources */,
 				24F74332272DB68700238E20 /* PindergartenViewController.swift in Sources */,
 				24F74334272DB6AB00238E20 /* SearchViewController.swift in Sources */,
 				24C4D71A2729EDD800FD519D /* BaseSignUpViewController.swift in Sources */,

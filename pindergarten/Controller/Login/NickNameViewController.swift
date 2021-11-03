@@ -137,15 +137,18 @@ class NickNameViewController: BaseViewController {
 
         if let nickName = nickNameTextField.text {
             if let _ = regex?.firstMatch(in: nickName, options: [], range: NSRange(location: 0, length: nickName.count)) {
+                checkNickNameButton.setAttributedTitle(NSMutableAttributedString(string: "중복확인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
                 correctNickNameLabel.isHidden = true
                 checkNickNameButton.backgroundColor = .mainLightYellow
                 checkNickNameButton.isUserInteractionEnabled = true
-            } else if nickName.count < 2 && nickName.count > 0{
+            } else if nickName.count < 2 && nickName.count > 0 {
+                checkNickNameButton.setAttributedTitle(NSMutableAttributedString(string: "중복확인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
                 correctNickNameLabel.text = "2자이상 입력해주세요."
                 correctNickNameLabel.isHidden = false
                 checkNickNameButton.backgroundColor = .white
                 checkNickNameButton.isUserInteractionEnabled = false
             } else {
+                checkNickNameButton.setAttributedTitle(NSMutableAttributedString(string: "중복확인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
                 correctNickNameLabel.text = "*계정 이름에는 영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다."
                 correctNickNameLabel.isHidden = false
                 checkNickNameButton.backgroundColor = .white
