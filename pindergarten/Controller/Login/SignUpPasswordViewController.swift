@@ -9,6 +9,7 @@ import UIKit
 
 class SignUpPasswordViewController: BaseViewController {
     //MARK: - Properties
+    var phoneNumber: String?
     
     private let backButton: UIButton = {
         let button = UIButton(type: .system)
@@ -82,7 +83,11 @@ class SignUpPasswordViewController: BaseViewController {
     
     @objc func didTapNextButton() {
         print("DEBUG: CHECKED PASSWORD")
-        navigationController?.pushViewController(NickNameViewController(), animated: true)
+        let nickNameVC = NickNameViewController()
+        nickNameVC.phoneNumber = phoneNumber
+        nickNameVC.password = passwordStack.textField.text
+        nickNameVC.passwordCheck = checkPasswordStack.textField.text
+        navigationController?.pushViewController(nickNameVC, animated: true)
     }
     //MARK: - Helpers
 

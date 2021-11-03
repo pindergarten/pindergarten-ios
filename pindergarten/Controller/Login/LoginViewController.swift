@@ -227,11 +227,12 @@ extension LoginViewController: UITextFieldDelegate {
 extension LoginViewController {
     func didSuccessLogin(_ result: LoginResult) {
         changeRootViewController(HomeTabBarController())
+        JwtToken.token = result.jwt
         print("DEBUG: Enable to Login")
     }
     
     func failedToLogin(message: String) {
-        self.presentAlert(title: "로그인에 실패하였습니다.")
+        self.presentAlert(title: message)
         print("DEBUG: FAILED LOGIN")
     }
 }

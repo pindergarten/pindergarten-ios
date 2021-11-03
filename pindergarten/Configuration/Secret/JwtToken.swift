@@ -8,5 +8,5 @@
 import Foundation
 
 struct JwtToken {
-    static let token: String = ""
+    static var token: String = ""
 }

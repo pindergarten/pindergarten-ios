@@ -8,10 +8,15 @@
 import UIKit
 import ImageSlideshow
 
+//MARK: - Protocol
+protocol DetailFeedCellDelegate: AnyObject {
+    func didTapHeartButton()
+}
 
 class DetailFeedCell: UITableViewCell {
     //MARK: - Properties
     static let identifier = "DetailFeedCell"
+    weak var delegate: DetailFeedCellDelegate?
     
     let images = [
         ImageSource(image: #imageLiteral(resourceName: "4")),
@@ -52,6 +57,7 @@ class DetailFeedCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal)
         button.setImage(#imageLiteral(resourceName: "feedFilledHeartImage"), for: .selected)
+        button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         return button
     }()
     
@@ -129,7 +135,16 @@ class DetailFeedCell: UITableViewCell {
     }
     
     //MARK: - Action
- 
+    @objc func didTapHeartButton() {
+        delegate?.didTapHeartButton()
+        print("DEBUG: TAPPED HEART BUTTON")
+        if !heartButton.isSelected {
+            heartButton.isSelected = true
+        } else {
+            heartButton.isSelected = false
+        }
+        print(heartButton.isSelected)
+    }
     //MARK: - Helpers
     private func configureUI() {
         backgroundColor = .white

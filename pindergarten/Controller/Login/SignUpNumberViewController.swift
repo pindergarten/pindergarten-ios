@@ -379,7 +379,9 @@ extension SignUpNumberViewController {
             회원가입을 완료해주세요
             """) { [weak self] _ in
             self?.timeLabel.text = "02:55"
-            self?.navigationController?.pushViewController(SignUpPasswordViewController(), animated: true)
+            let passwordVC = SignUpPasswordViewController()
+            passwordVC.phoneNumber = self?.phoneNumberTextField.text
+            self?.navigationController?.pushViewController(passwordVC, animated: true)
         }
     }
     

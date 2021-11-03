@@ -9,5 +9,5 @@ import Alamofire
 
 struct Constant {
     static let BASE_URL = "http://pindergarten.site:3000"
-    static var HEADERS: HTTPHeaders = ["" : JwtToken.token]
+    static var HEADERS: HTTPHeaders = ["x-access-token" : JwtToken.token]
 }

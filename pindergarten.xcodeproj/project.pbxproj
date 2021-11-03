@@ -19,6 +19,8 @@
 		240B8D9427326D6E00078404 /* DetailFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D9327326D6E00078404 /* DetailFeedResponse.swift */; };
 		24595AE2273123E1008B5194 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE1273123E1008B5194 /* EventCell.swift */; };
 		24595AE42732730A008B5194 /* DetailFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE32732730A008B5194 /* DetailFeedCell.swift */; };
+		247B84312733068500591CC4 /* LikeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247B84302733068500591CC4 /* LikeDataManager.swift */; };
+		247B8435273306CA00591CC4 /* LikeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247B8434273306CA00591CC4 /* LikeResponse.swift */; };
 		24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6A92725423A00FD519D /* AppDelegate.swift */; };
 		24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6AB2725423A00FD519D /* SceneDelegate.swift */; };
 		24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6B22725423B00FD519D /* Assets.xcassets */; };
@@ -111,6 +113,8 @@
 		240B8D9327326D6E00078404 /* DetailFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedResponse.swift; sourceTree = "<group>"; };
 		24595AE1273123E1008B5194 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		24595AE32732730A008B5194 /* DetailFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedCell.swift; sourceTree = "<group>"; };
+		247B84302733068500591CC4 /* LikeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDataManager.swift; sourceTree = "<group>"; };
+		247B8434273306CA00591CC4 /* LikeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeResponse.swift; sourceTree = "<group>"; };
 		24C4D6A62725423A00FD519D /* pindergarten.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pindergarten.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C4D6A92725423A00FD519D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24C4D6AB2725423A00FD519D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -233,6 +237,7 @@
 			children = (
 				240B8D8C273269E700078404 /* AllFeedResponse.swift */,
 				240B8D9327326D6E00078404 /* DetailFeedResponse.swift */,
+				247B8434273306CA00591CC4 /* LikeResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -471,6 +476,7 @@
 			children = (
 				240B8D82273268B300078404 /* GetAllFeedDataManager.swift */,
 				240B8D84273268C900078404 /* GetDetailFeedDataManager.swift */,
+				247B84302733068500591CC4 /* LikeDataManager.swift */,
 				240B8D812732689700078404 /* Entity */,
 			);
 			path = Community;
@@ -763,6 +769,7 @@
 				24F7434A27303AFB00238E20 /* PinterestLayout.swift in Sources */,
 				24F74314272D02BA00238E20 /* CheckNickNameResponse.swift in Sources */,
 				24C4D6FC2727D6B300FD519D /* LoginViewController.swift in Sources */,
+				247B84312733068500591CC4 /* LikeDataManager.swift in Sources */,
 				24F74328272D1D9900238E20 /* LoginDataManager.swift in Sources */,
 				24F742FC272C770900238E20 /* ResetPasswordViewController.swift in Sources */,
 				24F74320272D11E400238E20 /* ResetPasswordResponse.swift in Sources */,
@@ -803,6 +810,7 @@
 				24F74332272DB68700238E20 /* PindergartenViewController.swift in Sources */,
 				24F74334272DB6AB00238E20 /* SearchViewController.swift in Sources */,
 				24C4D71A2729EDD800FD519D /* BaseSignUpViewController.swift in Sources */,
+				247B8435273306CA00591CC4 /* LikeResponse.swift in Sources */,
 				24C4D6E02725946C00FD519D /* JwtToken.swift in Sources */,
 				24C4D7182729EAE600FD519D /* SignUpPasswordViewController.swift in Sources */,
 				24C4D7162728839600FD519D /* CustomInputView.swift in Sources */,

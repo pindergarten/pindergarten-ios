@@ -12,6 +12,10 @@ class NickNameViewController: BaseViewController {
     lazy var checkNickNameDataManager: CheckNickNameDataManager = CheckNickNameDataManager()
     lazy var registerUserDataManager: RegisterUserDataManager = RegisterUserDataManager()
     
+    var phoneNumber: String?
+    var password: String?
+    var passwordCheck: String?
+    
     private let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -128,7 +132,7 @@ class NickNameViewController: BaseViewController {
     }
     
     @objc func didTapFinishButton() {
-        registerUserDataManager.registerUser(RegisterUserRequest(phone: "01035123584", password: "11111111", password_check: "11111111", nickname: nickNameTextField.text ?? ""), delegate: self)
+        registerUserDataManager.registerUser(RegisterUserRequest(phone: phoneNumber ?? "", password: password ?? "", password_check: passwordCheck ?? "", nickname: nickNameTextField.text ?? ""), delegate: self)
     }
     //MARK: - Helpers
     private func checkNickName() {

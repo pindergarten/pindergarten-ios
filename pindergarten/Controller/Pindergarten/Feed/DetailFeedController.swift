@@ -12,6 +12,7 @@ import Kingfisher
 class DetailFeedController: BaseViewController {
     //MARK: - Properties
     lazy var getDetailFeedDataManager: GetDetailFeedDataManager = GetDetailFeedDataManager()
+    lazy var likeDataManager: LikeDataManager = LikeDataManager()
     
     var postId: Int = 0
     
@@ -98,6 +99,8 @@ extension DetailFeedController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var imageInputs: [AlamofireSource] = []
         let cell = tableView.dequeueReusableCell(withIdentifier: DetailFeedCell.identifier, for: indexPath) as! DetailFeedCell
+        cell.delegate = self
+        
         cell.selectionStyle = .none
         if let detailFeed = detailFeed {
             cell.profileImageView.kf.setImage(with: URL(string: detailFeed.profileimg ))
@@ -125,17 +128,33 @@ extension DetailFeedController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension DetailFeedController: DetailFeedCellDelegate {
+    func didTapHeartButton() {
+        likeDataManager.like(postId: postId, delegate: self)
+    }
+    
+    
+}
+
 // 네트워크 함수
 extension DetailFeedController {
     func didSuccessGetDetailFeed(_ result: GetDetailFeedResult) {
         self.dismissIndicator()
         print("DEBUG: GET DETAIL FEED")
         detailFeed = result
-        print(detailFeed)
         self.feedTableView.reloadData()
     }
     
     func failedToGetDetailFeed(message: String) {
         print("DEBUG: FAILED TO GET DETAIL FEED")
+    }
+    
+    func didSuccessLike(_ result: LikeResult) {
+        print("DEBUG: Like DETAIL FEED")
+        print(result.isSet)
+    }
+    
+    func failedToLike(message: String) {
+        print("DEBUG: FAILED TO Like DETAIL FEED")
     }
 }

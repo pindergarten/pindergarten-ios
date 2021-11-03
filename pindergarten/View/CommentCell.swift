@@ -26,14 +26,27 @@ class CommentCell: UITableViewCell {
         label.text = "oneoneni"
         return label
     }()
+
+//    private let commentLabel: UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
+//        label.textColor = UIColor(hex: 0x4E5261, alpha: 0.85)
+//        label.text = "장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ"
+//        return label
+//    }()
     
     private let commentLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
-        label.textColor = UIColor(hex: 0x4E5261, alpha: 0.85)
-        label.text = "장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ"
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        var paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.19
+        let attributedString = NSMutableAttributedString(string: "oneoneni  ", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 14)!, .foregroundColor : UIColor(hex: 0x2D2D2D, alpha: 0.85), .paragraphStyle : paragraphStyle])
+        attributedString.append(NSAttributedString(string: "장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x4E5261, alpha: 0.85), .paragraphStyle : paragraphStyle]))
+        label.attributedText = attributedString
         return label
     }()
+
     
     private let timeLabel: UILabel = {
         let label = UILabel()
@@ -61,7 +74,7 @@ class CommentCell: UITableViewCell {
         backgroundColor = .white
         
         addSubview(profileImage)
-        addSubview(nameLabel)
+//        addSubview(nameLabel)
         addSubview(commentLabel)
         addSubview(timeLabel)
         
@@ -69,6 +82,18 @@ class CommentCell: UITableViewCell {
             make.width.height.equalTo(34)
             make.top.equalTo(self).offset(20)
             make.left.equalTo(self).offset(20)
+        }
+        
+        commentLabel.snp.makeConstraints { make in
+            make.top.equalTo(profileImage)
+            make.left.equalTo(profileImage.snp.right).offset(8)
+            make.right.equalTo(self).offset(-20)
+            make.bottom.equalTo(timeLabel.snp.top).offset(-4)
+        }
+        
+        timeLabel.snp.makeConstraints { make in
+            make.left.equalTo(commentLabel)
+            make.bottom.equalTo(self).offset(-20)
         }
         
     }

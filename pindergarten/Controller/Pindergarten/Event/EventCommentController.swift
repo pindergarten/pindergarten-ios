@@ -74,6 +74,8 @@ class EventCommentController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        commentTableView.estimatedRowHeight = 150
+        commentTableView.rowHeight = UITableView.automaticDimension
         commentTableView.delegate = self
         commentTableView.dataSource = self
         commentTableView.register(CommentCell.self, forCellReuseIdentifier: CommentCell.identifier)
@@ -174,7 +176,7 @@ class EventCommentController: BaseViewController {
         }
         
         commentTableView.snp.makeConstraints { make in
-            make.top.equalTo(seperateLine)
+            make.top.equalTo(seperateLine.snp.bottom)
             make.left.right.equalTo(view)
             make.bottom.equalTo(commentSeperateLine)
         }

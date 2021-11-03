@@ -21,7 +21,7 @@ class LoginDataManager {
                     // 실패했을 때
                     else {
                         switch response.code {
-                        default: delegate.failedToLogin(message: "")
+                        default: delegate.failedToLogin(message: "로그인에 실패하였습니다.")
                         }
                     }
                 case .failure(let error):

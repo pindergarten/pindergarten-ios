@@ -14,6 +14,7 @@ class PindergartenViewController: BaseViewController {
     //MARK: - Properties
     lazy var getAllFeedDataManager: GetAllFeedDataManager = GetAllFeedDataManager()
     
+    
     private var feed: [GetAllFeedResult] = []
     
     private let titleLabel: UILabel = {
@@ -49,8 +50,6 @@ class PindergartenViewController: BaseViewController {
         collectionView.backgroundColor = .white
         return collectionView
     }()
-    
-    var completionHandler: ((Int)->(Int))?
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -167,6 +166,7 @@ extension PindergartenViewController: PinterestLayoutDelegate {
 
 extension PindergartenViewController: HomeCellDelegate {
     func didTapHeartButton() {
+//        likeDataManager.like(postId: postId, delegate: self)
     }
 }
 
