@@ -9,6 +9,8 @@ import UIKit
 import ImageSlideshow
 import Kingfisher
 
+
+
 class DetailFeedController: BaseViewController {
     //MARK: - Properties
     lazy var getDetailFeedDataManager: GetDetailFeedDataManager = GetDetailFeedDataManager()
@@ -40,9 +42,8 @@ class DetailFeedController: BaseViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.showIndicator()
-        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
+    
+//        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
   
         
         
@@ -100,6 +101,7 @@ extension DetailFeedController: UITableViewDelegate, UITableViewDataSource {
         var imageInputs: [AlamofireSource] = []
         let cell = tableView.dequeueReusableCell(withIdentifier: DetailFeedCell.identifier, for: indexPath) as! DetailFeedCell
         cell.delegate = self
+        cell.commentDelegate = self
         
         cell.selectionStyle = .none
         if let detailFeed = detailFeed {
@@ -113,6 +115,13 @@ extension DetailFeedController: UITableViewDelegate, UITableViewDataSource {
                 imageInputs.append(AlamofireSource(urlString: imageURL.postImageUrl)!)
             }
             cell.imageSlide.setImageInputs(imageInputs)
+            
+            if detailFeed.isLiked == 0 {
+                cell.heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal)
+            } else if detailFeed.isLiked == 1 {
+                cell.heartButton.setImage(#imageLiteral(resourceName: "feedFilledHeartImage"), for: .normal)
+            }
+
         }
         
         
@@ -128,9 +137,14 @@ extension DetailFeedController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension DetailFeedController: DetailFeedCellDelegate {
+extension DetailFeedController: DetailFeedCellDelegate, CommentDelegate {
+    func didTapCommentButton() {
+        print("DEBUG: TAPPED COMMENT BUTTON")
+        navigationController?.pushViewController(CommentController(), animated: true)
+    }
+    
     func didTapHeartButton() {
-        likeDataManager.like(postId: postId, delegate: self)
+//        likeDataManager.like(postId: postId, delegate: self)
     }
     
     
@@ -139,13 +153,13 @@ extension DetailFeedController: DetailFeedCellDelegate {
 // 네트워크 함수
 extension DetailFeedController {
     func didSuccessGetDetailFeed(_ result: GetDetailFeedResult) {
-        self.dismissIndicator()
         print("DEBUG: GET DETAIL FEED")
         detailFeed = result
-        self.feedTableView.reloadData()
+        feedTableView.reloadData()
     }
     
     func failedToGetDetailFeed(message: String) {
+        self.presentAlert(title: message)
         print("DEBUG: FAILED TO GET DETAIL FEED")
     }
     

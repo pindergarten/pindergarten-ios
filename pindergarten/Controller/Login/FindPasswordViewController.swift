@@ -197,12 +197,12 @@ class FindPasswordViewController: BaseViewController {
     }
     
     @objc func didTapSendNumber() {
-        checkUserDataManager.checkUser(CheckUserRequest(phone: "01035123584"), delegate: self)
+        checkUserDataManager.checkUser(CheckUserRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
 
     }
     
     @objc func didTapCheckNumber() {
-        checkAuthNumberDataManager.checkAuthNumber(CheckAuthNumberRequest(phone: "01035123584", verifyCode: authNumberTextField.text ?? ""), delegate: self)
+        checkAuthNumberDataManager.checkAuthNumber(CheckAuthNumberRequest(phone: phoneNumberTextField.text ?? "", verifyCode: authNumberTextField.text ?? ""), delegate: self)
     }
     
     @objc func didTapNextButton() {
@@ -312,7 +312,7 @@ extension FindPasswordViewController {
     }
     
     func failedToCheckUser(message: String) {
-        self.sendAuthNumberDataManager.sendAuthNumber(SendAuthNumberRequest(phone: "01035123584"), delegate: self)
+        self.sendAuthNumberDataManager.sendAuthNumber(SendAuthNumberRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
     }
     
     func didSuccessSendAuthNumber() {

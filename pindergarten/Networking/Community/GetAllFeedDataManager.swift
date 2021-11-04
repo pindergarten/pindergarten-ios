@@ -9,7 +9,7 @@ import Alamofire
 
 class GetAllFeedDataManager {
     func getAllFeed(delegate: PindergartenViewController) {
-        AF.request("\(Constant.BASE_URL)/api/posts", method: .get, headers: nil)
+        AF.request("\(Constant.BASE_URL)/api/posts", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: AllFeedResponse.self) { response in
                 switch response.result {
@@ -21,7 +21,7 @@ class GetAllFeedDataManager {
                     // 실패했을 때
                     else {
                         switch response.code {
-                        default: delegate.failedToGetAllFeed(message: "")
+                        default: delegate.failedToGetAllFeed(message: "피드 불러오기에 실패하였습니다")
                         }
                     }
                 case .failure(let error):

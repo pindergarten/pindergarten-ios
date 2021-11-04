@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.backgroundColor = .white
 
         
-//        window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
-        window?.rootViewController = EventCommentController()
+        window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
+//        window?.rootViewController = EventCommentController()
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
     }

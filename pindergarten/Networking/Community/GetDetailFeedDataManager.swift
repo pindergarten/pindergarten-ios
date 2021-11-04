@@ -8,8 +8,8 @@
 import Alamofire
 
 class GetDetailFeedDataManager {
-    func getADetailFeed(postId: Int, delegate: DetailFeedController) {
-        AF.request("\(Constant.BASE_URL)/api/posts/\(postId)", method: .get, headers: nil)
+    func getADetailFeed(postId: Int, delegate: DetailFeedViewController) {
+        AF.request("\(Constant.BASE_URL)/api/posts/\(postId)", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: DetailFeedResponse.self) { response in
                 switch response.result {

@@ -45,8 +45,8 @@ class CheckUserDataManager {
                     // 실패했을 때
                     else {
                         switch response.code {
-                        case 2003: delegate.failedToCheckUser(message: "중복된 핸드폰 번호입니다.")
-                        default: delegate.failedToCheckUser(message: "피드백을 주세요")
+                        case 2003: delegate.failedToCheckUser(message: "중복된 핸드폰 번호입니다")
+                        default: delegate.failedToCheckUser(message: "")
                         }
                     }
                 case .failure(let error):

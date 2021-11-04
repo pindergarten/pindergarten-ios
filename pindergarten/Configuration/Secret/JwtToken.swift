@@ -7,6 +7,8 @@
 
 import Foundation
 
-struct JwtToken {
+class JwtToken {
+    
     static var token: String = ""
+    
 }

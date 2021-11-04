@@ -20,6 +20,7 @@ struct GetAllFeedResult: Decodable {
     var thumbnail: String
     var nickname: String
     var profileimg: String
+    var isLiked: Int
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -27,6 +28,7 @@ struct GetAllFeedResult: Decodable {
         case thumbnail
         case nickname
         case profileimg = "profile_img"
+        case isLiked
     }
 }
 

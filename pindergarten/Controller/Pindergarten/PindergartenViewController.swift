@@ -8,13 +8,14 @@
 import UIKit
 import Kingfisher
 
-let imageList: [UIImage] = [#imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3") , #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3")  ,#imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3")]
+let imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3") , #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3")  ,#imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3")]
 
 class PindergartenViewController: BaseViewController {
     //MARK: - Properties
     lazy var getAllFeedDataManager: GetAllFeedDataManager = GetAllFeedDataManager()
+    lazy var likeDataManager: LikeDataManager = LikeDataManager()
     
-    
+    var postId: Int = 0
     private var feed: [GetAllFeedResult] = []
     
     private let titleLabel: UILabel = {
@@ -55,8 +56,7 @@ class PindergartenViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.showIndicator()
-        getAllFeedDataManager.getAllFeed(delegate: self)
+//        getAllFeedDataManager.getAllFeed(delegate: self)
         
         configureUI()
         collectionView.delegate = self
@@ -78,6 +78,7 @@ class PindergartenViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = false
+        getAllFeedDataManager.getAllFeed(delegate: self)
     }
     
     //MARK: - Action
@@ -136,15 +137,23 @@ extension PindergartenViewController: UICollectionViewDelegate, UICollectionView
         
         cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg))
         cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail))
+//        cell.imageView.image = #imageLiteral(resourceName: "5")
         cell.nameLabel.text = feed[indexPath.item].nickname
         cell.scriptionLabel.text = feed[indexPath.item].content
+        cell.heartButton.tag = feed[indexPath.item].id
+        
+        if feed[indexPath.item].isLiked == 0 {
+            cell.heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
+        } else if feed[indexPath.item].isLiked == 1 {
+            cell.heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)
+        }
 
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = DetailFeedController()
+        let detailVC = DetailFeedViewController()
         detailVC.postId = feed[indexPath.item].id
         navigationController?.pushViewController(detailVC, animated: true)
     }
@@ -165,23 +174,33 @@ extension PindergartenViewController: PinterestLayoutDelegate {
 }
 
 extension PindergartenViewController: HomeCellDelegate {
-    func didTapHeartButton() {
-//        likeDataManager.like(postId: postId, delegate: self)
+    
+    func didTapHeartButton(tag: Int) {
+        likeDataManager.like(postId: tag, delegate: self)
     }
 }
 
 // 네트워크 함수
 extension PindergartenViewController {
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
-        self.dismissIndicator()
         print("DEBUG: GET ALL FEED")
         feed = result
-        self.collectionView.reloadData()
-        print(result)
+        collectionView.reloadData()
     }
     
     func failedToGetAllFeed(message: String) {
+        self.presentAlert(title: message)
         print("DEBUG: FAILED TO GET ALL FEED")
+    }
+    
+    func didSuccessLike(_ result: LikeResult) {
+        print("DEBUG: Like DETAIL FEED")
+        print(result.isSet)
+        
+    }
+    
+    func failedToLike(message: String) {
+        print("DEBUG: FAILED TO Like DETAIL FEED")
     }
 }
 

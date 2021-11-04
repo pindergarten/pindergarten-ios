@@ -2,18 +2,20 @@
 //  EventCommentController.swift
 //  pindergarten
 //
-//  Created by MIN SEONG KIM on 2021/11/04.
+//  Created by MIN SEONG KIM on 2021/11/02.
 //
 
 import UIKit
 
-class EventCommentController: BaseViewController {
+class CommentController: BaseViewController {
     //MARK: - Properties
-
-
+    
+    lazy var commentDataManager: GetCommentDataManager = GetCommentDataManager()
+    lazy var registerCommentDataManager: PostCommentDataManager = PostCommentDataManager()
+    
     var postId: Int = 0
-
-
+    private var comments: [GetCommentResult] = []
+    
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -21,7 +23,7 @@ class EventCommentController: BaseViewController {
         button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
         return button
     }()
-
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 17)
@@ -29,19 +31,19 @@ class EventCommentController: BaseViewController {
         label.textColor = .mainTextColor
         return label
     }()
-
+    
     private let seperateLine: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(hex: 0xF3F4F6)
         return view
     }()
-
+    
     private let commentSeperateLine: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(hex: 0xEAEAEA)
         return view
     }()
-
+    
     private lazy var commentTextFeild: UITextField = {
         let tf = UITextField()
         tf.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 14)
@@ -58,7 +60,7 @@ class EventCommentController: BaseViewController {
         tf.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         return tf
     }()
-
+    
     private lazy var registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.setAttributedTitle(NSAttributedString(string: "등록", attributes: [.font: UIFont(name: "AppleSDGothicNeo-Bold", size: 14)!]), for: .normal)
@@ -67,7 +69,7 @@ class EventCommentController: BaseViewController {
         button.isUserInteractionEnabled = false
         return button
     }()
-
+    
     private let commentTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
@@ -75,30 +77,29 @@ class EventCommentController: BaseViewController {
         tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        commentDataManager.getComment(postId: postId, delegate: self)
+        
+        
         commentTableView.estimatedRowHeight = 150
         commentTableView.rowHeight = UITableView.automaticDimension
         commentTableView.delegate = self
         commentTableView.dataSource = self
         commentTableView.register(CommentCell.self, forCellReuseIdentifier: CommentCell.identifier)
-
+        
         commentTextFeild.becomeFirstResponder()
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-
-
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
-
-
         configureUI()
     }
-
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -107,22 +108,23 @@ class EventCommentController: BaseViewController {
     @objc private func didTapBackButton() {
         navigationController?.popViewController(animated: true)
     }
-
+    
     @objc private func didTapRegisterButton() {
+        registerCommentDataManager.registerComment(postId: postId, PostCommentRequest(content: commentTextFeild.text ?? ""), delegate: self)
         commentTextFeild.text = ""
         registerButton.tintColor = UIColor(hex: 0x4E5261)
         registerButton.isUserInteractionEnabled = false
         print("DEBUG: TAPPED REGISTER BUTTON")
     }
-
+    
     @objc func keyboardWillShow(_ sender: Notification) {
-
+        
         let userInfo:NSDictionary = sender.userInfo! as NSDictionary;
         let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardRectangle.size.height
-
-
+        
+        
         commentTextFeild.snp.remakeConstraints { remake in
             remake.left.equalTo(view).offset(20)
             remake.right.equalTo(view).offset(-62)
@@ -130,7 +132,7 @@ class EventCommentController: BaseViewController {
             remake.height.equalTo(40)
         }
     }
-
+    
     @objc func keyboardWillHide(_ sender: Notification) {
         commentTextFeild.snp.remakeConstraints { remake in
             remake.left.equalTo(view).offset(20)
@@ -139,12 +141,12 @@ class EventCommentController: BaseViewController {
             remake.height.equalTo(40)
         }
     }
-
+    
     @objc func textFieldDidChange(_ sender: Any?) {
         checkCommentTF()
     }
     //MARK: - Helpers
-
+    
     private func checkCommentTF() {
         if commentTextFeild.text?.count ?? 0 <= 0 {
             registerButton.tintColor = UIColor(hex: 0x4E5261)
@@ -154,7 +156,7 @@ class EventCommentController: BaseViewController {
             registerButton.isUserInteractionEnabled = true
         }
     }
-
+    
     private func configureUI() {
         view.addSubview(backButton)
         view.addSubview(titleLabel)
@@ -163,43 +165,43 @@ class EventCommentController: BaseViewController {
         view.addSubview(commentSeperateLine)
         view.addSubview(commentTextFeild)
         view.addSubview(registerButton)
-
+        
         backButton.snp.makeConstraints { make in
             make.top.equalTo(view.snp.topMargin).offset(22)
             make.left.equalTo(view).offset(8)
             make.width.height.equalTo(30)
         }
-
+        
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalTo(backButton)
             make.centerX.equalTo(view)
         }
-
+        
         seperateLine.snp.makeConstraints { make in
             make.top.equalTo(backButton.snp.bottom).offset(16)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }
-
+        
         commentTableView.snp.makeConstraints { make in
             make.top.equalTo(seperateLine.snp.bottom)
             make.left.right.equalTo(view)
             make.bottom.equalTo(commentSeperateLine)
         }
-
+        
         commentSeperateLine.snp.makeConstraints { make in
             make.height.equalTo(1.5)
             make.left.right.equalTo(view)
             make.bottom.equalTo(commentTextFeild.snp.top).offset(-10)
         }
-
+        
         commentTextFeild.snp.makeConstraints { make in
             make.left.equalTo(view).offset(20)
             make.right.equalTo(view).offset(-62)
             make.bottom.equalTo(view.snp.bottomMargin).offset(-10)
             make.height.equalTo(40)
         }
-
+        
         registerButton.snp.makeConstraints { make in
             make.left.equalTo(commentTextFeild.snp.right).offset(17)
             make.centerY.equalTo(commentTextFeild)
@@ -210,31 +212,30 @@ class EventCommentController: BaseViewController {
 }
 
 //MARK: - Extension
-extension EventCommentController: UITableViewDelegate, UITableViewDataSource {
+extension CommentController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return comments.count
-        0
+        return comments.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
         cell.selectionStyle = .none
-
-//        cell.profileImage.kf.setImage(with: URL(string: comments[indexPath.item].profileimg))
-
+        
+        cell.profileImage.kf.setImage(with: URL(string: comments[indexPath.item].profileimg))
+        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.19
-//        let attributedString = NSMutableAttributedString(string: "\(comments[indexPath.item].nickname)  ", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 14)!, .foregroundColor : UIColor(hex: 0x2D2D2D, alpha: 0.85), .paragraphStyle : paragraphStyle])
-//        attributedString.append(NSAttributedString(string: comments[indexPath.item].content, attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x4E5261, alpha: 0.85), .paragraphStyle : paragraphStyle]))
-//        cell.commentLabel.attributedText = attributedString
-
-//        cell.timeLabel.text = comments[indexPath.item].date
+        let attributedString = NSMutableAttributedString(string: "\(comments[indexPath.item].nickname)  ", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 14)!, .foregroundColor : UIColor(hex: 0x2D2D2D, alpha: 0.85), .paragraphStyle : paragraphStyle])
+        attributedString.append(NSAttributedString(string: comments[indexPath.item].content, attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x4E5261, alpha: 0.85), .paragraphStyle : paragraphStyle]))
+        cell.commentLabel.attributedText = attributedString
+        
+        cell.timeLabel.text = comments[indexPath.item].date
         return cell
     }
 
 }
 
-extension EventCommentController: CommentDelegate {
+extension CommentController: CommentDelegate {
     func didTapCommentButton() {
         let commentVC = CommentController()
         commentVC.postId = self.postId
@@ -243,7 +244,21 @@ extension EventCommentController: CommentDelegate {
 }
 
 // 네트워크 함수
-extension EventCommentController {
-
+extension CommentController {
+    func didSuccessGetComment(_ result: [GetCommentResult]) {
+        comments = result
+        commentTableView.reloadData()
+    }
+    
+    func failedToGetComment(message: String) {
+        self.presentAlert(title: message)
+    }
+    
+    func didSuccessRegisterComment() {
+        commentDataManager.getComment(postId: postId, delegate: self)
+    }
+    
+    func failedToRegisterComment(message: String) {
+        self.presentAlert(title: message)
+    }
 }
-

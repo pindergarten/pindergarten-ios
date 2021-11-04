@@ -124,7 +124,7 @@ class DetailEventController: BaseViewController {
     }
     
     @objc private func goToCommentVC() {
-        navigationController?.pushViewController(EventCommentController(), animated: true)
+        navigationController?.pushViewController(CommentController(), animated: true)
     }
     //MARK: - Helpers
     private func configureUI() {

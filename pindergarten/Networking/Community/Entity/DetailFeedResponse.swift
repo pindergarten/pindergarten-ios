@@ -32,7 +32,6 @@ struct GetDetailFeedResult: Decodable {
 //    }
 //    
     var id: Int
-    var thumbnail: String
     var content: String
     var date: String
     var nickname: String
@@ -40,11 +39,11 @@ struct GetDetailFeedResult: Decodable {
     var imgUrls: [DetailFeedImage]?
     var likeCount: Int
     var commentCount: Int
+    var isLiked: Int
     
     enum CodingKeys: String,CodingKey {
 
         case id
-        case thumbnail
         case content
         case date
         case nickname
@@ -52,7 +51,7 @@ struct GetDetailFeedResult: Decodable {
         case imgUrls
         case likeCount
         case commentCount
-
+        case isLiked
     }
 }
 

@@ -11,7 +11,7 @@ class CommentCell: UITableViewCell {
     //MARK: - Properties
     static let identifier = "CommentCell"
     
-    private let profileImage: UIImageView = {
+    let profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "4")
         imageView.layer.cornerRadius = 17
@@ -19,7 +19,7 @@ class CommentCell: UITableViewCell {
         return imageView
     }()
     
-    private let nameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 14)
         label.textColor = UIColor(hex: 0x2D2D2D, alpha: 0.85)
@@ -35,20 +35,16 @@ class CommentCell: UITableViewCell {
 //        return label
 //    }()
     
-    private let commentLabel: UILabel = {
+    let commentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.19
-        let attributedString = NSMutableAttributedString(string: "oneoneni  ", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 14)!, .foregroundColor : UIColor(hex: 0x2D2D2D, alpha: 0.85), .paragraphStyle : paragraphStyle])
-        attributedString.append(NSAttributedString(string: "장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ장치 꼬미네용 ㅎㅎ 저희도 장치꼬미인데!! 반가워용 ㅎㅎㅎ", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x4E5261, alpha: 0.85), .paragraphStyle : paragraphStyle]))
-        label.attributedText = attributedString
+
         return label
     }()
 
     
-    private let timeLabel: UILabel = {
+    let timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 11)
         label.textColor = UIColor(hex: 0xA1A1A1)

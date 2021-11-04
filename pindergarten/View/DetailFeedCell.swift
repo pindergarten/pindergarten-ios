@@ -13,10 +13,16 @@ protocol DetailFeedCellDelegate: AnyObject {
     func didTapHeartButton()
 }
 
+protocol CommentDelegate: AnyObject {
+    func didTapCommentButton()
+}
+
+
 class DetailFeedCell: UITableViewCell {
     //MARK: - Properties
     static let identifier = "DetailFeedCell"
     weak var delegate: DetailFeedCellDelegate?
+    weak var commentDelegate: CommentDelegate?
     
     let images = [
         ImageSource(image: #imageLiteral(resourceName: "4")),
@@ -72,6 +78,7 @@ class DetailFeedCell: UITableViewCell {
     lazy var commentButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "commentImage"), for: .normal)
+        button.addTarget(self, action: #selector(didTapCommentButton), for: .touchUpInside)
         return button
     }()
     
@@ -123,7 +130,7 @@ class DetailFeedCell: UITableViewCell {
 
         configureUI()
         
-        imageSlide.setImageInputs(images)
+//        imageSlide.setImageInputs(images)
         imageSlide.contentMode = .scaleToFill
         imageSlide.circular = false
         
@@ -135,15 +142,19 @@ class DetailFeedCell: UITableViewCell {
     }
     
     //MARK: - Action
-    @objc func didTapHeartButton() {
+    @objc func didTapHeartButton(isSet: Int) {
         delegate?.didTapHeartButton()
         print("DEBUG: TAPPED HEART BUTTON")
-        if !heartButton.isSelected {
-            heartButton.isSelected = true
+        if isSet == 0 {
+            heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal)
         } else {
-            heartButton.isSelected = false
+            heartButton.setImage(#imageLiteral(resourceName: "feedFilledHeartImage"), for: .normal)
         }
-        print(heartButton.isSelected)
+    }
+    
+    @objc func didTapCommentButton() {
+        commentDelegate?.didTapCommentButton()
+        print("DEBUG: TAPPED COMMENT BUTTON")
     }
     //MARK: - Helpers
     private func configureUI() {

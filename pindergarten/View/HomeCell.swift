@@ -7,7 +7,7 @@
 
 import UIKit
 protocol HomeCellDelegate: AnyObject {
-    func didTapHeartButton()
+    func didTapHeartButton(tag: Int)
 }
 
 
@@ -27,11 +27,11 @@ class HomeCell: UICollectionViewCell {
         return imageView
     }()
     
-    let heartButton: UIButton = {
+    lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "heartButton"), for: .normal)
-        button.setImage(UIImage(named: "filledHeartButton"), for: .selected)
         button.tintColor = .clear
+        button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         return button
     }()
     
@@ -64,7 +64,6 @@ class HomeCell: UICollectionViewCell {
         super.init(frame: frame)
         
         configureUI()
-        heartButton.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         
         layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.6, x: 0, y: 5, blur: 15)
         clipsToBounds = true
@@ -80,19 +79,17 @@ class HomeCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        heartButton.isSelected = false
     }
     
     //MARK: - Action
     @objc func didTapHeartButton() {
-        delegate?.didTapHeartButton()
+        delegate?.didTapHeartButton(tag: heartButton.tag)
         print("DEBUG: TAPPED HEART BUTTON")
-        if !heartButton.isSelected {
-            heartButton.isSelected = true
+        if heartButton.currentImage == UIImage(named: "heartButton") {
+            heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)
         } else {
-            heartButton.isSelected = false
+            heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
         }
-        print(heartButton.isSelected)
     }
     //MARK: - Helpers
     private func configureUI() {
