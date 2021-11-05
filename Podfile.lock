@@ -5,6 +5,7 @@ PODS:
   - AlamofireNetworkActivityIndicator (3.1.0):
     - Alamofire (~> 5.1)
   - AnyFormatKit (2.5.1)
+  - DropDown (2.3.13)
   - ImageSlideshow (1.9.2):
     - ImageSlideshow/Core (= 1.9.2)
   - ImageSlideshow/Alamofire (1.9.2):
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.4)
   - AlamofireNetworkActivityIndicator
   - AnyFormatKit (~> 2.5.1)
+  - DropDown
   - ImageSlideshow (~> 1.9.0)
   - ImageSlideshow/Alamofire
   - Kingfisher
@@ -33,6 +35,7 @@ SPEC REPOS:
     - AlamofireImage
     - AlamofireNetworkActivityIndicator
     - AnyFormatKit
+    - DropDown
     - ImageSlideshow
     - Kingfisher
     - Pageboy
@@ -44,12 +47,13 @@ SPEC CHECKSUMS:
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
   AlamofireNetworkActivityIndicator: 6564782bd7b9e6c430ae67d9277af01907b01ca4
   AnyFormatKit: 4ef60ad3f48c69962d482bb2de0a6d3214e8527b
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
 
-PODFILE CHECKSUM: 40a4f9d7c5ba64748f158cee5f002da4c4d41789
+PODFILE CHECKSUM: d430f22a24cd1d586057420e1e949c399c1968e3
 
 COCOAPODS: 1.10.1

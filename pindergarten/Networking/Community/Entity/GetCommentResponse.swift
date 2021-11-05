@@ -11,7 +11,7 @@ struct GetCommentResponse: Decodable {
     var isSuccess: Bool
     var code: Int
     var message: String
-    var result: [GetCommentResult]?
+    var comments: [GetCommentResult]?
 }
 
 struct GetCommentResult: Decodable {

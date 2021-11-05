@@ -14,6 +14,7 @@ class DetailFeedViewController: BaseViewController {
     
     lazy var getDetailFeedDataManager: GetDetailFeedDataManager = GetDetailFeedDataManager()
     lazy var likeDataManager: LikeDataManager = LikeDataManager()
+    lazy var deleteFeedDataManager: DeleteFeedDataManager = DeleteFeedDataManager()
     
     var postId: Int = 0
     
@@ -375,6 +376,17 @@ extension DetailFeedViewController {
     }
     
     func failedToLike(message: String) {
+        self.presentAlert(title: message)
         print("DEBUG: FAILED TO Like DETAIL FEED")
+    }
+    
+    func didSuccessDeleteFeed() {
+        self.presentAlert(title: "게시물이 삭제되었습니다")
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func failedToDeleteFeed(message: String) {
+        self.presentAlert(title: message)
+        print("DEBUG: FAILED TO DELETE FEED")
     }
 }

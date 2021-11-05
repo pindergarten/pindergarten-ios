@@ -12,6 +12,7 @@ class CommentController: BaseViewController {
     
     lazy var commentDataManager: GetCommentDataManager = GetCommentDataManager()
     lazy var registerCommentDataManager: PostCommentDataManager = PostCommentDataManager()
+    lazy var deleteCommentDataManager: DeleteCommentDataManager = DeleteCommentDataManager()
     
     var postId: Int = 0
     private var comments: [GetCommentResult] = []
@@ -261,4 +262,14 @@ extension CommentController {
     func failedToRegisterComment(message: String) {
         self.presentAlert(title: message)
     }
+    
+    func didSuccessDeleteComment() {
+
+    }
+    
+    func failedToDeleteComment(message: String) {
+        self.presentAlert(title: message)
+    }
+    
+    
 }

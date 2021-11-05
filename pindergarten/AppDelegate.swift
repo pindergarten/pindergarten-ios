@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DropDown
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 11)!], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 11)!], for: .selected)
+        
+        DropDown.startListeningToKeyboard()
         
         return true
     }

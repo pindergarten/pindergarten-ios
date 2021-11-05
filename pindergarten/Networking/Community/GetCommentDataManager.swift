@@ -16,7 +16,7 @@ class GetCommentDataManager {
                 switch response.result {
                 case .success(let response):
                     // 성공했을 때
-                    if response.isSuccess, let result = response.result {
+                    if response.isSuccess, let result = response.comments {
                         delegate.didSuccessGetComment(result)
                     }
                     // 실패했을 때
