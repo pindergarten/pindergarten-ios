@@ -228,6 +228,7 @@ extension LoginViewController {
     func didSuccessLogin(_ result: LoginResult) {
         changeRootViewController(HomeTabBarController())
         JwtToken.token = result.jwt
+        JwtToken.userId = result.userId
         print("DEBUG: Enable to Login")
     }
     

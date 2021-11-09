@@ -11,7 +11,9 @@ class EventCell: UICollectionViewCell {
     //MARK: - Properties
     static let identifier = "EventCell"
     
-    private let eventImage: UIImageView = {
+    var id: Int = 0
+    
+    let eventImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
@@ -32,7 +34,7 @@ class EventCell: UICollectionViewCell {
         return view
     }()
     
-    private let dDayLabel: UILabel = {
+    let dDayLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 15)
         label.textColor = UIColor(hex: 0x3D3D3D)
@@ -40,7 +42,7 @@ class EventCell: UICollectionViewCell {
         return label
     }()
     
-    private let eventLabel: UILabel = {
+    let eventLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         label.text = "이벤트 제목"

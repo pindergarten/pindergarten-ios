@@ -10,7 +10,7 @@ import UIKit
 class CommentController: BaseViewController {
     //MARK: - Properties
     
-    lazy var commentDataManager: GetCommentDataManager = GetCommentDataManager()
+    lazy var getCommentDataManager: GetCommentDataManager = GetCommentDataManager()
     lazy var registerCommentDataManager: PostCommentDataManager = PostCommentDataManager()
     lazy var deleteCommentDataManager: DeleteCommentDataManager = DeleteCommentDataManager()
     
@@ -83,7 +83,7 @@ class CommentController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        commentDataManager.getComment(postId: postId, delegate: self)
+        getCommentDataManager.getComment(postId: postId, delegate: self)
         
         
         commentTableView.estimatedRowHeight = 150
@@ -146,6 +146,7 @@ class CommentController: BaseViewController {
     @objc func textFieldDidChange(_ sender: Any?) {
         checkCommentTF()
     }
+    
     //MARK: - Helpers
     
     private func checkCommentTF() {
@@ -221,7 +222,7 @@ extension CommentController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
         cell.selectionStyle = .none
-        
+        cell.delegate = self
         cell.profileImage.kf.setImage(with: URL(string: comments[indexPath.item].profileimg))
         
         let paragraphStyle = NSMutableParagraphStyle()
@@ -231,6 +232,9 @@ extension CommentController: UITableViewDelegate, UITableViewDataSource {
         cell.commentLabel.attributedText = attributedString
         
         cell.timeLabel.text = comments[indexPath.item].date
+        cell.commentId = comments[indexPath.item].id
+        cell.userId = comments[indexPath.item].userId
+
         return cell
     }
 
@@ -241,6 +245,26 @@ extension CommentController: CommentDelegate {
         let commentVC = CommentController()
         commentVC.postId = self.postId
         navigationController?.pushViewController(commentVC, animated: true)
+    }
+}
+extension CommentController: CommentCellDelegate {
+
+    func didLongPressComment(commentId: Int, userId: Int) {
+        print(commentId)
+        print(userId)
+        if JwtToken.userId == userId {
+             let actionDelete = UIAlertAction(title: "댓글 삭제하기", style: .destructive) { action in
+                self.deleteCommentDataManager.deleteComment(postId: self.postId, commentId: commentId, delegate: self)
+             }
+
+             let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+             }
+
+             self.presentAlert(
+                 preferredStyle: .actionSheet,
+                 with: actionDelete, actionCancel
+             )
+        }
     }
 }
 
@@ -256,7 +280,7 @@ extension CommentController {
     }
     
     func didSuccessRegisterComment() {
-        commentDataManager.getComment(postId: postId, delegate: self)
+        getCommentDataManager.getComment(postId: postId, delegate: self)
     }
     
     func failedToRegisterComment(message: String) {
@@ -264,7 +288,7 @@ extension CommentController {
     }
     
     func didSuccessDeleteComment() {
-
+        getCommentDataManager.getComment(postId: postId, delegate: self)
     }
     
     func failedToDeleteComment(message: String) {

@@ -10,7 +10,7 @@ import Alamofire
 class GetCommentDataManager {
     
     func getComment(postId: Int, delegate: CommentController) {
-        AF.request("\(Constant.BASE_URL)/api/posts/\(postId)/comments", method: .get, headers: nil)
+        AF.request("\(Constant.BASE_URL)/api/posts/\(postId)/comments", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetCommentResponse.self) { response in
                 switch response.result {

@@ -89,6 +89,11 @@ class PindergartenViewController: BaseViewController {
     @objc func didTapEventButton() {
         navigationController?.pushViewController(EventViewController(), animated: true)
     }
+    
+    @objc func didTapHeartButton(sender: UIButton) {
+        likeDataManager.like(postId: sender.tag, delegate: self)
+    }
+    
     //MARK: - Helpers
     func configureUI() {
         view.addSubview(titleLabel)
@@ -133,14 +138,13 @@ extension PindergartenViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
  
-        cell.delegate = self
         
         cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg))
         cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail))
-//        cell.imageView.image = #imageLiteral(resourceName: "5")
         cell.nameLabel.text = feed[indexPath.item].nickname
         cell.scriptionLabel.text = feed[indexPath.item].content
         cell.heartButton.tag = feed[indexPath.item].id
+        cell.heartButton.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         
         if feed[indexPath.item].isLiked == 0 {
             cell.heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
@@ -173,13 +177,6 @@ extension PindergartenViewController: PinterestLayoutDelegate {
     }
 }
 
-extension PindergartenViewController: HomeCellDelegate {
-    
-    func didTapHeartButton(tag: Int) {
-        likeDataManager.like(postId: tag, delegate: self)
-    }
-}
-
 // 네트워크 함수
 extension PindergartenViewController {
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
@@ -195,11 +192,11 @@ extension PindergartenViewController {
     
     func didSuccessLike(_ result: LikeResult) {
         print("DEBUG: Like DETAIL FEED")
-        print(result.isSet)
-        
+        getAllFeedDataManager.getAllFeed(delegate: self)
     }
     
     func failedToLike(message: String) {
+        self.presentAlert(title: message)
         print("DEBUG: FAILED TO Like DETAIL FEED")
     }
 }

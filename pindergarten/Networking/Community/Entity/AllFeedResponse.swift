@@ -30,6 +30,10 @@ struct GetAllFeedResult: Decodable {
         case profileimg = "profile_img"
         case isLiked
     }
+    
+    static func ==(left: GetAllFeedResult, right: GetAllFeedResult) -> Bool {
+        return left.id == right.id 
+    }
 }
 
 

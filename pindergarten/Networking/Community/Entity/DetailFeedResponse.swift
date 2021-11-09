@@ -16,24 +16,11 @@ struct DetailFeedResponse: Decodable {
 }
 
 struct GetDetailFeedResult: Decodable {
-    
-//    init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        id = try container.decode(Int.self, forKey: .id)
-//        thumbnail = try container.decode(String.self, forKey: .thumbnail)
-//        content = try container.decode(String.self, forKey: .content)
-//        date = try container.decode(String.self, forKey: .date)
-//        nickname = try container.decode(String.self, forKey: .nickname)
-//        profileimg = try container.decode(String.self, forKey: .profileimg)
-//        imgUrls = try container.decode([DetailFeedImage]?.self, forKey: .imgUrls)
-//        likeCount = try container.decode(Int.self, forKey: .likeCount)
-//        commentCount = try container.decode(Int.self, forKey: .commentCount)
-//        
-//    }
-//    
+
     var id: Int
     var content: String
     var date: String
+    var userId: Int
     var nickname: String
     var profileimg: String
     var imgUrls: [DetailFeedImage]?
@@ -46,6 +33,7 @@ struct GetDetailFeedResult: Decodable {
         case id
         case content
         case date
+        case userId
         case nickname
         case profileimg = "profile_img"
         case imgUrls

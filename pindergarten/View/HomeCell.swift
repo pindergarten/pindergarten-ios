@@ -6,16 +6,17 @@
 //
 
 import UIKit
-protocol HomeCellDelegate: AnyObject {
-    func didTapHeartButton(tag: Int)
-}
+
+//protocol HomeCellDelegate: AnyObject {
+//    func didTapHeartButton(tag: Int)
+//}
 
 
 
 class HomeCell: UICollectionViewCell {
     //MARK: - Properties
     static let identifier = "HomeCell"
-    weak var delegate: HomeCellDelegate?
+//    weak var delegate: HomeCellDelegate?
 
     
     let imageView: UIImageView = {
@@ -31,7 +32,6 @@ class HomeCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "heartButton"), for: .normal)
         button.tintColor = .clear
-        button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         return button
     }()
     
@@ -83,7 +83,7 @@ class HomeCell: UICollectionViewCell {
     
     //MARK: - Action
     @objc func didTapHeartButton() {
-        delegate?.didTapHeartButton(tag: heartButton.tag)
+//        delegate?.didTapHeartButton(tag: heartButton.tag)
         print("DEBUG: TAPPED HEART BUTTON")
         if heartButton.currentImage == UIImage(named: "heartButton") {
             heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)

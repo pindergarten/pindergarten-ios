@@ -1,20 +1,20 @@
 //
-//  GetCommentResponse.swift
+//  GetEventCommentResponse.swift
 //  pindergarten
 //
-//  Created by MIN SEONG KIM on 2021/11/04.
+//  Created by MIN SEONG KIM on 2021/11/09.
 //
 
 import Foundation
 
-struct GetCommentResponse: Decodable {
+struct GetEventCommentResponse: Decodable {
     var isSuccess: Bool
     var code: Int
     var message: String
-    var comments: [GetCommentResult]?
+    var comments: [GetEventCommentResult]?
 }
 
-struct GetCommentResult: Decodable {
+struct GetEventCommentResult: Decodable {
     var id: Int
     var userId: Int
     var nickname: String
@@ -31,6 +31,9 @@ struct GetCommentResult: Decodable {
         case profileimg = "profile_img"
         case date
         case content
-
+    }
+    
+    static func ==(left: GetEventCommentResult, right: GetEventCommentResult) -> Bool {
+        return left.id == right.id
     }
 }

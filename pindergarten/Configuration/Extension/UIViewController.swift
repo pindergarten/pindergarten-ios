@@ -38,7 +38,7 @@ extension UIViewController {
     }
     
     // MARK: 커스텀 UIAction이 뜨는 UIAlertController
-    func presentAlert(title: String, message: String? = nil,
+    func presentAlert(title: String? = nil, message: String? = nil,
                       isCancelActionIncluded: Bool = false,
                       preferredStyle style: UIAlertController.Style = .alert,
                       with actions: UIAlertAction ...) {

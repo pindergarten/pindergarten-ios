@@ -1,15 +1,16 @@
 //
-//  DeleteCommentDataManager.swift
+//  DeleteEventCommentDataManager.swift
 //  pindergarten
 //
-//  Created by MIN SEONG KIM on 2021/11/06.
+//  Created by MIN SEONG KIM on 2021/11/10.
 //
 
 import Alamofire
 
-class DeleteCommentDataManager {
-    func deleteComment(postId: Int, commentId: Int,delegate: CommentController) {
-        AF.request("\(Constant.BASE_URL)/api/posts/\(postId)/comments/\(commentId)", method: .delete, headers: Constant.HEADERS)
+class DeleteEventCommentDataManager {
+
+    func deleteComment(eventId: Int, commentId: Int,delegate: EventCommentController) {
+        AF.request("\(Constant.BASE_URL)/api/events/\(eventId)/comments/\(commentId)", method: .delete, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: DeleteCommentResponse.self) { response in
                 switch response.result {
@@ -31,3 +32,4 @@ class DeleteCommentDataManager {
             }
     }
 }
+

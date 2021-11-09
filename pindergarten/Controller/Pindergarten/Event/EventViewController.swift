@@ -9,6 +9,9 @@ import UIKit
 
 class EventViewController: BaseViewController {
     //MARK: - Properties
+    lazy var getAllEventDataManager: GetAllEventDataManager = GetAllEventDataManager()
+    private var event: [GetAllEventResult] = []
+    
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -47,10 +50,12 @@ class EventViewController: BaseViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+            
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(EventCell.self, forCellWithReuseIdentifier: EventCell.identifier)
+        
+        getAllEventDataManager.getAllEvent(delegate: self)
         
         configureUI()
     }
@@ -107,19 +112,28 @@ class EventViewController: BaseViewController {
 
 extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return event.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.identifier, for: indexPath) as! EventCell
+        let index = indexPath.item
+        
+        cell.eventImage.kf.setImage(with: URL(string: event[index].thumbnail))
+        cell.eventLabel.text = event[index].title
+        cell.id = event[index].id
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let index = indexPath.item
+        
         collectionView.deselectItem(at: indexPath, animated: true)
-        navigationController?.pushViewController(DetailEventController(), animated: true)
+        let detailVC = DetailEventController()
+        detailVC.id = event[index].id
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     
@@ -140,5 +154,19 @@ extension EventViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 10
+    }
+}
+
+// 네트워크 함수
+extension EventViewController {
+    func didSuccessGetAllEvent(_ result: [GetAllEventResult]) {
+        print("DEBUG: GET ALL FEED")
+        self.event = result
+        collectionView.reloadData()
+    }
+    
+    func failedToGetAllEvent(message: String) {
+        self.presentAlert(title: message)
+        print("DEBUG: FAILED TO GET ALL FEED")
     }
 }

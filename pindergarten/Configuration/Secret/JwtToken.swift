@@ -10,5 +10,6 @@ import Foundation
 class JwtToken {
     
     static var token: String = ""
+    static var userId: Int = 0
     
 }

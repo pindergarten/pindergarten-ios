@@ -20,13 +20,13 @@ class DetailFeedViewController: BaseViewController {
     
     private var detailFeed: GetDetailFeedResult?
     
-    private let scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
         return scrollView
     }()
     
-    private let containerView: UIView = {
+    private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         return view
@@ -70,7 +70,11 @@ class DetailFeedViewController: BaseViewController {
     }()
 
     
-    var imageSlide = ImageSlideshow()
+    var imageSlide: ImageSlideshow = {
+        let image = ImageSlideshow()
+
+        return image
+    }()
     
     lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
@@ -78,7 +82,7 @@ class DetailFeedViewController: BaseViewController {
         button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         return button
     }()
-    
+     
     let heartLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
@@ -110,13 +114,13 @@ class DetailFeedViewController: BaseViewController {
     
     let contentLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.lineBreakMode = .byWordWrapping
         label.textColor = UIColor(hex: 0x858585)
 
         var paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.28
-        label.attributedText = NSMutableAttributedString(string: "잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ", attributes: [.font: UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!, .paragraphStyle: paragraphStyle])
+        label.attributedText = NSMutableAttributedString(string: "잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ", attributes: [.font: UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!, .paragraphStyle: paragraphStyle])
         return label
     }()
     
@@ -134,14 +138,21 @@ class DetailFeedViewController: BaseViewController {
         return label
     }()
     
+    let pageIndicator = UIPageControl()
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
 //        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
-  
+        
         imageSlide.contentMode = .scaleToFill
         imageSlide.circular = false
+        
+        
+        pageIndicator.currentPageIndicatorTintColor = UIColor.mainLightYellow
+        pageIndicator.pageIndicatorTintColor = UIColor(hex: 0xC4C4C4)
+        imageSlide.pageIndicator = pageIndicator
+        imageSlide.activityIndicator = DefaultActivityIndicator(style: .large, color: .mainLightYellow)
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapImage))
         imageSlide.addGestureRecognizer(gestureRecognizer)
@@ -165,7 +176,36 @@ class DetailFeedViewController: BaseViewController {
     
     //MARK: - Action
     @objc private func didTapMenuButton() {
-        
+   
+        if JwtToken.userId == detailFeed?.userId {
+            let actionDelete = UIAlertAction(title: "게시물 삭제하기", style: .destructive) { action in
+                self.deleteFeedDataManager.deleteFeed(postId: self.postId, delegate: self)
+            }
+            
+            let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+            }
+            
+              self.presentAlert(
+                  preferredStyle: .actionSheet,
+                  with: actionDelete, actionCancel
+              )
+        } else {
+            let actionReport = UIAlertAction(title: "신고하기", style: .destructive) { [weak self] action in
+                let reportVC = ReportController()
+                reportVC.postId = self?.postId ?? 0
+                self?.navigationController?.pushViewController(reportVC, animated: true)
+            }
+            
+            let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+            }
+            
+            
+              self.presentAlert(
+                  preferredStyle: .actionSheet,
+                  with: actionReport, actionCancel
+              )
+        }
+    
     }
     
     @objc private func didTapImage() {
@@ -175,27 +215,13 @@ class DetailFeedViewController: BaseViewController {
     @objc private func didTapMoreLabel(sender: UITapGestureRecognizer) {
         
         moreLabel.isHidden = true
+        contentLabel.numberOfLines = 0
         contentLabel.snp.remakeConstraints { remake in
             remake.top.equalTo(heartButton.snp.bottom).offset(16)
-            remake.left.equalTo(view).offset(20)
-            remake.right.equalTo(view).offset(-57)
+            remake.left.equalTo(containerView).offset(20)
+            remake.right.equalTo(containerView).offset(-57)
+            remake.bottom.lessThanOrEqualTo(containerView).offset(-20)
         }
-//        if moreLabel.text == "더보기" {
-//            moreLabel.text = "접기"
-//            contentLabel.snp.remakeConstraints { remake in
-//                remake.top.equalTo(heartButton.snp.bottom).offset(16)
-//                remake.left.equalTo(view).offset(20)
-//                remake.right.equalTo(view).offset(-57)
-//            }
-//        } else {
-//            moreLabel.text = "더보기"
-//            contentLabel.snp.remakeConstraints { remake in
-//                remake.top.equalTo(heartButton.snp.bottom).offset(16)
-//                remake.left.equalTo(view).offset(20)
-//                remake.right.equalTo(view).offset(-57)
-//                remake.height.equalTo(40)
-//            }
-//        }
         
     }
     
@@ -228,6 +254,7 @@ class DetailFeedViewController: BaseViewController {
         containerView.addSubview(imageSlide)
         containerView.addSubview(heartButton)
         containerView.addSubview(heartLabel)
+        containerView.addSubview(pageIndicator)
         containerView.addSubview(commentButton)
         containerView.addSubview(commentLabel)
         containerView.addSubview(dateLabel)
@@ -256,13 +283,13 @@ class DetailFeedViewController: BaseViewController {
         }
         
         containerView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView)
+            make.top.left.right.bottom.equalTo(scrollView)
             make.width.equalTo(scrollView)
             make.height.greaterThanOrEqualTo(scrollView)
         }
         
         profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(seperateLine.snp.bottom).offset(20)
+            make.top.equalTo(containerView).offset(20)
             make.left.equalTo(view).offset(20)
             make.width.height.equalTo(30)
         }
@@ -295,6 +322,11 @@ class DetailFeedViewController: BaseViewController {
             make.left.equalTo(heartButton.snp.right).offset(6)
         }
 
+        pageIndicator.snp.makeConstraints { make in
+            make.centerY.equalTo(heartLabel)
+            make.centerX.equalTo(containerView)
+        }
+        
         commentButton.snp.makeConstraints { make in
             make.centerY.equalTo(heartButton)
             make.left.equalTo(heartLabel.snp.right).offset(12)
@@ -315,7 +347,6 @@ class DetailFeedViewController: BaseViewController {
             make.top.equalTo(heartButton.snp.bottom).offset(16)
             make.left.equalTo(view).offset(20)
             make.right.equalTo(view).offset(-57)
-            make.height.equalTo(40)
         }
         
         moreLabel.snp.makeConstraints { make in
@@ -367,12 +398,13 @@ extension DetailFeedViewController {
         
         if result.isSet == 0 {
             heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal)
-            
+            heartLabel.text = "\(Int(heartLabel.text!)!-1)"
         } else {
             heartButton.setImage(#imageLiteral(resourceName: "feedFilledHeartImage"), for: .normal)
+            heartLabel.text = "\(Int(heartLabel.text!)!+1)"
         }
         
-        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
+        
     }
     
     func failedToLike(message: String) {
@@ -381,8 +413,10 @@ extension DetailFeedViewController {
     }
     
     func didSuccessDeleteFeed() {
-        self.presentAlert(title: "게시물이 삭제되었습니다")
-        navigationController?.popViewController(animated: true)
+        self.presentAlert(title: "게시물이 삭제되었습니다") { alert in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     func failedToDeleteFeed(message: String) {

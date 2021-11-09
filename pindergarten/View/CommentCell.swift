@@ -7,9 +7,18 @@
 
 import UIKit
 
+protocol CommentCellDelegate: AnyObject {
+    func didLongPressComment(commentId: Int, userId: Int)
+}
+
 class CommentCell: UITableViewCell {
     //MARK: - Properties
     static let identifier = "CommentCell"
+//    var commmentInfo: GetCommentResult?
+    var commentId: Int = 0
+    var userId: Int = 0
+    
+    weak var delegate: CommentCellDelegate?
     
     let profileImage: UIImageView = {
         let imageView = UIImageView()
@@ -52,11 +61,14 @@ class CommentCell: UITableViewCell {
         return label
     }()
     
+
     //MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureUI()
+        putGesture()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -64,8 +76,18 @@ class CommentCell: UITableViewCell {
     }
     
     //MARK: - Action
-    
+    @objc private func didLongPressComment(_ gesture: UILongPressGestureRecognizer) {
+        print("DEBUG: LONG PRESS")
+        delegate?.didLongPressComment(commentId: self.commentId, userId: self.userId)
+    }
     //MARK: - Helpers
+    private func putGesture() {
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressComment(_:)))
+        gestureRecognizer.numberOfTouchesRequired = 1
+        gestureRecognizer.numberOfTapsRequired = 0
+        addGestureRecognizer(gestureRecognizer)
+    }
+    
     private func configureUI() {
         backgroundColor = .white
         
@@ -73,6 +95,7 @@ class CommentCell: UITableViewCell {
 //        addSubview(nameLabel)
         addSubview(commentLabel)
         addSubview(timeLabel)
+
         
         profileImage.snp.makeConstraints { make in
             make.width.height.equalTo(34)

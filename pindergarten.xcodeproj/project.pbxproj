@@ -33,6 +33,23 @@
 		247B84492735026C00591CC4 /* ReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247B84482735026C00591CC4 /* ReportController.swift */; };
 		247B844D2735897900591CC4 /* DeleteCommentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247B844C2735897900591CC4 /* DeleteCommentDataManager.swift */; };
 		247B844F27358A7500591CC4 /* DeleteCommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247B844E27358A7500591CC4 /* DeleteCommentResponse.swift */; };
+		24994D8B27397481005A604B /* GetAllEventDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994D8A27397481005A604B /* GetAllEventDataManager.swift */; };
+		24994D8D273974C4005A604B /* GetAllEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994D8C273974C4005A604B /* GetAllEventResponse.swift */; };
+		24994D8F27397C77005A604B /* GetDetailEventDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994D8E27397C77005A604B /* GetDetailEventDataManager.swift */; };
+		24994D9127397CC2005A604B /* DetailEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994D9027397CC2005A604B /* DetailEventResponse.swift */; };
+		24994D93273985FC005A604B /* EventLikeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994D92273985FC005A604B /* EventLikeDataManager.swift */; };
+		24994D9527398674005A604B /* EventLikeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994D9427398674005A604B /* EventLikeResponse.swift */; };
+		24994D97273A5B18005A604B /* GetEventCommentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994D96273A5B18005A604B /* GetEventCommentDataManager.swift */; };
+		24994D99273A5B93005A604B /* GetEventCommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994D98273A5B93005A604B /* GetEventCommentResponse.swift */; };
+		24994D9D273AC616005A604B /* PostEventCommentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994D9C273AC616005A604B /* PostEventCommentDataManager.swift */; };
+		24994D9F273AC63F005A604B /* PostEventCommentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994D9E273AC63F005A604B /* PostEventCommentRequest.swift */; };
+		24994DA1273AC69A005A604B /* PostEventCommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DA0273AC69A005A604B /* PostEventCommentResponse.swift */; };
+		24994DA3273AC7D2005A604B /* DeleteEventCommentDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DA2273AC7D2005A604B /* DeleteEventCommentDataManager.swift */; };
+		24994DA5273AC7DC005A604B /* DeleteEventCommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DA4273AC7DC005A604B /* DeleteEventCommentResponse.swift */; };
+		24994DA7273AD9FB005A604B /* ReportDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DA6273AD9FB005A604B /* ReportDataManager.swift */; };
+		24994DA9273ADA1F005A604B /* ReportRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DA8273ADA1F005A604B /* ReportRequest.swift */; };
+		24994DAB273ADA27005A604B /* ReportResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DAA273ADA27005A604B /* ReportResponse.swift */; };
+		24994DAD273B00DE005A604B /* EventHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DAC273B00DE005A604B /* EventHeaderView.swift */; };
 		24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6A92725423A00FD519D /* AppDelegate.swift */; };
 		24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6AB2725423A00FD519D /* SceneDelegate.swift */; };
 		24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6B22725423B00FD519D /* Assets.xcassets */; };
@@ -139,6 +156,23 @@
 		247B84482735026C00591CC4 /* ReportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportController.swift; sourceTree = "<group>"; };
 		247B844C2735897900591CC4 /* DeleteCommentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCommentDataManager.swift; sourceTree = "<group>"; };
 		247B844E27358A7500591CC4 /* DeleteCommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCommentResponse.swift; sourceTree = "<group>"; };
+		24994D8A27397481005A604B /* GetAllEventDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllEventDataManager.swift; sourceTree = "<group>"; };
+		24994D8C273974C4005A604B /* GetAllEventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllEventResponse.swift; sourceTree = "<group>"; };
+		24994D8E27397C77005A604B /* GetDetailEventDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDetailEventDataManager.swift; sourceTree = "<group>"; };
+		24994D9027397CC2005A604B /* DetailEventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEventResponse.swift; sourceTree = "<group>"; };
+		24994D92273985FC005A604B /* EventLikeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLikeDataManager.swift; sourceTree = "<group>"; };
+		24994D9427398674005A604B /* EventLikeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLikeResponse.swift; sourceTree = "<group>"; };
+		24994D96273A5B18005A604B /* GetEventCommentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventCommentDataManager.swift; sourceTree = "<group>"; };
+		24994D98273A5B93005A604B /* GetEventCommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetEventCommentResponse.swift; sourceTree = "<group>"; };
+		24994D9C273AC616005A604B /* PostEventCommentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEventCommentDataManager.swift; sourceTree = "<group>"; };
+		24994D9E273AC63F005A604B /* PostEventCommentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEventCommentRequest.swift; sourceTree = "<group>"; };
+		24994DA0273AC69A005A604B /* PostEventCommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEventCommentResponse.swift; sourceTree = "<group>"; };
+		24994DA2273AC7D2005A604B /* DeleteEventCommentDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteEventCommentDataManager.swift; sourceTree = "<group>"; };
+		24994DA4273AC7DC005A604B /* DeleteEventCommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteEventCommentResponse.swift; sourceTree = "<group>"; };
+		24994DA6273AD9FB005A604B /* ReportDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDataManager.swift; sourceTree = "<group>"; };
+		24994DA8273ADA1F005A604B /* ReportRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportRequest.swift; sourceTree = "<group>"; };
+		24994DAA273ADA27005A604B /* ReportResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportResponse.swift; sourceTree = "<group>"; };
+		24994DAC273B00DE005A604B /* EventHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHeaderView.swift; sourceTree = "<group>"; };
 		24C4D6A62725423A00FD519D /* pindergarten.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pindergarten.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C4D6A92725423A00FD519D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24C4D6AB2725423A00FD519D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -267,6 +301,8 @@
 				247B8442273433CA00591CC4 /* PostCommentRequest.swift */,
 				247B8440273433BD00591CC4 /* PostCommentResponse.swift */,
 				247B844E27358A7500591CC4 /* DeleteCommentResponse.swift */,
+				24994DA8273ADA1F005A604B /* ReportRequest.swift */,
+				24994DAA273ADA27005A604B /* ReportResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -280,6 +316,34 @@
 				247B84482735026C00591CC4 /* ReportController.swift */,
 			);
 			path = Feed;
+			sourceTree = "<group>";
+		};
+		24994D882739745E005A604B /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				24994D8A27397481005A604B /* GetAllEventDataManager.swift */,
+				24994D8E27397C77005A604B /* GetDetailEventDataManager.swift */,
+				24994D92273985FC005A604B /* EventLikeDataManager.swift */,
+				24994D96273A5B18005A604B /* GetEventCommentDataManager.swift */,
+				24994D9C273AC616005A604B /* PostEventCommentDataManager.swift */,
+				24994DA2273AC7D2005A604B /* DeleteEventCommentDataManager.swift */,
+				24994D8927397464005A604B /* Entity */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		24994D8927397464005A604B /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				24994D8C273974C4005A604B /* GetAllEventResponse.swift */,
+				24994D9027397CC2005A604B /* DetailEventResponse.swift */,
+				24994D9427398674005A604B /* EventLikeResponse.swift */,
+				24994D98273A5B93005A604B /* GetEventCommentResponse.swift */,
+				24994D9E273AC63F005A604B /* PostEventCommentRequest.swift */,
+				24994DA0273AC69A005A604B /* PostEventCommentResponse.swift */,
+				24994DA4273AC7DC005A604B /* DeleteEventCommentResponse.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		24C4D69D2725423A00FD519D = {
@@ -438,6 +502,7 @@
 				24C4D7152728839600FD519D /* CustomInputView.swift */,
 				24F743472730330F00238E20 /* HomeCell.swift */,
 				24595AE1273123E1008B5194 /* EventCell.swift */,
+				24994DAC273B00DE005A604B /* EventHeaderView.swift */,
 				240B8D7B2731A7F300078404 /* CommentCell.swift */,
 				24595AE32732730A008B5194 /* DetailFeedCell.swift */,
 				24F7434927303AFB00238E20 /* PinterestLayout.swift */,
@@ -463,6 +528,7 @@
 			children = (
 				24F74301272CEBAB00238E20 /* User */,
 				24F7432D272DA1D500238E20 /* Community */,
+				24994D882739745E005A604B /* Event */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -513,6 +579,7 @@
 				247B84362733B79600591CC4 /* GetCommentDataManager.swift */,
 				247B843E2734336600591CC4 /* PostCommentDataManager.swift */,
 				247B844C2735897900591CC4 /* DeleteCommentDataManager.swift */,
+				24994DA6273AD9FB005A604B /* ReportDataManager.swift */,
 				240B8D812732689700078404 /* Entity */,
 			);
 			path = Community;
@@ -796,11 +863,15 @@
 				240B8D9027326CB000078404 /* DetailFeedController.swift in Sources */,
 				24F74336272DB6CC00238E20 /* MeAndPetViewController.swift in Sources */,
 				24F742FA272C733F00238E20 /* FindPasswordViewController.swift in Sources */,
+				24994DA7273AD9FB005A604B /* ReportDataManager.swift in Sources */,
 				247B844F27358A7500591CC4 /* DeleteCommentResponse.swift in Sources */,
 				24F7430C272CF55100238E20 /* CheckAuthNumberRequest.swift in Sources */,
+				24994DA1273AC69A005A604B /* PostEventCommentResponse.swift in Sources */,
 				24F74322272D166200238E20 /* RegisterUserDataManager.swift in Sources */,
+				24994D9D273AC616005A604B /* PostEventCommentDataManager.swift in Sources */,
 				240B8D78273168AE00078404 /* CommentController.swift in Sources */,
 				24F7431A272D0AA900238E20 /* CheckUserResponse.swift in Sources */,
+				24994DA5273AC7DC005A604B /* DeleteEventCommentResponse.swift in Sources */,
 				247B84392733C17200591CC4 /* GetCommentResponse.swift in Sources */,
 				24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */,
 				247B84492735026C00591CC4 /* ReportController.swift in Sources */,
@@ -813,24 +884,33 @@
 				247B84312733068500591CC4 /* LikeDataManager.swift in Sources */,
 				24F74328272D1D9900238E20 /* LoginDataManager.swift in Sources */,
 				24F742FC272C770900238E20 /* ResetPasswordViewController.swift in Sources */,
+				24994D99273A5B93005A604B /* GetEventCommentResponse.swift in Sources */,
+				24994D97273A5B18005A604B /* GetEventCommentDataManager.swift in Sources */,
 				24F74320272D11E400238E20 /* ResetPasswordResponse.swift in Sources */,
 				24F74312272D02B400238E20 /* CheckNickNameRequest.swift in Sources */,
 				247B843B2733FE1A00591CC4 /* EventCommentController.swift in Sources */,
 				240B8D85273268C900078404 /* GetDetailFeedDataManager.swift in Sources */,
+				24994D9527398674005A604B /* EventLikeResponse.swift in Sources */,
 				247B8443273433CA00591CC4 /* PostCommentRequest.swift in Sources */,
 				24F74318272D0A9C00238E20 /* CheckUserRequest.swift in Sources */,
+				24994DA3273AC7D2005A604B /* DeleteEventCommentDataManager.swift in Sources */,
 				24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */,
+				24994D8B27397481005A604B /* GetAllEventDataManager.swift in Sources */,
 				24C4D6E62725953400FD519D /* Date.swift in Sources */,
 				24595AE2273123E1008B5194 /* EventCell.swift in Sources */,
+				24994D8D273974C4005A604B /* GetAllEventResponse.swift in Sources */,
 				24F7432A272D1E1200238E20 /* LoginRequest.swift in Sources */,
+				24994D9F273AC63F005A604B /* PostEventCommentRequest.swift in Sources */,
 				240B8D762731685800078404 /* DetailEventController.swift in Sources */,
 				24C4D7062728044E00FD519D /* SignUpNumberViewController.swift in Sources */,
 				24F7431C272D11B700238E20 /* ResetPasswordDataManager.swift in Sources */,
 				24F743482730330F00238E20 /* HomeCell.swift in Sources */,
 				247B843F2734336600591CC4 /* PostCommentDataManager.swift in Sources */,
 				24F7430E272CF55A00238E20 /* CheckAuthNumberResponse.swift in Sources */,
+				24994D8F27397C77005A604B /* GetDetailEventDataManager.swift in Sources */,
 				24F74326272D168800238E20 /* RegisterUserResponse.swift in Sources */,
 				24C4D6F02725982600FD519D /* Device.swift in Sources */,
+				24994DAB273ADA27005A604B /* ReportResponse.swift in Sources */,
 				24C4D6F627259B1800FD519D /* SplashViewController.swift in Sources */,
 				24C4D6DD2725929800FD519D /* Constant.swift in Sources */,
 				24F74303272CEBD800238E20 /* SendAuthNumberDataManager.swift in Sources */,
@@ -841,6 +921,7 @@
 				24C4D6EE272597FF00FD519D /* IndicatorView.swift in Sources */,
 				24F7431E272D11DC00238E20 /* ResetPasswordRequest.swift in Sources */,
 				24C4D6EC272597DB00FD519D /* UIViewController.swift in Sources */,
+				24994D93273985FC005A604B /* EventLikeDataManager.swift in Sources */,
 				24F74330272DB4EE00238E20 /* HomeTabBarController.swift in Sources */,
 				247B844527345F4A00591CC4 /* DeleteFeedDataManager.swift in Sources */,
 				24F7430A272CF53800238E20 /* CheckAuthNumberDataManager.swift in Sources */,
@@ -858,8 +939,11 @@
 				24F74334272DB6AB00238E20 /* SearchViewController.swift in Sources */,
 				24C4D71A2729EDD800FD519D /* BaseSignUpViewController.swift in Sources */,
 				247B8435273306CA00591CC4 /* LikeResponse.swift in Sources */,
+				24994D9127397CC2005A604B /* DetailEventResponse.swift in Sources */,
+				24994DAD273B00DE005A604B /* EventHeaderView.swift in Sources */,
 				24C4D6E02725946C00FD519D /* JwtToken.swift in Sources */,
 				24C4D7182729EAE600FD519D /* SignUpPasswordViewController.swift in Sources */,
+				24994DA9273ADA1F005A604B /* ReportRequest.swift in Sources */,
 				24C4D7162728839600FD519D /* CustomInputView.swift in Sources */,
 				24C4D6EA2725956D00FD519D /* Color.swift in Sources */,
 				247B84372733B79600591CC4 /* GetCommentDataManager.swift in Sources */,
@@ -1034,7 +1118,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = GZCWDPJJ9Z;
 				INFOPLIST_FILE = pindergarten/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1055,7 +1139,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = GZCWDPJJ9Z;
 				INFOPLIST_FILE = pindergarten/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -8,11 +8,16 @@
 import UIKit
 
 class EventCommentController: BaseViewController {
+
     //MARK: - Properties
+    
+    lazy var getEventCommentDataManager: GetEventCommentDataManager = GetEventCommentDataManager()
+    lazy var registerCommentDataManager: PostEventCommentDataManager = PostEventCommentDataManager()
+    lazy var deleteEventCommentDataManager: DeleteEventCommentDataManager = DeleteEventCommentDataManager()
 
-
-    var postId: Int = 0
-
+    var eventId: Int = 0
+    var eventComment: [GetEventCommentResult] = []
+    
 
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
@@ -75,11 +80,14 @@ class EventCommentController: BaseViewController {
         tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
 
+        getEventCommentDataManager.getEventComment(eventId: eventId, delegate: self)
+        
         commentTableView.estimatedRowHeight = 150
         commentTableView.rowHeight = UITableView.automaticDimension
         commentTableView.delegate = self
@@ -109,6 +117,7 @@ class EventCommentController: BaseViewController {
     }
 
     @objc private func didTapRegisterButton() {
+        registerCommentDataManager.registerComment(eventId: eventId, PostEventCommentRequest(content: commentTextFeild.text ?? ""), delegate: self)
         commentTextFeild.text = ""
         registerButton.tintColor = UIColor(hex: 0x4E5261)
         registerButton.isUserInteractionEnabled = false
@@ -163,6 +172,7 @@ class EventCommentController: BaseViewController {
         view.addSubview(commentSeperateLine)
         view.addSubview(commentTextFeild)
         view.addSubview(registerButton)
+        view.addSubview(commentTableView)
 
         backButton.snp.makeConstraints { make in
             make.top.equalTo(view.snp.topMargin).offset(22)
@@ -184,7 +194,7 @@ class EventCommentController: BaseViewController {
         commentTableView.snp.makeConstraints { make in
             make.top.equalTo(seperateLine.snp.bottom)
             make.left.right.equalTo(view)
-            make.bottom.equalTo(commentSeperateLine)
+            make.bottom.equalTo(commentSeperateLine.snp.top)
         }
 
         commentSeperateLine.snp.makeConstraints { make in
@@ -212,38 +222,80 @@ class EventCommentController: BaseViewController {
 //MARK: - Extension
 extension EventCommentController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return comments.count
-        0
+        return eventComment.count
+        
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
         cell.selectionStyle = .none
+        cell.delegate = self
 
-//        cell.profileImage.kf.setImage(with: URL(string: comments[indexPath.item].profileimg))
+        cell.profileImage.kf.setImage(with: URL(string: eventComment[indexPath.item].profileimg))
 
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.19
-//        let attributedString = NSMutableAttributedString(string: "\(comments[indexPath.item].nickname)  ", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 14)!, .foregroundColor : UIColor(hex: 0x2D2D2D, alpha: 0.85), .paragraphStyle : paragraphStyle])
-//        attributedString.append(NSAttributedString(string: comments[indexPath.item].content, attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x4E5261, alpha: 0.85), .paragraphStyle : paragraphStyle]))
-//        cell.commentLabel.attributedText = attributedString
-
-//        cell.timeLabel.text = comments[indexPath.item].date
+        let attributedString = NSMutableAttributedString(string: "\(eventComment[indexPath.item].nickname)  ", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 14)!, .foregroundColor : UIColor(hex: 0x2D2D2D, alpha: 0.85), .paragraphStyle : paragraphStyle])
+        attributedString.append(NSAttributedString(string: eventComment[indexPath.item].content, attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x4E5261, alpha: 0.85), .paragraphStyle : paragraphStyle]))
+        cell.commentLabel.attributedText = attributedString
+        cell.timeLabel.text = eventComment[indexPath.item].date
+        cell.commentId = eventComment[indexPath.item].id
+        cell.userId = eventComment[indexPath.item].userId
+        
         return cell
     }
 
 }
 
-extension EventCommentController: CommentDelegate {
-    func didTapCommentButton() {
-        let commentVC = CommentController()
-        commentVC.postId = self.postId
-        navigationController?.pushViewController(commentVC, animated: true)
+extension EventCommentController: CommentCellDelegate  {
+    func didLongPressComment(commentId: Int, userId: Int) {
+
+        if JwtToken.userId == userId {
+             let actionDelete = UIAlertAction(title: "댓글 삭제하기", style: .destructive) { action in
+                self.deleteEventCommentDataManager.deleteComment(eventId: self.eventId, commentId: commentId, delegate: self)
+             }
+
+             let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+             }
+
+             self.presentAlert(
+                 preferredStyle: .actionSheet,
+                 with: actionDelete, actionCancel
+             )
+        }
     }
 }
 
+
+
 // 네트워크 함수
 extension EventCommentController {
-
+    
+    func didSuccessGetEventComment(_ result: [GetEventCommentResult]) {
+        print("DEBUG: GET EVENT COMMENT")
+        eventComment = result
+        commentTableView.reloadData()
+    }
+    
+    func failedToGetEventComment(message: String) {
+        self.presentAlert(title: message)
+    }
+    
+    func didSuccessRegisterComment() {
+        getEventCommentDataManager.getEventComment(eventId: eventId, delegate: self)
+    }
+    
+    func failedToRegisterComment(message: String) {
+        self.presentAlert(title: message)
+    }
+    
+    func didSuccessDeleteComment() {
+        getEventCommentDataManager.getEventComment(eventId: eventId, delegate: self)
+    }
+    
+    func failedToDeleteComment(message: String) {
+        self.presentAlert(title: message)
+    }
+    
 }
 
