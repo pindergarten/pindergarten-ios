@@ -16,6 +16,7 @@ target 'pindergarten' do
 	pod 'Kingfisher'
 	pod 'DropDown'
 	pod 'FloatingPanel'
+	pod 'NMapsMap'
 
   target 'pindergartenTests' do
     inherit! :search_paths

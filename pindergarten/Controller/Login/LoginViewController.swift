@@ -229,6 +229,9 @@ extension LoginViewController {
         changeRootViewController(HomeTabBarController())
         JwtToken.token = result.jwt
         JwtToken.userId = result.userId
+//        UserDefaults.standard.set(phoneNumberStack.textField.text, forKey: "id")
+//        UserDefaults.standard.set(passwordStack.textField.text, forKey: "pwd")
+
         print("DEBUG: Enable to Login")
     }
     

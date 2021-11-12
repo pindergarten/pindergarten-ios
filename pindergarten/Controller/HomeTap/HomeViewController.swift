@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-var imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1")]
+var imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1")]
 //var imageList: [UIImage] = []
 
 
@@ -204,6 +204,8 @@ extension HomeViewController {
     func didSuccessLike(_ result: LikeResult) {
         print("DEBUG: Like DETAIL FEED")
         print(result.isSet)
+        
+        // 고치기
         getAllFeedDataManager.getAllFeed(delegate: self)
     }
     
