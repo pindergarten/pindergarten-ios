@@ -110,8 +110,8 @@ class LoginViewController: BaseViewController {
     }
     
     @objc func didTapLoginButton() {
-//        changeRootViewController(HomeTabBarController())
-        loginDataManager.login(LoginRequest(phone: phoneNumberStack.textField.text ?? "", password: passwordStack.textField.text ?? ""), delegate: self)
+        changeRootViewController(HomeTabBarController())
+//        loginDataManager.login(LoginRequest(phone: phoneNumberStack.textField.text ?? "", password: passwordStack.textField.text ?? ""), delegate: self)
     }
     
     @objc func textFieldDidChange(_ sender: Any?) {

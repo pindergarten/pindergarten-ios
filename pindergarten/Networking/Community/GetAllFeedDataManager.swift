@@ -8,7 +8,7 @@
 import Alamofire
 
 class GetAllFeedDataManager {
-    func getAllFeed(delegate: PindergartenViewController) {
+    func getAllFeed(delegate: HomeViewController) {
         AF.request("\(Constant.BASE_URL)/api/posts", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: AllFeedResponse.self) { response in

@@ -32,7 +32,7 @@ class LikeDataManager {
             }
     }
     
-    func like(postId: Int, delegate: PindergartenViewController) {
+    func like(postId: Int, delegate: HomeViewController) {
         AF.request("\(Constant.BASE_URL)/api/posts/\(postId)/like", method: .post,headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: LikeResponse.self) { response in

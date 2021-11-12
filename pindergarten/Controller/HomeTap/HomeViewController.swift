@@ -8,9 +8,13 @@
 import UIKit
 import Kingfisher
 
-let imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3") , #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3")  ,#imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3")]
+var imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1")]
+//var imageList: [UIImage] = []
 
-class PindergartenViewController: BaseViewController {
+
+class HomeViewController: BaseViewController {
+
+    
     //MARK: - Properties
     lazy var getAllFeedDataManager: GetAllFeedDataManager = GetAllFeedDataManager()
     lazy var likeDataManager: LikeDataManager = LikeDataManager()
@@ -90,9 +94,9 @@ class PindergartenViewController: BaseViewController {
         navigationController?.pushViewController(EventViewController(), animated: true)
     }
     
-    @objc func didTapHeartButton(sender: UIButton) {
-        likeDataManager.like(postId: sender.tag, delegate: self)
-    }
+//    @objc func didTapHeartButton(sender: UIButton) {
+//        likeDataManager.like(postId: sender.tag, delegate: self)
+//    }
     
     //MARK: - Helpers
     func configureUI() {
@@ -122,14 +126,12 @@ class PindergartenViewController: BaseViewController {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.left.right.bottom.equalTo(view)
-//            make.right.equalTo(view)
-//            make.bottom.equalTo(view)
         }
     }
 }
 
 //MARK: - Extenseion
-extension PindergartenViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return feed.count
@@ -137,14 +139,14 @@ extension PindergartenViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
- 
+        cell.bringSubviewToFront(cell.heartButton)
+        cell.delegate = self
         
         cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg))
         cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail))
         cell.nameLabel.text = feed[indexPath.item].nickname
         cell.scriptionLabel.text = feed[indexPath.item].content
         cell.heartButton.tag = feed[indexPath.item].id
-        cell.heartButton.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         
         if feed[indexPath.item].isLiked == 0 {
             cell.heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
@@ -161,11 +163,18 @@ extension PindergartenViewController: UICollectionViewDelegate, UICollectionView
         detailVC.postId = feed[indexPath.item].id
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    
 }
 
-extension PindergartenViewController: PinterestLayoutDelegate {
+extension HomeViewController: HomeCellDelegate {
+    func didTapHeartButton(tag: Int) {
+        print(tag)
+        likeDataManager.like(postId: tag, delegate: self)
+    }
+}
+
+extension HomeViewController: PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+        
         let cellWidth: CGFloat = (view.bounds.width - 4) / 2 // 셀 가로 크기
         let imageHeight = imageList[indexPath.item].size.height
         let imageWidth = imageList[indexPath.item].size.width
@@ -178,11 +187,13 @@ extension PindergartenViewController: PinterestLayoutDelegate {
 }
 
 // 네트워크 함수
-extension PindergartenViewController {
+extension HomeViewController {
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
         print("DEBUG: GET ALL FEED")
         feed = result
+    
         collectionView.reloadData()
+        
     }
     
     func failedToGetAllFeed(message: String) {
@@ -192,6 +203,7 @@ extension PindergartenViewController {
     
     func didSuccessLike(_ result: LikeResult) {
         print("DEBUG: Like DETAIL FEED")
+        print(result.isSet)
         getAllFeedDataManager.getAllFeed(delegate: self)
     }
     

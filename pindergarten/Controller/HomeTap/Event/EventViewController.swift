@@ -7,6 +7,35 @@
 
 import UIKit
 
+class AllEventHeaderView: UICollectionReusableView {
+    //MARK: - Properties
+    static let identifier = "AllEventHeaderView"
+    
+    let eventLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)
+        label.textColor = UIColor(hex: 0x585858)
+        label.text = "진행중인 이벤트"
+        return label
+    }()
+    
+    //MARK: - Lifecycle
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addSubview(eventLabel)
+        
+        eventLabel.snp.makeConstraints { make in
+            make.top.equalTo(self).offset(20)
+            make.left.equalTo(self).offset(20)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class EventViewController: BaseViewController {
     //MARK: - Properties
     lazy var getAllEventDataManager: GetAllEventDataManager = GetAllEventDataManager()
@@ -51,11 +80,14 @@ class EventViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
             
+        getAllEventDataManager.getAllEvent(delegate: self)
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(EventCell.self, forCellWithReuseIdentifier: EventCell.identifier)
+        collectionView.register(AllEventHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AllEventHeaderView.identifier)
         
-        getAllEventDataManager.getAllEvent(delegate: self)
+
         
         configureUI()
     }
@@ -75,7 +107,6 @@ class EventViewController: BaseViewController {
         view.addSubview(backButton)
         view.addSubview(titleLabel)
         view.addSubview(seperateLine)
-        view.addSubview(eventLabel)
         view.addSubview(collectionView)
         
         backButton.snp.makeConstraints { make in
@@ -95,13 +126,9 @@ class EventViewController: BaseViewController {
             make.height.equalTo(2)
         }
         
-        eventLabel.snp.makeConstraints { make in
-            make.top.equalTo(seperateLine.snp.bottom).offset(20)
-            make.left.equalTo(view).offset(20)
-        }
         
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(eventLabel.snp.bottom).offset(12)
+            make.top.equalTo(seperateLine.snp.bottom)
             make.left.right.bottom.equalTo(view)
         }
     }
@@ -119,7 +146,7 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.identifier, for: indexPath) as! EventCell
         let index = indexPath.item
-        
+
         cell.eventImage.kf.setImage(with: URL(string: event[index].thumbnail))
         cell.eventLabel.text = event[index].title
         cell.id = event[index].id
@@ -136,8 +163,22 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AllEventHeaderView.identifier, for: indexPath) as! AllEventHeaderView
+            
+             return sectionHeader
+        } else { //No footer in this case but can add option for that
+             return UICollectionReusableView()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 54)
+    }
     
 }
+
 
 extension EventViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

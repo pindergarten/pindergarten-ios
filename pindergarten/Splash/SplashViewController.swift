@@ -25,27 +25,27 @@ class SplashViewController: UIViewController {
         return imageView
     }()
     
-    private let titleLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 265, height: 50))
-        var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 0.67
-        label.attributedText = NSMutableAttributedString(string: "핀더가든", attributes: [.paragraphStyle: paragraphStyle])
-        label.font = UIFont(name: "Swagger", size: 62)
-        label.textColor = .white
-        return label
-    }()
-    
-    private let subtitleLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 249, height: 44))
-        var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.12
-        label.attributedText = NSMutableAttributedString(string: "다양한 펫 친구들과 뛰어놀 수 있는 핀더가든으로 오세요!", attributes: [.paragraphStyle: paragraphStyle])
-        label.lineBreakMode = .byWordWrapping
-        label.font = UIFont(name: "BMDoHyeon-OTF", size: 16)
-        label.textColor = .white
-        label.numberOfLines = 0
-        return label
-    }()
+//    private let titleLabel: UILabel = {
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 265, height: 50))
+//        var paragraphStyle = NSMutableParagraphStyle()
+//        paragraphStyle.lineHeightMultiple = 0.67
+//        label.attributedText = NSMutableAttributedString(string: "핀더가든", attributes: [.paragraphStyle: paragraphStyle])
+//        label.font = UIFont(name: "Swagger", size: 62)
+//        label.textColor = .white
+//        return label
+//    }()
+//
+//    private let subtitleLabel: UILabel = {
+//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 249, height: 44))
+//        var paragraphStyle = NSMutableParagraphStyle()
+//        paragraphStyle.lineHeightMultiple = 1.12
+//        label.attributedText = NSMutableAttributedString(string: "다양한 펫 친구들과 뛰어놀 수 있는 핀더가든으로 오세요!", attributes: [.paragraphStyle: paragraphStyle])
+//        label.lineBreakMode = .byWordWrapping
+//        label.font = UIFont(name: "BMDoHyeon-OTF", size: 16)
+//        label.textColor = .white
+//        label.numberOfLines = 0
+//        return label
+//    }()
     
     private let loginButton: UIButton = {
         let button = UIButton(type: .system)

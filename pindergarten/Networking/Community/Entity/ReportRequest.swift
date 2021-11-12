@@ -12,6 +12,3 @@ struct ReportRequest: Encodable {
     var content : String
 }
 
-struct ReportType: Encodable {
-    var type: Int
-}

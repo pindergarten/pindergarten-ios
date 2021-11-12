@@ -11,6 +11,9 @@ import DropDown
 class ReportController: BaseViewController {
     //MARK: - Properties
     var postId: Int = 0
+    var type: Int = 0
+    
+    lazy var reportDataManager: ReportDataManager = ReportDataManager()
     
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
@@ -33,6 +36,7 @@ class ReportController: BaseViewController {
         button.setAttributedTitle(NSAttributedString(string: "완료", attributes: [.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)!]), for: .normal)
         button.tintColor = UIColor(hex: 0xABABAB)
         button.isUserInteractionEnabled = false
+        button.addTarget(self, action: #selector(didTapReportButton), for: .touchUpInside)
         return button
     }()
     
@@ -123,6 +127,8 @@ class ReportController: BaseViewController {
         dropDown.cornerRadius = 10
         
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.type = index + 1
+            print(self.type)
             reportTypeButton.setAttributedTitle(NSAttributedString(string: item, attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x3D3D3D)]), for: .normal)
             
             if textView.text.count >= 10 && reportTitleTextFeild.text?.count ?? 0 > 0 {
@@ -139,6 +145,13 @@ class ReportController: BaseViewController {
         placeholderSetting()
     }
     //MARK: - Action
+    @objc private func didTapReportButton(type: Int) {
+        print("DEBUG: TAPPED REPORT BUTTON")
+        print("\(Constant.BASE_URL)/api/posts/\(postId)/declaration?type=\(type)")
+        reportDataManager.reportFeed(postId: postId, type: self.type, ReportRequest(title: reportTitleTextFeild.text ?? "", content: textView.text ?? ""), delegate: self)
+        
+    }
+    
     @objc private func openDropDownMenu() {
         dropDown.show()
     
@@ -319,4 +332,15 @@ extension ReportController: UITextViewDelegate {
         return true
     }
 
+}
+
+// 네트워크 함수
+extension ReportController {
+    func didSuccessReportFeed() {
+        self.presentAlert(title: "신고접수 되었습니다.")
+    }
+    
+    func failedToReportFeed(message: String) {
+        self.presentAlert(title: message)
+    }
 }

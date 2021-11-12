@@ -15,6 +15,7 @@ target 'pindergarten' do
 	pod "ImageSlideshow/Alamofire"
 	pod 'Kingfisher'
 	pod 'DropDown'
+	pod 'FloatingPanel'
 
   target 'pindergartenTests' do
     inherit! :search_paths

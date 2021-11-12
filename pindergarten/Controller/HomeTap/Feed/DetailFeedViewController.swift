@@ -72,7 +72,8 @@ class DetailFeedViewController: BaseViewController {
     
     var imageSlide: ImageSlideshow = {
         let image = ImageSlideshow()
-
+        image.contentScaleMode = .scaleAspectFill
+        image.circular = false
         return image
     }()
     
@@ -143,10 +144,7 @@ class DetailFeedViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
-        
-        imageSlide.contentMode = .scaleToFill
-        imageSlide.circular = false
+        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
         
         
         pageIndicator.currentPageIndicatorTintColor = UIColor.mainLightYellow
