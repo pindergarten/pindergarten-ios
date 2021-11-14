@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol HomeCellDelegate: AnyObject {
-    func didTapHeartButton(tag: Int)
+    func didTapHeartButton(tag: Int, index: Int)
 }
 
 
@@ -17,7 +18,7 @@ class HomeCell: UICollectionViewCell {
     //MARK: - Properties
     static let identifier = "HomeCell"
     weak var delegate: HomeCellDelegate?
-
+    var feedIndex = 0
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -38,7 +39,7 @@ class HomeCell: UICollectionViewCell {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "4")
+        imageView.tintColor = .gray
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         return imageView
@@ -84,7 +85,7 @@ class HomeCell: UICollectionViewCell {
     
     //MARK: - Action
     @objc func didTapHeartButton() {
-        delegate?.didTapHeartButton(tag: heartButton.tag)
+        delegate?.didTapHeartButton(tag: heartButton.tag, index: feedIndex)
         print("DEBUG: TAPPED HEART BUTTON")
         if heartButton.currentImage == UIImage(named: "heartButton") {
             heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)

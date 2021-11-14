@@ -13,7 +13,6 @@ class PindergartenCell: UITableViewCell {
     
     let pindergartenImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 20
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 20
@@ -28,6 +27,7 @@ class PindergartenCell: UITableViewCell {
         view.clipsToBounds = true
         view.layer.masksToBounds = false
         view.layer.cornerRadius = 10
+        view.layer.shouldRasterize = true
         return view
     }()
     
@@ -44,6 +44,7 @@ class PindergartenCell: UITableViewCell {
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)
         label.textColor = .mainTextColor
         label.text = "하울팟 케어클럽 서초본점"
+        label.numberOfLines = 1
         return label
     }()
     
@@ -52,7 +53,7 @@ class PindergartenCell: UITableViewCell {
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 12)
         label.textColor = UIColor(hex: 0x4E5261)
         label.text = "서울특별시 서초구 서초대로58길 36 4~5F"
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         return label
     }()
     
@@ -84,17 +85,16 @@ class PindergartenCell: UITableViewCell {
     
     //MARK: - Helpers
     private func configureUI() {
-        addSubview(pindergartenImage)
-        addSubview(distanceView)
+        contentView.addSubview(pindergartenImage)
+        contentView.addSubview(distanceView)
         distanceView.addSubview(distanceLabel)
-        addSubview(nameLabel)
-        addSubview(addressLabel)
-        addSubview(heartButton)
-        addSubview(scoreLabel)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(addressLabel)
+        contentView.addSubview(heartButton)
+        contentView.addSubview(scoreLabel)
         
         pindergartenImage.snp.makeConstraints { make in
-            make.top.left.right.equalTo(self)
-            make.width.equalTo(self)
+            make.top.left.right.equalTo(contentView)
             make.height.equalTo(134)
         }
         
@@ -110,26 +110,26 @@ class PindergartenCell: UITableViewCell {
         
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(pindergartenImage.snp.bottom).offset(10)
-            make.left.equalTo(self)
+            make.left.equalTo(contentView)
             make.right.equalTo(heartButton.snp.left).offset(-20)
         }
         
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
-            make.left.equalTo(self)
+            make.left.equalTo(contentView)
             make.right.equalTo(heartButton.snp.left).offset(-20)
         }
         
         heartButton.snp.makeConstraints { make in
             make.width.height.equalTo(50)
-            make.top.equalTo(pindergartenImage.snp.bottom).offset(10)
-            make.right.equalTo(self)
+            make.top.equalTo(pindergartenImage.snp.bottom).offset(0)
+            make.right.equalTo(contentView)
         }
         
         scoreLabel.snp.makeConstraints { make in
-            make.left.equalTo(self)
+            make.left.equalTo(contentView)
             make.top.equalTo(addressLabel.snp.bottom).offset(4)
-            make.bottom.equalTo(self).offset(-10)
+            make.bottom.equalTo(contentView).offset(-20)
         }
     }
 }

@@ -5,6 +5,7 @@ PODS:
   - AlamofireNetworkActivityIndicator (3.1.0):
     - Alamofire (~> 5.1)
   - AnyFormatKit (2.5.1)
+  - Cosmos (23.0.0)
   - DropDown (2.3.13)
   - FloatingPanel (2.5.0)
   - ImageSlideshow (1.9.2):
@@ -15,15 +16,13 @@ PODS:
   - ImageSlideshow/Core (1.9.2)
   - Kingfisher (6.3.0)
   - NMapsMap (3.14.0)
-  - Pageboy (3.6.2)
   - SnapKit (5.0.1)
-  - Tabman (2.11.1):
-    - Pageboy (~> 3.6.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.4)
   - AlamofireNetworkActivityIndicator
   - AnyFormatKit (~> 2.5.1)
+  - Cosmos (~> 23.0)
   - DropDown
   - FloatingPanel
   - ImageSlideshow (~> 1.9.0)
@@ -31,7 +30,6 @@ DEPENDENCIES:
   - Kingfisher
   - NMapsMap
   - SnapKit (~> 5.0.0)
-  - Tabman (~> 2.11)
 
 SPEC REPOS:
   trunk:
@@ -39,29 +37,27 @@ SPEC REPOS:
     - AlamofireImage
     - AlamofireNetworkActivityIndicator
     - AnyFormatKit
+    - Cosmos
     - DropDown
     - FloatingPanel
     - ImageSlideshow
     - Kingfisher
     - NMapsMap
-    - Pageboy
     - SnapKit
-    - Tabman
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
   AlamofireNetworkActivityIndicator: 6564782bd7b9e6c430ae67d9277af01907b01ca4
   AnyFormatKit: 4ef60ad3f48c69962d482bb2de0a6d3214e8527b
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FloatingPanel: ddb1c8cbbacd164cfee651c449febe867a28e2cb
   ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   NMapsMap: 61c2abfc409bbcdc91583ccc455a5b6f64c7414e
-  Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  Tabman: 792ac76fd1ec95af175c93db880a3c47cabedc91
 
-PODFILE CHECKSUM: 30668b7920f600be88ec601f45eca82ae5154b6a
+PODFILE CHECKSUM: 8b92d77775ae2272141e519d222dcd48a50d4263
 
 COCOAPODS: 1.10.1

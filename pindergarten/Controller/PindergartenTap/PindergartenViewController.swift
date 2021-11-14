@@ -24,6 +24,7 @@ class MyFloatingPanelLayout: FloatingPanelLayout {
         return [
             .full: FloatingPanelLayoutAnchor(absoluteInset: 56.0, edge: .top, referenceGuide: .safeArea),
             .half: FloatingPanelLayoutAnchor(absoluteInset: 32.0, edge: .bottom, referenceGuide: .safeArea),
+            .tip: FloatingPanelLayoutAnchor(absoluteInset: 245.0, edge: .bottom, referenceGuide: .safeArea)
         ]
     }
 }
@@ -47,15 +48,17 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         return label
     }()
     
-    private let heartButton: UIButton = {
+    private lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "pindergartenHeart"), for: .normal)
+        button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         return button
     }()
     
-    private let searchButton: UIButton = {
+    private lazy var searchButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "pindergartenSearch"), for: .normal)
+        button.addTarget(self, action: #selector(didTapSearchButton), for: .touchUpInside)
         return button
     }()
     //MARK: - Lifecycle
@@ -75,24 +78,28 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         
         naverMapView.showLocationButton = true
         naverMapView.showCompass = false
+        naverMapView.showScaleBar = false
         naverMapView.mapView.logoAlign = .leftTop
         naverMapView.mapView.addCameraDelegate(delegate: self)
         
-
-
-        
-//        // 정보창 생성
-//        let infoWindow = NMFInfoWindow()
-//        let dataSource = NMFInfoWindowDefaultTextSource.data()
-//        dataSource.title = "서울특별시청"
-//        infoWindow.dataSource = dataSource
-//
-//        // 마커에 달아주기
-//        infoWindow.open(with: marker)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = false
+        
+    }
     //MARK: - Action
+    @objc private func didTapHeartButton() {
+        let likePindergartenVC = LikePindergartenController()
+        navigationController?.pushViewController(likePindergartenVC, animated: true)
+    }
     
+    @objc private func didTapSearchButton() {
+        let searchPindergartenVC = SearchPindergartenController()
+        navigationController?.pushViewController(searchPindergartenVC, animated: true)
+    }
     //MARK: - Helpers
     private func setFloatingPanel() {
         fpc = FloatingPanelController()
@@ -131,15 +138,13 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         let marker = NMFMarker()
         marker.touchHandler = { (overlay) -> Bool in
             print("마커 1 터치됨")
-            
-            // 이벤트 전파
-            return false
+            self.fpc.move(to: .tip, animated: false)
+            // 이벤트 전파 안함
+            return true
         }
+        
         marker.position = NMGLatLng(lat: 35.178928121244816, lng: 129.05542242185882)
         marker.iconImage = NMFOverlayImage(name: "marker")
-//        marker.iconTintColor = UIColor.red
-//        marker.width = 30
-//        marker.height = 30
         marker.width = CGFloat(NMF_MARKER_SIZE_AUTO)
         marker.height = CGFloat(NMF_MARKER_SIZE_AUTO)
         marker.mapView = naverMapView.mapView

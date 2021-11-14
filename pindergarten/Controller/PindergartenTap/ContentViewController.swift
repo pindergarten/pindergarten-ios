@@ -27,7 +27,6 @@ class ContentViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PindergartenCell.self, forCellReuseIdentifier: PindergartenCell.identifier)
-        
         configureUI()
     }
     
@@ -53,9 +52,11 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PindergartenCell.identifier, for: indexPath) as! PindergartenCell
-        
+        cell.selectionStyle = .none
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }

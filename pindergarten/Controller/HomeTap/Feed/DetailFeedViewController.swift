@@ -168,7 +168,6 @@ class DetailFeedViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = true
-        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
         
     }
     

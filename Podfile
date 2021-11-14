@@ -9,7 +9,6 @@ target 'pindergarten' do
 	pod 'Alamofire', '~> 5.4'
 	pod 'AlamofireNetworkActivityIndicator'
 	pod 'SnapKit', '~> 5.0.0'
-	pod 'Tabman', '~> 2.11'
 	pod 'AnyFormatKit', '~> 2.5.1'
 	pod 'ImageSlideshow', '~> 1.9.0'
 	pod "ImageSlideshow/Alamofire"
@@ -17,6 +16,7 @@ target 'pindergarten' do
 	pod 'DropDown'
 	pod 'FloatingPanel'
 	pod 'NMapsMap'
+	pod 'Cosmos', '~> 23.0'
 
   target 'pindergartenTests' do
     inherit! :search_paths

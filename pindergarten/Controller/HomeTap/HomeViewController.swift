@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 var imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1")]
-//var imageList: [UIImage] = []
+
 
 
 class HomeViewController: BaseViewController {
@@ -20,7 +20,17 @@ class HomeViewController: BaseViewController {
     lazy var likeDataManager: LikeDataManager = LikeDataManager()
     
     var postId: Int = 0
-    private var feed: [GetAllFeedResult] = []
+    private var feed: [GetAllFeedResult] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+//    private var imageList: [UIImage] = [] {
+//        didSet {
+//            collectionView.reloadData()
+//        }
+//    }
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -55,7 +65,7 @@ class HomeViewController: BaseViewController {
         collectionView.backgroundColor = .white
         return collectionView
     }()
-    
+
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,18 +152,18 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.bringSubviewToFront(cell.heartButton)
         cell.delegate = self
         
-        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg))
-        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail))
+        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"))
+        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: UIImage(named: "2"))
         cell.nameLabel.text = feed[indexPath.item].nickname
         cell.scriptionLabel.text = feed[indexPath.item].content
         cell.heartButton.tag = feed[indexPath.item].id
+        cell.feedIndex = indexPath.item
         
         if feed[indexPath.item].isLiked == 0 {
             cell.heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
         } else if feed[indexPath.item].isLiked == 1 {
             cell.heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)
         }
-
         
         return cell
     }
@@ -166,9 +176,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension HomeViewController: HomeCellDelegate {
-    func didTapHeartButton(tag: Int) {
+    func didTapHeartButton(tag: Int, index: Int) {
         print(tag)
         likeDataManager.like(postId: tag, delegate: self)
+        if feed[index].isLiked == 0 {
+            feed[index].isLiked = 1
+        } else {
+            feed[index].isLiked = 0
+        }
     }
 }
 
@@ -176,9 +191,11 @@ extension HomeViewController: PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
         
         let cellWidth: CGFloat = (view.bounds.width - 4) / 2 // 셀 가로 크기
+
+       
         let imageHeight = imageList[indexPath.item].size.height
         let imageWidth = imageList[indexPath.item].size.width
-        // 이미지 비율
+        //이미지 비율
         let imageRatio = imageHeight/imageWidth
 
 
@@ -191,8 +208,22 @@ extension HomeViewController {
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
         print("DEBUG: GET ALL FEED")
         feed = result
-    
-        collectionView.reloadData()
+
+
+//        var list: [UIImage] = []
+//        for feed in result {
+//            let url = URL(string: feed.thumbnail)
+//            DispatchQueue.global().async {
+//                let data = try? Data(contentsOf: url!)
+//                DispatchQueue.main.async {
+//                    let image = UIImage(data: data!)!
+//                    list.append(image)
+//                }
+//            }
+//        }
+        
+       
+        
         
     }
     
@@ -206,7 +237,7 @@ extension HomeViewController {
         print(result.isSet)
         
         // 고치기
-        getAllFeedDataManager.getAllFeed(delegate: self)
+//        getAllFeedDataManager.getAllFeed(delegate: self)
     }
     
     func failedToLike(message: String) {
