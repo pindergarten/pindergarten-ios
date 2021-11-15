@@ -30,6 +30,7 @@ class MyFloatingPanelLayout: FloatingPanelLayout {
 }
 
 class PindergartenViewController: BaseViewController, FloatingPanelControllerDelegate {
+    
     //MARK: - Properties
     
     private lazy var locationManager = CLLocationManager()
@@ -115,7 +116,7 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         
         appearance.cornerRadius = 20.0
         appearance.backgroundColor = .white
-        appearance.borderColor = .clear
+        appearance.borderColor = UIColor(hex: 0x000000, alpha: 0.15)
         appearance.borderWidth = 0
 
         fpc.surfaceView.appearance = appearance

@@ -59,6 +59,9 @@ class DetailEventController: BaseViewController {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .onDrag
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
+//        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         return tableView
     }()
     

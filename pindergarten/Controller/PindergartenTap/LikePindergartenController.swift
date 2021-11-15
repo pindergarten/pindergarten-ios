@@ -25,9 +25,10 @@ class LikePindergartenController: BaseViewController {
         return label
     }()
 
-    private let heartButton: UIButton = {
+    private lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "pindergartenFilledHeart"), for: .normal)
+        button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         return button
     }()
     
@@ -64,6 +65,9 @@ class LikePindergartenController: BaseViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc private func didTapHeartButton() {
+        print("DEBUG: TAPPED HEART BUTTON")
+    }
     //MARK: - Helpers
     private func setUpTableView() {
         tableView.delegate = self
@@ -110,6 +114,11 @@ class LikePindergartenController: BaseViewController {
 }
 
 //MARK: - Extension
+extension LikePindergartenController: PindergartenCellDelegate {
+    func didTapCellHeartButton(index: Int) {
+        print("DEBUG: TAPPED HEART BUTTON")
+    }
+}
 extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,12 +128,14 @@ extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PindergartenCell.identifier, for: indexPath) as! PindergartenCell
+        cell.delegate = self
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        print("왜 하트버튼이 안눌러지지")
     }
     
 }

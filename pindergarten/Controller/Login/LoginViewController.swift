@@ -10,7 +10,7 @@ import AnyFormatKit
 
 class LoginViewController: BaseViewController {
     //MARK: - Properties
-
+//
 //    private let backButton: UIButton = {
 //        let button = UIButton(type: .system)
 //        button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -19,6 +19,7 @@ class LoginViewController: BaseViewController {
 //        button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
 //        return button
 //    }()
+    
     lazy var loginDataManager: LoginDataManager = LoginDataManager()
     
     private let titleLabel: UILabel = {

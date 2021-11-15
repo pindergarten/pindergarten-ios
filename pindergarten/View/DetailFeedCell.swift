@@ -160,22 +160,22 @@ class DetailFeedCell: UITableViewCell {
     private func configureUI() {
         backgroundColor = .white
         
-        addSubview(profileImageView)
-        addSubview(nameLabel)
-        addSubview(menuButton)
-        addSubview(imageSlide)
-        addSubview(heartButton)
-        addSubview(heartLabel)
-        addSubview(commentButton)
-        addSubview(commentLabel)
-        addSubview(dateLabel)
-        addSubview(contentLabel)
+        contentView.addSubview(profileImageView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(menuButton)
+        contentView.addSubview(imageSlide)
+        contentView.addSubview(heartButton)
+        contentView.addSubview(heartLabel)
+        contentView.addSubview(commentButton)
+        contentView.addSubview(commentLabel)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(contentLabel)
 //        addSubview(moreButton)
-        addSubview(moreLabel)
+        contentView.addSubview(moreLabel)
         
         profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(self).offset(20)
-            make.left.equalTo(self).offset(20)
+            make.top.equalTo(contentView).offset(20)
+            make.left.equalTo(contentView).offset(20)
             make.width.height.equalTo(30)
         }
         
@@ -186,7 +186,7 @@ class DetailFeedCell: UITableViewCell {
         
         menuButton.snp.makeConstraints { make in
             make.centerY.equalTo(profileImageView)
-            make.right.equalTo(self).offset(-10)
+            make.right.equalTo(contentView).offset(-10)
             make.height.width.equalTo(30)
         }
         
@@ -198,7 +198,7 @@ class DetailFeedCell: UITableViewCell {
         
         heartButton.snp.makeConstraints { make in
             make.top.equalTo(imageSlide.snp.bottom).offset(15)
-            make.left.equalTo(self).offset(20)
+            make.left.equalTo(contentView).offset(20)
             make.width.height.equalTo(25)
         }
 
@@ -220,18 +220,18 @@ class DetailFeedCell: UITableViewCell {
         
         dateLabel.snp.makeConstraints { make in
             make.centerY.equalTo(heartButton)
-            make.right.equalTo(self).offset(-20)
+            make.right.equalTo(contentView).offset(-20)
         }
         
         contentLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(self).offset(-16)
-            make.left.equalTo(self).offset(20)
-            make.right.equalTo(self).offset(-57)
+            make.bottom.equalTo(contentView).offset(-16)
+            make.left.equalTo(contentView).offset(20)
+            make.right.equalTo(contentView).offset(-57)
             make.height.equalTo(40)
         }
         
         moreLabel.snp.makeConstraints { make in
-            make.right.equalTo(self).offset(-20)
+            make.right.equalTo(contentView).offset(-20)
             make.bottom.equalTo(contentLabel.snp.bottom)
         }
     }

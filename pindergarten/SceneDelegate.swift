@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         
         window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
-//        window?.rootViewController = PindergartenViewController()
+//        window?.rootViewController = DetailPindergartenController()
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
     }

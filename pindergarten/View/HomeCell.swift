@@ -32,7 +32,6 @@ class HomeCell: UICollectionViewCell {
     lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "heartButton"), for: .normal)
-//        button.tintColor = .clear
         button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         return button
     }()
@@ -65,13 +64,8 @@ class HomeCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setUpRoundShadow()
         configureUI()
-        
-        layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.6, x: 0, y: 5, blur: 15)
-        clipsToBounds = true
-        layer.masksToBounds = false
-        layer.cornerRadius = 10
-
     }
     
     required init?(coder: NSCoder) {
@@ -94,19 +88,27 @@ class HomeCell: UICollectionViewCell {
         }
     }
     //MARK: - Helpers
+    private func setUpRoundShadow() {
+        layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.6, x: 0, y: 5, blur: 15)
+        clipsToBounds = true
+        layer.masksToBounds = false
+        layer.cornerRadius = 10
+//        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: layer.cornerRadius).cgPath
+    }
+    
     private func configureUI() {
         backgroundColor = .white
         
-        addSubview(imageView)
-        addSubview(profileImageView)
-        addSubview(nameLabel)
-        addSubview(scriptionLabel)
-        addSubview(heartButton)
+        contentView.addSubview(imageView)
+        contentView.addSubview(profileImageView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(scriptionLabel)
+        contentView.addSubview(heartButton)
         
         
         imageView.snp.makeConstraints { make in
-            make.top.left.right.equalTo(self.contentView)
-            make.bottom.equalTo(self.contentView).offset(-44)
+            make.top.left.right.equalTo(contentView)
+            make.bottom.equalTo(contentView).offset(-44)
         }
         
         profileImageView.snp.makeConstraints { make in
@@ -118,7 +120,7 @@ class HomeCell: UICollectionViewCell {
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(8)
             make.left.equalTo(profileImageView.snp.right).offset(5)
-            make.right.equalTo(self.contentView).offset(-10)
+            make.right.equalTo(contentView).offset(-10)
         }
         
         scriptionLabel.snp.makeConstraints { make in
@@ -131,5 +133,7 @@ class HomeCell: UICollectionViewCell {
             make.width.height.equalTo(50)
             make.bottom.right.equalTo(imageView).offset(-5)
         }
+        
+        contentView.bringSubviewToFront(heartButton)
     }
 }

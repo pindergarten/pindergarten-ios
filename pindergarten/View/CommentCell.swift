@@ -91,28 +91,28 @@ class CommentCell: UITableViewCell {
     private func configureUI() {
         backgroundColor = .white
         
-        addSubview(profileImage)
+        contentView.addSubview(profileImage)
 //        addSubview(nameLabel)
-        addSubview(commentLabel)
-        addSubview(timeLabel)
+        contentView.addSubview(commentLabel)
+        contentView.addSubview(timeLabel)
 
         
         profileImage.snp.makeConstraints { make in
             make.width.height.equalTo(34)
-            make.top.equalTo(self).offset(20)
-            make.left.equalTo(self).offset(20)
+            make.top.equalTo(contentView).offset(20)
+            make.left.equalTo(contentView).offset(20)
         }
         
         commentLabel.snp.makeConstraints { make in
             make.top.equalTo(profileImage)
             make.left.equalTo(profileImage.snp.right).offset(8)
-            make.right.equalTo(self).offset(-20)
+            make.right.equalTo(contentView).offset(-20)
             make.bottom.equalTo(timeLabel.snp.top).offset(-4)
         }
         
         timeLabel.snp.makeConstraints { make in
             make.left.equalTo(commentLabel)
-            make.bottom.equalTo(self).offset(-20)
+            make.bottom.equalTo(contentView).offset(-10)
         }
         
     }

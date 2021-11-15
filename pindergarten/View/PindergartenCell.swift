@@ -6,10 +6,17 @@
 //
 
 import UIKit
+import Cosmos
+
+protocol PindergartenCellDelegate: AnyObject {
+    func didTapCellHeartButton(index: Int)
+}
+
 
 class PindergartenCell: UITableViewCell {
     //MARK: - Properties
     static let identifier = "PindergartenCell"
+    weak var delegate: PindergartenCellDelegate?
     
     let pindergartenImage: UIImageView = {
         let imageView = UIImageView()
@@ -57,9 +64,10 @@ class PindergartenCell: UITableViewCell {
         return label
     }()
     
-    let heartButton: UIButton = {
+    lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "pcellHeart"), for: .normal)
+        button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         return button
     }()
     
@@ -69,6 +77,18 @@ class PindergartenCell: UITableViewCell {
         label.textColor = UIColor(hex: 0x4E5261)
         label.text = "0/5"
         return label
+    }()
+    
+    let starView: CosmosView = {
+        let view = CosmosView()
+        view.settings.updateOnTouch = false
+        view.settings.fillMode = .precise
+        view.settings.starSize = 12
+        view.settings.starMargin = 2
+        view.settings.filledImage = UIImage(named: "filledStar")
+        view.settings.emptyImage = UIImage(named: "star")
+        view.rating = 4.4
+        return view
     }()
     
     //MARK: - Lifecycle
@@ -82,7 +102,9 @@ class PindergartenCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Action
-    
+    @objc private func didTapHeartButton() {
+        delegate?.didTapCellHeartButton(index: 1)
+    }
     //MARK: - Helpers
     private func configureUI() {
         contentView.addSubview(pindergartenImage)
@@ -92,6 +114,8 @@ class PindergartenCell: UITableViewCell {
         contentView.addSubview(addressLabel)
         contentView.addSubview(heartButton)
         contentView.addSubview(scoreLabel)
+        contentView.addSubview(starView)
+        
         
         pindergartenImage.snp.makeConstraints { make in
             make.top.left.right.equalTo(contentView)
@@ -125,11 +149,17 @@ class PindergartenCell: UITableViewCell {
             make.top.equalTo(pindergartenImage.snp.bottom).offset(0)
             make.right.equalTo(contentView)
         }
+        contentView.bringSubviewToFront(heartButton)
         
         scoreLabel.snp.makeConstraints { make in
             make.left.equalTo(contentView)
             make.top.equalTo(addressLabel.snp.bottom).offset(4)
             make.bottom.equalTo(contentView).offset(-20)
+        }
+        
+        starView.snp.makeConstraints { make in
+            make.top.equalTo(scoreLabel)
+            make.left.equalTo(scoreLabel.snp.right).offset(4)
         }
     }
 }

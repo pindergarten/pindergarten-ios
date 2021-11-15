@@ -15,7 +15,6 @@
 		240B8D83273268B300078404 /* GetAllFeedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D82273268B300078404 /* GetAllFeedDataManager.swift */; };
 		240B8D85273268C900078404 /* GetDetailFeedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D84273268C900078404 /* GetDetailFeedDataManager.swift */; };
 		240B8D8D273269E700078404 /* AllFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D8C273269E700078404 /* AllFeedResponse.swift */; };
-		240B8D9027326CB000078404 /* DetailFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D8F27326CB000078404 /* DetailFeedController.swift */; };
 		240B8D9427326D6E00078404 /* DetailFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D9327326D6E00078404 /* DetailFeedResponse.swift */; };
 		24595AE2273123E1008B5194 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE1273123E1008B5194 /* EventCell.swift */; };
 		24595AE42732730A008B5194 /* DetailFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE32732730A008B5194 /* DetailFeedCell.swift */; };
@@ -57,6 +56,17 @@
 		24994DB8273EF5FD005A604B /* LikePindergartenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DB7273EF5FD005A604B /* LikePindergartenController.swift */; };
 		24994DBA27409973005A604B /* SearchPindergartenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DB927409973005A604B /* SearchPindergartenController.swift */; };
 		24994DBC2740A052005A604B /* SearchPindergartenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DBB2740A052005A604B /* SearchPindergartenCell.swift */; };
+		24994DBE2740B287005A604B /* DetailPindergartenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DBD2740B287005A604B /* DetailPindergartenController.swift */; };
+		24994DC62740CF4F005A604B /* GetLikePindergartenDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DC52740CF4F005A604B /* GetLikePindergartenDataManager.swift */; };
+		24994DC82740CFA4005A604B /* GetLikePindergartenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DC72740CFA4005A604B /* GetLikePindergartenResponse.swift */; };
+		24994DCA2740D214005A604B /* GetAllPindergartenDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DC92740D214005A604B /* GetAllPindergartenDataManager.swift */; };
+		24994DCC2740D299005A604B /* GetAllPindergartenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DCB2740D299005A604B /* GetAllPindergartenResponse.swift */; };
+		24994DCE2740F8E0005A604B /* PindergartenLikeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DCD2740F8E0005A604B /* PindergartenLikeDataManager.swift */; };
+		24994DD02740F949005A604B /* PindergartenLikeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DCF2740F949005A604B /* PindergartenLikeResponse.swift */; };
+		24994DD42741590A005A604B /* DetailPindergartenHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DD32741590A005A604B /* DetailPindergartenHeaderCell.swift */; };
+		24994DD727416061005A604B /* DetailPindergartenInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DD627416061005A604B /* DetailPindergartenInfoCell.swift */; };
+		24994DD927416174005A604B /* DetailPindergartenBasicInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DD827416174005A604B /* DetailPindergartenBasicInfoCell.swift */; };
+		24994DDD274168DC005A604B /* DetailPindergartenBlogReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DDC274168DC005A604B /* DetailPindergartenBlogReviewCell.swift */; };
 		24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6A92725423A00FD519D /* AppDelegate.swift */; };
 		24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6AB2725423A00FD519D /* SceneDelegate.swift */; };
 		24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6B22725423B00FD519D /* Assets.xcassets */; };
@@ -145,7 +155,6 @@
 		240B8D82273268B300078404 /* GetAllFeedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllFeedDataManager.swift; sourceTree = "<group>"; };
 		240B8D84273268C900078404 /* GetDetailFeedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDetailFeedDataManager.swift; sourceTree = "<group>"; };
 		240B8D8C273269E700078404 /* AllFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFeedResponse.swift; sourceTree = "<group>"; };
-		240B8D8F27326CB000078404 /* DetailFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedController.swift; sourceTree = "<group>"; };
 		240B8D9327326D6E00078404 /* DetailFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedResponse.swift; sourceTree = "<group>"; };
 		24595AE1273123E1008B5194 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		24595AE32732730A008B5194 /* DetailFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedCell.swift; sourceTree = "<group>"; };
@@ -187,6 +196,17 @@
 		24994DB7273EF5FD005A604B /* LikePindergartenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikePindergartenController.swift; sourceTree = "<group>"; };
 		24994DB927409973005A604B /* SearchPindergartenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPindergartenController.swift; sourceTree = "<group>"; };
 		24994DBB2740A052005A604B /* SearchPindergartenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPindergartenCell.swift; sourceTree = "<group>"; };
+		24994DBD2740B287005A604B /* DetailPindergartenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPindergartenController.swift; sourceTree = "<group>"; };
+		24994DC52740CF4F005A604B /* GetLikePindergartenDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLikePindergartenDataManager.swift; sourceTree = "<group>"; };
+		24994DC72740CFA4005A604B /* GetLikePindergartenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLikePindergartenResponse.swift; sourceTree = "<group>"; };
+		24994DC92740D214005A604B /* GetAllPindergartenDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllPindergartenDataManager.swift; sourceTree = "<group>"; };
+		24994DCB2740D299005A604B /* GetAllPindergartenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllPindergartenResponse.swift; sourceTree = "<group>"; };
+		24994DCD2740F8E0005A604B /* PindergartenLikeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PindergartenLikeDataManager.swift; sourceTree = "<group>"; };
+		24994DCF2740F949005A604B /* PindergartenLikeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PindergartenLikeResponse.swift; sourceTree = "<group>"; };
+		24994DD32741590A005A604B /* DetailPindergartenHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPindergartenHeaderCell.swift; sourceTree = "<group>"; };
+		24994DD627416061005A604B /* DetailPindergartenInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPindergartenInfoCell.swift; sourceTree = "<group>"; };
+		24994DD827416174005A604B /* DetailPindergartenBasicInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPindergartenBasicInfoCell.swift; sourceTree = "<group>"; };
+		24994DDC274168DC005A604B /* DetailPindergartenBlogReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPindergartenBlogReviewCell.swift; sourceTree = "<group>"; };
 		24C4D6A62725423A00FD519D /* pindergarten.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pindergarten.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C4D6A92725423A00FD519D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24C4D6AB2725423A00FD519D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -324,7 +344,6 @@
 		240B8D8E27326C9D00078404 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				240B8D8F27326CB000078404 /* DetailFeedController.swift */,
 				247B843C273426D300591CC4 /* DetailFeedViewController.swift */,
 				240B8D77273168AE00078404 /* CommentController.swift */,
 				247B84482735026C00591CC4 /* ReportController.swift */,
@@ -363,12 +382,42 @@
 		24994DB0273E734C005A604B /* PindergartenTap */ = {
 			isa = PBXGroup;
 			children = (
+				24994DD527415CAD005A604B /* DetailPindergartenControllers */,
 				24F74333272DB6AB00238E20 /* PindergartenViewController.swift */,
 				24994DB3273EB5CD005A604B /* ContentViewController.swift */,
 				24994DB7273EF5FD005A604B /* LikePindergartenController.swift */,
 				24994DB927409973005A604B /* SearchPindergartenController.swift */,
 			);
 			path = PindergartenTap;
+			sourceTree = "<group>";
+		};
+		24994DC32740CF31005A604B /* Pindergarten */ = {
+			isa = PBXGroup;
+			children = (
+				24994DC92740D214005A604B /* GetAllPindergartenDataManager.swift */,
+				24994DC52740CF4F005A604B /* GetLikePindergartenDataManager.swift */,
+				24994DCD2740F8E0005A604B /* PindergartenLikeDataManager.swift */,
+				24994DC42740CF3C005A604B /* Entity */,
+			);
+			path = Pindergarten;
+			sourceTree = "<group>";
+		};
+		24994DC42740CF3C005A604B /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				24994DCB2740D299005A604B /* GetAllPindergartenResponse.swift */,
+				24994DC72740CFA4005A604B /* GetLikePindergartenResponse.swift */,
+				24994DCF2740F949005A604B /* PindergartenLikeResponse.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		24994DD527415CAD005A604B /* DetailPindergartenControllers */ = {
+			isa = PBXGroup;
+			children = (
+				24994DBD2740B287005A604B /* DetailPindergartenController.swift */,
+			);
+			path = DetailPindergartenControllers;
 			sourceTree = "<group>";
 		};
 		24C4D69D2725423A00FD519D = {
@@ -534,6 +583,10 @@
 				24595AE32732730A008B5194 /* DetailFeedCell.swift */,
 				24994DB5273EB75B005A604B /* PindergartenCell.swift */,
 				24994DBB2740A052005A604B /* SearchPindergartenCell.swift */,
+				24994DD32741590A005A604B /* DetailPindergartenHeaderCell.swift */,
+				24994DD627416061005A604B /* DetailPindergartenInfoCell.swift */,
+				24994DD827416174005A604B /* DetailPindergartenBasicInfoCell.swift */,
+				24994DDC274168DC005A604B /* DetailPindergartenBlogReviewCell.swift */,
 				24F7434927303AFB00238E20 /* PinterestLayout.swift */,
 			);
 			path = View;
@@ -558,6 +611,7 @@
 				24F74301272CEBAB00238E20 /* User */,
 				24F7432D272DA1D500238E20 /* Community */,
 				24994D882739745E005A604B /* Event */,
+				24994DC32740CF31005A604B /* Pindergarten */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -889,7 +943,7 @@
 				24C4D71427287A6200FD519D /* CustomNavBar.swift in Sources */,
 				24F7432C272D1E1D00238E20 /* LoginResponse.swift in Sources */,
 				24C4D6F3272599DF00FD519D /* BaseViewController.swift in Sources */,
-				240B8D9027326CB000078404 /* DetailFeedController.swift in Sources */,
+				24994DCC2740D299005A604B /* GetAllPindergartenResponse.swift in Sources */,
 				24F74336272DB6CC00238E20 /* MeAndPetViewController.swift in Sources */,
 				24F742FA272C733F00238E20 /* FindPasswordViewController.swift in Sources */,
 				24994DA7273AD9FB005A604B /* ReportDataManager.swift in Sources */,
@@ -898,11 +952,13 @@
 				24994DA1273AC69A005A604B /* PostEventCommentResponse.swift in Sources */,
 				24F74322272D166200238E20 /* RegisterUserDataManager.swift in Sources */,
 				24994D9D273AC616005A604B /* PostEventCommentDataManager.swift in Sources */,
+				24994DBE2740B287005A604B /* DetailPindergartenController.swift in Sources */,
 				240B8D78273168AE00078404 /* CommentController.swift in Sources */,
 				24F7431A272D0AA900238E20 /* CheckUserResponse.swift in Sources */,
 				24994DA5273AC7DC005A604B /* DeleteEventCommentResponse.swift in Sources */,
 				24994DB4273EB5CD005A604B /* ContentViewController.swift in Sources */,
 				247B84392733C17200591CC4 /* GetCommentResponse.swift in Sources */,
+				24994DD927416174005A604B /* DetailPindergartenBasicInfoCell.swift in Sources */,
 				24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */,
 				247B84492735026C00591CC4 /* ReportController.swift in Sources */,
 				240B8D83273268B300078404 /* GetAllFeedDataManager.swift in Sources */,
@@ -922,9 +978,11 @@
 				240B8D85273268C900078404 /* GetDetailFeedDataManager.swift in Sources */,
 				24994D9527398674005A604B /* EventLikeResponse.swift in Sources */,
 				247B8443273433CA00591CC4 /* PostCommentRequest.swift in Sources */,
+				24994DD727416061005A604B /* DetailPindergartenInfoCell.swift in Sources */,
 				24F74318272D0A9C00238E20 /* CheckUserRequest.swift in Sources */,
 				24994DBA27409973005A604B /* SearchPindergartenController.swift in Sources */,
 				24994DB6273EB75B005A604B /* PindergartenCell.swift in Sources */,
+				24994DC82740CFA4005A604B /* GetLikePindergartenResponse.swift in Sources */,
 				24994DA3273AC7D2005A604B /* DeleteEventCommentDataManager.swift in Sources */,
 				24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */,
 				24994D8B27397481005A604B /* GetAllEventDataManager.swift in Sources */,
@@ -948,6 +1006,7 @@
 				24C4D6DD2725929800FD519D /* Constant.swift in Sources */,
 				24F74303272CEBD800238E20 /* SendAuthNumberDataManager.swift in Sources */,
 				24F74316272D0A5E00238E20 /* CheckUserDataManager.swift in Sources */,
+				24994DD42741590A005A604B /* DetailPindergartenHeaderCell.swift in Sources */,
 				24F74306272CEC2700238E20 /* SendAuthNumberResponse.swift in Sources */,
 				24F74310272D028F00238E20 /* CheckNickNameDataManager.swift in Sources */,
 				24994DB8273EF5FD005A604B /* LikePindergartenController.swift in Sources */,
@@ -958,9 +1017,13 @@
 				24994D93273985FC005A604B /* EventLikeDataManager.swift in Sources */,
 				24F74330272DB4EE00238E20 /* HomeTabBarController.swift in Sources */,
 				247B844527345F4A00591CC4 /* DeleteFeedDataManager.swift in Sources */,
+				24994DC62740CF4F005A604B /* GetLikePindergartenDataManager.swift in Sources */,
 				24F7430A272CF53800238E20 /* CheckAuthNumberDataManager.swift in Sources */,
 				240B8D7A27316E8000078404 /* BaseCommentController.swift in Sources */,
 				24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */,
+				24994DCE2740F8E0005A604B /* PindergartenLikeDataManager.swift in Sources */,
+				24994DCA2740D214005A604B /* GetAllPindergartenDataManager.swift in Sources */,
+				24994DDD274168DC005A604B /* DetailPindergartenBlogReviewCell.swift in Sources */,
 				24994DBC2740A052005A604B /* SearchPindergartenCell.swift in Sources */,
 				247B8441273433BD00591CC4 /* PostCommentResponse.swift in Sources */,
 				24F74308272CECCD00238E20 /* SendAuthNumberRequest.swift in Sources */,
@@ -972,6 +1035,7 @@
 				24595AE42732730A008B5194 /* DetailFeedCell.swift in Sources */,
 				24F74332272DB68700238E20 /* HomeViewController.swift in Sources */,
 				24F74334272DB6AB00238E20 /* PindergartenViewController.swift in Sources */,
+				24994DD02740F949005A604B /* PindergartenLikeResponse.swift in Sources */,
 				24C4D71A2729EDD800FD519D /* BaseSignUpViewController.swift in Sources */,
 				247B8435273306CA00591CC4 /* LikeResponse.swift in Sources */,
 				24994D9127397CC2005A604B /* DetailEventResponse.swift in Sources */,

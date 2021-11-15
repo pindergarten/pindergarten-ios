@@ -52,13 +52,13 @@ class SearchPindergartenCell: UITableViewCell {
     //MARK: - Helpers
     private func configureUI() {
 
-        addSubview(positionImage)
-        addSubview(nameLabel)
-        addSubview(addressLabel)
+        contentView.addSubview(positionImage)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(addressLabel)
 
         positionImage.snp.makeConstraints { make in
-            make.top.equalTo(self).offset(16)
-            make.left.equalTo(self).offset(28)
+            make.top.equalTo(contentView).offset(16)
+            make.left.equalTo(contentView).offset(28)
             make.width.equalTo(15)
             make.height.equalTo(20)
         }
@@ -66,14 +66,14 @@ class SearchPindergartenCell: UITableViewCell {
         nameLabel.snp.makeConstraints { make in
             make.centerY.equalTo(positionImage)
             make.left.equalTo(positionImage.snp.right).offset(15)
-            make.right.equalTo(self).offset(-47)
+            make.right.equalTo(contentView).offset(-47)
         }
         
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(2)
             make.left.equalTo(nameLabel)
             make.right.equalTo(nameLabel)
-            make.bottom.equalTo(self).offset(-12)
+            make.bottom.equalTo(contentView).offset(-12)
         }
     }
 }

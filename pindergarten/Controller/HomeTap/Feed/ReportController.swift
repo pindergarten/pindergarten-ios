@@ -117,30 +117,7 @@ class ReportController: BaseViewController {
         
         reportTitleTextFeild.delegate = self
         
-        
-        dropDown.anchorView = reportTypeButton
-        dropDown.dataSource = ["광고성 글", "스팸 컨텐츠", "욕설/비방/혐오", "노골적인 폭력 묘사"]
-        dropDown.textColor = UIColor(hex: 0x3D3D3D)
-        dropDown.backgroundColor = .white
-        dropDown.textFont = UIFont(name: "AppleSDGothicNeo-Medium", size: 15)!
-        dropDown.selectionBackgroundColor = .white
-        dropDown.cornerRadius = 10
-        
-        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.type = index + 1
-            print(self.type)
-            reportTypeButton.setAttributedTitle(NSAttributedString(string: item, attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x3D3D3D)]), for: .normal)
-            
-            if textView.text.count >= 10 && reportTitleTextFeild.text?.count ?? 0 > 0 {
-                finishButton.isUserInteractionEnabled = true
-                finishButton.tintColor = UIColor.mainBrown
-            } else {
-                finishButton.isUserInteractionEnabled = false
-                finishButton.tintColor = UIColor(hex: 0xABABAB)
-            }
-            
-        }
-        
+        setUpDropDown()
         configureUI()
         placeholderSetting()
     }
@@ -174,6 +151,32 @@ class ReportController: BaseViewController {
         }
     }
     //MARK: - Helpers
+    private func setUpDropDown() {
+        dropDown.anchorView = reportTypeButton
+        dropDown.dataSource = ["광고성 글", "스팸 컨텐츠", "욕설/비방/혐오", "노골적인 폭력 묘사"]
+        dropDown.textColor = UIColor(hex: 0x3D3D3D)
+        dropDown.backgroundColor = .white
+        dropDown.textFont = UIFont(name: "AppleSDGothicNeo-Medium", size: 15)!
+        dropDown.selectionBackgroundColor = .white
+        dropDown.cornerRadius = 10
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.type = index + 1
+            print(self.type)
+            reportTypeButton.setAttributedTitle(NSAttributedString(string: item, attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x3D3D3D)]), for: .normal)
+            
+            if textView.text.count >= 10 && reportTitleTextFeild.text?.count ?? 0 > 0 {
+                finishButton.isUserInteractionEnabled = true
+                finishButton.tintColor = UIColor.mainBrown
+            } else {
+                finishButton.isUserInteractionEnabled = false
+                finishButton.tintColor = UIColor(hex: 0xABABAB)
+            }
+            
+        }
+        
+    }
+    
     private func placeholderSetting() {
         textView.delegate = self // txtvReview가 유저가 선언한 outlet
         

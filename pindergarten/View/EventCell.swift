@@ -67,19 +67,19 @@ class EventCell: UICollectionViewCell {
     private func configureUI() {
         backgroundColor = .white
         
-        addSubview(eventImage)
-        addSubview(eventLabel)
-        addSubview(dDayView)
+        contentView.addSubview(eventImage)
+        contentView.addSubview(eventLabel)
+        contentView.addSubview(dDayView)
         dDayView.addSubview(dDayLabel)
         
         eventImage.snp.makeConstraints { make in
-            make.top.left.right.equalTo(self.contentView)
-            make.bottom.equalTo(self.contentView).offset(-44)
+            make.top.left.right.equalTo(contentView)
+            make.bottom.equalTo(contentView).offset(-44)
         }
         
         eventLabel.snp.makeConstraints { make in
             make.top.equalTo(eventImage.snp.bottom).offset(10)
-            make.left.right.equalTo(self.contentView)
+            make.left.right.equalTo(contentView)
         }
         
         dDayView.snp.makeConstraints { make in

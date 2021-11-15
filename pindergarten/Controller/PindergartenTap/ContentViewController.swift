@@ -8,6 +8,7 @@
 import UIKit
 
 class ContentViewController: BaseViewController {
+    
     //MARK: - Properties
     
     let tableView: UITableView = {
@@ -44,6 +45,14 @@ class ContentViewController: BaseViewController {
 
 
 //MARK: - Extension
+extension ContentViewController: PindergartenCellDelegate {
+    func didTapCellHeartButton(index: Int) {
+        print("DEBUG: TAPPED HEART BUTTON")
+    }
+    
+    
+}
+
 extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,11 +61,15 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PindergartenCell.identifier, for: indexPath) as! PindergartenCell
+        cell.delegate = self
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let detailVC = DetailPindergartenController()
+        navigationController?.pushViewController(detailVC, animated: true)
+        print(indexPath.item)
     }
 }

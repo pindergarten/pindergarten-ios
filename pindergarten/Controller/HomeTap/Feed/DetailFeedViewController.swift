@@ -121,7 +121,7 @@ class DetailFeedViewController: BaseViewController {
 
         var paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.28
-        label.attributedText = NSMutableAttributedString(string: "잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ", attributes: [.font: UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!, .paragraphStyle: paragraphStyle])
+        label.attributedText = NSMutableAttributedString(string: "잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ", attributes: [.font: UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!, .paragraphStyle: paragraphStyle])
         return label
     }()
     
@@ -150,7 +150,7 @@ class DetailFeedViewController: BaseViewController {
         pageIndicator.currentPageIndicatorTintColor = UIColor.mainLightYellow
         pageIndicator.pageIndicatorTintColor = UIColor(hex: 0xC4C4C4)
         imageSlide.pageIndicator = pageIndicator
-        imageSlide.activityIndicator = DefaultActivityIndicator(style: .large, color: .mainLightYellow)
+        imageSlide.activityIndicator = DefaultActivityIndicator(style: .large, color: .mainYellow)
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapImage))
         imageSlide.addGestureRecognizer(gestureRecognizer)
