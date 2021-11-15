@@ -8,7 +8,7 @@
 //import Alamofire
 //
 //class PindergartenLikeDataManager {
-//    
+//
 //    func likePindergarten(pindergartenId: Int, delegate: ContentViewController) {
 //        AF.request("\(Constant.BASE_URL)/api/pindergartens/\(pindergartenId)/like", method: .post,headers: Constant.HEADERS)
 //            .validate()

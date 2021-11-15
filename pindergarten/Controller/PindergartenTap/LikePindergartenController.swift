@@ -9,6 +9,9 @@ import UIKit
 
 class LikePindergartenController: BaseViewController {
     //MARK: - Properties
+    lazy var getLikePindergartenDataManager: GetLikePindergartenDataManager = GetLikePindergartenDataManager()
+    
+    var likeResult: [GetLikePindergartenResult]?
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -50,6 +53,8 @@ class LikePindergartenController: BaseViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getLikePindergartenDataManager.getLikePindergarten(delegate: self)
         
         setUpTableView()
         configureUI()
@@ -138,4 +143,15 @@ extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource
         print("왜 하트버튼이 안눌러지지")
     }
     
+}
+
+// 네트워크 함수
+extension LikePindergartenController {
+    func didSuccessGetLikePindergarten(_ result: GetLikePindergartenResult) {
+        
+    }
+    
+    func failedToGetAllPindergarten(message: String) {
+        self.presentAlert(title: message)
+    }
 }

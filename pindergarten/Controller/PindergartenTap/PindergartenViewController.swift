@@ -34,7 +34,6 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
     //MARK: - Properties
     
     private lazy var locationManager = CLLocationManager()
-    var currentLocation:CLLocationCoordinate2D!
     
     var fpc: FloatingPanelController!
     

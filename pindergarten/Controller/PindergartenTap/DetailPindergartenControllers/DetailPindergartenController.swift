@@ -16,6 +16,24 @@ class DetailPindergartenController: BaseViewController {
     
     //MARK: - Properties
   
+    lazy var getDetailPindergartenDataManager: GetDetailPindergartenDataManager = GetDetailPindergartenDataManager()
+    lazy var getBlogReviewDataManager: GetBlogReviewDataManager = GetBlogReviewDataManager()
+    
+    
+    var detailResult: GetDetailPindergartenResult? {
+        didSet {
+            totalTableVeiw.reloadData()
+        }
+    }
+    
+    var blogReviewResult: GetBlogReviewResponse? {
+        didSet {
+            totalTableVeiw.reloadData()
+        }
+    }
+    
+    var pindergartenID: Int = 0
+    
     let totalTableVeiw: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = .white
@@ -39,28 +57,42 @@ class DetailPindergartenController: BaseViewController {
         }
         return view
     }()
+    let blogCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
+        label.textColor = UIColor(hex: 0x535353)
+        label.text = "48개 블로그 리뷰 더보기"
+        return label
+    }()
     
-    let blogFooter: UIView = {
+    lazy var blogFooter: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: Device.width, height: 60))
         let button = UIButton(type: .system)
-        button.setAttributedTitle(NSAttributedString(string: "48개 블로그 리뷰 더보기", attributes: [.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)!, .foregroundColor : UIColor(hex: 0x535353)]), for: .normal)
-//        button.addTarget(self, action: #selector(didTapMoreReviewButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapMoreReviewButton), for: .touchUpInside)
         button.backgroundColor = UIColor(hex: 0xF3F3F3)
         button.layer.cornerRadius = 20
         view.addSubview(button)
+        button.addSubview(blogCountLabel)
         button.snp.makeConstraints { make in
             make.top.equalTo(view)
             make.left.equalTo(view).offset(20)
             make.bottom.right.equalTo(view).offset(-20)
             make.height.equalTo(40)
         }
+        
+        blogCountLabel.snp.makeConstraints { make in
+            make.center.equalTo(button)
+        }
+        
         return view
     }()
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        getDetailPindergartenDataManager.getDetailPindergarten(pindergartenId: 1, lat: "37.540025", lon: "127.005686", delegate: self)
+        getBlogReviewDataManager.getBlogReviewPindergarten(name: "하울팟 케어클럽 서초", delegate: self)
         tableViewSetup()
         configureUI()
 
@@ -74,7 +106,13 @@ class DetailPindergartenController: BaseViewController {
     }
     
     //MARK: - Action
-
+    
+    @objc func didTapMoreReviewButton() {
+        let blogVC = BlogReviewController()
+        blogVC.review = blogReviewResult
+        navigationController?.pushViewController(blogVC, animated: true)
+    }
+    
     //MARK: - Helpers
     private func tableViewSetup() {
         
@@ -102,11 +140,11 @@ class DetailPindergartenController: BaseViewController {
 
 extension DetailPindergartenController: DetailPindergartenHeaderCellDelegate {
     func didTapCallButton() {
-        
+        print("call")
     }
     
     func didTapHeartButton() {
-        
+        print("heart")
     }
     
     func didTapBackButton() {
@@ -116,7 +154,6 @@ extension DetailPindergartenController: DetailPindergartenHeaderCellDelegate {
     func didTapImage(imageSlide: ImageSlideshow) {
         imageSlide.presentFullScreenController(from: self)
     }
-    
     
 }
 
@@ -141,12 +178,20 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenHeaderCell.identifier, for: indexPath) as! DetailPindergartenHeaderCell
             cell.selectionStyle = .none
             cell.delegate = self
+            
+            cell.nameLabel.text = detailResult?.name
+            cell.pindergartenAddressLabel.text = detailResult?.address
+            let str = String(format: "%.2f", detailResult?.rating ?? 0)
+            cell.scoreLabel.text = "\(str)/5"
+            cell.starView.rating = detailResult?.rating ?? 0
             return cell
         }
         
         if indexPath == [0,1] {
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenInfoCell.identifier, for: indexPath) as! DetailPindergartenInfoCell
             cell.selectionStyle = .none
+            cell.infoLabel.text = detailResult?.openingHours
+            
             return cell
         }
         
@@ -154,13 +199,18 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenInfoCell.identifier, for: indexPath) as! DetailPindergartenInfoCell
             cell.selectionStyle = .none
             cell.titleLabel.text = "이용안내"
-            cell.infoLabel.text = "주차, 무선 인터넷, 반려동물 동반, 남/녀 화장실 구분 "
+            cell.infoLabel.text = detailResult?.accessGuide
             return cell
         }
         
         if indexPath == [0,3]  {
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenBasicInfoCell.identifier, for: indexPath) as! DetailPindergartenBasicInfoCell
             cell.selectionStyle = .none
+            cell.callInfoLabel.text = detailResult?.phone
+            cell.addressInfoLabel.text = detailResult?.address
+            cell.homepageInfoLabel.text = detailResult?.website
+            cell.socialInfoLabel.text = detailResult?.social
+            
             return cell
         }
         
@@ -168,7 +218,11 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenBlogReviewCell.identifier, for: indexPath) as! DetailPindergartenBlogReviewCell
             cell.selectionStyle = .none
             
-        
+            let title = blogReviewResult?.items?[indexPath.item].title.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "")
+            let content = blogReviewResult?.items?[indexPath.item].description.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "")
+            cell.blogTitleLabel.text = title
+            cell.contentLabel.text = content
+            cell.dateLabel.text = blogReviewResult?.items?[indexPath.item].postdate
             return cell
         }
         else {
@@ -177,6 +231,9 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            print(indexPath.item)
+        }
         
     }
     
@@ -196,4 +253,24 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
     }
     
     
+}
+
+// 네트워크 함수
+extension DetailPindergartenController {
+    func didSuccessGetDetailPindergarten(_ result: GetDetailPindergartenResult) {
+        detailResult = result
+    }
+    
+    func failedToGetDetailPindergarten(message: String) {
+        self.presentAlert(title: message)
+    }
+    
+    func didSuccessGetBlogReviewPindergarten(_ result: GetBlogReviewResponse) {
+        blogReviewResult = result
+        blogCountLabel.text = "\(String(describing: result.total))개 블로그 리뷰 더보기"
+    }
+    
+    func failedToGetBlogReviewPindergarten(message: String) {
+        self.presentAlert(title: message)
+    }
 }
