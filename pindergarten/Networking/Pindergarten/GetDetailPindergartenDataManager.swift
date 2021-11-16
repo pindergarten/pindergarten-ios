@@ -15,7 +15,7 @@ class GetDetailPindergartenDataManager {
                 switch response.result {
                 case .success(let response):
                     // 성공했을 때
-                    if response.isSuccess, let result = response.event {
+                    if response.isSuccess, let result = response.pindergarten {
                         delegate.didSuccessGetDetailPindergarten(result)
                     }
                     // 실패했을 때

@@ -11,17 +11,10 @@ struct GetLikePindergartenResponse: Decodable {
         var isSuccess: Bool
         var code: Int
         var message: String
-        var result: GetLikePindergartenResult?
+        var likedPindergartens: [GetLikePindergartenResult]?
 }
 
 struct GetLikePindergartenResult: Decodable {
-    var pindergartenId: Int
-    var pindergarten: [PindergartenResult]?
-
-
-}
-
-struct PindergartenResult: Decodable {
     var id: Int
     var name: String
     var address: String
@@ -30,11 +23,12 @@ struct PindergartenResult: Decodable {
     var longitude: String
     var rating: Float
     var openingHours: String
-    var accessGuide: String
-    var phone: String
-    var website: String
-    var social: String
+//    var accessGuide: String
+//    var phone: String
+//    var website: String
+//    var social: String
     var createdAt: String
+    var distance: Double
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -45,10 +39,15 @@ struct PindergartenResult: Decodable {
         case longitude
         case rating
         case openingHours = "opening_hours"
-        case accessGuide = "access_guide"
-        case phone
-        case website
-        case social
-        case createdAt
+//        case accessGuide = "access_guide"
+//        case phone
+//        case website
+//        case social
+        case createdAt = "created_at"
+        case distance
     }
+
+
 }
+
+

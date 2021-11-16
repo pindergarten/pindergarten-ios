@@ -8,14 +8,16 @@
 import Alamofire
 
 class GetLikePindergartenDataManager {
-    func getLikePindergarten(delegate: LikePindergartenController) {
-        AF.request("\(Constant.BASE_URL)/api/like/pindergartens", method: .get, headers: Constant.HEADERS)
+    func getLikePindergarten(lat: Double, lon: Double, delegate: LikePindergartenController) {
+ 
+        print("\(Constant.BASE_URL)/api/like/pindergartens?latitude=\(lat)&longitude=\(lon)")
+        AF.request("\(Constant.BASE_URL)/api/like/pindergartens?latitude=\(lat)&longitude=\(lon)", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetLikePindergartenResponse.self) { response in
                 switch response.result {
                 case .success(let response):
                     // 성공했을 때
-                    if response.isSuccess, let result = response.result {
+                    if response.isSuccess, let result = response.likedPindergartens {
                         delegate.didSuccessGetLikePindergarten(result)
                     }
                     // 실패했을 때

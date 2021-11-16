@@ -9,6 +9,12 @@ import UIKit
 
 class SearchPindergartenController: BaseViewController {
     //MARK: - Properties
+    lazy var getSearchPindergartenDataManager: GetSearchPindergartenDataManager = GetSearchPindergartenDataManager()
+    var searchResult: [GetSearchPindergartenResult] = [] {
+        didSet {
+            searchTableView.reloadData()
+        }
+    }
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -22,6 +28,7 @@ class SearchPindergartenController: BaseViewController {
         tf.borderStyle = .none
         tf.attributedPlaceholder = NSAttributedString(string: "검색하실 내용을 입력해주세요.", attributes: [.foregroundColor:UIColor(hex: 0xC1C1C1), .font:UIFont(name: "AppleSDGothicNeo-Regular", size: 16)!])
         tf.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        tf.returnKeyType = .search
         return tf
     }()
     
@@ -46,6 +53,7 @@ class SearchPindergartenController: BaseViewController {
         tableView.separatorColor = UIColor(hex: 0xF3F4F6)
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
+        tableView.tableFooterView = UIView()
         return tableView
     }()
     
@@ -53,6 +61,7 @@ class SearchPindergartenController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchTextField.delegate = self
         setUpTableView()
         configureUI()
     }
@@ -78,6 +87,7 @@ class SearchPindergartenController: BaseViewController {
     @objc private func didTapXButton() {
         searchTextField.text = ""
         xButton.isHidden = true
+        searchTextField.becomeFirstResponder()
     }
     //MARK: - Helpers
     private func setUpTableView() {
@@ -129,16 +139,47 @@ class SearchPindergartenController: BaseViewController {
 extension SearchPindergartenController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return searchResult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchPindergartenCell.identifier, for: indexPath) as! SearchPindergartenCell
         
         cell.selectionStyle = .none
+        cell.nameLabel.text = searchResult[indexPath.item].name
+        cell.addressLabel.text = searchResult[indexPath.item].address
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = DetailPindergartenController()
+        detailVC.pindergartenID = searchResult[indexPath.item].id
+        detailVC.name = searchResult[indexPath.item].name
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
     
+    
+}
+
+extension SearchPindergartenController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == searchTextField {
+            getSearchPindergartenDataManager.getSearchPindergarten(query: searchTextField.text ?? "", lat: 37.540025, lon: 127.005686, delegate: self)
+            textField.resignFirstResponder()
+        }
+        
+        return true
+    }
+}
+
+// 네트워크 함수
+extension SearchPindergartenController {
+    func didSuccessGetSearchPindergarten(_ result: [GetSearchPindergartenResult]) {
+        searchResult = result
+    }
+    
+    func failedToGetSearchPindergarten(message: String) {
+        self.presentAlert(title: message)
+    }
 }

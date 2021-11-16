@@ -21,6 +21,7 @@ struct GetAllPindergartenResult: Decodable {
     var thumbnail: String
     var latitude: String
     var longitude: String
-    var rating: Float
+    var rating: Double
+    var distance: Double?
     var isLiked: Int
 }

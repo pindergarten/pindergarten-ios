@@ -131,8 +131,8 @@ class DetailPindergartenHeaderCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     
     
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapImage))
-        imageSlide.addGestureRecognizer(gestureRecognizer)
+//        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapImage))
+//        imageSlide.addGestureRecognizer(gestureRecognizer)
         
         configureUI()
     }

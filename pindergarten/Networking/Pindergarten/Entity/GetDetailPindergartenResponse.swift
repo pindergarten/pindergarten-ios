@@ -11,7 +11,7 @@ struct GetDetailPindergartenResponse: Decodable {
         var isSuccess: Bool
         var code: Int
         var message: String
-        var event: GetDetailPindergartenResult?
+        var pindergarten: GetDetailPindergartenResult?
 }
 
 struct GetDetailPindergartenResult: Decodable {
@@ -23,10 +23,10 @@ struct GetDetailPindergartenResult: Decodable {
     var longitude: String
     var rating: Double
     var openingHours: String
-    var accessGuide: String
-    var phone: String
-    var website: String
-    var social: String
+//    var accessGuide: String
+//    var phone: String
+//    var website: String
+//    var social: String
     var createAt: String
     var distance: Double
     var imgUrls: [DetailPindergartenImageUrls]?
@@ -41,10 +41,10 @@ struct GetDetailPindergartenResult: Decodable {
         case longitude
         case rating
         case openingHours = "opening_hours"
-        case accessGuide = "access_guide"
-        case phone
-        case website
-        case social
+//        case accessGuide = "access_guide"
+//        case phone
+//        case website
+//        case social
         case createAt = "created_at"
         case distance
         case imgUrls

@@ -6,12 +6,22 @@
 //
 
 import UIKit
+import CoreLocation
+import Kingfisher
 
 class LikePindergartenController: BaseViewController {
     //MARK: - Properties
     lazy var getLikePindergartenDataManager: GetLikePindergartenDataManager = GetLikePindergartenDataManager()
+    lazy var pindergartenLikeDataManager: PindergartenLikeDataManager = PindergartenLikeDataManager()
     
-    var likeResult: [GetLikePindergartenResult]?
+    var likeResult: [GetLikePindergartenResult] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    private lazy var locationManager = CLLocationManager()
+    
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -31,7 +41,7 @@ class LikePindergartenController: BaseViewController {
     private lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "pindergartenFilledHeart"), for: .normal)
-        button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
         return button
     }()
     
@@ -54,8 +64,8 @@ class LikePindergartenController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getLikePindergartenDataManager.getLikePindergarten(delegate: self)
-        
+        getLikePindergartenDataManager.getLikePindergarten(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON, delegate: self)
+
         setUpTableView()
         configureUI()
     }
@@ -70,9 +80,9 @@ class LikePindergartenController: BaseViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func didTapHeartButton() {
-        print("DEBUG: TAPPED HEART BUTTON")
-    }
+//    @objc private func didTapHeartButton() {
+//        print("DEBUG: TAPPED HEART BUTTON")
+//    }
     //MARK: - Helpers
     private func setUpTableView() {
         tableView.delegate = self
@@ -122,12 +132,15 @@ class LikePindergartenController: BaseViewController {
 extension LikePindergartenController: PindergartenCellDelegate {
     func didTapCellHeartButton(index: Int) {
         print("DEBUG: TAPPED HEART BUTTON")
+        print(likeResult[index].id)
+        pindergartenLikeDataManager.likePindergarten(pindergartenId: likeResult[index].id, delegate: self)
+        
     }
 }
 extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return likeResult.count
     }
     
     
@@ -135,23 +148,46 @@ extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: PindergartenCell.identifier, for: indexPath) as! PindergartenCell
         cell.delegate = self
         cell.selectionStyle = .none
+        
+        cell.pindergartenImage.kf.setImage(with: URL(string: likeResult[indexPath.item].thumbnail))
+        cell.distanceLabel.text = "\(String(format: "%.1f", likeResult[indexPath.item].distance))km"
+        cell.nameLabel.text = likeResult[indexPath.item].name
+        cell.addressLabel.text = likeResult[indexPath.item].address
+        cell.scoreLabel.text = "\(String(format: "%.2f", likeResult[indexPath.item].rating))/5"
+        cell.starView.rating = Double(likeResult[indexPath.item].rating)
+        
+        cell.heartButton.setImage(UIImage(named: "pcellFilledHeart"), for: .normal)
+        cell.heartButton.tag = indexPath.item
+    
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print("왜 하트버튼이 안눌러지지")
+        let detailVC = DetailPindergartenController()
+        detailVC.pindergartenID = likeResult[indexPath.item].id
+        detailVC.name = likeResult[indexPath.item].name
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
 }
 
 // 네트워크 함수
 extension LikePindergartenController {
-    func didSuccessGetLikePindergarten(_ result: GetLikePindergartenResult) {
-        
+    func didSuccessGetLikePindergarten(_ result: [GetLikePindergartenResult]) {
+        likeResult = result
+        print(likeResult)
     }
     
     func failedToGetAllPindergarten(message: String) {
+        self.presentAlert(title: message)
+    }
+    
+    func didSuccessLikePindergarten(_ result: PindergartenLikeResult) {
+        print(result.isSet)
+    }
+    
+    func failedToLikePindergarten(message: String) {
         self.presentAlert(title: message)
     }
 }

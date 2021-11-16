@@ -152,7 +152,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.delegate = self
         
         cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"))
-        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: UIImage(named: "2"))
+        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: UIImage())
         cell.nameLabel.text = feed[indexPath.item].nickname
         cell.scriptionLabel.text = feed[indexPath.item].content
         cell.heartButton.tag = feed[indexPath.item].id

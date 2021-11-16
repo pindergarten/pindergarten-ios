@@ -102,14 +102,14 @@ class PindergartenCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Action
-    @objc private func didTapHeartButton() {
-        delegate?.didTapCellHeartButton(index: 1)
+    @objc private func didTapHeartButton(index: Int) {
+        delegate?.didTapCellHeartButton(index: heartButton.tag)
     }
     //MARK: - Helpers
     private func configureUI() {
         contentView.addSubview(pindergartenImage)
         contentView.addSubview(distanceView)
-        distanceView.addSubview(distanceLabel)
+        contentView.addSubview(distanceLabel)
         contentView.addSubview(nameLabel)
         contentView.addSubview(addressLabel)
         contentView.addSubview(heartButton)
@@ -124,14 +124,15 @@ class PindergartenCell: UITableViewCell {
         
         distanceView.snp.makeConstraints { make in
             make.top.right.equalTo(pindergartenImage).inset(12)
-            make.width.equalTo(47)
             make.height.equalTo(20)
         }
         
         distanceLabel.snp.makeConstraints { make in
             make.center.equalTo(distanceView)
+            make.left.equalTo(distanceView).offset(10)
+            make.right.equalTo(distanceView).offset(-10)
         }
-        
+    
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(pindergartenImage.snp.bottom).offset(10)
             make.left.equalTo(contentView)

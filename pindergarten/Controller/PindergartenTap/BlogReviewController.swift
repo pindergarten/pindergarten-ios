@@ -38,13 +38,14 @@ class BlogReviewController: BaseViewController {
         tableView.backgroundColor = .white
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
+        tableView.tableFooterView = UIView()
         return tableView
     }()
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         tableViewSetup()
         configureUI()
     }
@@ -91,20 +92,29 @@ class BlogReviewController: BaseViewController {
 
 
 extension BlogReviewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if review?.total ?? 0 > 10 {
+            return 10
+        }
         return review?.total ?? 0
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenBlogReviewCell.identifier, for: indexPath) as! DetailPindergartenBlogReviewCell
+        cell.selectionStyle = .none
         
         let blog = review?.items?[indexPath.item]
-        cell.blogTitleLabel.text = blog?.title
-        cell.contentLabel.text = blog?.description
+        cell.blogTitleLabel.text = blog?.title.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
+        cell.contentLabel.text = blog?.description.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
         cell.dateLabel.text = blog?.postdate
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let webView = BlogWebViewController()
+        webView.blogUrl = review?.items?[indexPath.item].link ?? ""
+        navigationController?.pushViewController(webView, animated: true)
+    }
 }

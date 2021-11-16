@@ -34,10 +34,15 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
     //MARK: - Properties
     
     private lazy var locationManager = CLLocationManager()
+
+    lazy var getAllPindergartenDataManager: GetAllPindergartenDataManager = GetAllPindergartenDataManager()
+    lazy var getPickAroundPindergartenDataManager: GetPickAroundPindergartenDataManager = GetPickAroundPindergartenDataManager()
+    
+    var allPindergarten: [GetAllPindergartenResult] = []
     
     var fpc: FloatingPanelController!
-    
-    private lazy var NMapView = NMFMapView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
+    var clickedMarker: NMFMarker?
+//    private lazy var NMapView = NMFMapView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
     private lazy var naverMapView = NMFNaverMapView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
     
     private let tapNameLabel: UILabel = {
@@ -61,14 +66,20 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         button.addTarget(self, action: #selector(didTapSearchButton), for: .touchUpInside)
         return button
     }()
+    
+    let contentVC = ContentViewController()
+    let image = NMFOverlayImage(name: "marker")
+    let selectedImage = NMFOverlayImage(name: "selectedMarker")
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
+        getAllPindergartenDataManager.getLikePindergarten(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0, delegate: self)
         enableLocationServices()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         configureUI()
-        markPlace()
+
+       
         setFloatingPanel()
         
         naverMapView.mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
@@ -125,7 +136,7 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         fpc.surfaceView.contentPadding = .init(top: 24, left: 20, bottom: 25, right: 20)
 
 
-        let contentVC = ContentViewController()
+        
         fpc.set(contentViewController: contentVC)
         fpc.track(scrollView: contentVC.tableView)
         fpc.addPanel(toParent: self)
@@ -134,25 +145,30 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
     }
     
     
-    private func markPlace() {
+    private func markPlace(lat: Double, lng: Double) {
         let marker = NMFMarker()
-        marker.touchHandler = { (overlay) -> Bool in
-            print("마커 1 터치됨")
-            self.fpc.move(to: .tip, animated: false)
+        marker.touchHandler = { [weak self] (overlay) -> Bool in
+            self?.clickedMarker?.iconImage = self?.image ?? NMFOverlayImage()
+            self?.clickedMarker = marker
+            self?.getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: lat, lon: lng, delegate: self!)
+            marker.iconImage = self!.selectedImage
+            self?.scrollToPosition(lat: lat, lon: lng)
+            self?.fpc.move(to: .tip, animated: false)
             // 이벤트 전파 안함
             return true
         }
+    
         
-        marker.position = NMGLatLng(lat: 35.178928121244816, lng: 129.05542242185882)
-        marker.iconImage = NMFOverlayImage(name: "marker")
+        marker.position = NMGLatLng(lat: lat, lng: lng)
+        marker.iconImage = image
         marker.width = CGFloat(NMF_MARKER_SIZE_AUTO)
         marker.height = CGFloat(NMF_MARKER_SIZE_AUTO)
         marker.mapView = naverMapView.mapView
     }
     
-    private func scrollToPosition() {
+    private func scrollToPosition(lat: Double, lon: Double) {
         locationManager.startUpdatingLocation()
-        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 0, lng: locationManager.location?.coordinate.longitude ?? 0))
+        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lon))
                     cameraUpdate.animation = .easeIn
         naverMapView.mapView.moveCamera(cameraUpdate)
     }
@@ -190,14 +206,15 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
 }
 
 extension PindergartenViewController: NMFMapViewCameraDelegate, NMFMapViewTouchDelegate {
+    
     // 카메라 위치가 변경될때마다 호출
-    func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        print("카메라가 변경됨 : reason : \(reason)")
-        let cameraPosition = naverMapView.mapView.cameraPosition
-       
-       print(cameraPosition.target.lat, cameraPosition.target.lng)
-
-    }
+//    func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
+//        print("카메라가 변경됨 : reason : \(reason)")
+//        let cameraPosition = naverMapView.mapView.cameraPosition
+//
+//       print(cameraPosition.target.lat, cameraPosition.target.lng)
+//
+//    }
     
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
@@ -220,11 +237,11 @@ extension PindergartenViewController: CLLocationManagerDelegate {
             break
         case .authorizedAlways:
             print("DEBUG: Auth always.")
-            scrollToPosition()
+            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0)
         case .authorizedWhenInUse:
             print("DEBUG: Auth when in use.")
             locationManager.requestAlwaysAuthorization()
-            scrollToPosition()
+            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0)
         @unknown default:
             break
         }
@@ -234,9 +251,42 @@ extension PindergartenViewController: CLLocationManagerDelegate {
         
         if status == .authorizedWhenInUse {
             locationManager.requestAlwaysAuthorization()
-            scrollToPosition()
+            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0)
         } else if status == .authorizedAlways {
-            scrollToPosition()
+            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0)
         }
     }
+    
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        print("didupdateLocation")
+//        if let location = locations.first {
+//            print("위도: \(location.coordinate.latitude)")
+//            print("경도: \(location.coordinate.longitude)")
+//        }
+        
+//    }
 }
+
+extension PindergartenViewController {
+    func didSuccessGetAllPindergarten(_ result: [GetAllPindergartenResult]) {
+        allPindergarten = result
+        contentVC.allPindergarten = result
+        for pindergarten in result {
+            markPlace(lat: Double(pindergarten.latitude) ?? 0, lng: Double(pindergarten.longitude) ?? 0)
+        }
+    }
+    
+    func failedToGetAllPindergarten(message: String) {
+        self.presentAlert(title: message)
+    }
+    
+    func didSuccessGetNearPindergarten(_ result: [GetAllPindergartenResult]) {
+        allPindergarten = result
+        contentVC.allPindergarten = result
+    }
+    
+    func failedToGetNearPindergarten(message: String) {
+        self.presentAlert(title: message)
+    }
+}
+
