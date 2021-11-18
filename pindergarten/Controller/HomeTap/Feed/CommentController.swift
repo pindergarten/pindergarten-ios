@@ -115,6 +115,7 @@ class CommentController: BaseViewController {
         commentTextFeild.text = ""
         registerButton.tintColor = UIColor(hex: 0x4E5261)
         registerButton.isUserInteractionEnabled = false
+        self.view.endEditing(false)
         print("DEBUG: TAPPED REGISTER BUTTON")
     }
     

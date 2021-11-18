@@ -182,7 +182,7 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         view.addSubview(naverMapView)
         
         tapNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.snp.topMargin).offset(18)
+            make.top.equalTo(view.snp.topMargin).offset(21)
             make.centerX.equalTo(view)
         }
         
@@ -199,7 +199,7 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         }
         
         naverMapView.snp.makeConstraints { make in
-            make.top.equalTo(tapNameLabel.snp.bottom).offset(18)
+            make.top.equalTo(tapNameLabel.snp.bottom).offset(15)
             make.left.right.equalTo(view)
             make.bottom.equalTo(view.snp.bottomMargin)
         }

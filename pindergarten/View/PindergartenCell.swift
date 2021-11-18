@@ -132,7 +132,7 @@ class PindergartenCell: UITableViewCell {
         }
         
         distanceLabel.snp.makeConstraints { make in
-            make.center.equalTo(distanceView)
+            make.center.equalTo(distanceView).offset(1)
             make.left.equalTo(distanceView).offset(10)
             make.right.equalTo(distanceView).offset(-10)
         }

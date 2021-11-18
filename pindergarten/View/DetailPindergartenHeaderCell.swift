@@ -161,6 +161,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
     @objc private func didTapCallButton() {
         delegate?.didTapCallButton()
     }
+    
     @objc private func didTapHeartButton() {
         delegate?.didTapHeartButton()
     }
@@ -192,7 +193,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
         }
         
         labelBackView.snp.makeConstraints { make in
-            make.center.equalTo(labelPageIndicator)
+            make.center.equalTo(labelPageIndicator).offset(-1)
             make.width.equalTo(47)
             make.height.equalTo(20)
         }
@@ -225,7 +226,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
         }
         
         pindergartenAddressLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(4)
+            make.top.equalTo(nameLabel.snp.bottom).offset(2)
             make.left.equalTo(nameLabel)
             make.right.equalTo(contentView).offset(-20)
         }
@@ -233,7 +234,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
         
         scoreLabel.snp.makeConstraints { make in
             make.left.equalTo(nameLabel)
-            make.top.equalTo(pindergartenAddressLabel.snp.bottom).offset(4)
+            make.top.equalTo(pindergartenAddressLabel.snp.bottom).offset(2)
         }
         
         starView.snp.makeConstraints { make in

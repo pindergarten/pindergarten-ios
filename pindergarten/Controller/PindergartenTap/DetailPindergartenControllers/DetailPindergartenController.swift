@@ -66,6 +66,18 @@ class DetailPindergartenController: BaseViewController {
         return label
     }()
     
+    lazy var defaultFooter: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: Device.width, height: 180))
+        let imageView = UIImageView(image: UIImage(named: "8"))
+        imageView.contentMode = .scaleAspectFill
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.centerY.equalTo(view).offset(-20)
+        }
+        return view
+    }()
+    
     lazy var blogFooter: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: Device.width, height: 60))
         let button = UIButton(type: .system)
@@ -93,10 +105,15 @@ class DetailPindergartenController: BaseViewController {
             totalTableVeiw.reloadData()
         }
     }
+    
+    var num: String = ""
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(pindergartenID)
+ 
         getDetailPindergartenDataManager.getDetailPindergarten(pindergartenId: pindergartenID, delegate: self)
         getBlogReviewDataManager.getBlogReviewPindergarten(pindergartenId: pindergartenID, delegate: self)
         tableViewSetup()
@@ -118,8 +135,9 @@ class DetailPindergartenController: BaseViewController {
         blogVC.review = blogReviewResult
         navigationController?.pushViewController(blogVC, animated: true)
     }
-    
     //MARK: - Helpers
+
+    
     private func tableViewSetup() {
         
         totalTableVeiw.delegate = self
@@ -144,9 +162,33 @@ class DetailPindergartenController: BaseViewController {
 
 }
 
+//MARK: - Extension
+
+extension DetailPindergartenController: BasicInfoCellDelegate {
+    func didTapPhonLabel() {
+        print("DEBUG: TAPPED PHONE LABEL")
+    }
+    
+    func didTapWebsiteLabel() {
+        print("DEBUG: TAPPED WEBSITE LABEL")
+    }
+    
+    
+}
+
 extension DetailPindergartenController: DetailPindergartenHeaderCellDelegate {
     func didTapCallButton() {
-        print("call")
+        
+        let number = Int(num.replacingOccurrences(of: "-", with: "") ) ?? 0
+        print(number)
+        if let url = NSURL(string: num.first == "0" ? "tel://0\(number)" : "tel://\(number)"),
+           //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
+           UIApplication.shared.canOpenURL(url as URL) {
+
+           //사용가능한 URLScheme이라면 open(_:options:completionHandler:) 메소드를 호출해서
+           //만들어둔 URL 인스턴스를 열어줍니다.
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        }
     }
     
     func didTapHeartButton() {
@@ -182,9 +224,13 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if blogReviewResult?.count ?? 0 < 3 {
-            totalTableVeiw.tableFooterView = UIView()
-        } else {
+        if blogReviewResult?.count ?? 0 == 0 {
+            
+            totalTableVeiw.tableFooterView = defaultFooter
+        } else if blogReviewResult?.count ?? 0 < 3 {
+            totalTableVeiw.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: Device.width, height: 20))
+        }
+        else {
             totalTableVeiw.tableFooterView = blogFooter
         }
         
@@ -195,8 +241,8 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             
             cell.nameLabel.text = detailResult?.name
             cell.pindergartenAddressLabel.text = detailResult?.address
-            let str = String(format: "%.2f", detailResult?.rating ?? 0)
-            cell.scoreLabel.text = "\(str)/5"
+//            let str = String(format: "%.2f", detailResult?.rating ?? 0)
+            cell.scoreLabel.text = "\(Int(detailResult?.rating ?? 0))/5"
             cell.starView.rating = detailResult?.rating ?? 0
      
             if imageInput.count == 1 || imageInput.count == 0 {
@@ -217,7 +263,7 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
         if indexPath == [0,1] {
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenInfoCell.identifier, for: indexPath) as! DetailPindergartenInfoCell
             cell.selectionStyle = .none
-            cell.infoLabel.text = detailResult?.openingHours
+            cell.infoLabel.text = detailResult?.openingHours == "" ? "-" : detailResult?.openingHours
             
             return cell
         }
@@ -226,16 +272,28 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenInfoCell.identifier, for: indexPath) as! DetailPindergartenInfoCell
             cell.selectionStyle = .none
             cell.titleLabel.text = "이용안내"
-            cell.infoLabel.text = detailResult?.accessGuide
+            cell.infoLabel.text = detailResult?.accessGuide == "" ? "-" : detailResult?.accessGuide
             return cell
         }
         
         if indexPath == [0,3]  {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenBasicInfoCell.identifier, for: indexPath) as! DetailPindergartenBasicInfoCell
             cell.selectionStyle = .none
-            cell.callInfoLabel.text = detailResult?.phone
-            cell.addressInfoLabel.text = detailResult?.address
-            cell.homepageInfoLabel.text = detailResult?.website
+            cell.delegate = self
+
+            cell.callInfoLabel.text = detailResult?.phone == "" ? "-" : detailResult?.phone
+            num = cell.callInfoLabel.text?.replacingOccurrences(of: "-", with: "") ?? "0"
+          
+            cell.addressInfoLabel.text = detailResult?.address == "" ? "-" : detailResult?.address
+            
+           
+            if detailResult?.website == "" {
+                cell.homepageInfoLabel.text = "-"
+            } else {
+                cell.homepageInfoLabel.text = detailResult?.website
+            }
+            
 
             return cell
         }

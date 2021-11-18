@@ -226,17 +226,17 @@ extension HomeViewController: PinterestLayoutDelegate {
 extension HomeViewController {
    
 
-    func urlToImg(_ url: String, completion: @escaping ((UIImage?) -> CGFloat)) {
-        DispatchQueue.global().async {
-            let url = URL(string: url)
-            let data = try? Data(contentsOf: url!)
-            let image = UIImage(data: data!)
-            DispatchQueue.main.async {
-                completion(image)
-            }
-        }
-    }
-    
+//    func urlToImg(_ url: String, completion: @escaping ((UIImage?) -> CGFloat)) {
+//        DispatchQueue.global().async {
+//            let url = URL(string: url)
+//            let data = try? Data(contentsOf: url!)
+//            let image = UIImage(data: data!)
+//            DispatchQueue.main.async {
+//                completion(image)
+//            }
+//        }
+//    }
+//    
     
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
         print("DEBUG: GET ALL FEED")

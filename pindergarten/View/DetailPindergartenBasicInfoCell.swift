@@ -6,10 +6,15 @@
 //
 
 import UIKit
+protocol BasicInfoCellDelegate: AnyObject {
+    func didTapPhonLabel()
+    func didTapWebsiteLabel()
+}
 
 class DetailPindergartenBasicInfoCell: UITableViewCell {
     //MARK: - Properties
     static let identifier = "DetailPindergartenBasicInfoCell"
+    weak var delegate: BasicInfoCellDelegate?
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -108,9 +113,42 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Action
+
+    @objc func didTapCallLabel(sender: UITapGestureRecognizer) {
+        
+        let num: Int = Int(callInfoLabel.text?.replacingOccurrences(of: "-", with: "") ?? "0") ?? 0
+        
+        if let url = NSURL(string: callInfoLabel.text?.first == "0" ? "tel://0\(num)" : "tel://\(num)"),
+           //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
+           UIApplication.shared.canOpenURL(url as URL) {
+
+           //사용가능한 URLScheme이라면 open(_:options:completionHandler:) 메소드를 호출해서
+           //만들어둔 URL 인스턴스를 열어줍니다.
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        }
+        delegate?.didTapPhonLabel()
+    }
+    
+    @objc func didWebsiteLabel(sender: UITapGestureRecognizer) {
+        let site: String = homepageInfoLabel.text ?? ""
+        print(site)
+        delegate?.didTapWebsiteLabel()
+    }
     
     //MARK: - Helpers
+    
+    private func putGesture() {
+        let tapPhoneGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapCallLabel(sender:)))
+        let tapWebsiteGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didWebsiteLabel(sender:)))
+        callInfoLabel.isUserInteractionEnabled = true
+        homepageInfoLabel.isUserInteractionEnabled = true
+        callInfoLabel.addGestureRecognizer(tapPhoneGestureRecognizer)
+        homepageInfoLabel.addGestureRecognizer(tapWebsiteGestureRecognizer)
+    }
+    
+    
     private func configureUI() {
+        putGesture()
         contentView.addSubview(titleLabel)
         contentView.addSubview(callLabel)
         contentView.addSubview(callInfoLabel)
@@ -118,8 +156,6 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         contentView.addSubview(addressInfoLabel)
         contentView.addSubview(homepageLabel)
         contentView.addSubview(homepageInfoLabel)
-//        contentView.addSubview(socialLabel)
-//        contentView.addSubview(socialInfoLabel)
         contentView.addSubview(separateLine)
         
         titleLabel.snp.makeConstraints { make in
@@ -163,19 +199,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
             make.left.equalTo(callInfoLabel.snp.left)
             make.right.equalTo(contentView).offset(-20)
         }
-        
-//        socialLabel.snp.makeConstraints { make in
-//            make.top.equalTo(homepageInfoLabel.snp.bottom).offset(18)
-//            make.left.equalTo(callLabel)
-//            make.width.equalTo(52)
-//        }
-//
-//        socialInfoLabel.snp.makeConstraints { make in
-//            make.top.equalTo(socialLabel)
-//            make.left.equalTo(callInfoLabel.snp.left)
-//            make.right.equalTo(contentView)
-//        }
-        
+    
         separateLine.snp.makeConstraints { make in
             make.top.equalTo(homepageInfoLabel.snp.bottom).offset(22)
             make.left.right.equalTo(contentView)

@@ -154,7 +154,7 @@ extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource
         cell.distanceLabel.text = "\(String(format: "%.1f", likeResult[indexPath.item].distance))km"
         cell.nameLabel.text = likeResult[indexPath.item].name
         cell.addressLabel.text = likeResult[indexPath.item].address
-        cell.scoreLabel.text = "\(String(format: "%.2f", likeResult[indexPath.item].rating))/5"
+        cell.scoreLabel.text = "\(Int(likeResult[indexPath.item].rating))/5"
         cell.starView.rating = Double(likeResult[indexPath.item].rating)
         
         cell.heartButton.setImage(UIImage(named: "pcellFilledHeart"), for: .normal)

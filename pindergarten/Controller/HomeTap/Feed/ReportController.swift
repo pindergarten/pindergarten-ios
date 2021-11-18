@@ -124,9 +124,8 @@ class ReportController: BaseViewController {
     //MARK: - Action
     @objc private func didTapReportButton(type: Int) {
         print("DEBUG: TAPPED REPORT BUTTON")
-        print("\(Constant.BASE_URL)/api/posts/\(postId)/declaration?type=\(type)")
+        print("\(Constant.BASE_URL)/api/posts/\(postId)/declaration?type=\(self.type)")
         reportDataManager.reportFeed(postId: postId, type: self.type, ReportRequest(title: reportTitleTextFeild.text ?? "", content: textView.text ?? ""), delegate: self)
-        view.endEditing(false)
     }
     
     @objc private func openDropDownMenu() {
@@ -208,12 +207,12 @@ class ReportController: BaseViewController {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(backButton).offset(5)
+            make.centerY.equalTo(backButton).offset(2)
             make.centerX.equalTo(view)
         }
         
         finishButton.snp.makeConstraints { make in
-            make.centerY.equalTo(backButton)
+            make.centerY.equalTo(titleLabel)
             make.right.equalTo(view).offset(-20)
             make.width.height.equalTo(26)
         }
@@ -340,7 +339,10 @@ extension ReportController: UITextViewDelegate {
 // 네트워크 함수
 extension ReportController {
     func didSuccessReportFeed() {
-        self.presentAlert(title: "신고접수 되었습니다.")
+        self.presentAlert(title: "신고접수 되었습니다.") { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     func failedToReportFeed(message: String) {

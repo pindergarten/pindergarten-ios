@@ -92,6 +92,7 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         cell.selectionStyle = .none
         
+//        cell.index = indexPath.item
         cell.pindergartenImage.kf.setImage(with: URL(string: allPindergarten[indexPath.item].thumbnail))
         cell.nameLabel.text = allPindergarten[indexPath.item].name
         cell.addressLabel.text = allPindergarten[indexPath.item].address
@@ -103,10 +104,10 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
             cell.heartButton.setImage(UIImage(named: "pcellHeart"), for: .normal)
         }
         
-        cell.scoreLabel.text = "\(String(format: "%.2f", allPindergarten[indexPath.item].rating))/5"
+        cell.scoreLabel.text = "\(Int(allPindergarten[indexPath.item].rating))/5"
         cell.starView.rating = allPindergarten[indexPath.item].rating
         cell.heartButton.tag = allPindergarten[indexPath.item].id
-        cell.index = indexPath.item
+        
         
         
         return cell
