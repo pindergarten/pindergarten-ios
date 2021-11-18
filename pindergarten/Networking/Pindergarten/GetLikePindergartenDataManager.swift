@@ -10,7 +10,6 @@ import Alamofire
 class GetLikePindergartenDataManager {
     func getLikePindergarten(lat: Double, lon: Double, delegate: LikePindergartenController) {
  
-        print("\(Constant.BASE_URL)/api/like/pindergartens?latitude=\(lat)&longitude=\(lon)")
         AF.request("\(Constant.BASE_URL)/api/like/pindergartens?latitude=\(lat)&longitude=\(lon)", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetLikePindergartenResponse.self) { response in

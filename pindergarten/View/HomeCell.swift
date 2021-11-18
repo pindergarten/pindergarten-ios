@@ -108,7 +108,7 @@ class HomeCell: UICollectionViewCell {
         
         imageView.snp.makeConstraints { make in
             make.top.left.right.equalTo(contentView)
-            make.bottom.equalTo(contentView).offset(-44)
+            make.bottom.equalTo(contentView).offset(-50)
         }
         
         profileImageView.snp.makeConstraints { make in

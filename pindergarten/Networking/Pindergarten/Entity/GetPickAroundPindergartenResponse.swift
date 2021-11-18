@@ -13,15 +13,3 @@ struct GetPickAroundPindergartenResponse: Decodable {
         var message: String
         var nearPindergartens: [GetAllPindergartenResult]?
 }
-
-//struct GetPickAroundPindergartenResult: Decodable {
-//    var id: Int
-//    var name: String
-//    var address: String
-//    var thumbnail: String
-//    var latitude: String
-//    var longitude: String
-//    var rating: Double
-//    var distance: Double
-//    var isLiked: Int
-//}

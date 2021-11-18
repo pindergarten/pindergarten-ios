@@ -52,6 +52,8 @@ class HomeTabBarController: UITabBarController {
         
         UITabBar.clearShadow()
         tabBar.layer.applyShadow(color: .black, alpha: 0.1, x: 0, y: -5, blur: 12)
+        tabBar.layer.shadowPath = UIBezierPath(roundedRect: tabBar.bounds, cornerRadius: tabBar.layer.cornerRadius).cgPath
+
         tabBar.clipsToBounds = true
         tabBar.layer.masksToBounds = false
         tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]

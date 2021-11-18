@@ -17,6 +17,7 @@ class DetailPindergartenBlogReviewCell: UITableViewCell {
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 15)
         label.textColor = .subTextColor
         label.text = "강아지유치원 다녀온 동구 @하울팟케어클럽"
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     

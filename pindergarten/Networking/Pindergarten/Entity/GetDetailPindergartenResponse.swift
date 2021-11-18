@@ -21,14 +21,12 @@ struct GetDetailPindergartenResult: Decodable {
     var thumbnail: String
     var latitude: String
     var longitude: String
-    var rating: Double
-    var openingHours: String
-//    var accessGuide: String
-//    var phone: String
-//    var website: String
-//    var social: String
-    var createAt: String
-    var distance: Double
+    var rating: Double? = 0
+    var openingHours: String? = ""
+    var accessGuide: String? = ""
+    var phone: String? = ""
+    var website: String? = ""
+    var createAt: String? = ""
     var imgUrls: [DetailPindergartenImageUrls]?
     var isLiked: Int
     
@@ -41,12 +39,11 @@ struct GetDetailPindergartenResult: Decodable {
         case longitude
         case rating
         case openingHours = "opening_hours"
-//        case accessGuide = "access_guide"
-//        case phone
-//        case website
-//        case social
+        case accessGuide = "access_guide"
+        case phone
+        case website
         case createAt = "created_at"
-        case distance
+
         case imgUrls
         case isLiked
     }

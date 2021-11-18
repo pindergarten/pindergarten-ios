@@ -11,8 +11,9 @@ class GetSearchPindergartenDataManager {
 
     func getSearchPindergarten(query: String, lat: Double, lon: Double, delegate: SearchPindergartenController) {
         let urlString = "\(Constant.BASE_URL)/api/serch/pindergartens?query=\(query)&latitude=\(lat)&longitude=\(lon)"
+        
+        // 한글 인코딩
         let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        print(encodedString)
         
         AF.request(encodedString, method: .get, headers: Constant.HEADERS)
             .validate()
@@ -26,7 +27,7 @@ class GetSearchPindergartenDataManager {
                     // 실패했을 때
                     else {
                         switch response.code {
-                        default: delegate.failedToGetSearchPindergarten(message: "유치원 검색에 실패하였습니다")
+                        default: delegate.failedToGetSearchPindergarten(message: "검색하실 내용을 입력해주세요")
                         }
                     }
                 case .failure(let error):

@@ -155,7 +155,7 @@ extension SearchPindergartenController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = DetailPindergartenController()
         detailVC.pindergartenID = searchResult[indexPath.item].id
-        detailVC.name = searchResult[indexPath.item].name
+
         navigationController?.pushViewController(detailVC, animated: true)
     }
     

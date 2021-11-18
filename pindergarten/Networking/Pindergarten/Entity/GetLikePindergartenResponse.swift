@@ -19,15 +19,7 @@ struct GetLikePindergartenResult: Decodable {
     var name: String
     var address: String
     var thumbnail: String
-    var latitude: String
-    var longitude: String
-    var rating: Float
-    var openingHours: String
-//    var accessGuide: String
-//    var phone: String
-//    var website: String
-//    var social: String
-    var createdAt: String
+    var rating: Double
     var distance: Double
     
     enum CodingKeys: String, CodingKey {
@@ -35,15 +27,7 @@ struct GetLikePindergartenResult: Decodable {
         case name
         case address
         case thumbnail
-        case latitude
-        case longitude
         case rating
-        case openingHours = "opening_hours"
-//        case accessGuide = "access_guide"
-//        case phone
-//        case website
-//        case social
-        case createdAt = "created_at"
         case distance
     }
 

@@ -38,7 +38,7 @@ class HomeViewController: BaseViewController {
         var paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.2
         label.attributedText = NSAttributedString(
-            string: "펫 유치원, 이제 핀더가든 앱으로 편리하게 보내세요",
+            string: "펫 유치원, 이제 핀더가든 \n앱으로 편리하게 보내세요",
             attributes: [.font : UIFont(name: "AppleSDGothicNeoEB00", size: 18)!, .paragraphStyle : paragraphStyle])
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -123,14 +123,15 @@ class HomeViewController: BaseViewController {
         
         plusButton.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.topMargin)
-            make.right.equalTo(eventButton.snp.left).offset(-25)
+            make.right.equalTo(eventButton.snp.left).offset(-30)
             make.height.width.equalTo(20)
         }
         
         eventButton.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.topMargin)
             make.right.equalTo(view).offset(-20)
-            make.height.width.equalTo(20)
+            make.height.equalTo(20)
+            make.width.equalTo(16)
         }
         
         collectionView.snp.makeConstraints { make in
@@ -176,7 +177,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension HomeViewController: HomeCellDelegate {
     func didTapHeartButton(tag: Int, index: Int) {
-        print(tag)
         likeDataManager.like(postId: tag, delegate: self)
         if feed[index].isLiked == 0 {
             feed[index].isLiked = 1
@@ -190,38 +190,59 @@ extension HomeViewController: PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
         
         let cellWidth: CGFloat = (view.bounds.width - 4) / 2 // 셀 가로 크기
-
-       
-        let imageHeight = imageList[indexPath.item].size.height
-        let imageWidth = imageList[indexPath.item].size.width
-        //이미지 비율
+        var imageHeight: CGFloat = 0
+        var imageWidth: CGFloat = 0
+//  
+//        urlToImg(feed[indexPath.item].thumbnail) { image in
+//        let imageHeight = image!.size.height
+//        let imageWidth = image!.size.width
+//
+//        let imageRatio = imageHeight/imageWidth
+//
+//
+//        return imageRatio * cellWidth
+//
+//        }
+        
+//        if indexPath.item % 2 == 0 {
+//            imageHeight = imageList[indexPath.item].size.height
+//            imageWidth = Device.width / 2 - 60
+//        } else {
+//            imageHeight = imageList[indexPath.item].size.height
+//            imageWidth = Device.width / 2 - 60
+//        }
+        
+        imageHeight = imageList[indexPath.item].size.height
+        imageWidth = imageList[indexPath.item].size.width
+        
         let imageRatio = imageHeight/imageWidth
-
-
+        
+        
         return imageRatio * cellWidth
     }
 }
 
 // 네트워크 함수
 extension HomeViewController {
+   
+
+    func urlToImg(_ url: String, completion: @escaping ((UIImage?) -> CGFloat)) {
+        DispatchQueue.global().async {
+            let url = URL(string: url)
+            let data = try? Data(contentsOf: url!)
+            let image = UIImage(data: data!)
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }
+    }
+    
+    
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
         print("DEBUG: GET ALL FEED")
         feed = result
-
-
-//        var list: [UIImage] = []
-//        for feed in result {
-//            let url = URL(string: feed.thumbnail)
-//            DispatchQueue.global().async {
-//                let data = try? Data(contentsOf: url!)
-//                DispatchQueue.main.async {
-//                    let image = UIImage(data: data!)!
-//                    list.append(image)
-//                }
-//            }
-//        }
+      
         
-       
         
         
     }

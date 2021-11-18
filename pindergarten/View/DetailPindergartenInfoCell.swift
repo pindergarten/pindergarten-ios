@@ -15,6 +15,7 @@ class DetailPindergartenInfoCell: UITableViewCell {
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)
         label.textColor = .mainTextColor
         label.text = "영업시간"
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     

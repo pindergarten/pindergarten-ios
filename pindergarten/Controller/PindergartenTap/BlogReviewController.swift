@@ -9,7 +9,7 @@ import UIKit
 
 class BlogReviewController: BaseViewController {
     //MARK: - Properties
-    var review: GetBlogReviewResponse?
+    var review: [GetBlogReviewResult]?
     
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
@@ -94,10 +94,8 @@ class BlogReviewController: BaseViewController {
 extension BlogReviewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if review?.total ?? 0 > 10 {
-            return 10
-        }
-        return review?.total ?? 0
+        
+        return review?.count ?? 0
         
     }
     
@@ -105,16 +103,16 @@ extension BlogReviewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenBlogReviewCell.identifier, for: indexPath) as! DetailPindergartenBlogReviewCell
         cell.selectionStyle = .none
         
-        let blog = review?.items?[indexPath.item]
+        let blog = review?[indexPath.item]
         cell.blogTitleLabel.text = blog?.title.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
-        cell.contentLabel.text = blog?.description.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
-        cell.dateLabel.text = blog?.postdate
+        cell.contentLabel.text = blog?.content.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
+        cell.dateLabel.text = blog?.date
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let webView = BlogWebViewController()
-        webView.blogUrl = review?.items?[indexPath.item].link ?? ""
+        webView.blogUrl = review?[indexPath.item].link ?? ""
         navigationController?.pushViewController(webView, animated: true)
     }
 }

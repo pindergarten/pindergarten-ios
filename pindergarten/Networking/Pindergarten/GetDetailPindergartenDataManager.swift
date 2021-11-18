@@ -8,8 +8,8 @@
 import Alamofire
 
 class GetDetailPindergartenDataManager {
-    func getDetailPindergarten(pindergartenId: Int, lat: String, lon: String, delegate: DetailPindergartenController) {
-        AF.request("\(Constant.BASE_URL)/api/pindergartens/\(pindergartenId)?latitude=\(lat)&longitude=\(lon)", method: .get, headers: Constant.HEADERS)
+    func getDetailPindergarten(pindergartenId: Int, delegate: DetailPindergartenController) {
+        AF.request("\(Constant.BASE_URL)/api/pindergartens/\(pindergartenId)", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetDetailPindergartenResponse.self) { response in
                 switch response.result {

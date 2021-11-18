@@ -126,7 +126,7 @@ class ReportController: BaseViewController {
         print("DEBUG: TAPPED REPORT BUTTON")
         print("\(Constant.BASE_URL)/api/posts/\(postId)/declaration?type=\(type)")
         reportDataManager.reportFeed(postId: postId, type: self.type, ReportRequest(title: reportTitleTextFeild.text ?? "", content: textView.text ?? ""), delegate: self)
-        
+        view.endEditing(false)
     }
     
     @objc private func openDropDownMenu() {
@@ -208,7 +208,7 @@ class ReportController: BaseViewController {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(backButton)
+            make.centerY.equalTo(backButton).offset(5)
             make.centerX.equalTo(view)
         }
         

@@ -8,18 +8,15 @@
 import Foundation
 
 struct GetBlogReviewResponse: Decodable {
-    var lastBuildDate: String
-    var total: Int
-    var start: Int
-    var display: Int
-    var items: [GetBlogReviewResult]?
+    var isSuccess: Bool
+    var code: Int
+    var message: String
+    var blogReviews: [GetBlogReviewResult]?
 }
 
 struct GetBlogReviewResult: Decodable {
     var title: String
+    var content: String
+    var date: String
     var link: String
-    var description: String
-    var bloggername: String
-    var bloggerlink: String
-    var postdate: String
 }

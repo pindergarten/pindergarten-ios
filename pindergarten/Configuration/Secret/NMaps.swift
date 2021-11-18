@@ -8,5 +8,5 @@
 import Foundation
 
 class NMaps {
-    static var clientID = "6qjec9ycus"
+    static var clientID = ""
 }

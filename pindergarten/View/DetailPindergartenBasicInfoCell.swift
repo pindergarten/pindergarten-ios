@@ -16,6 +16,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)
         label.textColor = .mainTextColor
         label.text = "기본정보"
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
@@ -24,6 +25,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
         label.textColor = UIColor(hex: 0x515151)
         label.text = "전화"
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
@@ -32,6 +34,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
         label.textColor = UIColor(hex: 0x515151)
         label.text = "주소"
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
@@ -40,16 +43,17 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
         label.textColor = UIColor(hex: 0x515151)
         label.text = "홈페이지"
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
-    let socialLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
-        label.textColor = UIColor(hex: 0x515151)
-        label.text = "소셜"
-        return label
-    }()
+//    let socialLabel: UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
+//        label.textColor = UIColor(hex: 0x515151)
+//        label.text = "소셜"
+//        return label
+//    }()
     
     let callInfoLabel: UILabel = {
         let label = UILabel()
@@ -145,7 +149,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         addressInfoLabel.snp.makeConstraints { make in
             make.top.equalTo(addressLabel)
             make.left.equalTo(callInfoLabel.snp.left)
-            make.right.equalTo(contentView)
+            make.right.equalTo(contentView).offset(-20)
         }
         
         homepageLabel.snp.makeConstraints { make in
@@ -157,7 +161,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         homepageInfoLabel.snp.makeConstraints { make in
             make.top.equalTo(homepageLabel)
             make.left.equalTo(callInfoLabel.snp.left)
-            make.right.equalTo(contentView)
+            make.right.equalTo(contentView).offset(-20)
         }
         
 //        socialLabel.snp.makeConstraints { make in

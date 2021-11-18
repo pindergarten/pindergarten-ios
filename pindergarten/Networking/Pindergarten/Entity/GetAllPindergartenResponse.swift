@@ -19,8 +19,8 @@ struct GetAllPindergartenResult: Decodable {
     var name: String
     var address: String
     var thumbnail: String
-    var latitude: String
-    var longitude: String
+    var latitude: String? = ""
+    var longitude: String? = ""
     var rating: Double
     var distance: Double?
     var isLiked: Int

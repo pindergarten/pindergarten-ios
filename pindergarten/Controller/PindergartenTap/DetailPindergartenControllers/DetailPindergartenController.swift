@@ -27,14 +27,13 @@ class DetailPindergartenController: BaseViewController {
         }
     }
     
-    var blogReviewResult: GetBlogReviewResponse? {
+    var blogReviewResult: [GetBlogReviewResult]? {
         didSet {
             totalTableVeiw.reloadData()
         }
     }
     
     var pindergartenID: Int = 0
-    var name: String = ""
     
     let totalTableVeiw: UITableView = {
         let tv = UITableView()
@@ -89,13 +88,17 @@ class DetailPindergartenController: BaseViewController {
         return view
     }()
     
+    var imageInput: [InputSource] = [] {
+        didSet {
+            totalTableVeiw.reloadData()
+        }
+    }
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getDetailPindergartenDataManager.getDetailPindergarten(pindergartenId: pindergartenID, lat: "37.540025", lon: "127.005686", delegate: self)
-        getBlogReviewDataManager.getBlogReviewPindergarten(name: name, delegate: self)
-        print(name)
+        getDetailPindergartenDataManager.getDetailPindergarten(pindergartenId: pindergartenID, delegate: self)
+        getBlogReviewDataManager.getBlogReviewPindergarten(pindergartenId: pindergartenID, delegate: self)
         tableViewSetup()
         configureUI()
 
@@ -169,16 +172,21 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
         if section == 0 {
             return 4
         } else {
-            if blogReviewResult?.items?.count ?? 0 > 2 {
+            if blogReviewResult?.count ?? 0 > 2 {
                 return 2
             }
-            return blogReviewResult?.items?.count ?? 0
+            return blogReviewResult?.count ?? 0
         }
        
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
+        
+        if blogReviewResult?.count ?? 0 < 3 {
+            totalTableVeiw.tableFooterView = UIView()
+        } else {
+            totalTableVeiw.tableFooterView = blogFooter
+        }
         
         if indexPath == [0,0] {
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenHeaderCell.identifier, for: indexPath) as! DetailPindergartenHeaderCell
@@ -190,6 +198,19 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             let str = String(format: "%.2f", detailResult?.rating ?? 0)
             cell.scoreLabel.text = "\(str)/5"
             cell.starView.rating = detailResult?.rating ?? 0
+     
+            if imageInput.count == 1 || imageInput.count == 0 {
+                cell.labelBackView.isHidden = true
+            } else {
+                cell.labelBackView.isHidden = false
+            }
+            
+            cell.imageSlide.setImageInputs(imageInput)
+            if detailResult?.isLiked == 1 {
+                cell.heartButton.setImage(UIImage(named: "detailFillHeart"), for: .normal)
+            } else {
+                cell.heartButton.setImage(UIImage(named: "detailHeart"), for: .normal)
+            }
             return cell
         }
         
@@ -205,18 +226,17 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenInfoCell.identifier, for: indexPath) as! DetailPindergartenInfoCell
             cell.selectionStyle = .none
             cell.titleLabel.text = "이용안내"
-//            cell.infoLabel.text = detailResult?.accessGuide
+            cell.infoLabel.text = detailResult?.accessGuide
             return cell
         }
         
         if indexPath == [0,3]  {
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenBasicInfoCell.identifier, for: indexPath) as! DetailPindergartenBasicInfoCell
             cell.selectionStyle = .none
-//            cell.callInfoLabel.text = detailResult?.phone
+            cell.callInfoLabel.text = detailResult?.phone
             cell.addressInfoLabel.text = detailResult?.address
-//            cell.homepageInfoLabel.text = detailResult?.website
-//            cell.socialInfoLabel.text = detailResult?.social
-            
+            cell.homepageInfoLabel.text = detailResult?.website
+
             return cell
         }
         
@@ -224,11 +244,12 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenBlogReviewCell.identifier, for: indexPath) as! DetailPindergartenBlogReviewCell
             cell.selectionStyle = .none
             
-            let title = blogReviewResult?.items?[indexPath.item].title.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
-            let content = blogReviewResult?.items?[indexPath.item].description.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
+            let title = blogReviewResult?[indexPath.item].title.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
+            let content = blogReviewResult?[indexPath.item].content.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
             cell.blogTitleLabel.text = title
             cell.contentLabel.text = content
-            cell.dateLabel.text = blogReviewResult?.items?[indexPath.item].postdate ?? ""
+            cell.dateLabel.text = blogReviewResult?[indexPath.item].date ?? ""
+
             return cell
         }
         else {
@@ -264,17 +285,28 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
 
 // 네트워크 함수
 extension DetailPindergartenController {
+    
     func didSuccessGetDetailPindergarten(_ result: GetDetailPindergartenResult) {
         detailResult = result
+        
+        if result.imgUrls?.count == 0 {
+            imageInput = [ImageSource(image: UIImage(named: "1")!)]
+            
+        } else {
+            for image in result.imgUrls ?? [] {
+                imageInput.append(AlamofireSource(urlString: "\(image.imageUrl)", placeholder: UIImage())!)
+            }
+        }
+        
     }
     
     func failedToGetDetailPindergarten(message: String) {
         self.presentAlert(title: message)
     }
     
-    func didSuccessGetBlogReviewPindergarten(_ result: GetBlogReviewResponse) {
+    func didSuccessGetBlogReviewPindergarten(_ result: [GetBlogReviewResult]) {
         blogReviewResult = result
-        blogCountLabel.text = "\(String(describing: result.total))개 블로그 리뷰 더보기"
+        blogCountLabel.text = "\(String(describing: result.count - 2))개 블로그 리뷰 더보기"
     }
     
     func failedToGetBlogReviewPindergarten(message: String) {

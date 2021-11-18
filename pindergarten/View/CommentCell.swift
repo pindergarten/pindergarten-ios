@@ -112,7 +112,7 @@ class CommentCell: UITableViewCell {
         
         timeLabel.snp.makeConstraints { make in
             make.left.equalTo(commentLabel)
-            make.bottom.equalTo(contentView).offset(-10)
+            make.bottom.equalTo(contentView).offset(-5)
         }
         
     }

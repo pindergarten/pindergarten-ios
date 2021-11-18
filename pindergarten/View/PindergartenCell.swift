@@ -9,7 +9,7 @@ import UIKit
 import Cosmos
 
 protocol PindergartenCellDelegate: AnyObject {
-    func didTapCellHeartButton(index: Int)
+    func didTapCellHeartButton(id: Int, index: Int)
 }
 
 
@@ -17,6 +17,8 @@ class PindergartenCell: UITableViewCell {
     //MARK: - Properties
     static let identifier = "PindergartenCell"
     weak var delegate: PindergartenCellDelegate?
+    
+    var index: Int = 0
     
     let pindergartenImage: UIImageView = {
         let imageView = UIImageView()
@@ -31,6 +33,8 @@ class PindergartenCell: UITableViewCell {
         let view = UIView()
         view.backgroundColor = UIColor(hex: 0x2B2B2B, alpha: 0.56)
         view.layer.applyShadow(color: UIColor(hex: 0x000000), alpha: 0.1, x: 0, y: 4, blur: 4)
+        view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: view.layer.cornerRadius).cgPath
+        
         view.clipsToBounds = true
         view.layer.masksToBounds = false
         view.layer.cornerRadius = 10
@@ -102,8 +106,8 @@ class PindergartenCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Action
-    @objc private func didTapHeartButton(index: Int) {
-        delegate?.didTapCellHeartButton(index: heartButton.tag)
+    @objc private func didTapHeartButton(id: Int, index: Int) {
+        delegate?.didTapCellHeartButton(id: heartButton.tag, index: index)
     }
     //MARK: - Helpers
     private func configureUI() {
@@ -132,7 +136,7 @@ class PindergartenCell: UITableViewCell {
             make.left.equalTo(distanceView).offset(10)
             make.right.equalTo(distanceView).offset(-10)
         }
-    
+        
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(pindergartenImage.snp.bottom).offset(10)
             make.left.equalTo(contentView)
@@ -140,21 +144,21 @@ class PindergartenCell: UITableViewCell {
         }
         
         addressLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(4)
+            make.top.equalTo(nameLabel.snp.bottom).offset(2)
             make.left.equalTo(contentView)
             make.right.equalTo(heartButton.snp.left).offset(-20)
         }
         
         heartButton.snp.makeConstraints { make in
             make.width.height.equalTo(50)
-            make.top.equalTo(pindergartenImage.snp.bottom).offset(0)
+            make.top.equalTo(pindergartenImage.snp.bottom).offset(5)
             make.right.equalTo(contentView)
         }
         contentView.bringSubviewToFront(heartButton)
         
         scoreLabel.snp.makeConstraints { make in
             make.left.equalTo(contentView)
-            make.top.equalTo(addressLabel.snp.bottom).offset(4)
+            make.top.equalTo(addressLabel.snp.bottom).offset(2)
             make.bottom.equalTo(contentView).offset(-20)
         }
         

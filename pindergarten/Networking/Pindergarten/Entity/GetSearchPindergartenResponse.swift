@@ -21,13 +21,12 @@ struct GetSearchPindergartenResult: Decodable {
     var thumbnail: String
     var latitude: String
     var longitude: String
-    var openingHours: String
-//    var accessGuide: String
-    var rating: String
-    var website: String
-    var social: String
-    var phone: String
-    var distance: Double
+    var openingHours: String? = ""
+    var accessGuide: String? = ""
+    var rating: String? = "0"
+    var website: String? = ""
+    var phone: String? = ""
+    var distance: Double? = 0
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -37,10 +36,9 @@ struct GetSearchPindergartenResult: Decodable {
         case latitude
         case longitude
         case openingHours = "opening_hours"
-//        case accessGuide = "access_guide"
+        case accessGuide = "access_guide"
         case rating
         case website
-        case social
         case phone
         case distance
     }

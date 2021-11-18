@@ -130,8 +130,9 @@ class LikePindergartenController: BaseViewController {
 
 //MARK: - Extension
 extension LikePindergartenController: PindergartenCellDelegate {
-    func didTapCellHeartButton(index: Int) {
+    func didTapCellHeartButton(id: Int, index: Int) {
         print("DEBUG: TAPPED HEART BUTTON")
+        print(id, index)
         print(likeResult[index].id)
         pindergartenLikeDataManager.likePindergarten(pindergartenId: likeResult[index].id, delegate: self)
         
@@ -157,7 +158,8 @@ extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource
         cell.starView.rating = Double(likeResult[indexPath.item].rating)
         
         cell.heartButton.setImage(UIImage(named: "pcellFilledHeart"), for: .normal)
-        cell.heartButton.tag = indexPath.item
+        cell.heartButton.tag = likeResult[indexPath.item].id
+        cell.index = indexPath.item
     
         return cell
     }
@@ -166,7 +168,7 @@ extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource
         tableView.deselectRow(at: indexPath, animated: true)
         let detailVC = DetailPindergartenController()
         detailVC.pindergartenID = likeResult[indexPath.item].id
-        detailVC.name = likeResult[indexPath.item].name
+
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -176,7 +178,6 @@ extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource
 extension LikePindergartenController {
     func didSuccessGetLikePindergarten(_ result: [GetLikePindergartenResult]) {
         likeResult = result
-        print(likeResult)
     }
     
     func failedToGetAllPindergarten(message: String) {

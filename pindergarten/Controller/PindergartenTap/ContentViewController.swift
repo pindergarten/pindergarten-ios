@@ -64,8 +64,14 @@ class ContentViewController: BaseViewController {
 
 //MARK: - Extension
 extension ContentViewController: PindergartenCellDelegate {
-    func didTapCellHeartButton(index: Int) {
-        pindergartenLikeDataManager.likePindergarten(pindergartenId: index, delegate: self)
+    func didTapCellHeartButton(id: Int, index: Int) {
+        print(id, index)
+        pindergartenLikeDataManager.likePindergarten(pindergartenId: id, delegate: self)
+//        if allPindergarten[index].isLiked == 0 {
+//            allPindergarten[index].isLiked = 1
+//        } else {
+//            allPindergarten[index].isLiked = 0
+//        }
     }
     
     
@@ -100,6 +106,7 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.scoreLabel.text = "\(String(format: "%.2f", allPindergarten[indexPath.item].rating))/5"
         cell.starView.rating = allPindergarten[indexPath.item].rating
         cell.heartButton.tag = allPindergarten[indexPath.item].id
+        cell.index = indexPath.item
         
         
         return cell
@@ -109,7 +116,6 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let detailVC = DetailPindergartenController()
         detailVC.pindergartenID = allPindergarten[indexPath.item].id
-        detailVC.name = allPindergarten[indexPath.item].name
         navigationController?.pushViewController(detailVC, animated: true)
         print(indexPath.item)
     }
@@ -147,6 +153,7 @@ extension ContentViewController {
     
     func didSuccessLikePindergarten(_ result: PindergartenLikeResult) {
         print(result.isSet)
+        
     }
     
     func failedToLikePindergarten(message: String) {

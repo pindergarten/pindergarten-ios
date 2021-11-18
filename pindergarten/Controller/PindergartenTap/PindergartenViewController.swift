@@ -42,13 +42,13 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
     
     var fpc: FloatingPanelController!
     var clickedMarker: NMFMarker?
-//    private lazy var NMapView = NMFMapView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
+
     private lazy var naverMapView = NMFNaverMapView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
     
     private let tapNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 17)
-        label.text = "펫 유치원"
+        label.text = "핀더가든"
         label.textColor = .mainTextColor
         return label
     }()
@@ -74,6 +74,8 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
                 
+        naverMapView.mapView.touchDelegate = self
+
         getAllPindergartenDataManager.getLikePindergarten(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0, delegate: self)
         enableLocationServices()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -122,8 +124,8 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         shadow.offset = CGSize(width: 0, height: -4.0)
         shadow.opacity = 0.15
         shadow.radius = 12
+
         appearance.shadows = [shadow]
-        
         appearance.cornerRadius = 20.0
         appearance.backgroundColor = .white
         appearance.borderColor = UIColor(hex: 0x000000, alpha: 0.15)
@@ -187,13 +189,13 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         heartButton.snp.makeConstraints { make in
             make.centerY.equalTo(tapNameLabel)
             make.right.equalTo(searchButton.snp.left).offset(-25)
-            make.width.height.equalTo(25)
+            make.width.height.equalTo(30)
         }
         
         searchButton.snp.makeConstraints { make in
             make.centerY.equalTo(tapNameLabel)
             make.right.equalTo(view).offset(-20)
-            make.width.height.equalTo(25)
+            make.width.height.equalTo(30)
         }
         
         naverMapView.snp.makeConstraints { make in
@@ -218,7 +220,7 @@ extension PindergartenViewController: NMFMapViewCameraDelegate, NMFMapViewTouchD
     
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        print("지도 터치됨")
+        self.fpc.move(to: .half, animated: false)
     }
 }
 
@@ -272,7 +274,7 @@ extension PindergartenViewController {
         allPindergarten = result
         contentVC.allPindergarten = result
         for pindergarten in result {
-            markPlace(lat: Double(pindergarten.latitude) ?? 0, lng: Double(pindergarten.longitude) ?? 0)
+            markPlace(lat: Double(pindergarten.latitude ?? "0") ?? 0, lng: Double(pindergarten.longitude ?? "0") ?? 0)
         }
     }
     

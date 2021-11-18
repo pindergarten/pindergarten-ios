@@ -9,7 +9,7 @@ import UIKit
 import ImageSlideshow
 import Cosmos
 
-let imageInput = [ImageSource(image: #imageLiteral(resourceName: "backgroundImage")),ImageSource(image: #imageLiteral(resourceName: "4")),ImageSource(image: #imageLiteral(resourceName: "2")),ImageSource(image: #imageLiteral(resourceName: "4")),ImageSource(image: #imageLiteral(resourceName: "backgroundImage")),ImageSource(image: #imageLiteral(resourceName: "backgroundImage")),ImageSource(image: #imageLiteral(resourceName: "backgroundImage")),ImageSource(image: #imageLiteral(resourceName: "5")),ImageSource(image: #imageLiteral(resourceName: "backgroundImage"))]
+
 
 protocol DetailPindergartenHeaderCellDelegate: AnyObject {
     func didTapBackButton()
@@ -24,6 +24,8 @@ class DetailPindergartenHeaderCell: UITableViewCell {
 
     weak var delegate: DetailPindergartenHeaderCellDelegate?
     
+    let imageInput = [ImageSource(image: #imageLiteral(resourceName: "backgroundImage"))]
+    
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "backButton"), for: .normal)
@@ -32,7 +34,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
         return button
     }()
     
-    private let labelBackView: UIView = {
+    let labelBackView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(hex: 0x2B2B2B, alpha: 0.56)
         view.layer.cornerRadius = 10
@@ -49,6 +51,8 @@ class DetailPindergartenHeaderCell: UITableViewCell {
     let imageContainerView: UIView = {
         let view = UIView()
         view.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 9)
+        view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: view.layer.cornerRadius).cgPath
+        
         return view
     }()
     
@@ -57,10 +61,10 @@ class DetailPindergartenHeaderCell: UITableViewCell {
         image.contentScaleMode = .scaleAspectFill
         image.circular = false
         image.pageIndicator = labelPageIndicator
-        image.pageIndicatorPosition = PageIndicatorPosition(horizontal: .right(padding: 0), vertical: .customTop(padding: 20))
+        image.pageIndicatorPosition = PageIndicatorPosition(horizontal: .right(padding: 30), vertical: .customTop(padding: 20))
         image.activityIndicator = DefaultActivityIndicator(style: .large, color: .mainYellow)
 
-        image.layer.cornerRadius = 30
+        image.layer.cornerRadius = 35
         image.clipsToBounds = true
         image.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         
@@ -133,7 +137,9 @@ class DetailPindergartenHeaderCell: UITableViewCell {
     
 //        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapImage))
 //        imageSlide.addGestureRecognizer(gestureRecognizer)
-        
+        if imageInput.count == 1 || imageInput.count == 0 {
+            labelBackView.isHidden = true
+        }
         configureUI()
     }
     
@@ -161,8 +167,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
     //MARK: - Helpers
 
     private func configureUI() {
-//        view.addSubview(scrollView)
-//        scrollView.addSubview(containerView)
+
         contentView.addSubview(imageContainerView)
         imageSlide.addSubview(labelBackView)
         imageContainerView.addSubview(imageSlide)
@@ -174,36 +179,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
         contentView.addSubview(scoreLabel)
         contentView.addSubview(starView)
         contentView.addSubview(separateLine)
-//        containerView.addSubview(workTimeLabel)
-//        containerView.addSubview(workTimeInfoLabel)
-//        containerView.addSubview(line)
-//        containerView.addSubview(useLabel)
-//        containerView.addSubview(useInfoLabel)
-//        containerView.addSubview(line2)
-//        containerView.addSubview(basicInfoLabel)
-//        containerView.addSubview(callLabel)
-//        containerView.addSubview(callInfoLabel)
-//        containerView.addSubview(addressLabel)
-//        containerView.addSubview(addressInfoLabel)
-//        containerView.addSubview(homepageLabel)
-//        containerView.addSubview(homepageInfoLabel)
-//        containerView.addSubview(socialLabel)
-//        containerView.addSubview(socialInfoLabel)
-//        containerView.addSubview(separateLine2)
-//        view.addSubview(blogReviewTableView)
-        
-//        scrollView.snp.makeConstraints { make in
-//            make.top.equalTo(view)
-//            make.centerX.equalTo(view)
-//            make.width.equalTo(view)
-//            make.bottom.equalTo(view.snp.bottomMargin)
-//        }
-//
-//        containerView.snp.makeConstraints { make in
-//            make.top.left.right.bottom.equalTo(scrollView)
-//            make.width.equalTo(scrollView)
-//            make.height.greaterThanOrEqualTo(scrollView)
-//        }
+
         
         imageContainerView.snp.makeConstraints { make in
             make.top.left.right.equalTo(contentView.safeAreaLayoutGuide)
@@ -229,6 +205,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
             make.left.equalTo(contentView.self).offset(8)
             make.width.height.equalTo(30)
         }
+        
         callButton.snp.makeConstraints { make in
             make.centerY.equalTo(imageSlide.snp.bottom)
             make.width.height.equalTo(50)
@@ -270,114 +247,6 @@ class DetailPindergartenHeaderCell: UITableViewCell {
             make.height.equalTo(6)
             make.bottom.equalTo(contentView)
         }
-//
-//        workTimeLabel.snp.makeConstraints { make in
-//            make.top.equalTo(separateLine.snp.bottom).offset(28)
-//            make.left.equalTo(containerView).offset(20)
-//            make.right.equalTo(containerView).offset(-20)
-//        }
-//
-//        workTimeInfoLabel.snp.makeConstraints { make in
-//            make.top.equalTo(workTimeLabel.snp.bottom).offset(18)
-//            make.left.equalTo(containerView).offset(20)
-//            make.right.equalTo(containerView).offset(-20)
-//        }
-//
-//        line.snp.makeConstraints { make in
-//            make.top.equalTo(workTimeInfoLabel.snp.bottom).offset(18)
-//            make.left.equalTo(containerView).offset(20)
-//            make.right.equalTo(containerView).offset(-20)
-//            make.height.equalTo(1)
-//        }
-//
-//        useLabel.snp.makeConstraints { make in
-//            make.top.equalTo(line.snp.bottom).offset(20)
-//            make.left.equalTo(containerView).offset(20)
-//            make.right.equalTo(containerView).offset(-20)
-//        }
-//
-//        useInfoLabel.snp.makeConstraints { make in
-//            make.top.equalTo(useLabel.snp.bottom).offset(18)
-//            make.left.equalTo(containerView).offset(20)
-//            make.right.equalTo(containerView).offset(-20)
-//        }
-//
-//        line2.snp.makeConstraints { make in
-//            make.top.equalTo(useInfoLabel.snp.bottom).offset(18)
-//            make.left.equalTo(containerView).offset(20)
-//            make.right.equalTo(containerView).offset(-20)
-//            make.height.equalTo(1)
-//        }
-//
-//        basicInfoLabel.snp.makeConstraints { make in
-//            make.top.equalTo(line2.snp.bottom).offset(20)
-//            make.left.equalTo(containerView).offset(20)
-//            make.right.equalTo(containerView).offset(-20)
-//        }
-//
-//        callLabel.snp.makeConstraints { make in
-//            make.top.equalTo(basicInfoLabel.snp.bottom).offset(18)
-//            make.left.equalTo(containerView).offset(20)
-//            make.width.equalTo(52)
-//        }
-//
-//        callInfoLabel.snp.makeConstraints { make in
-//            make.top.equalTo(callLabel)
-//            make.left.equalTo(callLabel.snp.right).offset(26)
-//
-//            make.right.equalTo(containerView).offset(-20)
-//        }
-//
-//        addressLabel.snp.makeConstraints { make in
-//            make.top.equalTo(callInfoLabel.snp.bottom).offset(18)
-//            make.left.equalTo(callLabel)
-//            make.width.equalTo(52)
-//        }
-//
-//        addressInfoLabel.snp.makeConstraints { make in
-//            make.top.equalTo(addressLabel)
-//            make.left.equalTo(callInfoLabel.snp.left)
-//            make.right.equalTo(containerView).offset(-20)
-//        }
-//
-//        homepageLabel.snp.makeConstraints { make in
-//            make.top.equalTo(addressInfoLabel.snp.bottom).offset(18)
-//            make.left.equalTo(callLabel)
-//            make.width.equalTo(52)
-//        }
-//
-//        homepageInfoLabel.snp.makeConstraints { make in
-//            make.top.equalTo(homepageLabel)
-//            make.left.equalTo(callInfoLabel.snp.left)
-//            make.right.equalTo(containerView).offset(-20)
-//        }
-//
-//        socialLabel.snp.makeConstraints { make in
-//            make.top.equalTo(homepageInfoLabel.snp.bottom).offset(18)
-//            make.left.equalTo(callLabel)
-//            make.width.equalTo(52)
-//        }
-//
-//        socialInfoLabel.snp.makeConstraints { make in
-//            make.top.equalTo(socialLabel)
-//            make.left.equalTo(callInfoLabel.snp.left)
-//            make.right.equalTo(containerView).offset(-20)
-//
-//        }
-//
-//        separateLine2.snp.makeConstraints { make in
-//            make.top.equalTo(socialInfoLabel.snp.bottom).offset(33)
-//            make.left.right.equalTo(containerView)
-//            make.height.equalTo(6)
-//
-//        }
-//
-//        blogReviewTableView.snp.makeConstraints { make in
-//            make.top.equalTo(separateLine2.snp.bottom)
-//            make.left.equalTo(containerView).offset(20)
-//            make.right.equalTo(containerView).offset(-20)
-//            make.bottom.equalTo(containerView)
-//        }
     }
 }
 
