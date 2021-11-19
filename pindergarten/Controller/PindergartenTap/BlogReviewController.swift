@@ -8,6 +8,9 @@
 import UIKit
 
 class BlogReviewController: BaseViewController {
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
     var review: [GetBlogReviewResult]?
     

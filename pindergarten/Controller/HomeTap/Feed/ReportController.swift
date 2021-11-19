@@ -9,6 +9,9 @@ import UIKit
 import DropDown
 
 class ReportController: BaseViewController {
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
     var postId: Int = 0
     var type: Int = 0

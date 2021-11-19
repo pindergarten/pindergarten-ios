@@ -8,6 +8,9 @@
 import UIKit
 
 class FindPasswordViewController: BaseViewController {
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
     lazy var checkUserDataManager: CheckUserDataManager = CheckUserDataManager()
     lazy var sendAuthNumberDataManager: SendAuthNumberDataManager = SendAuthNumberDataManager()

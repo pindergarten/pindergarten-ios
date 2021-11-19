@@ -10,6 +10,9 @@ import ImageSlideshow
 import Kingfisher
 
 class DetailFeedViewController: BaseViewController {
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
     
     lazy var getDetailFeedDataManager: GetDetailFeedDataManager = GetDetailFeedDataManager()

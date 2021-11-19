@@ -8,6 +8,9 @@
 import UIKit
 
 class PostFeedController: BaseViewController {
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)

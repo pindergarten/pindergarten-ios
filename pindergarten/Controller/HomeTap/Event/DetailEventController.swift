@@ -9,6 +9,9 @@ import UIKit
 import Kingfisher
 
 class DetailEventController: BaseViewController {
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
     
     var id: Int = 0

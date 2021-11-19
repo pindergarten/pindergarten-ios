@@ -9,7 +9,11 @@ import UIKit
 import AnyFormatKit
 
 class SignUpNumberViewController: BaseViewController {
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
+    
     lazy var checkUserDataManager: CheckUserDataManager = CheckUserDataManager()
     lazy var sendAuthNumberDataManager: SendAuthNumberDataManager = SendAuthNumberDataManager()
     lazy var checkAuthNumberDataManager: CheckAuthNumberDataManager = CheckAuthNumberDataManager()

@@ -9,6 +9,9 @@ import UIKit
 import AnyFormatKit
 
 class LoginViewController: BaseViewController {
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
 //
 //    private let backButton: UIButton = {

@@ -9,7 +9,7 @@ import UIKit
 import Cosmos
 
 protocol PindergartenCellDelegate: AnyObject {
-    func didTapCellHeartButton(id: Int, index: Int)
+    func didTapCellHeartButton(id: Int)
 }
 
 
@@ -106,8 +106,13 @@ class PindergartenCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Action
-    @objc private func didTapHeartButton(id: Int, index: Int) {
-        delegate?.didTapCellHeartButton(id: heartButton.tag, index: index)
+    @objc private func didTapHeartButton(id: Int) {
+        delegate?.didTapCellHeartButton(id: heartButton.tag)
+        if heartButton.currentImage == UIImage(named: "pcellHeart") {
+            heartButton.setImage(UIImage(named: "pcellFilledHeart"), for: .normal)
+        } else {
+            heartButton.setImage(UIImage(named: "pcellHeart"), for: .normal)
+        }
     }
     //MARK: - Helpers
     private func configureUI() {

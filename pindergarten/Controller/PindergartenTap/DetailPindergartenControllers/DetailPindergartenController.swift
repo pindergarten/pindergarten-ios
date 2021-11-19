@@ -13,7 +13,9 @@ import Cosmos
 
 class DetailPindergartenController: BaseViewController {
 
-    
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
   
     lazy var getDetailPindergartenDataManager: GetDetailPindergartenDataManager = GetDetailPindergartenDataManager()

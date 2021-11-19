@@ -9,6 +9,9 @@ import UIKit
 import CoreLocation
 
 class ContentViewController: BaseViewController {
+    deinit {
+            print("deinit")
+    }
     
     //MARK: - Properties
     private lazy var locationManager = CLLocationManager()
@@ -37,18 +40,19 @@ class ContentViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        getAllPindergartenDataManager.getLikePindergarten(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON, delegate: self)
-        
         locationManager.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PindergartenCell.self, forCellReuseIdentifier: PindergartenCell.identifier)
         configureUI()
         
-//        print(locationManager.location?.coordinate.latitude)
-//        print(locationManager.location?.coordinate.longitude)
     }
     
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
     //MARK: - Action
     
     //MARK: - Helpers
@@ -64,14 +68,9 @@ class ContentViewController: BaseViewController {
 
 //MARK: - Extension
 extension ContentViewController: PindergartenCellDelegate {
-    func didTapCellHeartButton(id: Int, index: Int) {
-        print(id, index)
+    func didTapCellHeartButton(id: Int) {
+
         pindergartenLikeDataManager.likePindergarten(pindergartenId: id, delegate: self)
-//        if allPindergarten[index].isLiked == 0 {
-//            allPindergarten[index].isLiked = 1
-//        } else {
-//            allPindergarten[index].isLiked = 0
-//        }
     }
     
     
@@ -92,7 +91,6 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         cell.selectionStyle = .none
         
-//        cell.index = indexPath.item
         cell.pindergartenImage.kf.setImage(with: URL(string: allPindergarten[indexPath.item].thumbnail))
         cell.nameLabel.text = allPindergarten[indexPath.item].name
         cell.addressLabel.text = allPindergarten[indexPath.item].address
@@ -154,6 +152,7 @@ extension ContentViewController {
     
     func didSuccessLikePindergarten(_ result: PindergartenLikeResult) {
         print(result.isSet)
+        print(allPindergarten[0].isLiked)
         
     }
     

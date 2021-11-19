@@ -8,6 +8,10 @@
 import UIKit
 
 class SignUpPasswordViewController: BaseViewController {
+    
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
     var phoneNumber: String?
     

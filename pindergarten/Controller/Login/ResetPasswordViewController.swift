@@ -8,6 +8,9 @@
 import UIKit
 
 class ResetPasswordViewController: BaseViewController {
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
     lazy var resetDataManager: ResetPasswordDataManager = ResetPasswordDataManager()
     

@@ -8,6 +8,9 @@
 import UIKit
 
 class AllEventHeaderView: UICollectionReusableView {
+    deinit {
+            print("deinit")
+    }
     //MARK: - Properties
     static let identifier = "AllEventHeaderView"
     

@@ -13,7 +13,9 @@ var imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(reso
 
 
 class HomeViewController: BaseViewController {
-
+    deinit {
+            print("deinit")
+    }
     
     //MARK: - Properties
     lazy var getAllFeedDataManager: GetAllFeedDataManager = GetAllFeedDataManager()

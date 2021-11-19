@@ -164,6 +164,11 @@ class DetailPindergartenHeaderCell: UITableViewCell {
     
     @objc private func didTapHeartButton() {
         delegate?.didTapHeartButton()
+        if heartButton.currentImage == UIImage(named: "detailHeart") {
+            heartButton.setImage(UIImage(named: "detailFillHeart"), for: .normal)
+        } else {
+            heartButton.setImage(UIImage(named: "detailHeart"), for: .normal)
+        }
     }
     //MARK: - Helpers
 
