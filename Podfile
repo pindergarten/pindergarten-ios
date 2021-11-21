@@ -17,6 +17,8 @@ target 'pindergarten' do
 	pod 'FloatingPanel'
 	pod 'NMapsMap'
 	pod 'Cosmos', '~> 23.0'
+	pod "BSImagePicker", "~> 3.1"
+
 
   target 'pindergartenTests' do
     inherit! :search_paths

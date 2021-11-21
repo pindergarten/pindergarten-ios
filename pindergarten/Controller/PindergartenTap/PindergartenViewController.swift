@@ -20,7 +20,7 @@ class MyFloatingPanelLayout: FloatingPanelLayout {
         return .half
     }
 
-    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] { // 가능한 floating panel: 현재 full, half만 가능하게 설정
+    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] { 
         return [
             .full: FloatingPanelLayoutAnchor(absoluteInset: 56.0, edge: .top, referenceGuide: .safeArea),
             .half: FloatingPanelLayoutAnchor(absoluteInset: 32.0, edge: .bottom, referenceGuide: .safeArea),
@@ -207,6 +207,8 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
     }
 }
 
+
+//MARK: - Extension
 extension PindergartenViewController: NMFMapViewCameraDelegate, NMFMapViewTouchDelegate {
     
     // 카메라 위치가 변경될때마다 호출
@@ -221,6 +223,7 @@ extension PindergartenViewController: NMFMapViewCameraDelegate, NMFMapViewTouchD
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         self.fpc.move(to: .half, animated: false)
+
     }
 }
 

@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-var imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "1")]
+var imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "2"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "2"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "5")]
 
 
 
@@ -65,6 +65,8 @@ class HomeViewController: BaseViewController {
     private let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: PinterestLayout())
         collectionView.backgroundColor = .white
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
 
@@ -99,7 +101,7 @@ class HomeViewController: BaseViewController {
     
     //MARK: - Action
     @objc func didTapPlusButton() {
-        
+        navigationController?.pushViewController(PostFeedController(), animated: true)
     }
     
     @objc func didTapEventButton() {
@@ -146,6 +148,7 @@ class HomeViewController: BaseViewController {
 //MARK: - Extenseion
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return feed.count
     }
@@ -154,18 +157,26 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
         cell.delegate = self
         
-        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"))
-        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: UIImage())
-        cell.nameLabel.text = feed[indexPath.item].nickname
-        cell.scriptionLabel.text = feed[indexPath.item].content
-        cell.heartButton.tag = feed[indexPath.item].id
-        cell.feedIndex = indexPath.item
+//        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"))
+////        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: UIImage())
+//
+//        cell.imageView.kf.indicatorType = .activity
+//        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+//        cell.nameLabel.text = feed[indexPath.item].nickname
+//        cell.scriptionLabel.text = feed[indexPath.item].content
+//        cell.heartButton.tag = feed[indexPath.item].id
+//        cell.feedIndex = indexPath.item
+
+
+//        if feed[indexPath.item].isLiked == 0 {
+//            cell.heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
+//        } else if feed[indexPath.item].isLiked == 1 {
+//            cell.heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)
+//        }
         
-        if feed[indexPath.item].isLiked == 0 {
-            cell.heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
-        } else if feed[indexPath.item].isLiked == 1 {
-            cell.heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)
-        }
+        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail))
+        cell.profileImageView.image = UIImage(systemName: "person")
+       
         
         return cell
     }
@@ -175,6 +186,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         detailVC.postId = feed[indexPath.item].id
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+    
 }
 
 extension HomeViewController: HomeCellDelegate {
@@ -190,36 +206,27 @@ extension HomeViewController: HomeCellDelegate {
 
 extension HomeViewController: PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        
-        let cellWidth: CGFloat = (view.bounds.width - 4) / 2 // 셀 가로 크기
-        var imageHeight: CGFloat = 0
-        var imageWidth: CGFloat = 0
-//  
-//        urlToImg(feed[indexPath.item].thumbnail) { image in
-//        let imageHeight = image!.size.height
-//        let imageWidth = image!.size.width
-//
-//        let imageRatio = imageHeight/imageWidth
+
+        let cellWidth: CGFloat = (view.bounds.width - 60) / 2 // 셀 가로 크기
+//        var imageHeight: CGFloat = 0
+//        var imageWidth: CGFloat = 0
 //
 //
-//        return imageRatio * cellWidth
-//
-//        }
-        
-//        if indexPath.item % 2 == 0 {
-//            imageHeight = imageList[indexPath.item].size.height
+//        if indexPath.item % 4 == 0 || indexPath.item % 4 == 3 {
+//            imageHeight = 150
 //            imageWidth = Device.width / 2 - 60
 //        } else {
-//            imageHeight = imageList[indexPath.item].size.height
+//            imageHeight = 200
 //            imageWidth = Device.width / 2 - 60
 //        }
+//
         
-        imageHeight = imageList[indexPath.item].size.height
-        imageWidth = imageList[indexPath.item].size.width
+        let imageHeight = imageList[indexPath.item].size.height
+        let imageWidth = imageList[indexPath.item].size.width
         
         let imageRatio = imageHeight/imageWidth
-        
-        
+
+
         return imageRatio * cellWidth
     }
 }
@@ -227,26 +234,9 @@ extension HomeViewController: PinterestLayoutDelegate {
 // 네트워크 함수
 extension HomeViewController {
    
-
-//    func urlToImg(_ url: String, completion: @escaping ((UIImage?) -> CGFloat)) {
-//        DispatchQueue.global().async {
-//            let url = URL(string: url)
-//            let data = try? Data(contentsOf: url!)
-//            let image = UIImage(data: data!)
-//            DispatchQueue.main.async {
-//                completion(image)
-//            }
-//        }
-//    }
-//    
-    
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
         print("DEBUG: GET ALL FEED")
         feed = result
-      
-        
-        
-        
     }
     
     func failedToGetAllFeed(message: String) {

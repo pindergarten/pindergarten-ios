@@ -8,6 +8,7 @@
 import UIKit
 import ImageSlideshow
 import Cosmos
+import WebKit
 
 
 
@@ -110,14 +111,21 @@ class DetailPindergartenController: BaseViewController {
     
     var num: String = ""
     
+    let webView: WKWebView = {
+        let view = WKWebView()
+        return view
+    }()
+    
+
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print(pindergartenID)
+       
  
         getDetailPindergartenDataManager.getDetailPindergarten(pindergartenId: pindergartenID, delegate: self)
         getBlogReviewDataManager.getBlogReviewPindergarten(pindergartenId: pindergartenID, delegate: self)
+        
+        setWebViewDelegate()
         tableViewSetup()
         configureUI()
 
@@ -138,7 +146,11 @@ class DetailPindergartenController: BaseViewController {
         navigationController?.pushViewController(blogVC, animated: true)
     }
     //MARK: - Helpers
-
+    private func setWebViewDelegate() {
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+    }
+    
     
     private func tableViewSetup() {
         
@@ -265,7 +277,13 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
         if indexPath == [0,1] {
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenInfoCell.identifier, for: indexPath) as! DetailPindergartenInfoCell
             cell.selectionStyle = .none
-            cell.infoLabel.text = detailResult?.openingHours == "" ? "-" : detailResult?.openingHours
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1.6
+
+            let openText = detailResult?.openingHours == "" ? "-" : detailResult?.openingHours
+            cell.infoLabel.attributedText = NSAttributedString(string: openText ?? "-", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle])
+
             
             return cell
         }
@@ -274,7 +292,14 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenInfoCell.identifier, for: indexPath) as! DetailPindergartenInfoCell
             cell.selectionStyle = .none
             cell.titleLabel.text = "이용안내"
-            cell.infoLabel.text = detailResult?.accessGuide == "" ? "-" : detailResult?.accessGuide
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1.6
+
+            let accessText =  detailResult?.accessGuide == "" ? "-" : detailResult?.accessGuide
+            cell.infoLabel.attributedText = NSAttributedString(string: accessText ?? "-", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle])
+
+
             return cell
         }
         
@@ -296,6 +321,11 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
                 cell.homepageInfoLabel.text = detailResult?.website
             }
             
+            var paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1.4
+
+            let websiteText =  detailResult?.website == "" ? "-" : detailResult?.website
+            cell.homepageInfoLabel.attributedText = NSAttributedString(string: websiteText ?? "-", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle])
 
             return cell
         }
@@ -309,7 +339,8 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             cell.blogTitleLabel.text = title
             cell.contentLabel.text = content
             cell.dateLabel.text = blogReviewResult?[indexPath.item].date ?? ""
-
+            
+            
             return cell
         }
         else {
@@ -320,7 +351,12 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             print(indexPath.item)
+
             
+            let webView = BlogWebViewController()
+            
+            webView.blogUrl = blogReviewResult?[indexPath.item].link ?? ""
+            navigationController?.pushViewController(webView, animated: true)
         }
         
     }
@@ -341,6 +377,36 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
     }
     
     
+}
+
+extension DetailPindergartenController: WKUIDelegate, WKNavigationDelegate {
+    // 중복적으로 reload 방지 위한 함수
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        webView.reload()
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+         let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
+         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in completionHandler() }))
+         self.present(alertController, animated: true, completion: nil) }
+
+     //confirm 처리
+     func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+
+         let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
+         alertController.addAction(UIAlertAction(title: "취소", style: .default, handler: { (action) in completionHandler(false) }))
+         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in completionHandler(true) }))
+         self.present(alertController, animated: true, completion: nil)
+
+     }
+
+     // href="_blank" 처리
+     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+
+         if navigationAction.targetFrame == nil { webView.load(navigationAction.request)
+         }
+         return nil
+     }
 }
 
 // 네트워크 함수

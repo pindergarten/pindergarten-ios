@@ -38,7 +38,7 @@ class LoginViewController: BaseViewController {
     
     private let passwordStack = CustomInputView(title: "비밀번호", placeholder: "8~16자 이내의 비밀번호", isSecure: true)
     
-    private let loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
         button.tintColor = .mainTextColor

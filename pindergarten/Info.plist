@@ -77,5 +77,7 @@
 	<string>사용자의 위치 정보는 유저와 주변 펫 유치원의 거리 판단 요소가 됩니다. 사용자의 위치 정보를 앱에 저장하지 않습니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>사용자의 위치 정보는 유저와 주변 펫 유치원의 거리 판단 요소가 됩니다. 사용자의 위치 정보를 앱에 저장하지 않습니다.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>갤러리를 사용하여 다른 사용자들과 사진을 공유합니다. </string>
 </dict>
 </plist>

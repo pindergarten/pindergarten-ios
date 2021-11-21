@@ -342,8 +342,8 @@ extension ReportController: UITextViewDelegate {
 // 네트워크 함수
 extension ReportController {
     func didSuccessReportFeed() {
-        self.presentAlert(title: "신고접수 되었습니다.") { _ in
-            self.navigationController?.popViewController(animated: true)
+        self.presentAlert(title: "신고접수 되었습니다.") { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
         }
         
     }

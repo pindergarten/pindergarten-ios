@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class BlogReviewController: BaseViewController {
     deinit {
             print("deinit")
@@ -45,10 +46,11 @@ class BlogReviewController: BaseViewController {
         return tableView
     }()
     
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
         tableViewSetup()
         configureUI()
     }
@@ -115,6 +117,7 @@ extension BlogReviewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let webView = BlogWebViewController()
+        
         webView.blogUrl = review?[indexPath.item].link ?? ""
         navigationController?.pushViewController(webView, animated: true)
     }

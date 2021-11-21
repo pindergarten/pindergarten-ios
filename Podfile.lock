@@ -5,6 +5,7 @@ PODS:
   - AlamofireNetworkActivityIndicator (3.1.0):
     - Alamofire (~> 5.1)
   - AnyFormatKit (2.5.1)
+  - BSImagePicker (3.3.1)
   - Cosmos (23.0.0)
   - DropDown (2.3.13)
   - FloatingPanel (2.5.0)
@@ -22,6 +23,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.4)
   - AlamofireNetworkActivityIndicator
   - AnyFormatKit (~> 2.5.1)
+  - BSImagePicker (~> 3.1)
   - Cosmos (~> 23.0)
   - DropDown
   - FloatingPanel
@@ -37,6 +39,7 @@ SPEC REPOS:
     - AlamofireImage
     - AlamofireNetworkActivityIndicator
     - AnyFormatKit
+    - BSImagePicker
     - Cosmos
     - DropDown
     - FloatingPanel
@@ -50,6 +53,7 @@ SPEC CHECKSUMS:
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
   AlamofireNetworkActivityIndicator: 6564782bd7b9e6c430ae67d9277af01907b01ca4
   AnyFormatKit: 4ef60ad3f48c69962d482bb2de0a6d3214e8527b
+  BSImagePicker: 0fe04b574d4d6b81093785d2af6c26227efc8428
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FloatingPanel: ddb1c8cbbacd164cfee651c449febe867a28e2cb
@@ -58,6 +62,6 @@ SPEC CHECKSUMS:
   NMapsMap: 61c2abfc409bbcdc91583ccc455a5b6f64c7414e
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 8b92d77775ae2272141e519d222dcd48a50d4263
+PODFILE CHECKSUM: d70bc166ec0586fd4830b1cd811be20eb0fc2418
 
 COCOAPODS: 1.10.1

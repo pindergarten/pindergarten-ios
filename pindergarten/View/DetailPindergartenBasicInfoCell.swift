@@ -159,12 +159,12 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         contentView.addSubview(separateLine)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.left.equalTo(contentView).offset(20)
+            make.top.left.equalTo(contentView).offset(26)
             make.right.equalTo(contentView).offset(-20)
         }
         
         callLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(18)
+            make.top.equalTo(titleLabel.snp.bottom).offset(26)
             make.left.equalTo(contentView).offset(20)
             make.width.equalTo(52)
         }
@@ -177,7 +177,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         }
         
         addressLabel.snp.makeConstraints { make in
-            make.top.equalTo(callInfoLabel.snp.bottom).offset(18)
+            make.top.equalTo(callInfoLabel.snp.bottom).offset(26)
             make.left.equalTo(callLabel)
             make.width.equalTo(52)
         }
@@ -189,7 +189,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         }
         
         homepageLabel.snp.makeConstraints { make in
-            make.top.equalTo(addressInfoLabel.snp.bottom).offset(18)
+            make.top.equalTo(addressInfoLabel.snp.bottom).offset(26)
             make.left.equalTo(callLabel)
             make.width.equalTo(52)
         }
@@ -201,7 +201,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         }
     
         separateLine.snp.makeConstraints { make in
-            make.top.equalTo(homepageInfoLabel.snp.bottom).offset(22)
+            make.top.equalTo(homepageInfoLabel.snp.bottom).offset(26)
             make.left.right.equalTo(contentView)
             make.bottom.equalTo(contentView)
             make.height.equalTo(6)

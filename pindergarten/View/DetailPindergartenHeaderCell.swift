@@ -51,7 +51,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
     let imageContainerView: UIView = {
         let view = UIView()
         view.layer.applyShadow(color: .black, alpha: 0.25, x: 0, y: 4, blur: 9)
-        view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: view.layer.cornerRadius).cgPath
+//        view.layer.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: view.layer.cornerRadius).cgPath
         
         return view
     }()

@@ -10,8 +10,8 @@ import UIKit
 class HomeTabBarController: UITabBarController {
 
     //MARK: - Properties
-    private let containerView = UIView()
-    private let innerView = UIView()
+//    private let containerView = UIView()
+//    private let innerView = UIView()
 
    
     //MARK: - Lifecycle

@@ -178,8 +178,8 @@ class DetailFeedViewController: BaseViewController {
     @objc private func didTapMenuButton() {
    
         if JwtToken.userId == detailFeed?.userId {
-            let actionDelete = UIAlertAction(title: "게시물 삭제하기", style: .destructive) { action in
-                self.deleteFeedDataManager.deleteFeed(postId: self.postId, delegate: self)
+            let actionDelete = UIAlertAction(title: "게시물 삭제하기", style: .destructive) { [weak self] action in
+                self?.deleteFeedDataManager.deleteFeed(postId: self!.postId, delegate: self ?? DetailFeedViewController())
             }
             
             let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
@@ -413,8 +413,8 @@ extension DetailFeedViewController {
     }
     
     func didSuccessDeleteFeed() {
-        self.presentAlert(title: "게시물이 삭제되었습니다") { alert in
-            self.navigationController?.popViewController(animated: true)
+        self.presentAlert(title: "게시물이 삭제되었습니다") { [weak self] alert in
+            self?.navigationController?.popViewController(animated: true)
         }
         
     }
