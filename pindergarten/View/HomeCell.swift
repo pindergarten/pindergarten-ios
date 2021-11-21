@@ -22,6 +22,7 @@ class HomeCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "1")
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
         imageView.layer.cornerRadius = 10
@@ -89,7 +90,7 @@ class HomeCell: UICollectionViewCell {
     }
     //MARK: - Helpers
     private func setUpRoundShadow() {
-        layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.6, x: 0, y: 5, blur: 15)
+        layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.3, x: 0, y: 5, blur: 15)
         clipsToBounds = true
         layer.masksToBounds = false
         layer.cornerRadius = 10

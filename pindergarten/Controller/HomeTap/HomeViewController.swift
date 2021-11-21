@@ -157,26 +157,26 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
         cell.delegate = self
         
-//        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"))
-////        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: UIImage())
-//
-//        cell.imageView.kf.indicatorType = .activity
-//        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
-//        cell.nameLabel.text = feed[indexPath.item].nickname
-//        cell.scriptionLabel.text = feed[indexPath.item].content
-//        cell.heartButton.tag = feed[indexPath.item].id
-//        cell.feedIndex = indexPath.item
+        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"))
+//        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: UIImage())
+
+        cell.imageView.kf.indicatorType = .activity
+        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+        cell.nameLabel.text = feed[indexPath.item].nickname
+        cell.scriptionLabel.text = feed[indexPath.item].content
+        cell.heartButton.tag = feed[indexPath.item].id
+        cell.feedIndex = indexPath.item
 
 
-//        if feed[indexPath.item].isLiked == 0 {
-//            cell.heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
-//        } else if feed[indexPath.item].isLiked == 1 {
-//            cell.heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)
-//        }
+        if feed[indexPath.item].isLiked == 0 {
+            cell.heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
+        } else if feed[indexPath.item].isLiked == 1 {
+            cell.heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)
+        }
         
-        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail))
-        cell.profileImageView.image = UIImage(systemName: "person")
-       
+//        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail))
+//        cell.profileImageView.image = UIImage(systemName: "person")
+//
         
         return cell
     }
@@ -208,21 +208,21 @@ extension HomeViewController: PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
 
         let cellWidth: CGFloat = (view.bounds.width - 60) / 2 // 셀 가로 크기
-//        var imageHeight: CGFloat = 0
-//        var imageWidth: CGFloat = 0
-//
-//
-//        if indexPath.item % 4 == 0 || indexPath.item % 4 == 3 {
-//            imageHeight = 150
-//            imageWidth = Device.width / 2 - 60
-//        } else {
-//            imageHeight = 200
-//            imageWidth = Device.width / 2 - 60
-//        }
-//
+        var imageHeight: CGFloat = 0
+        var imageWidth: CGFloat = 0
+
+
+        if indexPath.item % 4 == 0 || indexPath.item % 4 == 3 {
+            imageHeight = 150
+            imageWidth = Device.width / 2 - 60
+        } else {
+            imageHeight = 200
+            imageWidth = Device.width / 2 - 60
+        }
+
         
-        let imageHeight = imageList[indexPath.item].size.height
-        let imageWidth = imageList[indexPath.item].size.width
+//        let imageHeight = imageList[indexPath.item].size.height
+//        let imageWidth = imageList[indexPath.item].size.width
         
         let imageRatio = imageHeight/imageWidth
 

@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "alvan-nee-T-0EW-SEbsE-unsplash.jpg",
+      "filename" : "Group 322.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Group 322@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Group 322@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

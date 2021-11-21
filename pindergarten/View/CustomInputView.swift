@@ -45,16 +45,16 @@ class CustomInputView: UIView {
         let stack = UIStackView(arrangedSubviews: [titleLabel,textFieldStack])
         stack.axis = .vertical
         stack.distribution = .fill
-        stack.spacing = 20
         return stack
     }()
     
     //MARK: - init
-    init(title: String, placeholder: String, isSecure: Bool = false) {
+    init(title: String, placeholder: String, isSecure: Bool = false, spacing: CGFloat = 20) {
         super.init(frame: .zero)
         
         titleLabel.text  = title
         textField = CustomTextField(placeholder: placeholder, isSecure: isSecure)
+        stack.spacing = spacing
         configureUI()
     }
     

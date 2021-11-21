@@ -78,6 +78,9 @@
 		24994DEF2743DD0B005A604B /* BlogWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DEE2743DD0B005A604B /* BlogWebViewController.swift */; };
 		24994DF32743ED51005A604B /* GetPickAroundPindergartenDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DF22743ED51005A604B /* GetPickAroundPindergartenDataManager.swift */; };
 		24994DF52743ED9E005A604B /* GetPickAroundPindergartenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DF42743ED9E005A604B /* GetPickAroundPindergartenResponse.swift */; };
+		24994DF7274A84D4005A604B /* MyFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DF6274A84D4005A604B /* MyFeedCell.swift */; };
+		24994DF9274A8AA1005A604B /* PetRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DF8274A8AA1005A604B /* PetRegisterController.swift */; };
+		24994DFC274AA844005A604B /* CustomButtonChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994DFB274AA844005A604B /* CustomButtonChoiceView.swift */; };
 		24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6A92725423A00FD519D /* AppDelegate.swift */; };
 		24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6AB2725423A00FD519D /* SceneDelegate.swift */; };
 		24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6B22725423B00FD519D /* Assets.xcassets */; };
@@ -229,6 +232,9 @@
 		24994DEE2743DD0B005A604B /* BlogWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogWebViewController.swift; sourceTree = "<group>"; };
 		24994DF22743ED51005A604B /* GetPickAroundPindergartenDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPickAroundPindergartenDataManager.swift; sourceTree = "<group>"; };
 		24994DF42743ED9E005A604B /* GetPickAroundPindergartenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPickAroundPindergartenResponse.swift; sourceTree = "<group>"; };
+		24994DF6274A84D4005A604B /* MyFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFeedCell.swift; sourceTree = "<group>"; };
+		24994DF8274A8AA1005A604B /* PetRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRegisterController.swift; sourceTree = "<group>"; };
+		24994DFB274AA844005A604B /* CustomButtonChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonChoiceView.swift; sourceTree = "<group>"; };
 		24C4D6A62725423A00FD519D /* pindergarten.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pindergarten.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C4D6A92725423A00FD519D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24C4D6AB2725423A00FD519D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -453,6 +459,15 @@
 			path = DetailPindergartenControllers;
 			sourceTree = "<group>";
 		};
+		24994DFA274A8AA7005A604B /* MeAndPetTap */ = {
+			isa = PBXGroup;
+			children = (
+				24F74335272DB6CC00238E20 /* MeAndPetViewController.swift */,
+				24994DF8274A8AA1005A604B /* PetRegisterController.swift */,
+			);
+			path = MeAndPetTap;
+			sourceTree = "<group>";
+		};
 		24C4D69D2725423A00FD519D = {
 			isa = PBXGroup;
 			children = (
@@ -482,7 +497,6 @@
 				24C4D6F427259B0A00FD519D /* Splash */,
 				24C4D6F927259C3100FD519D /* View */,
 				24C4D6F727259C0A00FD519D /* Controller */,
-				24F74335272DB6CC00238E20 /* MeAndPetViewController.swift */,
 				24F74300272CEBA300238E20 /* Networking */,
 				24C4D6A92725423A00FD519D /* AppDelegate.swift */,
 				24C4D6AB2725423A00FD519D /* SceneDelegate.swift */,
@@ -590,6 +604,7 @@
 				24C4D6FA2727D69A00FD519D /* Login */,
 				24F7432E272DA1EB00238E20 /* HomeTap */,
 				24994DB0273E734C005A604B /* PindergartenTap */,
+				24994DFA274A8AA7005A604B /* MeAndPetTap */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -600,12 +615,14 @@
 				24C4D6FF2727DE9300FD519D /* CustomTextField.swift */,
 				24C4D71327287A6200FD519D /* CustomNavBar.swift */,
 				24C4D7152728839600FD519D /* CustomInputView.swift */,
+				24994DFB274AA844005A604B /* CustomButtonChoiceView.swift */,
 				24F743472730330F00238E20 /* HomeCell.swift */,
 				24595AE1273123E1008B5194 /* EventCell.swift */,
 				24994DAC273B00DE005A604B /* EventHeaderView.swift */,
 				24994DAE273DACA5005A604B /* EventFooterView.swift */,
 				240B8D7B2731A7F300078404 /* CommentCell.swift */,
 				24595AE32732730A008B5194 /* DetailFeedCell.swift */,
+				24994DF6274A84D4005A604B /* MyFeedCell.swift */,
 				24994DB5273EB75B005A604B /* PindergartenCell.swift */,
 				24994DBB2740A052005A604B /* SearchPindergartenCell.swift */,
 				24994DD32741590A005A604B /* DetailPindergartenHeaderCell.swift */,
@@ -990,6 +1007,7 @@
 				24994DED2743D308005A604B /* PostFeedController.swift in Sources */,
 				24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */,
 				247B84492735026C00591CC4 /* ReportController.swift in Sources */,
+				24994DF9274A8AA1005A604B /* PetRegisterController.swift in Sources */,
 				240B8D83273268B300078404 /* GetAllFeedDataManager.swift in Sources */,
 				24F7434A27303AFB00238E20 /* PinterestLayout.swift in Sources */,
 				247B843D273426D300591CC4 /* DetailFeedViewController.swift in Sources */,
@@ -1041,7 +1059,9 @@
 				24F74306272CEC2700238E20 /* SendAuthNumberResponse.swift in Sources */,
 				24F74310272D028F00238E20 /* CheckNickNameDataManager.swift in Sources */,
 				24994DB8273EF5FD005A604B /* LikePindergartenController.swift in Sources */,
+				24994DF7274A84D4005A604B /* MyFeedCell.swift in Sources */,
 				24F74324272D168000238E20 /* RegisterUserRequest.swift in Sources */,
+				24994DFC274AA844005A604B /* CustomButtonChoiceView.swift in Sources */,
 				24C4D6EE272597FF00FD519D /* IndicatorView.swift in Sources */,
 				24994DEF2743DD0B005A604B /* BlogWebViewController.swift in Sources */,
 				24F7431E272D11DC00238E20 /* ResetPasswordRequest.swift in Sources */,
