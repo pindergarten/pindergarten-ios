@@ -78,6 +78,13 @@ class CustomButtonChoiceView: UIView {
         stack.axis = .vertical
         return stack
     }()
+    
+    private lazy var allStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [totalStack, line])
+        stack.axis = .vertical
+        stack.spacing = 8
+        return stack
+    }()
 
     private let line: UIView = {
         let view = UIView()
@@ -120,9 +127,9 @@ class CustomButtonChoiceView: UIView {
     
     //MARK: - Helpers
     private func configureUI() {
-        addSubview(totalStack)
-        
-        totalStack.snp.makeConstraints { make in
+        addSubview(allStack)
+     
+        allStack.snp.makeConstraints { make in
             make.edges.equalTo(self)
         }
     }

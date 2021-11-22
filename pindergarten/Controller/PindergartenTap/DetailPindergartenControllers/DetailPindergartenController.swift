@@ -321,7 +321,7 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
                 cell.homepageInfoLabel.text = detailResult?.website
             }
             
-            var paragraphStyle = NSMutableParagraphStyle()
+            let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineHeightMultiple = 1.4
 
             let websiteText =  detailResult?.website == "" ? "-" : detailResult?.website

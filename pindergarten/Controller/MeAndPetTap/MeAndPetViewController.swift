@@ -49,6 +49,7 @@ class MeAndPetViewController: BaseViewController {
         button.layer.masksToBounds = true
         button.layer.borderColor = UIColor.mainLightYellow.cgColor
         button.layer.borderWidth = 3
+        button.addTarget(self, action: #selector(didTapRegisterPetButton), for: .touchUpInside)
         return button
     }()
     
@@ -92,7 +93,9 @@ class MeAndPetViewController: BaseViewController {
     }
     
     //MARK: - Action
-    
+    @objc private func didTapRegisterPetButton() {
+        navigationController?.pushViewController(PetRegisterController(), animated: true)
+    }
     //MARK: - Helpers
     private func configureUI() {
         view.addSubview(profileImage)

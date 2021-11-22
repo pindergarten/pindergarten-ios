@@ -16,6 +16,7 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         
         swipeRecognizer()
+        dismissKeyboardWhenTappedAround()
         view.backgroundColor = .white
         navigationController?.isNavigationBarHidden = true
 //        // 네비게이션바 밑줄, 배경색 없애기
