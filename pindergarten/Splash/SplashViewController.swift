@@ -11,7 +11,7 @@ class SplashViewController: UIViewController {
     //MARK: - Properties
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.image = UIImage(named: "backgroundImage")
         return imageView
@@ -95,7 +95,7 @@ class SplashViewController: UIViewController {
         
         navigationController?.navigationBar.isHidden = true
         
-        UIView.animate(withDuration: 1.0, delay: 1.0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseInOut) {
             self.buttonStackView.alpha = 1
         }
 

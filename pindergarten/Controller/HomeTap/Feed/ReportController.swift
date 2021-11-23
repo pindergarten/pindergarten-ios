@@ -183,7 +183,7 @@ class ReportController: BaseViewController {
         textView.delegate = self // txtvReview가 유저가 선언한 outlet
         
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.28
+        paragraphStyle.lineSpacing = 2
 
         textView.attributedText = NSMutableAttributedString(string: "신고하실 내용을 설명해주세요.(최소 10자, 최대 500자 입력 가능)", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle, .font : UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!, .foregroundColor : UIColor(hex: 0xC6C6C6)])
         

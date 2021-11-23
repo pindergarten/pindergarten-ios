@@ -77,6 +77,7 @@ class LikePindergartenController: BaseViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = true
+    
     }
     //MARK: - Action
     @objc private func didTapBackButton() {

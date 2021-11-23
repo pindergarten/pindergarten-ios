@@ -18,6 +18,7 @@ target 'pindergarten' do
 	pod 'NMapsMap'
 	pod 'Cosmos', '~> 23.0'
 	pod "BSImagePicker", "~> 3.1"
+	pod 'IQKeyboardManagerSwift'
 
 
   target 'pindergartenTests' do

@@ -8,6 +8,7 @@
 import UIKit
 import DropDown
 import NMapsMap
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

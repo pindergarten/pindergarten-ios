@@ -87,8 +87,6 @@ class LoginViewController: BaseViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        self.dismissKeyboardWhenTappedAround()
         
 //        phoneNumberStack.textField.delegate = self
         phoneNumberStack.textField.becomeFirstResponder()

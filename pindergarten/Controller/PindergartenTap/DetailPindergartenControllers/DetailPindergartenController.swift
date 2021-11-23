@@ -279,7 +279,7 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             cell.selectionStyle = .none
             
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.6
+            paragraphStyle.lineSpacing = 2
 
             let openText = detailResult?.openingHours == "" ? "-" : detailResult?.openingHours
             cell.infoLabel.attributedText = NSAttributedString(string: openText ?? "-", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle])
@@ -294,7 +294,7 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             cell.titleLabel.text = "이용안내"
             
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.6
+            paragraphStyle.lineSpacing = 2
 
             let accessText =  detailResult?.accessGuide == "" ? "-" : detailResult?.accessGuide
             cell.infoLabel.attributedText = NSAttributedString(string: accessText ?? "-", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle])
@@ -322,7 +322,7 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             }
             
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.4
+            paragraphStyle.lineSpacing = 2
 
             let websiteText =  detailResult?.website == "" ? "-" : detailResult?.website
             cell.homepageInfoLabel.attributedText = NSAttributedString(string: websiteText ?? "-", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle])

@@ -6,9 +6,15 @@
 //
 
 import UIKit
+protocol ButtonChoiceDelegate: AnyObject {
+    func choiceButton()
+}
 
 class CustomButtonChoiceView: UIView {
     //MARK: - Properties
+    weak var delegate: ButtonChoiceDelegate?
+    var selectedButton: Int = 2
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 14)
@@ -18,19 +24,22 @@ class CustomButtonChoiceView: UIView {
     
     private lazy var choiceButtonL: UIButton = {
         let button = UIButton(type: .system)
+        button.tintColor = .clear
         button.setImage(UIImage(named: "meAndPet-DefaultButton"), for: .normal)
+        button.setImage(UIImage(named: "meAndPet-ChoicedButton"), for: .selected)
         button.setDimensions(height: 20, width: 20)
         button.addTarget(self, action: #selector(didTapChoiceButton), for: .touchUpInside)
-        button.tag = 1
+        button.tag = 0
         return button
     }()
     
     private let choiceLabelL: UILabel = {
         let label = UILabel()
+        
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         label.textColor = UIColor(hex: 0xBFBFBF)
         label.setWidth(130)
-        label.tag = 11
+        label.tag = 10
         return label
     }()
     
@@ -43,10 +52,13 @@ class CustomButtonChoiceView: UIView {
     
     private lazy var choiceButtonR: UIButton = {
         let button = UIButton(type: .system)
+        button.tintColor = .clear
         button.setImage(UIImage(named: "meAndPet-DefaultButton"), for: .normal)
+        button.setImage(UIImage(named: "meAndPet-ChoicedButton"), for: .selected)
+        
         button.setDimensions(height: 20, width: 20)
         button.addTarget(self, action: #selector(didTapChoiceButton), for: .touchUpInside)
-        button.tag = 2
+        button.tag = 1
         return button
     }()
     
@@ -55,7 +67,7 @@ class CustomButtonChoiceView: UIView {
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         label.textColor = UIColor(hex: 0xBFBFBF)
         label.setWidth(130)
-        label.tag = 12
+        label.tag = 11
         return label
     }()
     
@@ -110,16 +122,18 @@ class CustomButtonChoiceView: UIView {
     //MARK: - Action
     @objc private func didTapChoiceButton(_ sender: UIButton) {
 
-        sender.setImage(UIImage(named: "meAndPet-ChoicedButton"), for: .normal)
+        selectedButton = sender.tag
+        delegate?.choiceButton()
+        sender.isSelected = true
         let stackLabel = self.viewWithTag(sender.tag + 10) as? UILabel
         stackLabel?.textColor = UIColor(hex: 0x5A5A5A)
         
         
-        for tag in 1...2 {
+        for tag in 0...1 {
             if tag != sender.tag {
                 let button = self.viewWithTag(tag) as? UIButton
                 let label = self.viewWithTag(tag+10) as? UILabel
-                button?.setImage(UIImage(named: "meAndPet-DefaultButton"), for: .normal)
+                button?.isSelected = false
                 label?.textColor = UIColor(hex: 0xBFBFBF)
             }
         }

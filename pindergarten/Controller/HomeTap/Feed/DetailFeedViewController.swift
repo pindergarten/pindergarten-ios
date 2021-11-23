@@ -323,6 +323,8 @@ class DetailFeedViewController: BaseViewController {
         }
 
         pageIndicator.snp.makeConstraints { make in
+            make.left.greaterThanOrEqualTo(heartLabel.snp.right).offset(40)
+            
             make.centerY.equalTo(heartLabel)
             make.centerX.equalTo(containerView)
         }

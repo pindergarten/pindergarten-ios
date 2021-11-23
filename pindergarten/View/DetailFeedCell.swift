@@ -71,7 +71,7 @@ class DetailFeedCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
         label.textColor = UIColor(hex: 0x858585)
-        label.text = "294"
+        label.text = "0"
         return label
     }()
     
@@ -86,7 +86,7 @@ class DetailFeedCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
         label.textColor = UIColor(hex: 0x858585)
-        label.text = "294"
+        label.text = "0"
         return label
     }()
     

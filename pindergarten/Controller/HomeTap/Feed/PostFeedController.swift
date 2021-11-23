@@ -47,12 +47,14 @@ class PostFeedController: BaseViewController {
             print("deinit")
     }
     //MARK: - Properties
-    var myImages = [Data]()
     
     var selectedAssets = [PHAsset]()
     var photoArray = [UIImage]()
+    var allPhotos:PHFetchResult<PHAsset>? = nil
     
     var imagePicker: ImagePickerController?
+    
+    lazy var postFeedDataManager: PostFeedDataManager = PostFeedDataManager()
     
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
@@ -148,6 +150,10 @@ class PostFeedController: BaseViewController {
     @objc private func didTapPostButton() {
         if selectedAssets.count < 1 {
             self.presentAlert(title: "게시물 등록시 1개 이상의\n사진이 필요합니다.")
+        } else {
+            postFeedDataManager.postFeed(images: photoArray, content: textView.text ?? "", delegate: self) { _ in
+                
+            }
         }
 
     }
@@ -157,6 +163,20 @@ class PostFeedController: BaseViewController {
     }
     
     @objc private func didTapCameraButton() {
+        checkAlbumPermission()
+    }
+    
+    @objc private func didTapDeleteBtn(_ sender: UIButton) {
+        print(sender.tag)
+//        myImages.remove(at: sender.tag)
+        photoArray.remove(at: sender.tag)
+        selectedAssets.remove(at: sender.tag)
+        
+        imageCntlabel.text = "\(selectedAssets.count)/10"
+        imageCollectionView.reloadData()
+    }
+    //MARK: - Helpers
+    private func getAlbum() {
         let imagePicker = ImagePickerController()
         imagePicker.settings.selection.max = 10 - selectedAssets.count
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
@@ -184,48 +204,58 @@ class PostFeedController: BaseViewController {
          })
     }
     
-    @objc private func didTapDeleteBtn(_ sender: UIButton) {
-        print(sender.tag)
-        myImages.remove(at: sender.tag)
-        photoArray.remove(at: sender.tag)
-        selectedAssets.remove(at: sender.tag)
-        
-        imageCntlabel.text = "\(selectedAssets.count)/10"
-        imageCollectionView.reloadData()
+    func checkAlbumPermission(){
+        PHPhotoLibrary.requestAuthorization( { status in
+            switch status{
+            case .authorized:
+                print("Album: 권한 허용")
+                DispatchQueue.main.async {
+                    self.getAlbum()
+                }
+            case .denied:
+                print("Album: 권한 거부")
+            case .restricted, .notDetermined:
+                print("Album: 선택하지 않음")
+            default:
+                break
+            }
+        })
     }
-    //MARK: - Helpers
     private func setCollectionView() {
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
         imageCollectionView.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.identifier)
     }
     
+    private func assetToImage(asset: PHAsset) -> UIImage {
+        var image = UIImage()
+        let manager = PHImageManager.default()
+        let option = PHImageRequestOptions()
+        option.isSynchronous = true
+        option.deliveryMode = .opportunistic
+           
+        manager.requestImage(for: asset, targetSize: CGSize(width: view.frame.size.width, height: view.frame.size.width), contentMode: .aspectFill, options: option, resultHandler: {(result, info)->Void in
+           image = result!
+        })
+           return image
+        }
+    
     private func convertAssetToImages() {
 
             if selectedAssets.count != 0 {
                 
-                myImages.removeAll()
+              
                 photoArray.removeAll()
 
                 for i in 0..<selectedAssets.count {
 
-                    let manager = PHImageManager.default()
-                    let option = PHImageRequestOptions()
-                    option.isSynchronous = true
-                    var thumbnail = UIImage()
 
-                    manager.requestImage(for: selectedAssets[i],
-                                              targetSize: CGSize(width: 95, height: 95),
-                                              contentMode: .aspectFit,
-                                              options: option) { (result, info) in
-                        thumbnail = result!
-                    }
+                    let fetchOptions = PHFetchOptions()
+                    allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+                    let image = assetToImage(asset: selectedAssets[i])
+ 
 
-                    let data = thumbnail.jpegData(compressionQuality: 0.7)
-                    let newImage = UIImage(data: data!)
-
-                    self.photoArray.append(newImage! as UIImage)
-                    self.myImages.append(data!)
+                    self.photoArray.append(image)
                 }
                 
                 DispatchQueue.main.async {
@@ -234,6 +264,8 @@ class PostFeedController: BaseViewController {
             }
         }
 
+
+    
     private func placeholderSetting() {
         textView.delegate = self // txtvReview가 유저가 선언한 outlet
         
@@ -307,7 +339,7 @@ class PostFeedController: BaseViewController {
 //MARK: - Extension
 extension PostFeedController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return myImages.count
+        return photoArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -373,4 +405,17 @@ extension PostFeedController: UITextViewDelegate {
         return true
     }
 
+}
+
+// 네트워크 함수
+extension PostFeedController {
+    func didSuccessPostFeed() {
+        self.presentAlert(title: "게시물 등록이 완료되었습니다.") {[weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    func failedToPostFeed(message: String) {
+        self.presentAlert(title: message)
+    }
 }

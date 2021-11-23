@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         
         window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
-//        window?.rootViewController = PetRegisterController()
+//        window?.rootViewController = MeAndPetViewController()
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
     }
