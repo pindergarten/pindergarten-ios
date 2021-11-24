@@ -8,7 +8,7 @@
 import Alamofire
 
 class LoginDataManager {
-    func login(_ parameters: LoginRequest, delegate: LoginViewController) {
+    func login(_ parameters: LoginRequest, delegate: NewSplashController) {
         AF.request("\(Constant.BASE_URL)/api/users/sign-in", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: nil)
             .validate()
             .responseDecodable(of: LoginResponse.self) { response in
@@ -21,7 +21,8 @@ class LoginDataManager {
                     // 실패했을 때
                     else {
                         switch response.code {
-                        default: delegate.failedToLogin(message: "전화번호와 비밀번호를 확인해주세요")
+        
+                        default:  delegate.failedToLogin(message: response.message)
                         }
                     }
                 case .failure(let error):

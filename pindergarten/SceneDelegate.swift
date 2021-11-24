@@ -7,11 +7,12 @@
 
 import UIKit
 import SnapKit
+import Alamofire
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    lazy var autoLoginDataManager: AutoLoginDataManager = AutoLoginDataManager()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
@@ -19,9 +20,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
 
+        AF.request("\(Constant.BASE_URL)/api/users/auto-signin", method: .get, headers: Constant.HEADERS)
+            .validate()
+            .responseDecodable(of: DefaultResponse.self) { response in
+                switch response.result {
+                case .success(let response):
+                    // 성공했을 때
+                    if response.isSuccess {
+                        self.window?.rootViewController = HomeTabBarController()
+                    }
+                    // 실패했을 때
+                    else {
+                        self.window?.rootViewController = UINavigationController(rootViewController: NewSplashController())
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.window?.rootViewController = UINavigationController(rootViewController: NewSplashController())
+                }
+            }
         
-        window?.rootViewController = UINavigationController(rootViewController: SplashViewController())
-//        window?.rootViewController = MeAndPetViewController()
+//        window?.rootViewController = UINavigationController(rootViewController: NewSplashController())
+//        window?.rootViewController = UserProfileController()
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
     }

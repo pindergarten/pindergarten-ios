@@ -8,7 +8,7 @@
 import Alamofire
 
 struct Constant {
-    static let BASE_URL = "http://pindergarten.site:3000"
+    static let BASE_URL = "http://pindergarten.site"
     static var HEADERS: HTTPHeaders = ["x-access-token" : JwtToken.token]
     static var FORMDATAHEADERS: HTTPHeaders = ["x-access-token" : JwtToken.token, "Content-Type" : "multipart/form-data"]
     static let DEFAULT_LAT: Double = 37.540025

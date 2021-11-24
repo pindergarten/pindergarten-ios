@@ -11,7 +11,7 @@ struct GetDetailPetResponse: Decodable {
     var isSuccess: Bool
     var code: Int
     var message: String
-    var pet: [GetDetailPetResult]?
+    var pet: GetDetailPetResult?
 }
 
 struct GetDetailPetResult: Decodable {

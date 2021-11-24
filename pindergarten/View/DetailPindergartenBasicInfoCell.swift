@@ -129,7 +129,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         delegate?.didTapPhonLabel()
     }
     
-    @objc func didWebsiteLabel(sender: UITapGestureRecognizer) {
+    @objc func didTapWebsiteLabel(sender: UITapGestureRecognizer) {
         let site: String = homepageInfoLabel.text ?? ""
         print(site)
         delegate?.didTapWebsiteLabel()
@@ -139,7 +139,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
     
     private func putGesture() {
         let tapPhoneGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapCallLabel(sender:)))
-        let tapWebsiteGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didWebsiteLabel(sender:)))
+        let tapWebsiteGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapWebsiteLabel(sender:)))
         callInfoLabel.isUserInteractionEnabled = true
         homepageInfoLabel.isUserInteractionEnabled = true
         callInfoLabel.addGestureRecognizer(tapPhoneGestureRecognizer)

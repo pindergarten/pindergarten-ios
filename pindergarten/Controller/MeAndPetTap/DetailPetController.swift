@@ -1,20 +1,24 @@
 //
-//  PetRegisterController.swift
+//  DetailPetController.swift
 //  pindergarten
 //
-//  Created by MIN SEONG KIM on 2021/11/21.
+//  Created by MIN SEONG KIM on 2021/11/24.
 //
+
 
 import UIKit
 import IQKeyboardManagerSwift
 import Photos
 
-class PetRegisterController: BaseViewController {
+class DetailPetController: BaseViewController {
     //MARK: - Properties
     let imagePicker = UIImagePickerController()
-    var myPet = PostMyPetRequest(name: "", profileImage: Data(), gender: 2, breed: "", birth: "", vaccination: 2, neutering: 2)
+    var myPet: GetDetailPetResult?
+    var petId: Int = 0
     
-    lazy var postMyPetDataManager: PostMyPetDataManager = PostMyPetDataManager()
+    lazy var getDetailPetDataManager: GetDetailPetDataManager = GetDetailPetDataManager()
+    lazy var deleteMyPetDataManager: DeleteMyPetDataManager = DeleteMyPetDataManager()
+    
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -41,7 +45,6 @@ class PetRegisterController: BaseViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 17)
-        label.text = "펫 추가하기"
         label.textColor = .mainTextColor
         return label
     }()
@@ -60,13 +63,7 @@ class PetRegisterController: BaseViewController {
         view.backgroundColor = UIColor(hex: 0xF3F4F6)
         return view
     }()
-    
-//    private lazy var profileButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setImage(UIImage(named: "meAndPet-DefaultProfile"), for: .normal)
-//        button.addTarget(self, action: #selector(didTapCameraButton), for: .touchUpInside)
-//        return button
-//    }()
+
     
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "meAndPet-DefaultProfile"))
@@ -102,6 +99,7 @@ class PetRegisterController: BaseViewController {
         
         
         IQKeyboardManager.shared.enable = true
+        getDetailPetDataManager.getDetailPet(petId: self.petId, delegate: self)
         setButtonChoiceDelegate()
         setImagePicker()
         configureUI()
@@ -120,20 +118,11 @@ class PetRegisterController: BaseViewController {
     }
     //MARK: - Action
     @objc func didTapRegisterButton() {
-        postMyPetDataManager.registerPet(name: myPet.name, profileImage: newImage, gender: myPet.gender, breed: myPet.breed, birth: myPet.birth, vaccination: myPet.vaccination, neutering: myPet.neutering, delegate: self) { _ in
-            
-        }
+
     }
     
     @objc func textFieldDidChange(_ sender: Any?) {
-        if let name = nameInput.textField.text {
-            myPet.name = name.replacingOccurrences(of: " ", with: "")
-        }
-        
-        if let breed = breedInput.textField.text {
-            myPet.breed = breed.replacingOccurrences(of: " ", with: "")
-        }
-        checkInfo()
+
     }
     
     @objc private func didTapBackButton() {
@@ -142,13 +131,10 @@ class PetRegisterController: BaseViewController {
     
     @objc private func didTapDoneBtn() {
         if let datePicker = birthInput.textField.inputView as? UIDatePicker {
-            print(datePicker.date)
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
+            dateFormatter.dateFormat = "yyyy년 MM월 dd일"
             birthInput.textField.text = dateFormatter.string(from: datePicker.date)
-            if let birth = birthInput.textField.text {
-                myPet.birth = birth
-            }
+  
             
             
         }
@@ -171,13 +157,7 @@ class PetRegisterController: BaseViewController {
     }
     
     private func checkInfo() {
-        if (myPet.birth != "") && (myPet.gender != 2) && (myPet.breed != "") && (myPet.name != "") && (myPet.neutering != 2) && (myPet.vaccination != 2)  {
-            finishButton.isUserInteractionEnabled = true
-            finishButton.tintColor = UIColor.mainBrown
-        } else {
-            finishButton.isUserInteractionEnabled = false
-            finishButton.tintColor = UIColor(hex: 0xABABAB)
-        }
+    
     }
     
     func checkAlbumPermission(){
@@ -198,7 +178,6 @@ class PetRegisterController: BaseViewController {
             }
         })
     }
-    
     private func setImagePicker() {
         imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
         imagePicker.allowsEditing = true // 수정 가능 여부
@@ -329,14 +308,14 @@ class PetRegisterController: BaseViewController {
         
 }
 
-extension PetRegisterController: UITextFieldDelegate {
+extension DetailPetController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         openDataPicker()
     }
 }
 
 
-extension PetRegisterController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension DetailPetController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -349,34 +328,45 @@ extension PetRegisterController: UIImagePickerControllerDelegate, UINavigationCo
         
         self.profileImageView.image = newImage // 받아온 이미지를 update
         let imageData = newImage?.jpegData(compressionQuality: 0.4)
-        myPet.profileImage = imageData!
+       
         picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
         
     }
 }
 
-extension PetRegisterController: ButtonChoiceDelegate {
+extension DetailPetController: ButtonChoiceDelegate {
     func choiceButton() {
-        myPet.gender = genderChoice.selectedButton
-        myPet.neutering = neuteringChoice.selectedButton
-        myPet.vaccination = registerChoice.selectedButton
-        checkInfo()
+        
     }
     
     
 }
 
 // 네트워크 함수
-extension PetRegisterController {
-    func didSuccessRegisterPet() {
-        print("success")
-        self.presentAlert(title: "성공적으로 등록되었습니다.") { [weak self] _ in
-            self?.navigationController?.popViewController(animated: true)
-        }
+extension DetailPetController {
+    func didSuccessGetDetailPet(_ result: GetDetailPetResult) {
+        myPet = result
+        titleLabel.text = result.name
+        nameInput.textField.text = result.name
+        genderChoice.selectedButton = result.gender
+        breedInput.textField.text = result.breed
+        birthInput.textField.text = result.birth
+        registerChoice.selectedButton = result.vaccination
+        neuteringChoice.selectedButton = result.neutering
+        
         
     }
     
-    func failedToRegisterPet(message: String) {
+    func failedToGetDetailPet(message: String) {
+        self.presentAlert(title: message)
+    }
+    
+    func didSuccessDeleteMyPet() {
+        
+    }
+    
+    func failedToDeleteMyPet(message: String) {
         self.presentAlert(title: message)
     }
 }
+

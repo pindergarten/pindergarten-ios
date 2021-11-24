@@ -238,7 +238,7 @@ extension NickNameViewController {
             회원가입이 완료 되었습니다!
             로그인 화면으로 이동합니다.
             """) { [weak self] _ in
-            self?.changeRootViewController(LoginViewController())
+            self?.changeRootViewController(NewSplashController())
         }
         
     }

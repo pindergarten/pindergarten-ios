@@ -232,8 +232,7 @@ extension LoginViewController {
         JwtToken.token = result.jwt
         JwtToken.userId = result.userId
    
-//        UserDefaults.standard.set(phoneNumberStack.textField.text, forKey: "id")
-//        UserDefaults.standard.set(passwordStack.textField.text, forKey: "pwd")
+        UserDefaults.standard.set(result.jwt, forKey: "token")
 
         print("DEBUG: Enable to Login")
     }

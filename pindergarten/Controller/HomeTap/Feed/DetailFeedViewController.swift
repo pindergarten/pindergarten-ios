@@ -8,8 +8,10 @@
 import UIKit
 import ImageSlideshow
 import Kingfisher
+import FlexiblePageControl
 
 class DetailFeedViewController: BaseViewController {
+    
     deinit {
             print("deinit")
     }
@@ -149,9 +151,23 @@ class DetailFeedViewController: BaseViewController {
 
         getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
         
-        
         pageIndicator.currentPageIndicatorTintColor = UIColor.mainLightYellow
         pageIndicator.pageIndicatorTintColor = UIColor(hex: 0xC4C4C4)
+
+//        // size
+//        let config = FlexiblePageControl.Config(
+//            displayCount: 7,
+//            dotSize: 6,
+//            dotSpace: 4,
+//            smallDotSizeRatio: 0.5,
+//            mediumDotSizeRatio: 0.7
+//        )
+//
+//        pageIndicator.setConfig(config)
+        
+
+
+        imageSlide.pageIndicatorPosition = PageIndicatorPosition(horizontal: .center, vertical: .bottom)
         imageSlide.pageIndicator = pageIndicator
         imageSlide.activityIndicator = DefaultActivityIndicator(style: .large, color: .mainYellow)
         
@@ -254,7 +270,7 @@ class DetailFeedViewController: BaseViewController {
         containerView.addSubview(imageSlide)
         containerView.addSubview(heartButton)
         containerView.addSubview(heartLabel)
-        containerView.addSubview(pageIndicator)
+//        containerView.addSubview(pageIndicator)
         containerView.addSubview(commentButton)
         containerView.addSubview(commentLabel)
         containerView.addSubview(dateLabel)
@@ -320,14 +336,13 @@ class DetailFeedViewController: BaseViewController {
         heartLabel.snp.makeConstraints { make in
             make.centerY.equalTo(heartButton)
             make.left.equalTo(heartButton.snp.right).offset(6)
+            make.width.greaterThanOrEqualTo(10)
         }
 
-        pageIndicator.snp.makeConstraints { make in
-            make.left.greaterThanOrEqualTo(heartLabel.snp.right).offset(40)
-            
-            make.centerY.equalTo(heartLabel)
-            make.centerX.equalTo(containerView)
-        }
+//        pageIndicator.snp.makeConstraints { make in
+//            make.centerY.equalTo(heartLabel)
+//            make.centerX.equalTo(containerView)
+//        }
         
         commentButton.snp.makeConstraints { make in
             make.centerY.equalTo(heartButton)
@@ -338,6 +353,7 @@ class DetailFeedViewController: BaseViewController {
         commentLabel.snp.makeConstraints { make in
             make.centerY.equalTo(heartButton)
             make.left.equalTo(commentButton.snp.right).offset(6)
+            make.width.greaterThanOrEqualTo(10)
         }
         
         dateLabel.snp.makeConstraints { make in
@@ -426,3 +442,4 @@ extension DetailFeedViewController {
         print("DEBUG: FAILED TO DELETE FEED")
     }
 }
+

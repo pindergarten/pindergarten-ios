@@ -12,9 +12,7 @@ import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 11)!], for: .normal)
@@ -22,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NMFAuthManager.shared().clientId = NMaps.clientID
         DropDown.startListeningToKeyboard()
+        
         
         return true
     }

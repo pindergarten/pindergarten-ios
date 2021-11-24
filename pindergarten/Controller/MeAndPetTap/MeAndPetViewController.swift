@@ -61,7 +61,19 @@ class MeAndPetViewController: BaseViewController {
     
     //MARK: - Properties
     lazy var getAllMyPetsDataManager: GetAllMyPetsDataManager = GetAllMyPetsDataManager()
-    var allMyPets = [GetAllMyPetsResult]()
+    lazy var getMyPageDataManager: GetMyPageDataManager = GetMyPageDataManager()
+    
+    var allMyPets = [GetAllMyPetsResult]() {
+        didSet {
+            myPetCollectionView.reloadData()
+        }
+    }
+    var myPosts = [GetPostResult]() {
+        didSet {
+            myFeedCollectionView.reloadData()
+        }
+    }
+    var myProfile: GetUserResult?
     
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
@@ -76,10 +88,11 @@ class MeAndPetViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 18)
         label.textColor = UIColor(hex: 0x2D2D2D, alpha: 0.89)
-        label.text = "nick_Name"
+        label.text = "Name"
         label.adjustsFontSizeToFitWidth = true
         return label
     }()
+    
     
     private lazy var plusButton: UIButton = {
         let button = UIButton(type: .system)
@@ -90,6 +103,7 @@ class MeAndPetViewController: BaseViewController {
     private lazy var settingButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "meAndPet-Setting"), for: .normal)
+        button.addTarget(self, action: #selector(didTapSettingButton), for: .touchUpInside)
         return button
     }()
     
@@ -134,6 +148,8 @@ class MeAndPetViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        getMyPageDataManager.getMyPage(delegate: self)
+        putGesture()
         configureUI()
         
         myFeedCollectionView.delegate = self
@@ -164,10 +180,32 @@ class MeAndPetViewController: BaseViewController {
     }
     
     //MARK: - Action
+    @objc func didTapNameLabel(sender: UITapGestureRecognizer) {
+        navigationController?.pushViewController(UserProfileController(), animated: true)
+    }
+    
+    @objc func didTapProfileImage(sender: UITapGestureRecognizer) {
+        navigationController?.pushViewController(UserProfileController(), animated: true)
+    }
+    
     @objc private func didTapRegisterPetButton() {
         navigationController?.pushViewController(PetRegisterController(), animated: true)
     }
+    
+    @objc private func didTapSettingButton() {
+        navigationController?.pushViewController(SettingController(), animated: true)
+    }
+    
     //MARK: - Helpers
+    private func putGesture() {
+        let tapNameGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapNameLabel(sender:)))
+        let tapProfileGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapProfileImage(sender:)))
+        nameLabel.isUserInteractionEnabled = true
+        profileImage.isUserInteractionEnabled = true
+        nameLabel.addGestureRecognizer(tapNameGestureRecognizer)
+        profileImage.addGestureRecognizer(tapProfileGestureRecognizer)
+    }
+    
     private func configureUI() {
         view.addSubview(profileImage)
         view.addSubview(nameLabel)
@@ -232,7 +270,7 @@ extension MeAndPetViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == myFeedCollectionView {
-            return 10
+            return myPosts.count
         } else {
             return allMyPets.count
         }
@@ -242,7 +280,8 @@ extension MeAndPetViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == myFeedCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyFeedCell.identifier, for: indexPath) as! MyFeedCell
-            
+            cell.imageView.kf.indicatorType = .activity
+            cell.imageView.kf.setImage(with: URL(string: myPosts[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPetCell.identifier, for: indexPath) as! MyPetCell
@@ -260,11 +299,18 @@ extension MeAndPetViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let detailVC = DetailFeedViewController()
-//
-//        navigationController?.pushViewController(detailVC, animated: true)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == myFeedCollectionView {
+            let detailVC = DetailFeedViewController()
+            detailVC.postId = myPosts[indexPath.item].id
+            navigationController?.pushViewController(detailVC, animated: true)
+        } else {
+            let detailPetVC = DetailPetController()
+            detailPetVC.petId = allMyPets[indexPath.item].id
+            navigationController?.pushViewController(detailPetVC, animated: true)
+        }
+        
+    }
 
     
 }
@@ -300,6 +346,23 @@ extension MeAndPetViewController: PinterestLayoutDelegate {
 
 // 네트워크 함수
 extension MeAndPetViewController {
+    func didSuccessGetMyPage(posts: [GetPostResult], user: GetUserResult?) {
+        myPosts = posts
+        myProfile = user
+        
+        if let user = user {
+            nameLabel.text = user.nickname
+            profileImage.kf.indicatorType = .activity
+            profileImage.kf.setImage(with: URL(string: user.profileImage), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+        }
+        
+       
+    }
+    
+    func failedToGetAllMyPage(message: String) {
+        self.presentAlert(title: message)
+    }
+    
     func didSuccessGetAllMyPet(_ result: [GetAllMyPetsResult]) {
         allMyPets = result
         
@@ -311,8 +374,6 @@ extension MeAndPetViewController {
             registerPetButton.isHidden = true
         }
         
-        myPetCollectionView.reloadData()
-        print(allMyPets)
     }
     
     func failedToGetAllMyPet(message: String) {

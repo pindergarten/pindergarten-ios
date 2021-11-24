@@ -10,7 +10,6 @@
 		1B8DA403E715044B695F9FC8 /* Pods_pindergartenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4815660692CFCCFE76EF034E /* Pods_pindergartenTests.framework */; };
 		240B8D762731685800078404 /* DetailEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D752731685800078404 /* DetailEventController.swift */; };
 		240B8D78273168AE00078404 /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D77273168AE00078404 /* CommentController.swift */; };
-		240B8D7A27316E8000078404 /* BaseCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D7927316E8000078404 /* BaseCommentController.swift */; };
 		240B8D7C2731A7F300078404 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D7B2731A7F300078404 /* CommentCell.swift */; };
 		240B8D83273268B300078404 /* GetAllFeedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D82273268B300078404 /* GetAllFeedDataManager.swift */; };
 		240B8D85273268C900078404 /* GetDetailFeedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D84273268C900078404 /* GetDetailFeedDataManager.swift */; };
@@ -90,6 +89,20 @@
 		24994E13274D3EF7005A604B /* GetDetailPetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E12274D3EF7005A604B /* GetDetailPetResponse.swift */; };
 		24994E15274D4F7F005A604B /* PostFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E14274D4F7F005A604B /* PostFeedResponse.swift */; };
 		24994E17274D50C9005A604B /* PostFeedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E16274D50C9005A604B /* PostFeedDataManager.swift */; };
+		24994E19274D68CA005A604B /* DetailPetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E18274D68CA005A604B /* DetailPetController.swift */; };
+		24994E1B274E1838005A604B /* GetMyPageDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E1A274E1838005A604B /* GetMyPageDataManager.swift */; };
+		24994E1D274E1956005A604B /* GetMyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E1C274E1956005A604B /* GetMyPageResponse.swift */; };
+		24994E1F274E4741005A604B /* DeleteMyPetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E1E274E4741005A604B /* DeleteMyPetDataManager.swift */; };
+		24994E21274E474F005A604B /* DeleteMyPetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E20274E474F005A604B /* DeleteMyPetResponse.swift */; };
+		24994E23274E530E005A604B /* NewSplashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E22274E530E005A604B /* NewSplashController.swift */; };
+		24994E25274E958B005A604B /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E24274E958B005A604B /* SettingController.swift */; };
+		24994E27274E9B48005A604B /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E26274E9B47005A604B /* UserProfileController.swift */; };
+		24994E29274EA9BB005A604B /* LogoutDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E28274EA9BB005A604B /* LogoutDataManager.swift */; };
+		24994E2B274EA9D9005A604B /* WithdrawalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E2A274EA9D9005A604B /* WithdrawalDataManager.swift */; };
+		24994E2D274EAA2C005A604B /* DefaultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E2C274EAA2C005A604B /* DefaultResponse.swift */; };
+		24994E2F274EB04E005A604B /* AutoLoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E2E274EB04E005A604B /* AutoLoginDataManager.swift */; };
+		24994E31274EB9FD005A604B /* GetMyProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E30274EB9FC005A604B /* GetMyProfileDataManager.swift */; };
+		24994E33274EC0CC005A604B /* ChangeProfileImageDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E32274EC0CC005A604B /* ChangeProfileImageDataManager.swift */; };
 		24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6A92725423A00FD519D /* AppDelegate.swift */; };
 		24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6AB2725423A00FD519D /* SceneDelegate.swift */; };
 		24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6B22725423B00FD519D /* Assets.xcassets */; };
@@ -110,13 +123,11 @@
 		24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6FF2727DE9300FD519D /* CustomTextField.swift */; };
 		24C4D7022727DFA500FD519D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7012727DFA500FD519D /* UIView.swift */; };
 		24C4D7062728044E00FD519D /* SignUpNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7052728044E00FD519D /* SignUpNumberViewController.swift */; };
-		24C4D70A2728229800FD519D /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D7092728229800FD519D /* View.xib */; };
 		24C4D70F2728393500FD519D /* BMDOHYEON_otf.otf in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D70D2728393500FD519D /* BMDOHYEON_otf.otf */; };
 		24C4D7102728393500FD519D /* SDSwagger.otf in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D70E2728393500FD519D /* SDSwagger.otf */; };
 		24C4D71427287A6200FD519D /* CustomNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D71327287A6200FD519D /* CustomNavBar.swift */; };
 		24C4D7162728839600FD519D /* CustomInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7152728839600FD519D /* CustomInputView.swift */; };
 		24C4D7182729EAE600FD519D /* SignUpPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7172729EAE600FD519D /* SignUpPasswordViewController.swift */; };
-		24C4D71A2729EDD800FD519D /* BaseSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7192729EDD800FD519D /* BaseSignUpViewController.swift */; };
 		24F742F8272C6C9100238E20 /* NickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F742F7272C6C9100238E20 /* NickNameViewController.swift */; };
 		24F742FA272C733F00238E20 /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F742F9272C733F00238E20 /* FindPasswordViewController.swift */; };
 		24F742FC272C770900238E20 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F742FB272C770900238E20 /* ResetPasswordViewController.swift */; };
@@ -173,7 +184,6 @@
 /* Begin PBXFileReference section */
 		240B8D752731685800078404 /* DetailEventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEventController.swift; sourceTree = "<group>"; };
 		240B8D77273168AE00078404 /* CommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
-		240B8D7927316E8000078404 /* BaseCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCommentController.swift; sourceTree = "<group>"; };
 		240B8D7B2731A7F300078404 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		240B8D82273268B300078404 /* GetAllFeedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllFeedDataManager.swift; sourceTree = "<group>"; };
 		240B8D84273268C900078404 /* GetDetailFeedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDetailFeedDataManager.swift; sourceTree = "<group>"; };
@@ -253,6 +263,20 @@
 		24994E12274D3EF7005A604B /* GetDetailPetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDetailPetResponse.swift; sourceTree = "<group>"; };
 		24994E14274D4F7F005A604B /* PostFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFeedResponse.swift; sourceTree = "<group>"; };
 		24994E16274D50C9005A604B /* PostFeedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFeedDataManager.swift; sourceTree = "<group>"; };
+		24994E18274D68CA005A604B /* DetailPetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetController.swift; sourceTree = "<group>"; };
+		24994E1A274E1838005A604B /* GetMyPageDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageDataManager.swift; sourceTree = "<group>"; };
+		24994E1C274E1956005A604B /* GetMyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyPageResponse.swift; sourceTree = "<group>"; };
+		24994E1E274E4741005A604B /* DeleteMyPetDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMyPetDataManager.swift; sourceTree = "<group>"; };
+		24994E20274E474F005A604B /* DeleteMyPetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMyPetResponse.swift; sourceTree = "<group>"; };
+		24994E22274E530E005A604B /* NewSplashController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSplashController.swift; sourceTree = "<group>"; };
+		24994E24274E958B005A604B /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
+		24994E26274E9B47005A604B /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
+		24994E28274EA9BB005A604B /* LogoutDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutDataManager.swift; sourceTree = "<group>"; };
+		24994E2A274EA9D9005A604B /* WithdrawalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalDataManager.swift; sourceTree = "<group>"; };
+		24994E2C274EAA2C005A604B /* DefaultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResponse.swift; sourceTree = "<group>"; };
+		24994E2E274EB04E005A604B /* AutoLoginDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLoginDataManager.swift; sourceTree = "<group>"; };
+		24994E30274EB9FC005A604B /* GetMyProfileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyProfileDataManager.swift; sourceTree = "<group>"; };
+		24994E32274EC0CC005A604B /* ChangeProfileImageDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfileImageDataManager.swift; sourceTree = "<group>"; };
 		24C4D6A62725423A00FD519D /* pindergarten.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pindergarten.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C4D6A92725423A00FD519D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24C4D6AB2725423A00FD519D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -279,13 +303,11 @@
 		24C4D6FF2727DE9300FD519D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		24C4D7012727DFA500FD519D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		24C4D7052728044E00FD519D /* SignUpNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpNumberViewController.swift; sourceTree = "<group>"; };
-		24C4D7092728229800FD519D /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		24C4D70D2728393500FD519D /* BMDOHYEON_otf.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BMDOHYEON_otf.otf; sourceTree = "<group>"; };
 		24C4D70E2728393500FD519D /* SDSwagger.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SDSwagger.otf; sourceTree = "<group>"; };
 		24C4D71327287A6200FD519D /* CustomNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavBar.swift; sourceTree = "<group>"; };
 		24C4D7152728839600FD519D /* CustomInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputView.swift; sourceTree = "<group>"; };
 		24C4D7172729EAE600FD519D /* SignUpPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPasswordViewController.swift; sourceTree = "<group>"; };
-		24C4D7192729EDD800FD519D /* BaseSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSignUpViewController.swift; sourceTree = "<group>"; };
 		24F742F7272C6C9100238E20 /* NickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameViewController.swift; sourceTree = "<group>"; };
 		24F742F9272C733F00238E20 /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
 		24F742FB272C770900238E20 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
@@ -483,6 +505,9 @@
 			children = (
 				24F74335272DB6CC00238E20 /* MeAndPetViewController.swift */,
 				24994DF8274A8AA1005A604B /* PetRegisterController.swift */,
+				24994E18274D68CA005A604B /* DetailPetController.swift */,
+				24994E24274E958B005A604B /* SettingController.swift */,
+				24994E26274E9B47005A604B /* UserProfileController.swift */,
 			);
 			path = MeAndPetTap;
 			sourceTree = "<group>";
@@ -493,6 +518,13 @@
 				24994E0A274CF5E5005A604B /* PostMyPetDataManager.swift */,
 				24994E0C274D020A005A604B /* GetAllMyPetsDataManager.swift */,
 				24994E10274D3EE5005A604B /* GetDetailPetDataManager.swift */,
+				24994E1A274E1838005A604B /* GetMyPageDataManager.swift */,
+				24994E1E274E4741005A604B /* DeleteMyPetDataManager.swift */,
+				24994E28274EA9BB005A604B /* LogoutDataManager.swift */,
+				24994E2A274EA9D9005A604B /* WithdrawalDataManager.swift */,
+				24994E2E274EB04E005A604B /* AutoLoginDataManager.swift */,
+				24994E30274EB9FC005A604B /* GetMyProfileDataManager.swift */,
+				24994E32274EC0CC005A604B /* ChangeProfileImageDataManager.swift */,
 				24994E05274CF3E3005A604B /* Entity */,
 			);
 			path = MeAndPet;
@@ -505,6 +537,9 @@
 				24994E08274CF44C005A604B /* PostMyPetResponse.swift */,
 				24994E0E274D0215005A604B /* GetAllMyPetsResponse.swift */,
 				24994E12274D3EF7005A604B /* GetDetailPetResponse.swift */,
+				24994E1C274E1956005A604B /* GetMyPageResponse.swift */,
+				24994E20274E474F005A604B /* DeleteMyPetResponse.swift */,
+				24994E2C274EAA2C005A604B /* DefaultResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -570,7 +605,6 @@
 			isa = PBXGroup;
 			children = (
 				24C4D6DC2725929800FD519D /* Constant.swift */,
-				24C4D7092728229800FD519D /* View.xib */,
 				24C4D6DE2725945500FD519D /* Secret */,
 				24C4D6E2272594D600FD519D /* Font */,
 				24C4D6E12725949900FD519D /* Extension */,
@@ -624,8 +658,6 @@
 			isa = PBXGroup;
 			children = (
 				24C4D6F2272599DF00FD519D /* BaseViewController.swift */,
-				24C4D7192729EDD800FD519D /* BaseSignUpViewController.swift */,
-				240B8D7927316E8000078404 /* BaseCommentController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -634,6 +666,7 @@
 			isa = PBXGroup;
 			children = (
 				24C4D6F527259B1800FD519D /* SplashViewController.swift */,
+				24994E22274E530E005A604B /* NewSplashController.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -894,7 +927,6 @@
 				24C4D6B62725423B00FD519D /* LaunchScreen.storyboard in Resources */,
 				24C4D7102728393500FD519D /* SDSwagger.otf in Resources */,
 				24C4D70F2728393500FD519D /* BMDOHYEON_otf.otf in Resources */,
-				24C4D70A2728229800FD519D /* View.xib in Resources */,
 				24F74346272EF1CC00238E20 /* AppleSDGothicNeoEB.ttf in Resources */,
 				24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */,
 			);
@@ -1028,6 +1060,7 @@
 				24C4D71427287A6200FD519D /* CustomNavBar.swift in Sources */,
 				24F7432C272D1E1D00238E20 /* LoginResponse.swift in Sources */,
 				24C4D6F3272599DF00FD519D /* BaseViewController.swift in Sources */,
+				24994E31274EB9FD005A604B /* GetMyProfileDataManager.swift in Sources */,
 				24994DEB274391AB005A604B /* GetSearchPindergartenResponse.swift in Sources */,
 				24994DCC2740D299005A604B /* GetAllPindergartenResponse.swift in Sources */,
 				24F74336272DB6CC00238E20 /* MeAndPetViewController.swift in Sources */,
@@ -1036,6 +1069,7 @@
 				24994E07274CF43D005A604B /* PostMyPetRequest.swift in Sources */,
 				24994DE327428B43005A604B /* GetBlogReviewDataManager.swift in Sources */,
 				247B844F27358A7500591CC4 /* DeleteCommentResponse.swift in Sources */,
+				24994E25274E958B005A604B /* SettingController.swift in Sources */,
 				24F7430C272CF55100238E20 /* CheckAuthNumberRequest.swift in Sources */,
 				24994DA1273AC69A005A604B /* PostEventCommentResponse.swift in Sources */,
 				24994DE12742873C005A604B /* GetDetailPindergartenResponse.swift in Sources */,
@@ -1046,6 +1080,7 @@
 				24F7431A272D0AA900238E20 /* CheckUserResponse.swift in Sources */,
 				24994DA5273AC7DC005A604B /* DeleteEventCommentResponse.swift in Sources */,
 				24994DB4273EB5CD005A604B /* ContentViewController.swift in Sources */,
+				24994E2B274EA9D9005A604B /* WithdrawalDataManager.swift in Sources */,
 				247B84392733C17200591CC4 /* GetCommentResponse.swift in Sources */,
 				24994DD927416174005A604B /* DetailPindergartenBasicInfoCell.swift in Sources */,
 				24994DED2743D308005A604B /* PostFeedController.swift in Sources */,
@@ -1053,6 +1088,7 @@
 				247B84492735026C00591CC4 /* ReportController.swift in Sources */,
 				24994DF9274A8AA1005A604B /* PetRegisterController.swift in Sources */,
 				240B8D83273268B300078404 /* GetAllFeedDataManager.swift in Sources */,
+				24994E33274EC0CC005A604B /* ChangeProfileImageDataManager.swift in Sources */,
 				24F7434A27303AFB00238E20 /* PinterestLayout.swift in Sources */,
 				24994E09274CF44C005A604B /* PostMyPetResponse.swift in Sources */,
 				247B843D273426D300591CC4 /* DetailFeedViewController.swift in Sources */,
@@ -1072,6 +1108,7 @@
 				24994D9527398674005A604B /* EventLikeResponse.swift in Sources */,
 				247B8443273433CA00591CC4 /* PostCommentRequest.swift in Sources */,
 				24994DD727416061005A604B /* DetailPindergartenInfoCell.swift in Sources */,
+				24994E29274EA9BB005A604B /* LogoutDataManager.swift in Sources */,
 				24F74318272D0A9C00238E20 /* CheckUserRequest.swift in Sources */,
 				24994DBA27409973005A604B /* SearchPindergartenController.swift in Sources */,
 				24994DB6273EB75B005A604B /* PindergartenCell.swift in Sources */,
@@ -1083,11 +1120,15 @@
 				24C4D6E62725953400FD519D /* Date.swift in Sources */,
 				24595AE2273123E1008B5194 /* EventCell.swift in Sources */,
 				24994D8D273974C4005A604B /* GetAllEventResponse.swift in Sources */,
+				24994E23274E530E005A604B /* NewSplashController.swift in Sources */,
+				24994E21274E474F005A604B /* DeleteMyPetResponse.swift in Sources */,
+				24994E2F274EB04E005A604B /* AutoLoginDataManager.swift in Sources */,
 				24F7432A272D1E1200238E20 /* LoginRequest.swift in Sources */,
 				24994D9F273AC63F005A604B /* PostEventCommentRequest.swift in Sources */,
 				240B8D762731685800078404 /* DetailEventController.swift in Sources */,
 				24C4D7062728044E00FD519D /* SignUpNumberViewController.swift in Sources */,
 				24F7431C272D11B700238E20 /* ResetPasswordDataManager.swift in Sources */,
+				24994E27274E9B48005A604B /* UserProfileController.swift in Sources */,
 				24994E0B274CF5E5005A604B /* PostMyPetDataManager.swift in Sources */,
 				24994DAF273DACA5005A604B /* EventFooterView.swift in Sources */,
 				24F743482730330F00238E20 /* HomeCell.swift in Sources */,
@@ -1096,6 +1137,7 @@
 				24994D8F27397C77005A604B /* GetDetailEventDataManager.swift in Sources */,
 				24F74326272D168800238E20 /* RegisterUserResponse.swift in Sources */,
 				24C4D6F02725982600FD519D /* Device.swift in Sources */,
+				24994E2D274EAA2C005A604B /* DefaultResponse.swift in Sources */,
 				24994DAB273ADA27005A604B /* ReportResponse.swift in Sources */,
 				24994E0D274D020A005A604B /* GetAllMyPetsDataManager.swift in Sources */,
 				24994DE72742A1B2005A604B /* BlogReviewController.swift in Sources */,
@@ -1110,21 +1152,23 @@
 				24994DF7274A84D4005A604B /* MyFeedCell.swift in Sources */,
 				24994E11274D3EE5005A604B /* GetDetailPetDataManager.swift in Sources */,
 				24F74324272D168000238E20 /* RegisterUserRequest.swift in Sources */,
+				24994E19274D68CA005A604B /* DetailPetController.swift in Sources */,
 				24994DFC274AA844005A604B /* CustomButtonChoiceView.swift in Sources */,
 				24C4D6EE272597FF00FD519D /* IndicatorView.swift in Sources */,
 				24994DEF2743DD0B005A604B /* BlogWebViewController.swift in Sources */,
 				24F7431E272D11DC00238E20 /* ResetPasswordRequest.swift in Sources */,
 				24994E15274D4F7F005A604B /* PostFeedResponse.swift in Sources */,
+				24994E1D274E1956005A604B /* GetMyPageResponse.swift in Sources */,
 				24C4D6EC272597DB00FD519D /* UIViewController.swift in Sources */,
 				24994DF52743ED9E005A604B /* GetPickAroundPindergartenResponse.swift in Sources */,
 				24994D93273985FC005A604B /* EventLikeDataManager.swift in Sources */,
 				24F74330272DB4EE00238E20 /* HomeTabBarController.swift in Sources */,
 				24994E0F274D0215005A604B /* GetAllMyPetsResponse.swift in Sources */,
+				24994E1F274E4741005A604B /* DeleteMyPetDataManager.swift in Sources */,
 				24994E17274D50C9005A604B /* PostFeedDataManager.swift in Sources */,
 				247B844527345F4A00591CC4 /* DeleteFeedDataManager.swift in Sources */,
 				24994DC62740CF4F005A604B /* GetLikePindergartenDataManager.swift in Sources */,
 				24F7430A272CF53800238E20 /* CheckAuthNumberDataManager.swift in Sources */,
-				240B8D7A27316E8000078404 /* BaseCommentController.swift in Sources */,
 				24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */,
 				24994DCE2740F8E0005A604B /* PindergartenLikeDataManager.swift in Sources */,
 				24994DCA2740D214005A604B /* GetAllPindergartenDataManager.swift in Sources */,
@@ -1135,6 +1179,7 @@
 				24C4D7022727DFA500FD519D /* UIView.swift in Sources */,
 				24C4D6E82725956600FD519D /* String.swift in Sources */,
 				24994DE527428C7A005A604B /* GetBlogReviewResponse.swift in Sources */,
+				24994E1B274E1838005A604B /* GetMyPageDataManager.swift in Sources */,
 				240B8D8D273269E700078404 /* AllFeedResponse.swift in Sources */,
 				240B8D9427326D6E00078404 /* DetailFeedResponse.swift in Sources */,
 				247B844D2735897900591CC4 /* DeleteCommentDataManager.swift in Sources */,
@@ -1142,7 +1187,6 @@
 				24F74332272DB68700238E20 /* HomeViewController.swift in Sources */,
 				24F74334272DB6AB00238E20 /* PindergartenViewController.swift in Sources */,
 				24994DD02740F949005A604B /* PindergartenLikeResponse.swift in Sources */,
-				24C4D71A2729EDD800FD519D /* BaseSignUpViewController.swift in Sources */,
 				247B8435273306CA00591CC4 /* LikeResponse.swift in Sources */,
 				24994D9127397CC2005A604B /* DetailEventResponse.swift in Sources */,
 				24994DAD273B00DE005A604B /* EventHeaderView.swift in Sources */,

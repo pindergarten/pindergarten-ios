@@ -24,7 +24,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
 
     weak var delegate: DetailPindergartenHeaderCellDelegate?
     
-    let imageInput = [ImageSource(image: #imageLiteral(resourceName: "backgroundImage"))]
+    let imageInput = [ImageSource(image: UIImage(named: "pindergarten-DefaultImage")!)]
     
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
@@ -58,6 +58,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
     
     lazy var imageSlide: ImageSlideshow = {
         let image = ImageSlideshow()
+        image.backgroundColor = UIColor(hex: 0xDCDCDC)
         image.contentScaleMode = .scaleAspectFill
         image.circular = false
         image.pageIndicator = labelPageIndicator

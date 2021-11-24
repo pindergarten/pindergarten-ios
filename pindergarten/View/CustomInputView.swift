@@ -48,13 +48,15 @@ class CustomInputView: UIView {
         return stack
     }()
     
+    var login: Bool = false
     //MARK: - init
-    init(title: String, placeholder: String, isSecure: Bool = false, spacing: CGFloat = 20) {
+    init(title: String, placeholder: String, isSecure: Bool = false, spacing: CGFloat = 20, login: Bool = false) {
         super.init(frame: .zero)
         
         titleLabel.text  = title
         textField = CustomTextField(placeholder: placeholder, isSecure: isSecure)
         stack.spacing = spacing
+        self.login = login
         configureUI()
     }
     
@@ -65,10 +67,18 @@ class CustomInputView: UIView {
     
     //MARK: - Helpers
     private func configureUI() {
-        addSubview(stack)
-        
-        stack.snp.makeConstraints { make in
-            make.edges.equalTo(self)
+        if login == true {
+            addSubview(stack)
+            stack.snp.makeConstraints { make in
+                make.top.bottom.equalTo(self).inset(12)
+                make.left.right.equalTo(self).inset(14)
+            }
+        } else {
+            addSubview(stack)
+            
+            stack.snp.makeConstraints { make in
+                make.edges.equalTo(self)
+            }
         }
     }
 }
