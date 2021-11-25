@@ -357,9 +357,9 @@ extension PetRegisterController: UIImagePickerControllerDelegate, UINavigationCo
 
 extension PetRegisterController: ButtonChoiceDelegate {
     func choiceButton() {
-        myPet.gender = genderChoice.selectedButton
-        myPet.neutering = neuteringChoice.selectedButton
-        myPet.vaccination = registerChoice.selectedButton
+        myPet.gender = genderChoice.selectedButton - 1
+        myPet.neutering = neuteringChoice.selectedButton - 1
+        myPet.vaccination = registerChoice.selectedButton - 1
         checkInfo()
     }
     

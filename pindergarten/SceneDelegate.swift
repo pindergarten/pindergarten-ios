@@ -38,9 +38,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     self.window?.rootViewController = UINavigationController(rootViewController: NewSplashController())
                 }
             }
-        
-//        window?.rootViewController = UINavigationController(rootViewController: NewSplashController())
-//        window?.rootViewController = UserProfileController()
+
+
+//        window?.rootViewController = PetRegisterController()
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
     }

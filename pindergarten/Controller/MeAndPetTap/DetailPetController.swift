@@ -49,12 +49,12 @@ class DetailPetController: BaseViewController {
         return label
     }()
     
-    private lazy var finishButton: UIButton = {
+    private lazy var deleteButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setAttributedTitle(NSAttributedString(string: "등록", attributes: [.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)!]), for: .normal)
-        button.tintColor = UIColor(hex: 0xABABAB)
-        button.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
-        button.isUserInteractionEnabled = false
+        button.setAttributedTitle(NSAttributedString(string: "삭제", attributes: [.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)!]), for: .normal)
+        button.tintColor = UIColor.red
+        button.addTarget(self, action: #selector(didTapDeleteButton), for: .touchUpInside)
+//        button.isUserInteractionEnabled = false
         return button
     }()
     
@@ -100,7 +100,7 @@ class DetailPetController: BaseViewController {
         
         IQKeyboardManager.shared.enable = true
         getDetailPetDataManager.getDetailPet(petId: self.petId, delegate: self)
-        setButtonChoiceDelegate()
+        setDidNotChoice()
         setImagePicker()
         configureUI()
         birthInput.textField.delegate = self
@@ -117,8 +117,17 @@ class DetailPetController: BaseViewController {
         tabBarController?.tabBar.isHidden = true
     }
     //MARK: - Action
-    @objc func didTapRegisterButton() {
+    @objc func didTapDeleteButton() {
+        let actionDelete = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] action in
+            self?.deleteMyPetDataManager.deleteMyPet(petId: self!.petId, delegate: self!)
+     
+        }
 
+        let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+        }
+
+        self.presentAlert(title: "삭제하시겠습니까?", with: actionDelete, actionCancel)
+        
     }
     
     @objc func textFieldDidChange(_ sender: Any?) {
@@ -132,14 +141,14 @@ class DetailPetController: BaseViewController {
     @objc private func didTapDoneBtn() {
         if let datePicker = birthInput.textField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+            dateFormatter.dateFormat = "yyyy-MM-dd"
             birthInput.textField.text = dateFormatter.string(from: datePicker.date)
   
             
             
         }
         birthInput.textField.resignFirstResponder()
-        checkInfo()
+       
     }
     
     @objc private func didTapCancelBtn() {
@@ -150,16 +159,16 @@ class DetailPetController: BaseViewController {
         checkAlbumPermission()
     }
     //MARK: - Helpers
-    private func setButtonChoiceDelegate() {
-        genderChoice.delegate = self
-        registerChoice.delegate = self
-        neuteringChoice.delegate = self
+    private func setDidNotChoice() {
+        nameInput.isUserInteractionEnabled = false
+        genderChoice.isUserInteractionEnabled = false
+        breedInput.isUserInteractionEnabled = false
+        birthInput.isUserInteractionEnabled = false
+        registerChoice.isUserInteractionEnabled = false
+        neuteringChoice.isUserInteractionEnabled = false
     }
     
-    private func checkInfo() {
-    
-    }
-    
+ 
     func checkAlbumPermission(){
         PHPhotoLibrary.requestAuthorization( { status in
             switch status{
@@ -208,12 +217,12 @@ class DetailPetController: BaseViewController {
     private func configureUI() {
         view.addSubview(backButton)
         view.addSubview(titleLabel)
-        view.addSubview(finishButton)
+        view.addSubview(deleteButton)
         view.addSubview(separateLine)
         view.addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(profileImageView)
-        containerView.addSubview(cameraButton)
+//        containerView.addSubview(cameraButton)
         containerView.addSubview(nameInput)
         containerView.addSubview(genderChoice)
         containerView.addSubview(breedInput)
@@ -232,7 +241,7 @@ class DetailPetController: BaseViewController {
             make.centerX.equalTo(view)
         }
         
-        finishButton.snp.makeConstraints { make in
+        deleteButton.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel)
             make.right.equalTo(view).offset(-20)
             make.width.height.equalTo(26)
@@ -263,11 +272,11 @@ class DetailPetController: BaseViewController {
             make.width.height.equalTo(86)
         }
         
-        
-        cameraButton.snp.makeConstraints { make in
-            make.right.bottom.equalTo(profileImageView)
-            make.width.height.equalTo(30)
-        }
+//
+//        cameraButton.snp.makeConstraints { make in
+//            make.right.bottom.equalTo(profileImageView)
+//            make.width.height.equalTo(30)
+//        }
         
         nameInput.snp.makeConstraints { make in
             make.top.equalTo(profileImageView.snp.bottom).offset(25)
@@ -334,25 +343,36 @@ extension DetailPetController: UIImagePickerControllerDelegate, UINavigationCont
     }
 }
 
-extension DetailPetController: ButtonChoiceDelegate {
-    func choiceButton() {
-        
-    }
-    
-    
-}
 
 // 네트워크 함수
 extension DetailPetController {
     func didSuccessGetDetailPet(_ result: GetDetailPetResult) {
         myPet = result
         titleLabel.text = result.name
+        profileImageView.kf.setImage(with: URL(string: result.profileImage))
         nameInput.textField.text = result.name
-        genderChoice.selectedButton = result.gender
+        
+        genderChoice.selectedButton = result.gender + 1
+        let gender = genderChoice.viewWithTag(result.gender+1) as? UIButton
+        let genderLabel = genderChoice.viewWithTag(result.gender + 11) as? UILabel
+        gender?.isSelected = true
+        genderLabel?.textColor = UIColor(hex: 0x5A5A5A)
+        
+        
         breedInput.textField.text = result.breed
         birthInput.textField.text = result.birth
+        
         registerChoice.selectedButton = result.vaccination
+        let vaccination = registerChoice.viewWithTag(result.vaccination + 1) as? UIButton
+        let vaccinationLabel = registerChoice.viewWithTag(result.vaccination + 11) as? UILabel
+        vaccination?.isSelected = true
+        vaccinationLabel?.textColor = UIColor(hex: 0x5A5A5A)
+
         neuteringChoice.selectedButton = result.neutering
+        let neutering = neuteringChoice.viewWithTag(result.neutering + 1) as? UIButton
+        let neuteringLabel = neuteringChoice.viewWithTag(result.neutering + 11) as? UILabel
+        neutering?.isSelected = true
+        neuteringLabel?.textColor = UIColor(hex: 0x5A5A5A)
         
         
     }
@@ -362,7 +382,9 @@ extension DetailPetController {
     }
     
     func didSuccessDeleteMyPet() {
-        
+        self.presentAlert(title: "삭제되었습니다.") { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
     
     func failedToDeleteMyPet(message: String) {

@@ -29,7 +29,7 @@ class CustomButtonChoiceView: UIView {
         button.setImage(UIImage(named: "meAndPet-ChoicedButton"), for: .selected)
         button.setDimensions(height: 20, width: 20)
         button.addTarget(self, action: #selector(didTapChoiceButton), for: .touchUpInside)
-        button.tag = 0
+        button.tag = 1
         return button
     }()
     
@@ -39,7 +39,7 @@ class CustomButtonChoiceView: UIView {
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         label.textColor = UIColor(hex: 0xBFBFBF)
         label.setWidth(130)
-        label.tag = 10
+        label.tag = 11
         return label
     }()
     
@@ -58,7 +58,7 @@ class CustomButtonChoiceView: UIView {
         
         button.setDimensions(height: 20, width: 20)
         button.addTarget(self, action: #selector(didTapChoiceButton), for: .touchUpInside)
-        button.tag = 1
+        button.tag = 2
         return button
     }()
     
@@ -67,7 +67,7 @@ class CustomButtonChoiceView: UIView {
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         label.textColor = UIColor(hex: 0xBFBFBF)
         label.setWidth(130)
-        label.tag = 11
+        label.tag = 12
         return label
     }()
     
@@ -129,7 +129,7 @@ class CustomButtonChoiceView: UIView {
         stackLabel?.textColor = UIColor(hex: 0x5A5A5A)
         
         
-        for tag in 0...1 {
+        for tag in 1...2 {
             if tag != sender.tag {
                 let button = self.viewWithTag(tag) as? UIButton
                 let label = self.viewWithTag(tag+10) as? UILabel
