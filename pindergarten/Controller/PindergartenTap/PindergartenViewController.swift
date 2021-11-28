@@ -42,6 +42,8 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
     
     var fpc: FloatingPanelController!
     var clickedMarker: NMFMarker?
+    var clickedLat: Double?
+    var clickedLon: Double?
 
     private lazy var naverMapView = NMFNaverMapView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
     
@@ -101,6 +103,13 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = false
+        if let clickedLat = clickedLat, let clickedLon = clickedLon {
+            getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: clickedLat, lon: clickedLon, delegate: self)
+        } else if let lat = locationManager.location?.coordinate.latitude, let lon = locationManager.location?.coordinate.longitude{
+            print(lat)
+            print(lon)
+            getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: lat, lon: lon, delegate: self)
+        }
         
         
     }
@@ -153,6 +162,8 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         marker.touchHandler = { [weak self] (overlay) -> Bool in
             self?.clickedMarker?.iconImage = self?.image ?? NMFOverlayImage()
             self?.clickedMarker = marker
+            self?.clickedLat = lat
+            self?.clickedLon = lng
             self?.getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: lat, lon: lng, delegate: self!)
             marker.iconImage = self!.selectedImage
             self?.scrollToPosition(lat: lat, lon: lng)
@@ -243,11 +254,15 @@ extension PindergartenViewController: CLLocationManagerDelegate {
             break
         case .authorizedAlways:
             print("DEBUG: Auth always.")
-            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0)
+     
+            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON)
+          
         case .authorizedWhenInUse:
             print("DEBUG: Auth when in use.")
             locationManager.requestAlwaysAuthorization()
-            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0)
+          
+            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON)
+            
         @unknown default:
             break
         }
@@ -257,9 +272,11 @@ extension PindergartenViewController: CLLocationManagerDelegate {
         
         if status == .authorizedWhenInUse {
             locationManager.requestAlwaysAuthorization()
-            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0)
+            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON)
+            
         } else if status == .authorizedAlways {
-            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0)
+            scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON)
+            
         }
     }
     
@@ -276,7 +293,7 @@ extension PindergartenViewController: CLLocationManagerDelegate {
 extension PindergartenViewController {
     func didSuccessGetAllPindergarten(_ result: [GetAllPindergartenResult]) {
         allPindergarten = result
-        contentVC.allPindergarten = result
+        contentVC.contentPindergarten = result
         for pindergarten in result {
             markPlace(lat: Double(pindergarten.latitude ?? "0") ?? 0, lng: Double(pindergarten.longitude ?? "0") ?? 0)
         }
@@ -288,7 +305,7 @@ extension PindergartenViewController {
     
     func didSuccessGetNearPindergarten(_ result: [GetAllPindergartenResult]) {
         allPindergarten = result
-        contentVC.allPindergarten = result
+        contentVC.contentPindergarten = result
     }
     
     func failedToGetNearPindergarten(message: String) {

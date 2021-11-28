@@ -11,6 +11,7 @@ struct Constant {
     static let BASE_URL = "http://pindergarten.site"
     static var HEADERS: HTTPHeaders = ["x-access-token" : JwtToken.token]
     static var FORMDATAHEADERS: HTTPHeaders = ["x-access-token" : JwtToken.token, "Content-Type" : "multipart/form-data"]
+    static var AROUNDHEADERS: HTTPHeaders = ["x-access-token" : JwtToken.token, "Content-Type" : "application/x-www-form-urlencoded"]
     static let DEFAULT_LAT: Double = 37.540025
     static let DEFAULT_LON: Double = 127.005686
     static let HEIGHT: CGFloat = 812

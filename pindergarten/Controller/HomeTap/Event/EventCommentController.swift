@@ -106,7 +106,7 @@ class EventCommentController: BaseViewController {
         commentTableView.dataSource = self
         commentTableView.register(CommentCell.self, forCellReuseIdentifier: CommentCell.identifier)
 
-//        commentTextField.becomeFirstResponder()
+        commentTextField.becomeFirstResponder()
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 
@@ -295,8 +295,8 @@ extension EventCommentController {
         
         eventComment = result
         commentTableView.reloadData()
-        let indexPath = IndexPath(item: eventComment.count - 1 , section: 0)
-        commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//        let indexPath = IndexPath(item: eventComment.count - 1 , section: 0)
+//        commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         
     }
     

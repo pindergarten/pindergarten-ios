@@ -20,7 +20,7 @@ class ContentViewController: BaseViewController {
     lazy var pindergartenLikeDataManager: PindergartenLikeDataManager = PindergartenLikeDataManager()
 //    lazy var getPickAroundPindergartenDataManager: GetPickAroundPindergartenDataManager = GetPickAroundPindergartenDataManager()
     
-    var allPindergarten: [GetAllPindergartenResult] = [] {
+    var contentPindergarten: [GetAllPindergartenResult] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -81,10 +81,10 @@ extension ContentViewController: PindergartenCellDelegate {
 extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if allPindergarten.count > 10 {
+        if contentPindergarten.count > 10 {
             return 10
         }
-        return allPindergarten.count
+        return contentPindergarten.count
         
     }
     
@@ -93,20 +93,20 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         cell.selectionStyle = .none
         
-        cell.pindergartenImage.kf.setImage(with: URL(string: allPindergarten[indexPath.item].thumbnail))
-        cell.nameLabel.text = allPindergarten[indexPath.item].name
-        cell.addressLabel.text = allPindergarten[indexPath.item].address
-        cell.distanceLabel.text = "\(String(format: "%.1f", allPindergarten[indexPath.item].distance ?? 0))km"
+        cell.pindergartenImage.kf.setImage(with: URL(string: contentPindergarten[indexPath.item].thumbnail))
+        cell.nameLabel.text = contentPindergarten[indexPath.item].name
+        cell.addressLabel.text = contentPindergarten[indexPath.item].address
+        cell.distanceLabel.text = "\(String(format: "%.1f", contentPindergarten[indexPath.item].distance ?? 0))km"
     
-        if allPindergarten[indexPath.item].isLiked == 1 {
+        if contentPindergarten[indexPath.item].isLiked == 1 {
             cell.heartButton.setImage(UIImage(named: "pcellFilledHeart"), for: .normal)
         } else {
             cell.heartButton.setImage(UIImage(named: "pcellHeart"), for: .normal)
         }
         
-        cell.scoreLabel.text = "\(Int(allPindergarten[indexPath.item].rating))/5"
-        cell.starView.rating = allPindergarten[indexPath.item].rating
-        cell.heartButton.tag = allPindergarten[indexPath.item].id
+        cell.scoreLabel.text = "\(Int(contentPindergarten[indexPath.item].rating))/5"
+        cell.starView.rating = contentPindergarten[indexPath.item].rating
+        cell.heartButton.tag = contentPindergarten[indexPath.item].id
         cell.index = indexPath.item
         
         
@@ -116,7 +116,7 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let detailVC = DetailPindergartenController()
-        detailVC.pindergartenID = allPindergarten[indexPath.item].id
+        detailVC.pindergartenID = contentPindergarten[indexPath.item].id
         navigationController?.pushViewController(detailVC, animated: true)
         print(indexPath.item)
     }
@@ -154,11 +154,8 @@ extension ContentViewController {
     
     func didSuccessLikePindergarten(id: Int, idx: Int, _ result: PindergartenLikeResult) {
         
-        if allPindergarten[idx].isLiked == 1 {
-            allPindergarten[idx].isLiked = 0
-        } else {
-            allPindergarten[idx].isLiked = 1
-        }
+        contentPindergarten[idx].isLiked = result.isSet
+         
     }
     
     func failedToLikePindergarten(message: String) {

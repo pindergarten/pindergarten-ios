@@ -480,6 +480,7 @@ extension DetailPindergartenController {
     
     func didSuccessLikePindergarten(_ result: PindergartenLikeResult) {
         print(result.isSet)
+        detailResult?.isLiked = result.isSet
     }
     
     func failedToLikePindergarten(message: String) {

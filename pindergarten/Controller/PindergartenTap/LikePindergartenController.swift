@@ -67,7 +67,6 @@ class LikePindergartenController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getLikePindergartenDataManager.getLikePindergarten(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON, delegate: self)
 
         setUpTableView()
         configureUI()
@@ -77,6 +76,8 @@ class LikePindergartenController: BaseViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = true
+        getLikePindergartenDataManager.getLikePindergarten(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON, delegate: self)
+
     
     }
     //MARK: - Action
@@ -190,7 +191,7 @@ extension LikePindergartenController {
     }
     
     func didSuccessLikePindergarten(idx: Int, _ result: PindergartenLikeResult) {
-        print(result.isSet)
+        
     }
     
     func failedToLikePindergarten(message: String) {

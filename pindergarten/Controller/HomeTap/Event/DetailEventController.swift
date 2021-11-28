@@ -102,8 +102,8 @@ class DetailEventController: BaseViewController {
 //        headerView.frame.size = size
         
         commentTableView.tableHeaderView = headerView
-        getDetailEventDataManager.getADetailEvent(eventId: id, delegate: self)
-        getEventCommentDataManager.getEventComment(eventId: id, delegate: self)
+        
+      
 
         commentTableView.rowHeight = UITableView.automaticDimension
         commentTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -117,6 +117,7 @@ class DetailEventController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        getDetailEventDataManager.getADetailEvent(eventId: id, delegate: self)
         getEventCommentDataManager.getEventComment(eventId: id, delegate: self)
     }
 
@@ -239,6 +240,7 @@ extension DetailEventController {
         
         result.isLiked == 0 ? headerView.heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal) : headerView.heartButton.setImage(#imageLiteral(resourceName: "feedFilledHeartImage"), for: .normal)
         headerView.heartLabel.text = "\(result.likeCount)"
+        print(result.commentCount)
         headerView.commentLabel.text = "\(result.commentCount)"
 
     }

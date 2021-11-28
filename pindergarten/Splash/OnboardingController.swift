@@ -9,29 +9,37 @@ import UIKit
 
 class OnboardingController: UIViewController {
     //MARK: - Properties
-    let titleLabel: UILabel = {
-        let label = UILabel()
-    
-        return label
-    }()
-    
-    let scriptLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        return label
-    }()
+//    let titleLabel: UILabel = {
+//        let label = UILabel()
+//        label.sizeToFit()
+//        return label
+//    }()
+//
+//    let scriptLabel: UILabel = {
+//        let label = UILabel()
+//        label.numberOfLines = 0
+//        return label
+//    }()
+//
+//    lazy var labelStack: UIStackView = {
+//        let stack = UIStackView(arrangedSubviews: [titleLabel, scriptLabel])
+//        stack.axis = .vertical
+//        stack.spacing = 15
+//        return stack
+//    }()
     
     let titleImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
-        iv.setHeight(110)
+        iv.setHeight(100)
         return iv
     }()
+    
+    
     
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
-        
         return iv
     }()
     
@@ -71,7 +79,7 @@ class OnboardingController: UIViewController {
         let scriptParagraphStyle = NSMutableParagraphStyle()
         scriptParagraphStyle.lineSpacing = 3
         paragraphStyle.alignment = .center
-//        scriptParagraphStyle.alignment = .center
+        scriptParagraphStyle.alignment = .center
         
 //        self.titleLabel.attributedText = NSAttributedString(string: titleName, attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle, .font : UIFont(name: "Roboto-Black", size: 25)!, .foregroundColor : UIColor.mainBrown])
 //
@@ -131,6 +139,7 @@ class OnboardingController: UIViewController {
 //            make.bottom.equalTo(view)
 ////            make.height.equalTo(570/812*view.frame.size.height)
 //        }
+        
         stack.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(60)
             make.left.right.equalTo(view).inset(40)

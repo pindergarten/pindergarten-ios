@@ -22,7 +22,7 @@ struct GetAllPindergartenResult: Decodable {
     var latitude: String? = ""
     var longitude: String? = ""
     var rating: Double
-    var distance: Double?
+    var distance: Double? = 0
     var isLiked: Int
     
     static func ==(left: GetAllPindergartenResult, right: GetAllPindergartenResult) -> Bool {
