@@ -22,6 +22,8 @@ class EventCommentController: BaseViewController {
 
     var eventId: Int = 0
     var eventComment: [GetEventCommentResult] = []
+    var keyboardHeight: CGFloat = 0
+
     
 
     private lazy var backButton: UIButton = {
@@ -52,7 +54,7 @@ class EventCommentController: BaseViewController {
         return view
     }()
 
-    private lazy var commentTextFeild: UITextField = {
+    private lazy var commentTextField: UITextField = {
         let tf = UITextField()
         tf.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 14)
         tf.textColor = UIColor(hex: 0x4E5261)
@@ -86,7 +88,7 @@ class EventCommentController: BaseViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
-        tableView.keyboardDismissMode = .onDrag
+//        tableView.keyboardDismissMode = .onDrag
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         return tableView
     }()
@@ -104,14 +106,13 @@ class EventCommentController: BaseViewController {
         commentTableView.dataSource = self
         commentTableView.register(CommentCell.self, forCellReuseIdentifier: CommentCell.identifier)
 
-        commentTextFeild.becomeFirstResponder()
+//        commentTextField.becomeFirstResponder()
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 
 
 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-
 
 
         configureUI()
@@ -123,8 +124,8 @@ class EventCommentController: BaseViewController {
     }
 
     @objc private func didTapRegisterButton() {
-        registerCommentDataManager.registerComment(eventId: eventId, PostEventCommentRequest(content: commentTextFeild.text ?? ""), delegate: self)
-        commentTextFeild.text = ""
+        registerCommentDataManager.registerComment(eventId: eventId, PostEventCommentRequest(content: commentTextField.text ?? ""), delegate: self)
+        commentTextField.text = ""
         registerButton.tintColor = UIColor(hex: 0x4E5261)
         registerButton.isUserInteractionEnabled = false
         self.view.endEditing(false)
@@ -136,19 +137,30 @@ class EventCommentController: BaseViewController {
         let userInfo:NSDictionary = sender.userInfo! as NSDictionary;
         let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRectangle.size.height
+        keyboardHeight = keyboardRectangle.size.height
 
-
-        commentTextFeild.snp.remakeConstraints { remake in
+        commentTextField.snp.remakeConstraints { remake in
             remake.left.equalTo(view).offset(20)
             remake.right.equalTo(view).offset(-62)
             remake.bottom.equalTo(view.snp.bottom).offset(-10-keyboardHeight)
             remake.height.equalTo(40)
         }
+    
+        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut) {
+            self.view.layoutIfNeeded()
+        } completion: {  _ in
+//            let indexPath = IndexPath(item: (self?.eventComment.count ?? 1) - 1 , section: 0)
+//            self?.commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+
+       
+        
     }
 
     @objc func keyboardWillHide(_ sender: Notification) {
-        commentTextFeild.snp.remakeConstraints { remake in
+       
+        
+        commentTextField.snp.remakeConstraints { remake in
             remake.left.equalTo(view).offset(20)
             remake.right.equalTo(view).offset(-62)
             remake.bottom.equalTo(view.snp.bottomMargin).offset(-10)
@@ -162,7 +174,7 @@ class EventCommentController: BaseViewController {
     //MARK: - Helpers
 
     private func checkCommentTF() {
-        if commentTextFeild.text?.count ?? 0 <= 0 {
+        if commentTextField.text?.count ?? 0 <= 0 {
             registerButton.tintColor = UIColor(hex: 0x4E5261)
             registerButton.isUserInteractionEnabled = false
         } else {
@@ -177,7 +189,7 @@ class EventCommentController: BaseViewController {
         view.addSubview(seperateLine)
         view.addSubview(commentTableView)
         view.addSubview(commentSeperateLine)
-        view.addSubview(commentTextFeild)
+        view.addSubview(commentTextField)
         view.addSubview(registerButton)
         view.addSubview(commentTableView)
 
@@ -207,10 +219,10 @@ class EventCommentController: BaseViewController {
         commentSeperateLine.snp.makeConstraints { make in
             make.height.equalTo(1.5)
             make.left.right.equalTo(view)
-            make.bottom.equalTo(commentTextFeild.snp.top).offset(-10)
+            make.bottom.equalTo(commentTextField.snp.top).offset(-10)
         }
 
-        commentTextFeild.snp.makeConstraints { make in
+        commentTextField.snp.makeConstraints { make in
             make.left.equalTo(view).offset(20)
             make.right.equalTo(view).offset(-62)
             make.bottom.equalTo(view.snp.bottomMargin).offset(-10)
@@ -218,8 +230,8 @@ class EventCommentController: BaseViewController {
         }
 
         registerButton.snp.makeConstraints { make in
-            make.left.equalTo(commentTextFeild.snp.right).offset(17)
-            make.centerY.equalTo(commentTextFeild)
+            make.left.equalTo(commentTextField.snp.right).offset(17)
+            make.centerY.equalTo(commentTextField)
             make.width.equalTo(25)
             make.height.equalTo(40)
         }
@@ -280,8 +292,12 @@ extension EventCommentController {
     
     func didSuccessGetEventComment(_ result: [GetEventCommentResult]) {
         print("DEBUG: GET EVENT COMMENT")
+        
         eventComment = result
         commentTableView.reloadData()
+        let indexPath = IndexPath(item: eventComment.count - 1 , section: 0)
+        commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        
     }
     
     func failedToGetEventComment(message: String) {
@@ -290,6 +306,7 @@ extension EventCommentController {
     
     func didSuccessRegisterComment() {
         getEventCommentDataManager.getEventComment(eventId: eventId, delegate: self)
+        
     }
     
     func failedToRegisterComment(message: String) {

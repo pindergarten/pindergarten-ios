@@ -50,7 +50,7 @@ class HomeCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 13)
         label.textColor = UIColor(hex: 0x3F3F3F)
-        label.text = "Kevinni_v"
+        label.text = ""
         return label
     }()
     
@@ -58,7 +58,7 @@ class HomeCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 11)
         label.textColor = .mainTextColor
-        label.text = "개팔자가 상팔자네요...."
+        label.text = ""
         return label
     }()
     
@@ -92,7 +92,7 @@ class HomeCell: UICollectionViewCell {
     }
     //MARK: - Helpers
     private func setUpRoundShadow() {
-        layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.3, x: 0, y: 5, blur: 15)
+        layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.5, x: 0, y: 5, blur: 12)
         clipsToBounds = true
         layer.masksToBounds = false
         layer.cornerRadius = 10
@@ -115,7 +115,7 @@ class HomeCell: UICollectionViewCell {
         }
         
         profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(8)
+            make.top.equalTo(nameLabel)
             make.left.equalTo(contentView).offset(10)
             make.width.height.equalTo(20)
         }
@@ -128,8 +128,7 @@ class HomeCell: UICollectionViewCell {
         
         scriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(1)
-            make.left.equalTo(nameLabel.snp.left)
-            make.right.equalTo(nameLabel.snp.right)
+            make.left.right.equalTo(nameLabel)
         }
         
         heartButton.snp.makeConstraints { make in

@@ -26,6 +26,7 @@ class DetailFeedViewController: BaseViewController {
     lazy var deleteFeedDataManager: DeleteFeedDataManager = DeleteFeedDataManager()
     
     var postId: Int = 0
+    var index: IndexPath = [0,0]
     
     private var detailFeed: GetDetailFeedResult?
     
@@ -435,8 +436,9 @@ extension DetailFeedViewController {
     }
     
     func didSuccessDeleteFeed() {
+        self.delegate?.deleteCache()
         self.presentAlert(title: "게시물이 삭제되었습니다") { [weak self] alert in
-            self?.delegate?.deleteCache()
+            
             self?.navigationController?.popViewController(animated: true)
         }
         

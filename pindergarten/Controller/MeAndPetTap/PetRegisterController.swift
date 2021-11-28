@@ -18,6 +18,7 @@ class PetRegisterController: BaseViewController {
     //MARK: - Properties
     let imagePicker = UIImagePickerController()
     var myPet = PostMyPetRequest(name: "", profileImage: Data(), gender: 2, breed: "", birth: "", vaccination: 2, neutering: 2)
+//    var activeTextField : UITextField? = nil
     
     lazy var postMyPetDataManager: PostMyPetDataManager = PostMyPetDataManager()
     
@@ -110,6 +111,9 @@ class PetRegisterController: BaseViewController {
         setButtonChoiceDelegate()
         setImagePicker()
         configureUI()
+        
+        nameInput.textField.delegate = self
+        breedInput.textField.delegate = self
         birthInput.textField.delegate = self
         
         nameInput.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -136,14 +140,20 @@ class PetRegisterController: BaseViewController {
         let keyboardHeight = keyboardRectangle.size.height
         keyHeight = keyboardHeight
     
-//        self.view.frame.size.height -= keyboardHeight
-        print(2)
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyHeight ?? 0 , right: 0.0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+       
         
     }
     
     @objc func keyboardWillHide(_ sender: Notification) {
-//        self.view.frame.size.height += keyHeight!
-        print(1)
+        let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+              
+          
+          // reset back the content inset to zero after keyboard is gone
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
         
         
     }
@@ -361,8 +371,19 @@ class PetRegisterController: BaseViewController {
 }
 
 extension PetRegisterController: UITextFieldDelegate {
+
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        openDataPicker()
+      // set the activeTextField to the selected textfield
+        if textField == birthInput.textField {
+            openDataPicker()
+        }
+//        self.activeTextField = textField
+    }
+      
+    // when user click 'done' or dismiss the keyboard
+    func textFieldDidEndEditing(_ textField: UITextField) {
+//      self.activeTextField = nil
     }
 }
 

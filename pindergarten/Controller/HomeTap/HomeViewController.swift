@@ -25,14 +25,10 @@ class HomeViewController: BaseViewController {
     private var feed: [GetAllFeedResult] = [] {
         didSet {
             collectionView.reloadData()
+          
         }
     }
     
-//    private var imageList: [UIImage] = [] {
-//        didSet {
-//            collectionView.reloadData()
-//        }
-//    }
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -184,7 +180,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailFeedViewController()
+        detailVC.delegate = self
         detailVC.postId = feed[indexPath.item].id
+        detailVC.index = indexPath
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -229,9 +227,9 @@ extension HomeViewController: PinterestLayoutDelegate {
 
 extension HomeViewController: DetailVCDelegate {
     func deleteCache() {
+        
         if let layout = collectionView.collectionViewLayout as? PinterestLayout {
-            print("뭐지...")
-//            layout.cache.removeLast()
+          
         }
     }
     

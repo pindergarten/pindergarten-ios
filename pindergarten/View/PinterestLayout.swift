@@ -75,6 +75,7 @@ class PinterestLayout: UICollectionViewFlowLayout {
         }
     }
     
+    
     // 3. 모든 셀과 보충 뷰의 레이아웃 정보를 리턴합니다. 화면 표시 영역 기반(Rect)의 요청이 들어올 때 사용합니다.
     override func layoutAttributesForElements(in rect: CGRect)
     -> [UICollectionViewLayoutAttributes]? {

@@ -146,13 +146,23 @@ class ReportController: BaseViewController {
         let keyboardHeight = keyboardRectangle.size.height
         keyHeight = keyboardHeight
         
-        
+        textView.snp.remakeConstraints { remake in
+            remake.top.equalTo(reportTitleSeparateLine.snp.bottom).offset(5)
+            remake.left.equalTo(view).offset(20)
+            remake.right.equalTo(view).offset(-20)
+            remake.bottom.equalTo(view.snp.bottomMargin).offset(-keyboardHeight)
+        }
         
     }
     
     @objc func keyboardWillHide(_ sender: Notification) {
         
-        
+        textView.snp.remakeConstraints { remake in
+            remake.top.equalTo(reportTitleSeparateLine.snp.bottom).offset(5)
+            remake.left.equalTo(view).offset(20)
+            remake.right.equalTo(view).offset(-20)
+            remake.bottom.equalTo(view.snp.bottomMargin)
+        }
         
     }
     

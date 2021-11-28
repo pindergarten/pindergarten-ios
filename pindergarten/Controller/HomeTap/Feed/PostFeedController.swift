@@ -49,12 +49,15 @@ class PostFeedController: BaseViewController {
     
     deinit {
             print("deinit")
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     //MARK: - Properties
     
     var selectedAssets = [PHAsset]()
     var photoArray = [UIImage]()
     var allPhotos:PHFetchResult<PHAsset>? = nil
+    var keyboardHeight: CGFloat = 0
     
     var imagePicker: ImagePickerController?
     
@@ -127,6 +130,8 @@ class PostFeedController: BaseViewController {
     
     private lazy var textView: UITextView = {
         let tv = UITextView()
+        tv.showsVerticalScrollIndicator = false
+        tv.showsHorizontalScrollIndicator = false
         return tv
     }()
 
@@ -154,6 +159,13 @@ class PostFeedController: BaseViewController {
     
         cameraStack.isUserInteractionEnabled = true
         cameraStack.addGestureRecognizer(cameraStackGestureRecognizer)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         
     }
@@ -164,6 +176,32 @@ class PostFeedController: BaseViewController {
         tabBarController?.tabBar.isHidden = true
     }
     //MARK: - Action
+    @objc func keyboardWillShow(_ sender: Notification) {
+
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary;
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        keyboardHeight = keyboardRectangle.size.height
+
+        textView.snp.remakeConstraints { remake in
+            remake.top.equalTo(separateImageLine.snp.bottom).offset(5)
+            remake.left.equalTo(view).offset(20)
+            remake.right.equalTo(view).offset(-20)
+            remake.bottom.equalTo(view.snp.bottomMargin).offset(-keyboardHeight)
+        }
+        
+    }
+
+    @objc func keyboardWillHide(_ sender: Notification) {
+        textView.snp.remakeConstraints { remake in
+            remake.top.equalTo(separateImageLine.snp.bottom).offset(5)
+            remake.left.equalTo(view).offset(20)
+            remake.right.equalTo(view).offset(-20)
+            remake.bottom.equalTo(view.snp.bottomMargin)
+        }
+    
+    }
+    
     @objc private func didTapPostButton() {
         if selectedAssets.count < 1 {
             self.presentAlert(title: "게시물 등록시 1개 이상의\n사진이 필요합니다.")
