@@ -14,11 +14,11 @@ class ContentViewController: BaseViewController {
     }
     
     //MARK: - Properties
-    private lazy var locationManager = CLLocationManager()
+//    private lazy var locationManager = CLLocationManager()
     
-    lazy var getAllPindergartenDataManager: GetAllPindergartenDataManager = GetAllPindergartenDataManager()
+//    lazy var getAllPindergartenDataManager: GetAllPindergartenDataManager = GetAllPindergartenDataManager()
     lazy var pindergartenLikeDataManager: PindergartenLikeDataManager = PindergartenLikeDataManager()
-    lazy var getPickAroundPindergartenDataManager: GetPickAroundPindergartenDataManager = GetPickAroundPindergartenDataManager()
+//    lazy var getPickAroundPindergartenDataManager: GetPickAroundPindergartenDataManager = GetPickAroundPindergartenDataManager()
     
     var allPindergarten: [GetAllPindergartenResult] = [] {
         didSet {
@@ -40,7 +40,7 @@ class ContentViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.delegate = self
+//        locationManager.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PindergartenCell.self, forCellReuseIdentifier: PindergartenCell.identifier)
@@ -68,9 +68,11 @@ class ContentViewController: BaseViewController {
 
 //MARK: - Extension
 extension ContentViewController: PindergartenCellDelegate {
-    func didTapCellHeartButton(id: Int) {
+    func didTapCellHeartButton(id: Int, index: Int) {
 
-        pindergartenLikeDataManager.likePindergarten(pindergartenId: id, delegate: self)
+        pindergartenLikeDataManager.likePindergarten(pindergartenId: id,index: index, delegate: self)
+        
+        
     }
     
     
@@ -105,7 +107,7 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
         cell.scoreLabel.text = "\(Int(allPindergarten[indexPath.item].rating))/5"
         cell.starView.rating = allPindergarten[indexPath.item].rating
         cell.heartButton.tag = allPindergarten[indexPath.item].id
-        
+        cell.index = indexPath.item
         
         
         return cell
@@ -122,51 +124,54 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
 
 //MARK: - Extension
 extension ContentViewController: CLLocationManagerDelegate {
-    private func enableLocationServices() {
-        locationManager.delegate = self
-        
-        switch CLLocationManager.authorizationStatus() {
-        case .notDetermined:
-            print("DEBUG: Not determined.")
-        case .restricted, .denied:
-            break
-        case .authorizedAlways:
-            print("DEBUG: Auth always.")
-        case .authorizedWhenInUse:
-            print("DEBUG: Auth when in use.")
-        @unknown default:
-            break
-        }
-    }
+//    private func enableLocationServices() {
+//        locationManager.delegate = self
+//
+//        switch CLLocationManager.authorizationStatus() {
+//        case .notDetermined:
+//            print("DEBUG: Not determined.")
+//        case .restricted, .denied:
+//            break
+//        case .authorizedAlways:
+//            print("DEBUG: Auth always.")
+//        case .authorizedWhenInUse:
+//            print("DEBUG: Auth when in use.")
+//        @unknown default:
+//            break
+//        }
+//    }
 }
 
 // 네트워크 함수
 extension ContentViewController {
-    func didSuccessGetAllPindergarten(_ result: [GetAllPindergartenResult]) {
-        allPindergarten = result
-    }
+//    func didSuccessGetAllPindergarten(_ result: [GetAllPindergartenResult]) {
+//        allPindergarten = result
+//    }
+//
+//    func failedToGetAllPindergarten(message: String) {
+//        self.presentAlert(title: message)
+//    }
     
-    func failedToGetAllPindergarten(message: String) {
-        self.presentAlert(title: message)
-    }
-    
-    func didSuccessLikePindergarten(_ result: PindergartenLikeResult) {
-        print(result.isSet)
-        print(allPindergarten[0].isLiked)
+    func didSuccessLikePindergarten(id: Int, idx: Int, _ result: PindergartenLikeResult) {
         
+        if allPindergarten[idx].isLiked == 1 {
+            allPindergarten[idx].isLiked = 0
+        } else {
+            allPindergarten[idx].isLiked = 1
+        }
     }
     
     func failedToLikePindergarten(message: String) {
         self.presentAlert(title: message)
     }
     
-    func didSuccessGetNearPindergarten(_ result: [GetAllPindergartenResult]) {
-        allPindergarten = result
-    }
-    
-    func failedToGetNearPindergarten(message: String) {
-        self.presentAlert(title: message)
-    }
+//    func didSuccessGetNearPindergarten(_ result: [GetAllPindergartenResult]) {
+//        allPindergarten = result
+//    }
+//
+//    func failedToGetNearPindergarten(message: String) {
+//        self.presentAlert(title: message)
+//    }
 }
 
 

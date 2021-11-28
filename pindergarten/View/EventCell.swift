@@ -88,7 +88,8 @@ class EventCell: UICollectionViewCell {
         }
         
         dDayLabel.snp.makeConstraints { make in
-            make.center.equalTo(dDayView)
+            make.centerX.equalTo(dDayView)
+            make.centerY.equalTo(dDayView).offset(1)
         }
     }
 }

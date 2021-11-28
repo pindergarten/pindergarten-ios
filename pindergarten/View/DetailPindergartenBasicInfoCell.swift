@@ -8,7 +8,7 @@
 import UIKit
 protocol BasicInfoCellDelegate: AnyObject {
     func didTapPhonLabel()
-    func didTapWebsiteLabel()
+//    func didTapWebsiteLabel()
 }
 
 class DetailPindergartenBasicInfoCell: UITableViewCell {
@@ -52,6 +52,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         return label
     }()
     
+    
 //    let socialLabel: UILabel = {
 //        let label = UILabel()
 //        label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
@@ -65,7 +66,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         label.numberOfLines = 0
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         label.textColor = .subTextColor
-        label.text = "050-7148-71108"
+        label.text = "-"
         return label
     }()
     
@@ -74,27 +75,27 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         label.numberOfLines = 0
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         label.textColor = .subTextColor
-        label.text = "서울 서초구 서초대로 58길 36 4~5F"
+        label.text = "-"
         return label
     }()
     
-    let homepageInfoLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
-        label.textColor = .subTextColor
-        label.text = "https://www.howlpot.com"
-        return label
+//    let homepageInfoLabel: UILabel = {
+//        let label = UILabel()
+//        label.numberOfLines = 0
+//        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
+//        label.textColor = .subTextColor
+//        label.text = "-"
+//        return label
+//    }()
+    
+    lazy var websiteStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 18
+        return stack
     }()
     
-    let socialInfoLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
-        label.textColor = .subTextColor
-        label.text = "http://blog.naver.com/howlpotcareclub"
-        return label
-    }()
+  
     
     private let separateLine: UIView = {
         let view = UIView()
@@ -107,6 +108,7 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configureUI()
+       
     }
     
     required init?(coder: NSCoder) {
@@ -129,21 +131,21 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         delegate?.didTapPhonLabel()
     }
     
-    @objc func didTapWebsiteLabel(sender: UITapGestureRecognizer) {
-        let site: String = homepageInfoLabel.text ?? ""
-        print(site)
-        delegate?.didTapWebsiteLabel()
-    }
+//    @objc func didTapWebsiteLabel(sender: UITapGestureRecognizer) {
+////        let site: String = homepageInfoLabel.text ?? ""
+////        let websiteArr = site.components(separatedBy: "\n")
+////        delegate?.didTapWebsiteLabel()
+//    }
     
     //MARK: - Helpers
     
     private func putGesture() {
         let tapPhoneGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapCallLabel(sender:)))
-        let tapWebsiteGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapWebsiteLabel(sender:)))
+//        let tapWebsiteGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapWebsiteLabel(sender:)))
         callInfoLabel.isUserInteractionEnabled = true
-        homepageInfoLabel.isUserInteractionEnabled = true
+//        homepageInfoLabel.isUserInteractionEnabled = true
         callInfoLabel.addGestureRecognizer(tapPhoneGestureRecognizer)
-        homepageInfoLabel.addGestureRecognizer(tapWebsiteGestureRecognizer)
+//        homepageInfoLabel.addGestureRecognizer(tapWebsiteGestureRecognizer)
     }
     
     
@@ -155,12 +157,12 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
         contentView.addSubview(addressLabel)
         contentView.addSubview(addressInfoLabel)
         contentView.addSubview(homepageLabel)
-        contentView.addSubview(homepageInfoLabel)
+        contentView.addSubview(websiteStack)
         contentView.addSubview(separateLine)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.left.equalTo(contentView).offset(26)
-            make.right.equalTo(contentView).offset(-20)
+            make.top.equalTo(contentView).offset(20)
+            make.left.right.equalTo(contentView).inset(20)
         }
         
         callLabel.snp.makeConstraints { make in
@@ -194,14 +196,14 @@ class DetailPindergartenBasicInfoCell: UITableViewCell {
             make.width.equalTo(52)
         }
         
-        homepageInfoLabel.snp.makeConstraints { make in
+        websiteStack.snp.makeConstraints { make in
             make.top.equalTo(homepageLabel)
             make.left.equalTo(callInfoLabel.snp.left)
             make.right.equalTo(contentView).offset(-20)
         }
     
         separateLine.snp.makeConstraints { make in
-            make.top.equalTo(homepageInfoLabel.snp.bottom).offset(26)
+            make.top.equalTo(websiteStack.snp.bottom).offset(26)
             make.left.right.equalTo(contentView)
             make.bottom.equalTo(contentView)
             make.height.equalTo(6)

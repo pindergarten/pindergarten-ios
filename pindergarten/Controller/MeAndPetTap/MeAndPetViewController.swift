@@ -13,8 +13,8 @@ class MyPetCell: UICollectionViewCell {
     let imageView: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "1"))
         iv.contentMode = .scaleAspectFill
-        iv.setDimensions(height: 42, width: 42)
-        iv.layer.cornerRadius = 21
+        iv.setDimensions(height: 44, width: 44)
+        iv.layer.cornerRadius = 22
         iv.layer.masksToBounds = true
         return iv
     }()
@@ -34,11 +34,22 @@ class MyPetCell: UICollectionViewCell {
         stack.alignment = .center
         return stack
     }()
+    
+    let separateLine: UIView = {
+        let view = UIView()
+        view.setDimensions(height: 20, width: 2)
+        view.layer.cornerRadius = 1
+        view.layer.masksToBounds = true
+        view.backgroundColor = UIColor(hex: 0xDFDFDF)
+        return view
+    }()
+    
     //MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         configureUI()
+       
     }
     
     required init?(coder: NSCoder) {
@@ -49,9 +60,15 @@ class MyPetCell: UICollectionViewCell {
     //MARK: - Helpers
     private func configureUI() {
         contentView.addSubview(stack)
+        contentView.addSubview(separateLine)
         
         stack.snp.makeConstraints { make in
             make.center.equalTo(contentView)
+        }
+        
+        separateLine.snp.makeConstraints { make in
+            make.centerY.equalTo(contentView)
+            make.right.equalTo(contentView)
         }
         
     }
@@ -63,12 +80,12 @@ class MeAndPetViewController: BaseViewController {
     lazy var getAllMyPetsDataManager: GetAllMyPetsDataManager = GetAllMyPetsDataManager()
     lazy var getMyPageDataManager: GetMyPageDataManager = GetMyPageDataManager()
     
-    var allMyPets = [GetAllMyPetsResult]() {
+    var allMyPets: [GetAllMyPetsResult] = [] {
         didSet {
             myPetCollectionView.reloadData()
         }
     }
-    var myPosts = [GetPostResult]() {
+    var myPosts: [GetPostResult] = [] {
         didSet {
             myFeedCollectionView.reloadData()
         }
@@ -77,7 +94,7 @@ class MeAndPetViewController: BaseViewController {
     
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "1")
+        
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 26
         imageView.layer.masksToBounds = true
@@ -88,7 +105,6 @@ class MeAndPetViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 18)
         label.textColor = UIColor(hex: 0x2D2D2D, alpha: 0.89)
-        label.text = "Name"
         label.adjustsFontSizeToFitWidth = true
         return label
     }()
@@ -96,7 +112,8 @@ class MeAndPetViewController: BaseViewController {
     
     private lazy var plusButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "meAndPet-Plus"), for: .normal)
+        button.setImage(UIImage(named: "plusButton"), for: .normal)
+        button.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
         return button
     }()
     
@@ -124,6 +141,7 @@ class MeAndPetViewController: BaseViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.contentInset = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 10)
         cv.backgroundColor = .white
         cv.showsVerticalScrollIndicator = false
         cv.showsHorizontalScrollIndicator = false
@@ -141,14 +159,25 @@ class MeAndPetViewController: BaseViewController {
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInset = UIEdgeInsets(top: 20, left: 12, bottom: 40, right: 12)
         return collectionView
     }()
     
+    lazy var defaultFeedView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: Device.width, height: Device.height - separateLine.frame.origin.y))
+        let imageView = UIImageView(image: UIImage(named: "meAndPet-defaultFeed"))
+        imageView.contentMode = .scaleAspectFill
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.centerX.equalTo(view)
+            make.centerY.equalTo(view).offset(-50)
+        }
+        return view
+    }()
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getMyPageDataManager.getMyPage(delegate: self)
         putGesture()
         configureUI()
         
@@ -159,7 +188,6 @@ class MeAndPetViewController: BaseViewController {
         myPetCollectionView.dataSource = self
         
         myFeedCollectionView.register(MyFeedCell.self, forCellWithReuseIdentifier: MyFeedCell.identifier)
-        myFeedCollectionView.contentInset = UIEdgeInsets(top: 20, left: 12, bottom: 40, right: 12)
         
         myPetCollectionView.register(MyPetCell.self, forCellWithReuseIdentifier: MyPetCell.identifier)
         
@@ -175,11 +203,21 @@ class MeAndPetViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        print("APPEAR")
         tabBarController?.tabBar.isHidden = false
-        getAllMyPetsDataManager.getAllMyPet(delegate: self)
+//        getAllMyPetsDataManager.getAllMyPet(delegate: self)
+        getMyPageDataManager.getMyPage(delegate: self)
     }
     
     //MARK: - Action
+    @objc func didTapPlusButton() {
+        let popUpView = PlusPopUpViewController()
+        popUpView.modalPresentationStyle = .overFullScreen
+        popUpView.modalTransitionStyle = .crossDissolve
+        popUpView.rootView = self
+        present(popUpView, animated: true, completion: nil)
+    }
+    
     @objc func didTapNameLabel(sender: UITapGestureRecognizer) {
         navigationController?.pushViewController(UserProfileController(), animated: true)
     }
@@ -215,6 +253,7 @@ class MeAndPetViewController: BaseViewController {
         view.addSubview(myPetCollectionView)
         view.addSubview(separateLine)
         view.addSubview(myFeedCollectionView)
+        view.addSubview(defaultFeedView)
         
         profileImage.snp.makeConstraints { make in
             make.top.equalTo(view.snp.topMargin).offset(30)
@@ -259,6 +298,11 @@ class MeAndPetViewController: BaseViewController {
         
         myFeedCollectionView.snp.makeConstraints { make in
             make.top.equalTo(separateLine.snp.bottom)
+            make.left.right.bottom.equalTo(view)
+        }
+        
+        defaultFeedView.snp.makeConstraints { make in
+            make.top.equalTo(separateLine.snp.bottom)
             make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -278,13 +322,20 @@ extension MeAndPetViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
         if collectionView == myFeedCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyFeedCell.identifier, for: indexPath) as! MyFeedCell
             cell.imageView.kf.indicatorType = .activity
             cell.imageView.kf.setImage(with: URL(string: myPosts[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+            
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPetCell.identifier, for: indexPath) as! MyPetCell
+            if indexPath.item == allMyPets.count - 1 {
+                cell.separateLine.isHidden = true
+            } else {
+                cell.separateLine.isHidden = false
+            }
             cell.imageView.kf.indicatorType = .activity
             cell.imageView.kf.setImage(with: URL(string: allMyPets[indexPath.item].profileImage), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
           
@@ -295,7 +346,15 @@ extension MeAndPetViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: view.frame.size.width / 4 - 10, height: 100)
+        return CGSize(width: 95, height: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
     
@@ -347,16 +406,26 @@ extension MeAndPetViewController: PinterestLayoutDelegate {
 // 네트워크 함수
 extension MeAndPetViewController {
     func didSuccessGetMyPage(posts: [GetPostResult], user: GetUserResult?) {
-        myPosts = posts
-        myProfile = user
+
         
+        myPosts = posts
+        
+        if myPosts.count == 0 {
+            myFeedCollectionView.isHidden = true
+            defaultFeedView.isHidden = false
+        } else {
+            myFeedCollectionView.isHidden = false
+            defaultFeedView.isHidden = true
+        }
+        
+        myProfile = user
         if let user = user {
             nameLabel.text = user.nickname
             profileImage.kf.indicatorType = .activity
             profileImage.kf.setImage(with: URL(string: user.profileImage), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
         }
-        
-       
+        getAllMyPetsDataManager.getAllMyPet(delegate: self)
+
     }
     
     func failedToGetAllMyPage(message: String) {
@@ -364,6 +433,7 @@ extension MeAndPetViewController {
     }
     
     func didSuccessGetAllMyPet(_ result: [GetAllMyPetsResult]) {
+        
         allMyPets = result
         
         if allMyPets.count == 0 {
@@ -373,6 +443,8 @@ extension MeAndPetViewController {
             myPetCollectionView.isHidden = false
             registerPetButton.isHidden = true
         }
+        
+        
         
     }
     

@@ -32,7 +32,7 @@ class LikeDataManager {
             }
     }
     
-    func like(postId: Int, delegate: HomeViewController) {
+    func like(postId: Int, index: Int, delegate: HomeViewController) {
         AF.request("\(Constant.BASE_URL)/api/posts/\(postId)/like", method: .post,headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: LikeResponse.self) { response in
@@ -40,7 +40,7 @@ class LikeDataManager {
                 case .success(let response):
                     // 성공했을 때
                     if response.isSuccess, let result = response.result {
-                        delegate.didSuccessLike(result)
+                        delegate.didSuccessLike(idx: index, result)
                     }
                     // 실패했을 때
                     else {

@@ -36,6 +36,7 @@ class NewSplashController: BaseViewController {
         stack.backgroundColor = .white
         stack.layer.applyShadow(color: .black, alpha: 0.05, x: 0, y: 4, blur: 20)
         stack.layer.cornerRadius = 15
+        stack.textField.keyboardType = .numberPad
         return stack
     }()
     
@@ -44,6 +45,7 @@ class NewSplashController: BaseViewController {
         stack.backgroundColor = .white
         stack.layer.applyShadow(color: .black, alpha: 0.05, x: 0, y: 4, blur: 20)
         stack.layer.cornerRadius = 15
+        stack.textField.returnKeyType = .done
         return stack
     }()
     
@@ -78,7 +80,6 @@ class NewSplashController: BaseViewController {
         button.backgroundColor = .mainLightYellow
         button.tintColor = .mainTextColor
         button.layer.cornerRadius = 25
-     
         button.layer.applyShadow(color: .black, alpha: 0.05, x: 0, y: 4, blur: 20)
         button.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
         return button
@@ -87,9 +88,12 @@ class NewSplashController: BaseViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+//        phoneNumberStack.textField.becomeFirstResponder()
         
         phoneNumberStack.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordStack.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        phoneNumberStack.textField.delegate = self
+        passwordStack.textField.delegate = self
         configureUI()
     }
     //MARK: - Action
@@ -197,16 +201,24 @@ class NewSplashController: BaseViewController {
     }
 }
 
+extension NewSplashController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
 
 // 네트워크 함수
 extension NewSplashController {
     func didSuccessLogin(_ result: LoginResult) {
-        changeRootViewController(HomeTabBarController())
+        
         JwtToken.token = result.jwt
         JwtToken.userId = result.userId
-   
+        
         UserDefaults.standard.set(result.jwt, forKey: "token")
         UserDefaults.standard.set(result.userId, forKey: "userId")
+        
+        changeRootViewController(HomeTabBarController())
 
         print("DEBUG: Enable to Login")
     }
@@ -216,3 +228,5 @@ extension NewSplashController {
         print("DEBUG: FAILED LOGIN")
     }
 }
+
+

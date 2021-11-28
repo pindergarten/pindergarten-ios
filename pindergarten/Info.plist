@@ -2,11 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -25,6 +20,27 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>사용자의 위치 정보는 유저와 주변 펫 유치원의 거리 판단 요소가 됩니다. 사용자의 위치 정보를 앱에 저장하지 않습니다.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>사용자의 위치 정보는 유저와 주변 펫 유치원의 거리 판단 요소가 됩니다. 사용자의 위치 정보를 앱에 저장하지 않습니다.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>사용자의 위치 정보는 유저와 주변 펫 유치원의 거리 판단 요소가 됩니다. 사용자의 위치 정보를 앱에 저장하지 않습니다.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>갤러리를 사용하여 다른 사용자들과 사진을 공유합니다. </string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>BMDOHYEON_otf.otf</string>
+		<string>SDSwagger.otf</string>
+		<string>AppleSDGothicNeoEB.ttf</string>
+		<string>Roboto-Black.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -65,19 +81,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>BMDOHYEON_otf.otf</string>
-		<string>SDSwagger.otf</string>
-		<string>AppleSDGothicNeoEB.ttf</string>
-	</array>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>사용자의 위치 정보는 유저와 주변 펫 유치원의 거리 판단 요소가 됩니다. 사용자의 위치 정보를 앱에 저장하지 않습니다.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>사용자의 위치 정보는 유저와 주변 펫 유치원의 거리 판단 요소가 됩니다. 사용자의 위치 정보를 앱에 저장하지 않습니다.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>사용자의 위치 정보는 유저와 주변 펫 유치원의 거리 판단 요소가 됩니다. 사용자의 위치 정보를 앱에 저장하지 않습니다.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>갤러리를 사용하여 다른 사용자들과 사진을 공유합니다. </string>
 </dict>
 </plist>

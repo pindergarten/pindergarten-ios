@@ -10,7 +10,9 @@ import DropDown
 
 class ReportController: BaseViewController {
     deinit {
-            print("deinit")
+        print("deinit")
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     //MARK: - Properties
     var postId: Int = 0
@@ -111,8 +113,12 @@ class ReportController: BaseViewController {
     
     private lazy var textView: UITextView = {
         let tv = UITextView()
+        tv.showsVerticalScrollIndicator = false
+        tv.showsHorizontalScrollIndicator = false
         return tv
     }()
+    
+    var keyHeight: CGFloat?
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -120,11 +126,36 @@ class ReportController: BaseViewController {
         
         reportTitleTextFeild.delegate = self
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         setUpDropDown()
         configureUI()
         placeholderSetting()
+        
     }
     //MARK: - Action
+    
+    @objc func keyboardWillShow(_ sender: Notification) {
+        
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary;
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.size.height
+        keyHeight = keyboardHeight
+        
+        
+        
+    }
+    
+    @objc func keyboardWillHide(_ sender: Notification) {
+        
+        
+        
+    }
+    
     @objc private func didTapReportButton(type: Int) {
         print("DEBUG: TAPPED REPORT BUTTON")
         print("\(Constant.BASE_URL)/api/posts/\(postId)/declaration?type=\(self.type)")
@@ -221,7 +252,7 @@ class ReportController: BaseViewController {
         }
         
         separateLine.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom).offset(16)
+            make.top.equalTo(backButton.snp.bottom).offset(10)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }

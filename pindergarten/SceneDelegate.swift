@@ -12,35 +12,37 @@ import Alamofire
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    lazy var autoLoginDataManager: AutoLoginDataManager = AutoLoginDataManager()
+
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
-
-        AF.request("\(Constant.BASE_URL)/api/users/auto-signin", method: .get, headers: Constant.HEADERS)
-            .validate()
-            .responseDecodable(of: DefaultResponse.self) { response in
-                switch response.result {
-                case .success(let response):
-                    // 성공했을 때
-                    if response.isSuccess {
-                        self.window?.rootViewController = HomeTabBarController()
+        window?.rootViewController = SplashViewController()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+            AF.request("\(Constant.BASE_URL)/api/users/auto-signin", method: .get, headers: Constant.HEADERS)
+                .validate()
+                .responseDecodable(of: DefaultResponse.self) { response in
+                    switch response.result {
+                    case .success(let response):
+                        // 성공했을 때
+                        if response.isSuccess {
+                            self.window?.rootViewController = HomeTabBarController()
+                        }
+                        // 실패했을 때
+                        else {
+                            self.window?.rootViewController = OnboardingPageViewController()
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                        self.window?.rootViewController = OnboardingPageViewController()
                     }
-                    // 실패했을 때
-                    else {
-                        self.window?.rootViewController = UINavigationController(rootViewController: NewSplashController())
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    self.window?.rootViewController = UINavigationController(rootViewController: NewSplashController())
                 }
             }
 
 
-//        window?.rootViewController = PetRegisterController()
+//        window?.rootViewController = OnboardingPageViewController()
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
     }

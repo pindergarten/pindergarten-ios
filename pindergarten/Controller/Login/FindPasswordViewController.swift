@@ -57,6 +57,7 @@ class FindPasswordViewController: BaseViewController {
         tf.keyboardAppearance = .light
         tf.attributedPlaceholder = NSAttributedString(string: "휴대폰 번호를 입력해주세요.", attributes: [.foregroundColor:UIColor.mainPlaceholerColor, .font:UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!])
         tf.isSecureTextEntry = false
+        tf.keyboardType = .numberPad
         tf.addTarget(self, action: #selector(didChangePhoneNumberTextField), for: .editingChanged)
         return tf
     }()
@@ -65,7 +66,7 @@ class FindPasswordViewController: BaseViewController {
         let button = UIButton(type: .system)
         button.setAttributedTitle(NSMutableAttributedString(string: "인증번호 전송", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
         button.tintColor = .mainTextColor
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 16
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(hex: 0xD8D8D8).cgColor
         button.addTarget(self, action: #selector(didTapSendNumber), for: .touchUpInside)
@@ -87,6 +88,7 @@ class FindPasswordViewController: BaseViewController {
         tf.keyboardAppearance = .light
         tf.attributedPlaceholder = NSAttributedString(string: "인증번호", attributes: [.foregroundColor:UIColor.mainPlaceholerColor, .font:UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!])
         tf.isSecureTextEntry = false
+        tf.keyboardType = .numberPad
         tf.addTarget(self, action: #selector(didChangeAuthNumberTextField), for: .editingChanged)
         return tf
     }()
@@ -110,7 +112,7 @@ class FindPasswordViewController: BaseViewController {
         let button = UIButton(type: .system)
         button.setAttributedTitle(NSMutableAttributedString(string: "인증확인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
         button.tintColor = .mainTextColor
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 16
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(hex: 0xD8D8D8).cgColor
         button.addTarget(self, action: #selector(didTapCheckNumber), for: .touchUpInside)
@@ -135,10 +137,10 @@ class FindPasswordViewController: BaseViewController {
     
     private let nextButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("다음", for: .normal)
+        button.setAttributedTitle(NSMutableAttributedString(string: "다음", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 16)!]), for: .normal)
         button.backgroundColor = .white
         button.tintColor = .mainTextColor
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 25
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.mainLightYellow.cgColor
         button.isUserInteractionEnabled = false
@@ -169,15 +171,20 @@ class FindPasswordViewController: BaseViewController {
             
             if phoneNumberTextField.text?.count == 11 {
                 sendAuthNumberButton.backgroundColor = .mainLightYellow
+                sendAuthNumberButton.layer.borderWidth = 0
                 isCorrectPhoneNumber = true
                 sendAuthNumberButton.isUserInteractionEnabled = true
                 correctPhoneNumberLabel.isHidden = true
             } else {
+                sendAuthNumberButton.layer.borderColor = UIColor(hex: 0xD8D8D8).cgColor
+                sendAuthNumberButton.layer.borderWidth = 1
                 isCorrectPhoneNumber = false
                 sendAuthNumberButton.isUserInteractionEnabled = false
                 correctPhoneNumberLabel.isHidden = false
             }
         } else {
+            sendAuthNumberButton.layer.borderColor = UIColor(hex: 0xD8D8D8).cgColor
+            sendAuthNumberButton.layer.borderWidth = 1
             isCorrectPhoneNumber = false
             sendAuthNumberButton.isUserInteractionEnabled = false
             correctPhoneNumberLabel.isHidden = false
@@ -189,10 +196,13 @@ class FindPasswordViewController: BaseViewController {
         checkAuthNumberButton.backgroundColor = .white
         if authNumberTextField.text?.count == 4 {
             checkAuthNumberButton.backgroundColor = .mainLightYellow
+            checkAuthNumberButton.layer.borderWidth = 0
             isCorrectAuthNumber = true
             checkAuthNumberButton.isUserInteractionEnabled = true
             correctAuthNumberLabel.isHidden = true
         } else {
+            checkAuthNumberButton.layer.borderColor = UIColor(hex: 0xD8D8D8).cgColor
+            checkAuthNumberButton.layer.borderWidth = 1
             isCorrectAuthNumber = false
             checkAuthNumberButton.isUserInteractionEnabled = false
             correctAuthNumberLabel.isHidden = false
@@ -361,5 +371,12 @@ extension FindPasswordViewController {
     
     func failedToCheckAuthNumber(message: String) {
         self.presentAlert(title: message)
+    }
+}
+
+extension FindPasswordViewController {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

@@ -24,4 +24,10 @@ struct GetAllPindergartenResult: Decodable {
     var rating: Double
     var distance: Double?
     var isLiked: Int
+    
+    static func ==(left: GetAllPindergartenResult, right: GetAllPindergartenResult) -> Bool {
+        return left.id == right.id
+    }
 }
+
+

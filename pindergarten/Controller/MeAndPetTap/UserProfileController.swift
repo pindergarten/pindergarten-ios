@@ -29,7 +29,7 @@ class UserProfileController: BaseViewController {
     
     private lazy var finishButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setAttributedTitle(NSAttributedString(string: "등록", attributes: [.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)!]), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: "완료", attributes: [.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)!]), for: .normal)
         button.tintColor = UIColor(hex: 0xABABAB)
         button.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
         button.isUserInteractionEnabled = false
@@ -58,7 +58,8 @@ class UserProfileController: BaseViewController {
     
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "meAndPet-DefaultProfile"))
-        iv.layer.cornerRadius = 43
+        iv.contentMode = .scaleAspectFill
+        iv.layer.cornerRadius = 51
         iv.layer.masksToBounds = true
         return iv
     }()
@@ -172,23 +173,34 @@ class UserProfileController: BaseViewController {
             UserDefaults.standard.removeObject(forKey: "userId")
         }
 
-        let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+        let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
         }
 
-        self.presentAlert(title: "회원탈퇴 하시겠습니까?", with: actionWithdrawal, actionCancel)
+        self.presentAlert(
+            preferredStyle: .actionSheet,
+            with: actionWithdrawal, actionCancel
+        )
+      
     }
     
     @objc private func didTapLogoutButton() {
         let actionLogout = UIAlertAction(title: "로그아웃", style: .destructive) { [weak self] action in
             self?.logoutDataManager.logout(delegate: self!)
+            print(UserDefaults.standard.string(forKey: "token") ?? "")
+            print(UserDefaults.standard.integer(forKey: "userId"))
             UserDefaults.standard.removeObject(forKey: "token")
             UserDefaults.standard.removeObject(forKey: "userId")
+            print(UserDefaults.standard.string(forKey: "token") ?? "")
+            print(UserDefaults.standard.integer(forKey: "userId"))
         }
 
-        let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+        let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
         }
 
-        self.presentAlert(title: "로그아웃 하시겠습니까?", with: actionLogout, actionCancel)
+        self.presentAlert(
+            preferredStyle: .actionSheet,
+            with: actionLogout, actionCancel
+        )
        
     }
     
@@ -197,9 +209,22 @@ class UserProfileController: BaseViewController {
     }
     
     @objc func didTapRegisterButton() {
-        changeProfileImageDataManager.changeProfile(userId: JwtToken.userId, profileImage: newImage, delegate: self) { _ in
+        let actionRegister = UIAlertAction(title: "수정하기", style: .default) { [weak self] action in
+            self?.changeProfileImageDataManager.changeProfile(userId: JwtToken.userId, profileImage: self?.newImage, delegate: self!) { _ in
+            }
+            self?.finishButton.tintColor = UIColor(hex: 0xABABAB)
             
+            self?.finishButton.isUserInteractionEnabled = false
         }
+
+        let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+        }
+
+        self.presentAlert(
+            preferredStyle: .actionSheet,
+            with: actionRegister, actionCancel
+        )
+    
     }
     
     @objc private func didTapBackButton() {
@@ -219,12 +244,12 @@ class UserProfileController: BaseViewController {
         containerView.addSubview(greetingStack)
         containerView.addSubview(nameInput)
         containerView.addSubview(phoneInput)
-        containerView.addSubview(changePasswordButton)
-        containerView.addSubview(line)
-        containerView.addSubview(logoutButton)
-        containerView.addSubview(logoutLine)
-        containerView.addSubview(withdrawalButton)
-        containerView.addSubview(withdrawalLine)
+//        containerView.addSubview(changePasswordButton)
+//        containerView.addSubview(line)
+//        containerView.addSubview(logoutButton)
+//        containerView.addSubview(logoutLine)
+//        containerView.addSubview(withdrawalButton)
+//        containerView.addSubview(withdrawalLine)
         
         backButton.snp.makeConstraints { make in
             make.top.equalTo(view.snp.topMargin).offset(22)
@@ -260,13 +285,13 @@ class UserProfileController: BaseViewController {
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(separateLine.snp.bottom).offset(40)
             make.centerX.equalTo(view)
-            make.width.height.equalTo(86)
+            make.width.height.equalTo(102)
         }
         
         
         cameraButton.snp.makeConstraints { make in
             make.right.bottom.equalTo(profileImageView)
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(40)
         }
         
         greetingStack.snp.makeConstraints { make in
@@ -284,39 +309,39 @@ class UserProfileController: BaseViewController {
             make.left.right.equalTo(view).inset(20)
         }
         
-        changePasswordButton.snp.makeConstraints { make in
-            make.top.equalTo(phoneInput.snp.bottom)
-            make.left.right.equalTo(view).inset(20)
-            make.height.equalTo(60)
-        }
+//        changePasswordButton.snp.makeConstraints { make in
+//            make.top.equalTo(phoneInput.snp.bottom)
+//            make.left.right.equalTo(view).inset(20)
+//            make.height.equalTo(60)
+//        }
         
-        line.snp.makeConstraints { make in
-            make.top.equalTo(changePasswordButton.snp.bottom)
-            make.left.right.equalTo(view).inset(20)
-        }
+//        line.snp.makeConstraints { make in
+//            make.top.equalTo(changePasswordButton.snp.bottom)
+//            make.left.right.equalTo(view).inset(20)
+//        }
         
-        logoutButton.snp.makeConstraints { make in
-            make.top.equalTo(line.snp.bottom)
-            make.left.right.equalTo(view).inset(20)
-            make.height.equalTo(60)
-        }
-        
-        logoutLine.snp.makeConstraints { make in
-            make.top.equalTo(logoutButton.snp.bottom)
-            make.left.right.equalTo(view).inset(20)
-        }
-        
-        withdrawalButton.snp.makeConstraints { make in
-            make.top.equalTo(logoutLine.snp.bottom)
-            make.left.right.equalTo(view).inset(20)
-            make.height.equalTo(60)
-        }
-        
-        withdrawalLine.snp.makeConstraints { make in
-            make.top.equalTo(withdrawalButton.snp.bottom)
-            make.left.right.equalTo(view).inset(20)
-            make.bottom.lessThanOrEqualTo(containerView).offset(-40)
-        }
+//        logoutButton.snp.makeConstraints { make in
+//            make.top.equalTo(phoneInput.snp.bottom)
+//            make.left.right.equalTo(view).inset(20)
+//            make.height.equalTo(60)
+//        }
+//
+//        logoutLine.snp.makeConstraints { make in
+//            make.top.equalTo(logoutButton.snp.bottom)
+//            make.left.right.equalTo(view).inset(20)
+//        }
+//
+//        withdrawalButton.snp.makeConstraints { make in
+//            make.top.equalTo(logoutLine.snp.bottom)
+//            make.left.right.equalTo(view).inset(20)
+//            make.height.equalTo(60)
+//        }
+//
+//        withdrawalLine.snp.makeConstraints { make in
+//            make.top.equalTo(withdrawalButton.snp.bottom)
+//            make.left.right.equalTo(view).inset(20)
+//            make.bottom.lessThanOrEqualTo(containerView).offset(-40)
+//        }
     }
     
     func checkAlbumPermission(){
@@ -372,7 +397,7 @@ extension UserProfileController: UIImagePickerControllerDelegate, UINavigationCo
 extension UserProfileController {
     func didSuccessLogout() {
         self.presentAlert(title: "로그아웃에 성공하였습니다.") {[weak self] _ in
-            self?.changeRootViewController(NewSplashController())
+            self?.changeRootViewController(UINavigationController(rootViewController: NewSplashController()))
         }
        
     }
@@ -383,7 +408,7 @@ extension UserProfileController {
     
     func didSuccessWithdrawal() {
         self.presentAlert(title: "회원 탈퇴에 성공하였습니다.") {[weak self] _ in
-            self?.changeRootViewController(NewSplashController())
+            self?.changeRootViewController(UINavigationController(rootViewController: NewSplashController()))
         }
     }
     
@@ -392,6 +417,7 @@ extension UserProfileController {
     }
     
     func didSuccessGetMyProfile(_ result: GetUserResult) {
+        nameLabel.text = "\(result.nickname) 님,"
         nameInput.textField.text = result.nickname
         phoneInput.textField.text = result.phone
         profileImageView.kf.setImage(with: URL(string: result.profileImage))

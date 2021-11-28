@@ -13,7 +13,7 @@ class SplashViewController: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "backgroundImage")
+        imageView.image = UIImage(named: "background")
         return imageView
     }()
     
@@ -95,9 +95,6 @@ class SplashViewController: UIViewController {
         
         navigationController?.navigationBar.isHidden = true
         
-        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseInOut) {
-            self.buttonStackView.alpha = 1
-        }
 
     }
     //MARK: - Action
@@ -116,7 +113,7 @@ class SplashViewController: UIViewController {
         view.addSubview(splashLabel)
 //        view.addSubview(titleLabel)
 //        view.addSubview(subtitleLabel)
-        view.addSubview(buttonStackView)
+//        view.addSubview(buttonStackView)
         
         backgroundImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -139,11 +136,11 @@ class SplashViewController: UIViewController {
 //            make.top.equalTo(titleLabel.snp.bottom).offset(10)
 //        }
 
-        buttonStackView.snp.makeConstraints { make in
-            make.left.equalTo(view).offset(20)
-            make.right.equalTo(view).offset(-20)
-            make.height.equalTo(113)
-            make.bottom.equalTo(view.snp.bottomMargin).offset(-(Device.height / 12))
-        }
+//        buttonStackView.snp.makeConstraints { make in
+//            make.left.equalTo(view).offset(20)
+//            make.right.equalTo(view).offset(-20)
+//            make.height.equalTo(113)
+//            make.bottom.equalTo(view.snp.bottomMargin).offset(-(Device.height / 12))
+//        }
     }
 }

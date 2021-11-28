@@ -6,10 +6,15 @@
 //
 
 import UIKit
-import IQKeyboardManagerSwift
 import Photos
 
 class PetRegisterController: BaseViewController {
+    deinit {
+        print("deinit")
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     //MARK: - Properties
     let imagePicker = UIImagePickerController()
     var myPet = PostMyPetRequest(name: "", profileImage: Data(), gender: 2, breed: "", birth: "", vaccination: 2, neutering: 2)
@@ -70,7 +75,7 @@ class PetRegisterController: BaseViewController {
     
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "meAndPet-DefaultProfile"))
-        iv.layer.cornerRadius = 43
+        iv.layer.cornerRadius = 51
         iv.layer.masksToBounds = true
         return iv
     }()
@@ -90,18 +95,18 @@ class PetRegisterController: BaseViewController {
     
     let birthInput = CustomInputView(title: "반려견 생년원일", placeholder: "생년월일을 입력해주세요.", spacing: 16)
     
-    let registerChoice = CustomButtonChoiceView(title: "반려견 등록 여부", choiceItem: ["했어요", "안했어요"])
+    let registerChoice = CustomButtonChoiceView(title: "예방접종 여부", choiceItem: ["했어요", "안했어요"])
     
     let neuteringChoice = CustomButtonChoiceView(title: "중성화 여부", choiceItem: ["했어요", "안했어요"])
     
     var newImage: UIImage? = nil // update 할 이미지
+    var keyHeight: CGFloat?
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        IQKeyboardManager.shared.enable = true
+    
         setButtonChoiceDelegate()
         setImagePicker()
         configureUI()
@@ -111,6 +116,10 @@ class PetRegisterController: BaseViewController {
         breedInput.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,9 +128,30 @@ class PetRegisterController: BaseViewController {
         tabBarController?.tabBar.isHidden = true
     }
     //MARK: - Action
+    @objc func keyboardWillShow(_ sender: Notification) {
+        
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary;
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.size.height
+        keyHeight = keyboardHeight
+    
+//        self.view.frame.size.height -= keyboardHeight
+        print(2)
+        
+    }
+    
+    @objc func keyboardWillHide(_ sender: Notification) {
+//        self.view.frame.size.height += keyHeight!
+        print(1)
+        
+        
+    }
+    
     @objc func didTapRegisterButton() {
+        finishButton.isUserInteractionEnabled = false
+        finishButton.tintColor = UIColor(hex: 0xABABAB)
         postMyPetDataManager.registerPet(name: myPet.name, profileImage: newImage, gender: myPet.gender, breed: myPet.breed, birth: myPet.birth, vaccination: myPet.vaccination, neutering: myPet.neutering, delegate: self) { _ in
-            
         }
     }
     
@@ -164,6 +194,7 @@ class PetRegisterController: BaseViewController {
         checkAlbumPermission()
     }
     //MARK: - Helpers
+    
     private func setButtonChoiceDelegate() {
         genderChoice.delegate = self
         registerChoice.delegate = self
@@ -260,7 +291,7 @@ class PetRegisterController: BaseViewController {
         }
         
         separateLine.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom).offset(16)
+            make.top.equalTo(backButton.snp.bottom).offset(10)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }
@@ -281,13 +312,13 @@ class PetRegisterController: BaseViewController {
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(containerView).offset(40)
             make.centerX.equalTo(view)
-            make.width.height.equalTo(86)
+            make.width.height.equalTo(102)
         }
         
         
         cameraButton.snp.makeConstraints { make in
             make.right.bottom.equalTo(profileImageView)
-            make.width.height.equalTo(30)
+            make.width.height.equalTo(40)
         }
         
         nameInput.snp.makeConstraints { make in

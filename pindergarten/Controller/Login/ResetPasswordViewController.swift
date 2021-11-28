@@ -54,10 +54,10 @@ class ResetPasswordViewController: BaseViewController {
 
     private let nextButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("다음", for: .normal)
+        button.setAttributedTitle(NSMutableAttributedString(string: "다음", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 16)!]), for: .normal)
         button.backgroundColor = .white
         button.tintColor = .mainTextColor
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 25
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.mainLightYellow.cgColor
         button.isUserInteractionEnabled = false
@@ -70,6 +70,11 @@ class ResetPasswordViewController: BaseViewController {
         
         self.dismissKeyboardWhenTappedAround()
         passwordStack.textField.becomeFirstResponder()
+        
+        passwordStack.textField.returnKeyType = .continue
+        checkPasswordStack.textField.returnKeyType = .done
+        passwordStack.textField.delegate = self
+        checkPasswordStack.textField.delegate = self
         
         configureUI()
         checkPasswordStack.textField.addTarget(self, action: #selector(didChangePasswordCheckTextField), for: .editingChanged)
@@ -161,5 +166,12 @@ extension ResetPasswordViewController {
     
     func failedToResetPassword(message: String) {
         
+    }
+}
+
+extension ResetPasswordViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

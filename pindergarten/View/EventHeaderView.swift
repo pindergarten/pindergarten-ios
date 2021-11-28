@@ -44,19 +44,26 @@ class EventHeaderView: UIView  {
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)
         label.numberOfLines = 0
         label.textColor = .mainTextColor
-        label.text = "이벤트 제목"
+//        label.text = "이벤트 제목"
+       
         return label
     }()
     
     let eventImage: UIImageView = {
         let image = UIImageView()
-        image.image = #imageLiteral(resourceName: "6")
+        image.image = UIImage(named: "eventimage")
         image.contentMode = .scaleAspectFill
         image.layer.cornerRadius = 10
         image.clipsToBounds = true
         return image
     }()
 
+    lazy var eventStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [eventNameLabel, eventImage])
+        stack.axis = .vertical
+        stack.spacing = 8
+        return stack
+    }()
     private let dDayView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -133,8 +140,9 @@ class EventHeaderView: UIView  {
     //MARK: - Helpers
     private func configureUI() {
 
-        addSubview(eventNameLabel)
-        addSubview(eventImage)
+//        addSubview(eventNameLabel)
+//        addSubview(eventImage)
+        addSubview(eventStack)
         addSubview(dDayView)
         dDayView.addSubview(dDayLabel)
         addSubview(heartButton)
@@ -143,16 +151,22 @@ class EventHeaderView: UIView  {
         addSubview(commentLabel)
         
         
-        eventNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(self).offset(20)
-            make.left.equalTo(self).offset(20)
-        }
+//        eventNameLabel.snp.makeConstraints { make in
+//            make.top.equalTo(self).offset(20)
+//            make.left.right.equalTo(self).inset(20)
+//        }
+//
+//        eventImage.snp.makeConstraints { make in
+//            make.top.equalTo(eventNameLabel.snp.bottom).offset(8)
+//            make.width.equalTo(Device.width - 40)
+//            make.bottom.equalTo(heartButton.snp.top).offset(-15)
+//            make.centerX.equalTo(self)
+//        }
         
-        eventImage.snp.makeConstraints { make in
-            make.top.equalTo(eventNameLabel.snp.bottom).offset(8)
-            make.width.equalTo(Device.width - 40)
+        eventStack.snp.makeConstraints { make in
+            make.top.equalTo(self).offset(20)
+            make.left.right.equalTo(self).inset(20)
             make.bottom.equalTo(heartButton.snp.top).offset(-15)
-            make.centerX.equalTo(self)
         }
         
         dDayView.snp.makeConstraints { make in
@@ -185,6 +199,7 @@ class EventHeaderView: UIView  {
         commentLabel.snp.makeConstraints { make in
             make.centerY.equalTo(heartButton)
             make.left.equalTo(commentButton.snp.right).offset(6)
+
         }
 
     }

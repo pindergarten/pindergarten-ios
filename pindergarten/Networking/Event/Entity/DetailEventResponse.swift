@@ -19,7 +19,7 @@ struct GetDetailEventResult: Decodable {
 
     var id: Int
     var title: String
-    var thumbnail: String
+    var image: String
     var expiredAt: String
     var createdAt: String
     var likeCount: Int
@@ -30,7 +30,7 @@ struct GetDetailEventResult: Decodable {
 
         case id
         case title
-        case thumbnail
+        case image
         case expiredAt = "expired_at"
         case createdAt = "created_at"
         case likeCount

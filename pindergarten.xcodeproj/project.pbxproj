@@ -103,6 +103,14 @@
 		24994E2F274EB04E005A604B /* AutoLoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E2E274EB04E005A604B /* AutoLoginDataManager.swift */; };
 		24994E31274EB9FD005A604B /* GetMyProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E30274EB9FC005A604B /* GetMyProfileDataManager.swift */; };
 		24994E33274EC0CC005A604B /* ChangeProfileImageDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E32274EC0CC005A604B /* ChangeProfileImageDataManager.swift */; };
+		24994E35274FC54A005A604B /* PlusPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E34274FC549005A604B /* PlusPopUpViewController.swift */; };
+		24994E37274FEBCD005A604B /* ServiceTermViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E36274FEBCD005A604B /* ServiceTermViewController.swift */; };
+		24994E39274FF4F4005A604B /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E38274FF4F4005A604B /* UINavigationController.swift */; };
+		24994E3B2750D86C005A604B /* DetailTimePindergartenInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E3A2750D86B005A604B /* DetailTimePindergartenInfoCell.swift */; };
+		24994E3D27514E43005A604B /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E3C27514E43005A604B /* OnboardingPageViewController.swift */; };
+		24994E3F275152A1005A604B /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E3E275152A1005A604B /* OnboardingController.swift */; };
+		24994E422752708F005A604B /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24994E402752708E005A604B /* Roboto-Medium.ttf */; };
+		24994E432752708F005A604B /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24994E412752708E005A604B /* Roboto-Black.ttf */; };
 		24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6A92725423A00FD519D /* AppDelegate.swift */; };
 		24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6AB2725423A00FD519D /* SceneDelegate.swift */; };
 		24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C4D6B22725423B00FD519D /* Assets.xcassets */; };
@@ -277,6 +285,14 @@
 		24994E2E274EB04E005A604B /* AutoLoginDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLoginDataManager.swift; sourceTree = "<group>"; };
 		24994E30274EB9FC005A604B /* GetMyProfileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyProfileDataManager.swift; sourceTree = "<group>"; };
 		24994E32274EC0CC005A604B /* ChangeProfileImageDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfileImageDataManager.swift; sourceTree = "<group>"; };
+		24994E34274FC549005A604B /* PlusPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusPopUpViewController.swift; sourceTree = "<group>"; };
+		24994E36274FEBCD005A604B /* ServiceTermViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTermViewController.swift; sourceTree = "<group>"; };
+		24994E38274FF4F4005A604B /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
+		24994E3A2750D86B005A604B /* DetailTimePindergartenInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTimePindergartenInfoCell.swift; sourceTree = "<group>"; };
+		24994E3C27514E43005A604B /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
+		24994E3E275152A1005A604B /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
+		24994E402752708E005A604B /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		24994E412752708E005A604B /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		24C4D6A62725423A00FD519D /* pindergarten.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pindergarten.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24C4D6A92725423A00FD519D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24C4D6AB2725423A00FD519D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -507,7 +523,9 @@
 				24994DF8274A8AA1005A604B /* PetRegisterController.swift */,
 				24994E18274D68CA005A604B /* DetailPetController.swift */,
 				24994E24274E958B005A604B /* SettingController.swift */,
+				24994E36274FEBCD005A604B /* ServiceTermViewController.swift */,
 				24994E26274E9B47005A604B /* UserProfileController.swift */,
+				24994E34274FC549005A604B /* PlusPopUpViewController.swift */,
 			);
 			path = MeAndPetTap;
 			sourceTree = "<group>";
@@ -631,6 +649,7 @@
 				24C4D6E92725956D00FD519D /* Color.swift */,
 				24C4D6EB272597DB00FD519D /* UIViewController.swift */,
 				24C4D7012727DFA500FD519D /* UIView.swift */,
+				24994E38274FF4F4005A604B /* UINavigationController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -638,6 +657,8 @@
 		24C4D6E2272594D600FD519D /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				24994E412752708E005A604B /* Roboto-Black.ttf */,
+				24994E402752708E005A604B /* Roboto-Medium.ttf */,
 				24C4D70D2728393500FD519D /* BMDOHYEON_otf.otf */,
 				24F74345272EF1CC00238E20 /* AppleSDGothicNeoEB.ttf */,
 				24C4D70E2728393500FD519D /* SDSwagger.otf */,
@@ -666,6 +687,8 @@
 			isa = PBXGroup;
 			children = (
 				24C4D6F527259B1800FD519D /* SplashViewController.swift */,
+				24994E3C27514E43005A604B /* OnboardingPageViewController.swift */,
+				24994E3E275152A1005A604B /* OnboardingController.swift */,
 				24994E22274E530E005A604B /* NewSplashController.swift */,
 			);
 			path = Splash;
@@ -701,6 +724,7 @@
 				24994DBB2740A052005A604B /* SearchPindergartenCell.swift */,
 				24994DD32741590A005A604B /* DetailPindergartenHeaderCell.swift */,
 				24994DD627416061005A604B /* DetailPindergartenInfoCell.swift */,
+				24994E3A2750D86B005A604B /* DetailTimePindergartenInfoCell.swift */,
 				24994DD827416174005A604B /* DetailPindergartenBasicInfoCell.swift */,
 				24994DDC274168DC005A604B /* DetailPindergartenBlogReviewCell.swift */,
 				24F7434927303AFB00238E20 /* PinterestLayout.swift */,
@@ -926,7 +950,9 @@
 			files = (
 				24C4D6B62725423B00FD519D /* LaunchScreen.storyboard in Resources */,
 				24C4D7102728393500FD519D /* SDSwagger.otf in Resources */,
+				24994E422752708F005A604B /* Roboto-Medium.ttf in Resources */,
 				24C4D70F2728393500FD519D /* BMDOHYEON_otf.otf in Resources */,
+				24994E432752708F005A604B /* Roboto-Black.ttf in Resources */,
 				24F74346272EF1CC00238E20 /* AppleSDGothicNeoEB.ttf in Resources */,
 				24C4D6B32725423B00FD519D /* Assets.xcassets in Resources */,
 			);
@@ -1087,11 +1113,13 @@
 				24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */,
 				247B84492735026C00591CC4 /* ReportController.swift in Sources */,
 				24994DF9274A8AA1005A604B /* PetRegisterController.swift in Sources */,
+				24994E35274FC54A005A604B /* PlusPopUpViewController.swift in Sources */,
 				240B8D83273268B300078404 /* GetAllFeedDataManager.swift in Sources */,
 				24994E33274EC0CC005A604B /* ChangeProfileImageDataManager.swift in Sources */,
 				24F7434A27303AFB00238E20 /* PinterestLayout.swift in Sources */,
 				24994E09274CF44C005A604B /* PostMyPetResponse.swift in Sources */,
 				247B843D273426D300591CC4 /* DetailFeedViewController.swift in Sources */,
+				24994E3D27514E43005A604B /* OnboardingPageViewController.swift in Sources */,
 				247B84472734601100591CC4 /* DeleteFeedResponse.swift in Sources */,
 				24F74314272D02BA00238E20 /* CheckNickNameResponse.swift in Sources */,
 				24C4D6FC2727D6B300FD519D /* LoginViewController.swift in Sources */,
@@ -1140,8 +1168,10 @@
 				24994E2D274EAA2C005A604B /* DefaultResponse.swift in Sources */,
 				24994DAB273ADA27005A604B /* ReportResponse.swift in Sources */,
 				24994E0D274D020A005A604B /* GetAllMyPetsDataManager.swift in Sources */,
+				24994E3B2750D86C005A604B /* DetailTimePindergartenInfoCell.swift in Sources */,
 				24994DE72742A1B2005A604B /* BlogReviewController.swift in Sources */,
 				24C4D6F627259B1800FD519D /* SplashViewController.swift in Sources */,
+				24994E3F275152A1005A604B /* OnboardingController.swift in Sources */,
 				24C4D6DD2725929800FD519D /* Constant.swift in Sources */,
 				24F74303272CEBD800238E20 /* SendAuthNumberDataManager.swift in Sources */,
 				24F74316272D0A5E00238E20 /* CheckUserDataManager.swift in Sources */,
@@ -1168,6 +1198,7 @@
 				24994E17274D50C9005A604B /* PostFeedDataManager.swift in Sources */,
 				247B844527345F4A00591CC4 /* DeleteFeedDataManager.swift in Sources */,
 				24994DC62740CF4F005A604B /* GetLikePindergartenDataManager.swift in Sources */,
+				24994E39274FF4F4005A604B /* UINavigationController.swift in Sources */,
 				24F7430A272CF53800238E20 /* CheckAuthNumberDataManager.swift in Sources */,
 				24C4D6AC2725423A00FD519D /* SceneDelegate.swift in Sources */,
 				24994DCE2740F8E0005A604B /* PindergartenLikeDataManager.swift in Sources */,
@@ -1190,6 +1221,7 @@
 				247B8435273306CA00591CC4 /* LikeResponse.swift in Sources */,
 				24994D9127397CC2005A604B /* DetailEventResponse.swift in Sources */,
 				24994DAD273B00DE005A604B /* EventHeaderView.swift in Sources */,
+				24994E37274FEBCD005A604B /* ServiceTermViewController.swift in Sources */,
 				24994DF32743ED51005A604B /* GetPickAroundPindergartenDataManager.swift in Sources */,
 				24C4D6E02725946C00FD519D /* JwtToken.swift in Sources */,
 				24994DE9274390BF005A604B /* GetSearchPindergartenDataManager.swift in Sources */,
@@ -1298,7 +1330,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1353,7 +1385,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1371,7 +1403,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GPAJW775X5;
+				DEVELOPMENT_TEAM = GZCWDPJJ9Z;
 				INFOPLIST_FILE = pindergarten/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1394,7 +1426,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = GPAJW775X5;
+				DEVELOPMENT_TEAM = GZCWDPJJ9Z;
 				INFOPLIST_FILE = pindergarten/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

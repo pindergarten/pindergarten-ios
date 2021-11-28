@@ -39,10 +39,16 @@ class AllEventHeaderView: UICollectionReusableView {
     }
 }
 
+
+
 class EventViewController: BaseViewController {
     //MARK: - Properties
     lazy var getAllEventDataManager: GetAllEventDataManager = GetAllEventDataManager()
-    private var event: [GetAllEventResult] = []
+    private var event: [GetAllEventResult] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     private lazy var backButton: UIButton = {
         let button = UIButton(type: .system)
@@ -79,12 +85,18 @@ class EventViewController: BaseViewController {
         cv.backgroundColor = .white
         return cv
     }()
+    
+   
+    
+    var daysCount:Int = 0
+
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
             
         getAllEventDataManager.getAllEvent(delegate: self)
         
+       
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(EventCell.self, forCellWithReuseIdentifier: EventCell.identifier)
@@ -106,6 +118,24 @@ class EventViewController: BaseViewController {
         navigationController?.popViewController(animated: true)
     }
     //MARK: - Helpers
+    
+    
+    
+    func days(to date: String) -> Int {
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        
+        let current = dateFormatter.string(from: currentDate)
+        let startDate = dateFormatter.date(from: current)!
+        let expireDay = dateFormatter.date(from: date)!
+        return calendar.dateComponents([.day], from: startDate, to: expireDay).day!
+
+    }
+    
     private func configureUI() {
         view.addSubview(backButton)
         view.addSubview(titleLabel)
@@ -124,7 +154,7 @@ class EventViewController: BaseViewController {
         }
         
         seperateLine.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom).offset(16)
+            make.top.equalTo(backButton.snp.bottom).offset(10)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }
@@ -149,10 +179,17 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCell.identifier, for: indexPath) as! EventCell
         let index = indexPath.item
-
-        cell.eventImage.kf.setImage(with: URL(string: event[index].thumbnail))
+        
+        cell.eventImage.kf.indicatorType = .activity
+        cell.eventImage.kf.setImage(with: URL(string: event[index].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
         cell.eventLabel.text = event[index].title
         cell.id = event[index].id
+        if days(to: event[index].expiredAt) == 0 {
+            cell.dDayLabel.text = "D-DAY"
+        } else {
+            cell.dDayLabel.text = "D-\(days(to: event[index].expiredAt))"
+        }
+       
         
         return cell
     }
@@ -163,6 +200,7 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
         collectionView.deselectItem(at: indexPath, animated: true)
         let detailVC = DetailEventController()
         detailVC.id = event[index].id
+        detailVC.dday = days(to: event[index].expiredAt)
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -204,9 +242,9 @@ extension EventViewController: UICollectionViewDelegateFlowLayout {
 // 네트워크 함수
 extension EventViewController {
     func didSuccessGetAllEvent(_ result: [GetAllEventResult]) {
-        print("DEBUG: GET ALL FEED")
+        print(result)
         self.event = result
-        collectionView.reloadData()
+
     }
     
     func failedToGetAllEvent(message: String) {

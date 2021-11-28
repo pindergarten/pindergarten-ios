@@ -15,6 +15,7 @@ class DetailEventController: BaseViewController {
     //MARK: - Properties
     
     var id: Int = 0
+    var dday: Int = 0
     var eventComment: [GetEventCommentResult] = []
     
     lazy var getDetailEventDataManager: GetDetailEventDataManager = GetDetailEventDataManager()
@@ -78,17 +79,27 @@ class DetailEventController: BaseViewController {
         
         commentTableView.tableFooterView = footerView
         
+        if self.dday == 0 {
+            headerView.dDayLabel.text = "D-DAY"
+        } else {
+            headerView.dDayLabel.text = "D-\(self.dday)"
+        }
+        
+        
         
         headerView.delegate = self
         footerView.delegate = self
         
         var size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        let height = size.height
+        let width = size.width
         size.width = UIScreen.main.bounds.width
-        headerView.frame.size = size
+        headerView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+//        headerView.frame.size = size
         
-        size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        size.width = UIScreen.main.bounds.width
-        headerView.frame.size = size
+//        size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+//        size.width = UIScreen.main.bounds.width
+//        headerView.frame.size = size
         
         commentTableView.tableHeaderView = headerView
         getDetailEventDataManager.getADetailEvent(eventId: id, delegate: self)
@@ -137,7 +148,7 @@ class DetailEventController: BaseViewController {
         }
         
         separateLine.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom).offset(16)
+            make.top.equalTo(backButton.snp.bottom).offset(10)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }
@@ -222,9 +233,10 @@ extension DetailEventController: EventFooterDelegate {
 // 네트워크 함수
 extension DetailEventController {
     func didSuccessGetDetailEvent(_ result: GetDetailEventResult) {
-        print("DEBUG: GET DETAIL EVENT")
         headerView.eventNameLabel.text = result.title
-        headerView.eventImage.kf.setImage(with: URL(string: result.thumbnail))
+        headerView.eventImage.kf.indicatorType = .activity
+        headerView.eventImage.kf.setImage(with: URL(string: result.image), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+        
         result.isLiked == 0 ? headerView.heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal) : headerView.heartButton.setImage(#imageLiteral(resourceName: "feedFilledHeartImage"), for: .normal)
         headerView.heartLabel.text = "\(result.likeCount)"
         headerView.commentLabel.text = "\(result.commentCount)"

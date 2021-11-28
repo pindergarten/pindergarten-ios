@@ -56,9 +56,13 @@ class CommentController: BaseViewController {
         tf.textColor = UIColor(hex: 0x4E5261)
         tf.attributedPlaceholder = NSAttributedString(string: "댓글을 입력하세요 :)", attributes: [.foregroundColor:UIColor(hex: 0x7E7E7E, alpha: 0.8), .font:UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!])
         let spacer = UIView()
+        let spacerRight = UIView()
         spacer.setDimensions(height: 40, width: 16)
+        spacerRight.setDimensions(height: 40, width: 16)
         tf.leftView = spacer
+        tf.rightView = spacerRight
         tf.leftViewMode = .always
+        tf.rightViewMode = .always
         tf.borderStyle = .none
         tf.layer.cornerRadius = 20
         tf.backgroundColor = .mainLightYellow
@@ -182,7 +186,7 @@ class CommentController: BaseViewController {
         }
         
         seperateLine.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom).offset(16)
+            make.top.equalTo(backButton.snp.bottom).offset(10)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }
@@ -228,7 +232,7 @@ extension CommentController: UITableViewDelegate, UITableViewDataSource {
         cell.profileImage.kf.setImage(with: URL(string: comments[indexPath.item].profileimg))
         
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.19
+        paragraphStyle.lineHeightMultiple = 1.05
         let attributedString = NSMutableAttributedString(string: "\(comments[indexPath.item].nickname)  ", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 14)!, .foregroundColor : UIColor(hex: 0x2D2D2D, alpha: 0.85), .paragraphStyle : paragraphStyle])
         attributedString.append(NSAttributedString(string: comments[indexPath.item].content, attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x4E5261, alpha: 0.85), .paragraphStyle : paragraphStyle]))
         cell.commentLabel.attributedText = attributedString

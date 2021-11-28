@@ -7,10 +7,10 @@
 
 
 import UIKit
-import IQKeyboardManagerSwift
 import Photos
 
 class DetailPetController: BaseViewController {
+    
     //MARK: - Properties
     let imagePicker = UIImagePickerController()
     var myPet: GetDetailPetResult?
@@ -54,7 +54,6 @@ class DetailPetController: BaseViewController {
         button.setAttributedTitle(NSAttributedString(string: "삭제", attributes: [.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)!]), for: .normal)
         button.tintColor = UIColor.red
         button.addTarget(self, action: #selector(didTapDeleteButton), for: .touchUpInside)
-//        button.isUserInteractionEnabled = false
         return button
     }()
     
@@ -67,7 +66,8 @@ class DetailPetController: BaseViewController {
     
     private lazy var profileImageView: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "meAndPet-DefaultProfile"))
-        iv.layer.cornerRadius = 43
+        iv.contentMode = .scaleAspectFill
+        iv.layer.cornerRadius = 51
         iv.layer.masksToBounds = true
         return iv
     }()
@@ -87,7 +87,7 @@ class DetailPetController: BaseViewController {
     
     let birthInput = CustomInputView(title: "반려견 생년원일", placeholder: "생년월일을 입력해주세요.", spacing: 16)
     
-    let registerChoice = CustomButtonChoiceView(title: "반려견 등록 여부", choiceItem: ["했어요", "안했어요"])
+    let registerChoice = CustomButtonChoiceView(title: "예방접종 여부", choiceItem: ["했어요", "안했어요"])
     
     let neuteringChoice = CustomButtonChoiceView(title: "중성화 여부", choiceItem: ["했어요", "안했어요"])
     
@@ -97,11 +97,9 @@ class DetailPetController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        IQKeyboardManager.shared.enable = true
         getDetailPetDataManager.getDetailPet(petId: self.petId, delegate: self)
         setDidNotChoice()
-        setImagePicker()
+//        setImagePicker()
         configureUI()
         birthInput.textField.delegate = self
         
@@ -117,16 +115,20 @@ class DetailPetController: BaseViewController {
         tabBarController?.tabBar.isHidden = true
     }
     //MARK: - Action
+
     @objc func didTapDeleteButton() {
         let actionDelete = UIAlertAction(title: "삭제하기", style: .destructive) { [weak self] action in
             self?.deleteMyPetDataManager.deleteMyPet(petId: self!.petId, delegate: self!)
      
         }
 
-        let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+        let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
         }
 
-        self.presentAlert(title: "삭제하시겠습니까?", with: actionDelete, actionCancel)
+        self.presentAlert(
+            preferredStyle: .actionSheet,
+            with: actionDelete, actionCancel
+        )
         
     }
     
@@ -156,7 +158,7 @@ class DetailPetController: BaseViewController {
     }
     
     @objc private func didTapCameraButton() {
-        checkAlbumPermission()
+//        checkAlbumPermission()
     }
     //MARK: - Helpers
     private func setDidNotChoice() {
@@ -168,30 +170,30 @@ class DetailPetController: BaseViewController {
         neuteringChoice.isUserInteractionEnabled = false
     }
     
- 
-    func checkAlbumPermission(){
-        PHPhotoLibrary.requestAuthorization( { status in
-            switch status{
-            case .authorized:
-                print("Album: 권한 허용")
-                DispatchQueue.main.async {
-                    self.present(self.imagePicker, animated: true)
-                }
-               
-            case .denied:
-                print("Album: 권한 거부")
-            case .restricted, .notDetermined:
-                print("Album: 선택하지 않음")
-            default:
-                break
-            }
-        })
-    }
-    private func setImagePicker() {
-        imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
-        imagePicker.allowsEditing = true // 수정 가능 여부
-        imagePicker.delegate = self // picker delegate
-    }
+//
+//    func checkAlbumPermission(){
+//        PHPhotoLibrary.requestAuthorization( { status in
+//            switch status{
+//            case .authorized:
+//                print("Album: 권한 허용")
+//                DispatchQueue.main.async {
+//                    self.present(self.imagePicker, animated: true)
+//                }
+//
+//            case .denied:
+//                print("Album: 권한 거부")
+//            case .restricted, .notDetermined:
+//                print("Album: 선택하지 않음")
+//            default:
+//                break
+//            }
+//        })
+//    }
+//    private func setImagePicker() {
+//        imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
+//        imagePicker.allowsEditing = true // 수정 가능 여부
+//        imagePicker.delegate = self // picker delegate
+//    }
     
     func openDataPicker() {
         let datePicker = UIDatePicker()
@@ -248,7 +250,7 @@ class DetailPetController: BaseViewController {
         }
         
         separateLine.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom).offset(16)
+            make.top.equalTo(backButton.snp.bottom).offset(10)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }
@@ -269,7 +271,7 @@ class DetailPetController: BaseViewController {
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(containerView).offset(40)
             make.centerX.equalTo(view)
-            make.width.height.equalTo(86)
+            make.width.height.equalTo(102)
         }
         
 //
@@ -323,25 +325,25 @@ extension DetailPetController: UITextFieldDelegate {
     }
 }
 
-
-extension DetailPetController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        
-        if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            newImage = possibleImage // 수정된 이미지가 있을 경우
-        } else if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            newImage = possibleImage // 원본 이미지가 있을 경우
-        }
-        
-        self.profileImageView.image = newImage // 받아온 이미지를 update
-        let imageData = newImage?.jpegData(compressionQuality: 0.4)
-       
-        picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
-        
-    }
-}
+//
+//extension DetailPetController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//
+//
+//        if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+//            newImage = possibleImage // 수정된 이미지가 있을 경우
+//        } else if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//            newImage = possibleImage // 원본 이미지가 있을 경우
+//        }
+//
+//        self.profileImageView.image = newImage // 받아온 이미지를 update
+////        let imageData = newImage?.jpegData(compressionQuality: 0.4)
+//
+//        picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
+//
+//    }
+//}
 
 
 // 네트워크 함수

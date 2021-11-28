@@ -38,7 +38,7 @@ class HomeViewController: BaseViewController {
         let label = UILabel()
         label.textColor = .mainTextColor
         var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.2
+        paragraphStyle.lineSpacing = 1.5
         label.attributedText = NSAttributedString(
             string: "펫 유치원, 이제 핀더가든 \n앱으로 편리하게 보내세요",
             attributes: [.font : UIFont(name: "AppleSDGothicNeoEB00", size: 18)!, .paragraphStyle : paragraphStyle])
@@ -50,7 +50,7 @@ class HomeViewController: BaseViewController {
     
     private lazy var plusButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "plusButton"), for: .normal)
+        button.setImage(UIImage(named: "plusButton"), for: .normal)
         button.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
         return button
     }()
@@ -63,10 +63,12 @@ class HomeViewController: BaseViewController {
     }()
     
     private let collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: PinterestLayout())
+        let pinterestLayout = PinterestLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: pinterestLayout)
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 40, right: 12)
         return collectionView
     }()
 
@@ -81,15 +83,13 @@ class HomeViewController: BaseViewController {
         collectionView.dataSource = self
         
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: HomeCell.identifier)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 40, right: 12)
+        
         
         
         // Set the PinterestLayout delegate
         if let layout = collectionView.collectionViewLayout as? PinterestLayout {
           layout.delegate = self
         }
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -157,6 +157,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
         cell.delegate = self
         
+        
         cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"))
 //        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: UIImage())
 
@@ -169,9 +170,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 
         if feed[indexPath.item].isLiked == 0 {
-            cell.heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
+            cell.heartButton.setImage(UIImage(named: "heartButton"), for: .normal)
         } else if feed[indexPath.item].isLiked == 1 {
-            cell.heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)
+            cell.heartButton.setImage(UIImage(named: "filledHeartButton"), for: .normal)
         }
         
 //        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail))
@@ -195,12 +196,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension HomeViewController: HomeCellDelegate {
     func didTapHeartButton(tag: Int, index: Int) {
-        likeDataManager.like(postId: tag, delegate: self)
-        if feed[index].isLiked == 0 {
-            feed[index].isLiked = 1
-        } else {
-            feed[index].isLiked = 0
-        }
+        likeDataManager.like(postId: tag, index: index, delegate: self)
     }
 }
 
@@ -231,6 +227,17 @@ extension HomeViewController: PinterestLayoutDelegate {
     }
 }
 
+extension HomeViewController: DetailVCDelegate {
+    func deleteCache() {
+        if let layout = collectionView.collectionViewLayout as? PinterestLayout {
+            print("뭐지...")
+//            layout.cache.removeLast()
+        }
+    }
+    
+    
+}
+
 // 네트워크 함수
 extension HomeViewController {
    
@@ -244,9 +251,15 @@ extension HomeViewController {
         print("DEBUG: FAILED TO GET ALL FEED")
     }
     
-    func didSuccessLike(_ result: LikeResult) {
+    func didSuccessLike(idx: Int, _ result: LikeResult) {
         print("DEBUG: Like DETAIL FEED")
         print(result.isSet)
+        feed[idx].isLiked = result.isSet
+//        if feed[idx].isLiked == 0 {
+//            feed[idx].isLiked = 1
+//        } else {
+//            feed[idx].isLiked = 0
+//        }
         
         // 고치기
 //        getAllFeedDataManager.getAllFeed(delegate: self)

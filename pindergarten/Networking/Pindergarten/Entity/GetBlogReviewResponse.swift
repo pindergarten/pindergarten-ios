@@ -15,8 +15,8 @@ struct GetBlogReviewResponse: Decodable {
 }
 
 struct GetBlogReviewResult: Decodable {
-    var title: String
-    var content: String
-    var date: String
-    var link: String
+    var title: String? = ""
+    var content: String? = ""
+    var date: String? = ""
+    var link: String? = ""
 }

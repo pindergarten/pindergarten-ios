@@ -40,8 +40,9 @@ class HomeCell: UICollectionViewCell {
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = .gray
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
-        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -76,17 +77,18 @@ class HomeCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        profileImageView.setDimensions(height: 20, width: 20)
     }
     
     //MARK: - Action
     @objc func didTapHeartButton() {
         delegate?.didTapHeartButton(tag: heartButton.tag, index: feedIndex)
         print("DEBUG: TAPPED HEART BUTTON")
-        if heartButton.currentImage == UIImage(named: "heartButton") {
-            heartButton.setImage(#imageLiteral(resourceName: "filledHeartButton"), for: .normal)
-        } else {
-            heartButton.setImage(#imageLiteral(resourceName: "heartButton"), for: .normal)
-        }
+//        if heartButton.currentImage == UIImage(named: "heartButton") {
+//            heartButton.setImage(UIImage(named: "filledHeartButton"), for: .normal)
+//        } else {
+//            heartButton.setImage(UIImage(named: "heartButton"), for: .normal)
+//        }
     }
     //MARK: - Helpers
     private func setUpRoundShadow() {
@@ -114,7 +116,7 @@ class HomeCell: UICollectionViewCell {
         
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(8)
-            make.left.equalTo(imageView.snp.left).offset(10)
+            make.left.equalTo(contentView).offset(10)
             make.width.height.equalTo(20)
         }
         
@@ -132,7 +134,7 @@ class HomeCell: UICollectionViewCell {
         
         heartButton.snp.makeConstraints { make in
             make.width.height.equalTo(50)
-            make.bottom.right.equalTo(imageView).offset(-5)
+            make.bottom.right.equalTo(imageView).inset(5)
         }
         
         contentView.bringSubviewToFront(heartButton)

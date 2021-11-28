@@ -12,7 +12,11 @@ import Photos
 class ImageCell: UICollectionViewCell {
     static let identifier = "ImageCell"
     
-    let imageView = UIImageView()
+    let imageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        return iv
+    }()
     let deleteBtn = UIButton(type: .system)
     
     override init(frame: CGRect) {
@@ -145,6 +149,19 @@ class PostFeedController: BaseViewController {
         configureUI()
         placeholderSetting()
         
+
+        let cameraStackGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapCameraButton))
+    
+        cameraStack.isUserInteractionEnabled = true
+        cameraStack.addGestureRecognizer(cameraStackGestureRecognizer)
+
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = true
     }
     //MARK: - Action
     @objc private func didTapPostButton() {
@@ -272,7 +289,7 @@ class PostFeedController: BaseViewController {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.28
 
-        textView.attributedText = NSMutableAttributedString(string: "내용은 최소 10자 이상, 사진은 최소 1장 이상 등록해주세요:)\n(본문 최대 2,000자까지, 사진 최대 10장까지)", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle, .font : UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!, .foregroundColor : UIColor(hex: 0xC6C6C6)])
+        textView.attributedText = NSMutableAttributedString(string: "내용은 최소 1자 이상, 사진은 최소 1장 이상 등록해주세요:)\n(본문 최대 2,000자까지, 사진 최대 10장까지)", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle, .font : UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!, .foregroundColor : UIColor(hex: 0xC6C6C6)])
         
     }
     private func configureUI() {
@@ -303,7 +320,7 @@ class PostFeedController: BaseViewController {
         }
         
         separateLine.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom).offset(16)
+            make.top.equalTo(backButton.snp.bottom).offset(10)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }
@@ -328,7 +345,7 @@ class PostFeedController: BaseViewController {
         }
         
         textView.snp.makeConstraints { make in
-            make.top.equalTo(separateImageLine.snp.bottom).offset(14)
+            make.top.equalTo(separateImageLine.snp.bottom).offset(5)
             make.left.equalTo(view).offset(20)
             make.right.equalTo(view).offset(-20)
             make.bottom.equalTo(view.snp.bottomMargin)
@@ -376,15 +393,15 @@ extension PostFeedController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.28
-            textView.attributedText = NSMutableAttributedString(string: "내용은 최소 10자 이상, 사진은 최소 1장 이상 등록해주세요:)\n(본문 최대 2,000자까지, 사진 최대 10장까지)", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle, .font : UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!, .foregroundColor : UIColor(hex: 0xC6C6C6)])
+            paragraphStyle.lineSpacing = 2
+            textView.attributedText = NSMutableAttributedString(string: "내용은 최소 1자 이상, 사진은 최소 1장 이상 등록해주세요:)\n(본문 최대 2,000자까지, 사진 최대 10장까지)", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle, .font : UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!, .foregroundColor : UIColor(hex: 0xC6C6C6)])
 
         }
     }
     
     func textViewDidChange(_ textView: UITextView) {
         
-        if textView.text.count >= 10 {
+        if textView.text.count >= 1 {
             finishButton.isUserInteractionEnabled = true
             finishButton.tintColor = UIColor.mainBrown
         } else {

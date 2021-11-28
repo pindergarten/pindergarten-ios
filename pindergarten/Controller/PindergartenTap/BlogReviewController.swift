@@ -83,7 +83,7 @@ class BlogReviewController: BaseViewController {
         }
 
         seperateLine.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom).offset(16)
+            make.top.equalTo(backButton.snp.bottom).offset(10)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }
@@ -109,8 +109,8 @@ extension BlogReviewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         
         let blog = review?[indexPath.item]
-        cell.blogTitleLabel.text = blog?.title.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
-        cell.contentLabel.text = blog?.content.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
+        cell.blogTitleLabel.text = blog?.title?.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
+        cell.contentLabel.text = blog?.content?.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
         cell.dateLabel.text = blog?.date
         return cell
     }

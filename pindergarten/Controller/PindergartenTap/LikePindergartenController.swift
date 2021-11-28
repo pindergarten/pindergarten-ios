@@ -119,7 +119,7 @@ class LikePindergartenController: BaseViewController {
         }
         
         seperateLine.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom).offset(16)
+            make.top.equalTo(backButton.snp.bottom).offset(10)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }
@@ -134,12 +134,15 @@ class LikePindergartenController: BaseViewController {
 
 //MARK: - Extension
 extension LikePindergartenController: PindergartenCellDelegate {
-    func didTapCellHeartButton(id: Int) {
+   
+    
+    func didTapCellHeartButton(id: Int, index: Int) {
         print("DEBUG: TAPPED HEART BUTTON")
-        pindergartenLikeDataManager.likePindergarten(pindergartenId: id, delegate: self)
+        pindergartenLikeDataManager.likePindergarten(pindergartenId: id, index: index, delegate: self)
         
     }
 }
+
 extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -186,7 +189,7 @@ extension LikePindergartenController {
         self.presentAlert(title: message)
     }
     
-    func didSuccessLikePindergarten(_ result: PindergartenLikeResult) {
+    func didSuccessLikePindergarten(idx: Int, _ result: PindergartenLikeResult) {
         print(result.isSet)
     }
     

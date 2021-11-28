@@ -14,7 +14,6 @@ class DetailPindergartenInfoCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)
         label.textColor = .mainTextColor
-        label.text = "영업시간"
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
@@ -24,11 +23,11 @@ class DetailPindergartenInfoCell: UITableViewCell {
         label.numberOfLines = 0
         label.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
         label.textColor = .subTextColor
-        label.text = "10:30 - 20:00 연중무휴"
+        label.text = "-"
         return label
     }()
     
-    private let line: UIView = {
+    let line: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(hex: 0xE9E9E9)
         return view
@@ -52,10 +51,10 @@ class DetailPindergartenInfoCell: UITableViewCell {
 //        contentView.addSubview(line)
         
         titleLabel.snp.makeConstraints { make in
-            make.top.left.equalTo(contentView).offset(20)
-            make.right.equalTo(contentView).offset(-20)
+            make.top.equalTo(contentView).offset(20)
+            make.left.right.equalTo(contentView).inset(20)
         }
-        
+      
         infoLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(18)
             make.left.equalTo(contentView).offset(20)

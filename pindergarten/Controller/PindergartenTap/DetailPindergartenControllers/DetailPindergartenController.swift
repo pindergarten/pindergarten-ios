@@ -9,8 +9,12 @@ import UIKit
 import ImageSlideshow
 import Cosmos
 import WebKit
+import SafariServices
 
 
+class CustomTapGesture: UITapGestureRecognizer {
+  var urlString: String?
+}
 
 class DetailPindergartenController: BaseViewController {
 
@@ -37,6 +41,7 @@ class DetailPindergartenController: BaseViewController {
     }
     
     var pindergartenID: Int = 0
+    var webSiteArr = [String]()
     
     let totalTableVeiw: UITableView = {
         let tv = UITableView()
@@ -56,11 +61,13 @@ class DetailPindergartenController: BaseViewController {
         label.attributedText = NSAttributedString(string: "블로그 리뷰", attributes: [.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)!, .foregroundColor : UIColor.mainTextColor])
         view.addSubview(label)
         label.snp.makeConstraints { make in
-            make.top.left.equalTo(view).offset(20)
+            make.top.equalTo(view).offset(28)
+            make.left.right.equalTo(view).inset(20)
             make.bottom.equalTo(view).offset(0)
         }
         return view
     }()
+    
     let blogCountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 14)
@@ -145,6 +152,21 @@ class DetailPindergartenController: BaseViewController {
         blogVC.review = blogReviewResult
         navigationController?.pushViewController(blogVC, animated: true)
     }
+    
+    @objc func didTapHomepageLabel(sender: CustomTapGesture) {
+        print(123)
+        
+        guard let url = URL(string: sender.urlString ?? "") else { return }
+
+        let safariViewController = SFSafariViewController(url: url)
+
+        present(safariViewController, animated: true, completion: nil)
+
+
+
+//        let site: String = homepageInfoLabel.text ?? ""
+//        let websiteArr = site.components(separatedBy: "\n")
+    }
     //MARK: - Helpers
     private func setWebViewDelegate() {
         webView.uiDelegate = self
@@ -160,6 +182,7 @@ class DetailPindergartenController: BaseViewController {
         totalTableVeiw.register(DetailPindergartenBasicInfoCell.self, forCellReuseIdentifier: DetailPindergartenBasicInfoCell.identifier)
         totalTableVeiw.register(DetailPindergartenBlogReviewCell.self, forCellReuseIdentifier: DetailPindergartenBlogReviewCell.identifier)
         totalTableVeiw.register(DetailPindergartenHeaderCell.self, forCellReuseIdentifier: DetailPindergartenHeaderCell.identifier)
+        totalTableVeiw.register(DetailTimePindergartenInfoCell.self, forCellReuseIdentifier: DetailTimePindergartenInfoCell.identifier)
         
         totalTableVeiw.tableFooterView = blogFooter
     
@@ -183,9 +206,9 @@ extension DetailPindergartenController: BasicInfoCellDelegate {
         print("DEBUG: TAPPED PHONE LABEL")
     }
     
-    func didTapWebsiteLabel() {
-        print("DEBUG: TAPPED WEBSITE LABEL")
-    }
+//    func didTapWebsiteLabel() {
+//        print("DEBUG: TAPPED WEBSITE LABEL")
+//    }
     
     
 }
@@ -275,11 +298,13 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
         }
         
         if indexPath == [0,1] {
-            let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenInfoCell.identifier, for: indexPath) as! DetailPindergartenInfoCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: DetailTimePindergartenInfoCell.identifier, for: indexPath) as! DetailTimePindergartenInfoCell
+            
             cell.selectionStyle = .none
+            cell.titleLabel.text = "영업시간"
             
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 2
+            paragraphStyle.lineSpacing = 4
 
             let openText = detailResult?.openingHours == "" ? "-" : detailResult?.openingHours
             cell.infoLabel.attributedText = NSAttributedString(string: openText ?? "-", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle])
@@ -294,7 +319,7 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             cell.titleLabel.text = "이용안내"
             
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 2
+            paragraphStyle.lineSpacing = 4
 
             let accessText =  detailResult?.accessGuide == "" ? "-" : detailResult?.accessGuide
             cell.infoLabel.attributedText = NSAttributedString(string: accessText ?? "-", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle])
@@ -312,21 +337,26 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             cell.callInfoLabel.text = detailResult?.phone == "" ? "-" : detailResult?.phone
             num = cell.callInfoLabel.text?.replacingOccurrences(of: "-", with: "") ?? "0"
           
-            cell.addressInfoLabel.text = detailResult?.address == "" ? "-" : detailResult?.address
             
-           
-            if detailResult?.website == "" {
-                cell.homepageInfoLabel.text = "-"
-            } else {
-                cell.homepageInfoLabel.text = detailResult?.website
+            let addressParagraphStyle = NSMutableParagraphStyle()
+            addressParagraphStyle.lineSpacing = 4
+            cell.addressInfoLabel.attributedText = NSAttributedString(string: detailResult?.address ?? "-", attributes: [NSAttributedString.Key.paragraphStyle : addressParagraphStyle])
+            
+            if cell.websiteStack.arrangedSubviews.count != webSiteArr.count {
+                for website in webSiteArr {
+                    print(website)
+                    let homepageLabel = UILabel()
+                    homepageLabel.text = website
+                    homepageLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
+                    homepageLabel.textColor = .subTextColor
+                    homepageLabel.numberOfLines = 0
+                    cell.websiteStack.addArrangedSubview(homepageLabel)
+                    let tapWebsiteGestureRecognizer = CustomTapGesture(target: self, action: #selector(didTapHomepageLabel(sender:)))
+                    tapWebsiteGestureRecognizer.urlString = website
+                    homepageLabel.isUserInteractionEnabled = true
+                    homepageLabel.addGestureRecognizer(tapWebsiteGestureRecognizer)
+                }
             }
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 2
-
-            let websiteText =  detailResult?.website == "" ? "-" : detailResult?.website
-            cell.homepageInfoLabel.attributedText = NSAttributedString(string: websiteText ?? "-", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle])
-
             return cell
         }
         
@@ -334,8 +364,8 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenBlogReviewCell.identifier, for: indexPath) as! DetailPindergartenBlogReviewCell
             cell.selectionStyle = .none
             
-            let title = blogReviewResult?[indexPath.item].title.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
-            let content = blogReviewResult?[indexPath.item].content.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
+            let title = blogReviewResult?[indexPath.item].title?.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
+            let content = blogReviewResult?[indexPath.item].content?.replacingOccurrences(of: "</b>", with: "").replacingOccurrences(of: "<b>", with: "") ?? ""
             cell.blogTitleLabel.text = title
             cell.contentLabel.text = content
             cell.dateLabel.text = blogReviewResult?[indexPath.item].date ?? ""
@@ -414,6 +444,15 @@ extension DetailPindergartenController {
     
     func didSuccessGetDetailPindergarten(_ result: GetDetailPindergartenResult) {
         detailResult = result
+        print(result)
+       
+        
+        webSiteArr = result.website?.components(separatedBy: "\n") ?? []
+        if webSiteArr == [""] {
+            webSiteArr = ["-"]
+        }
+        
+        print(webSiteArr)
         
         if result.imgUrls?.count == 0 {
             imageInput = [ImageSource(image: UIImage(named: "1")!)]

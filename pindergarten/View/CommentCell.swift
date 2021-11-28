@@ -14,7 +14,6 @@ protocol CommentCellDelegate: AnyObject {
 class CommentCell: UITableViewCell {
     //MARK: - Properties
     static let identifier = "CommentCell"
-//    var commmentInfo: GetCommentResult?
     var commentId: Int = 0
     var userId: Int = 0
     
@@ -61,7 +60,12 @@ class CommentCell: UITableViewCell {
         return label
     }()
     
-
+    private lazy var commentStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [commentLabel, timeLabel])
+        stack.axis = .vertical
+        stack.spacing = 3
+        return stack
+    }()
     //MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -95,6 +99,7 @@ class CommentCell: UITableViewCell {
 //        addSubview(nameLabel)
         contentView.addSubview(commentLabel)
         contentView.addSubview(timeLabel)
+//        contentView.addSubview(commentStack)
 
         
         profileImage.snp.makeConstraints { make in
@@ -103,13 +108,20 @@ class CommentCell: UITableViewCell {
             make.left.equalTo(contentView).offset(20)
         }
         
+//        commentStack.snp.makeConstraints { make in
+//            make.centerY.equalTo(profileImage).offset(-1)
+//            make.left.equalTo(profileImage.snp.right).offset(8)
+//            make.right.equalTo(contentView).inset(20)
+//
+//        }
+        
         commentLabel.snp.makeConstraints { make in
             make.top.equalTo(profileImage)
             make.left.equalTo(profileImage.snp.right).offset(8)
             make.right.equalTo(contentView).offset(-20)
             make.bottom.equalTo(timeLabel.snp.top).offset(-4)
         }
-        
+
         timeLabel.snp.makeConstraints { make in
             make.left.equalTo(commentLabel)
             make.bottom.equalTo(contentView).offset(-5)

@@ -10,13 +10,17 @@ import ImageSlideshow
 import Kingfisher
 import FlexiblePageControl
 
+protocol DetailVCDelegate: AnyObject {
+    func deleteCache()
+}
+
 class DetailFeedViewController: BaseViewController {
     
     deinit {
             print("deinit")
     }
     //MARK: - Properties
-    
+    weak var delegate: DetailVCDelegate?
     lazy var getDetailFeedDataManager: GetDetailFeedDataManager = GetDetailFeedDataManager()
     lazy var likeDataManager: LikeDataManager = LikeDataManager()
     lazy var deleteFeedDataManager: DeleteFeedDataManager = DeleteFeedDataManager()
@@ -125,7 +129,7 @@ class DetailFeedViewController: BaseViewController {
         label.textColor = UIColor(hex: 0x858585)
 
         var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.28
+        paragraphStyle.lineSpacing = 2
         label.attributedText = NSMutableAttributedString(string: "잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ", attributes: [.font: UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!, .paragraphStyle: paragraphStyle])
         return label
     }()
@@ -148,8 +152,6 @@ class DetailFeedViewController: BaseViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
         
         pageIndicator.currentPageIndicatorTintColor = UIColor.mainLightYellow
         pageIndicator.pageIndicatorTintColor = UIColor(hex: 0xC4C4C4)
@@ -187,6 +189,7 @@ class DetailFeedViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = true
+        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
         
     }
     
@@ -198,13 +201,14 @@ class DetailFeedViewController: BaseViewController {
                 self?.deleteFeedDataManager.deleteFeed(postId: self!.postId, delegate: self ?? DetailFeedViewController())
             }
             
-            let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+            let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
             }
             
               self.presentAlert(
                   preferredStyle: .actionSheet,
                   with: actionDelete, actionCancel
               )
+            
         } else {
             let actionReport = UIAlertAction(title: "신고하기", style: .destructive) { [weak self] action in
                 let reportVC = ReportController()
@@ -212,7 +216,7 @@ class DetailFeedViewController: BaseViewController {
                 self?.navigationController?.pushViewController(reportVC, animated: true)
             }
             
-            let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+            let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
             }
             
             
@@ -233,7 +237,7 @@ class DetailFeedViewController: BaseViewController {
         moreLabel.isHidden = true
         contentLabel.numberOfLines = 0
         contentLabel.snp.remakeConstraints { remake in
-            remake.top.equalTo(heartButton.snp.bottom).offset(16)
+            remake.top.equalTo(heartButton.snp.bottom).offset(13)
             remake.left.equalTo(containerView).offset(20)
             remake.right.equalTo(containerView).offset(-57)
             remake.bottom.lessThanOrEqualTo(containerView).offset(-20)
@@ -286,7 +290,7 @@ class DetailFeedViewController: BaseViewController {
         }
         
         seperateLine.snp.makeConstraints { make in
-            make.top.equalTo(backButton.snp.bottom).offset(16)
+            make.top.equalTo(backButton.snp.bottom).offset(10)
             make.left.right.equalTo(view)
             make.height.equalTo(2)
         }
@@ -362,7 +366,7 @@ class DetailFeedViewController: BaseViewController {
         }
         
         contentLabel.snp.makeConstraints { make in
-            make.top.equalTo(heartButton.snp.bottom).offset(16)
+            make.top.equalTo(heartButton.snp.bottom).offset(13)
             make.left.equalTo(view).offset(20)
             make.right.equalTo(view).offset(-57)
         }
@@ -432,6 +436,7 @@ extension DetailFeedViewController {
     
     func didSuccessDeleteFeed() {
         self.presentAlert(title: "게시물이 삭제되었습니다") { [weak self] alert in
+            self?.delegate?.deleteCache()
             self?.navigationController?.popViewController(animated: true)
         }
         

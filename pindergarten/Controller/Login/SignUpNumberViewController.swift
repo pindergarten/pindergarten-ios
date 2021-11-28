@@ -9,6 +9,7 @@ import UIKit
 import AnyFormatKit
 
 class SignUpNumberViewController: BaseViewController {
+    
     deinit {
             print("deinit")
     }
@@ -59,6 +60,7 @@ class SignUpNumberViewController: BaseViewController {
         tf.keyboardAppearance = .light
         tf.attributedPlaceholder = NSAttributedString(string: "휴대폰 번호를 입력해주세요.", attributes: [.foregroundColor:UIColor.mainPlaceholerColor, .font:UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!])
         tf.isSecureTextEntry = false
+        tf.keyboardType = .numberPad
         tf.addTarget(self, action: #selector(didChangePhoneNumberTextField), for: .editingChanged)
         return tf
     }()
@@ -67,7 +69,7 @@ class SignUpNumberViewController: BaseViewController {
         let button = UIButton(type: .system)
         button.setAttributedTitle(NSMutableAttributedString(string: "인증번호 전송", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
         button.tintColor = .mainTextColor
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 16
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(hex: 0xD8D8D8).cgColor
         button.addTarget(self, action: #selector(didTapSendNumber), for: .touchUpInside)
@@ -90,9 +92,12 @@ class SignUpNumberViewController: BaseViewController {
         tf.keyboardAppearance = .light
         tf.attributedPlaceholder = NSAttributedString(string: "인증번호", attributes: [.foregroundColor:UIColor.mainPlaceholerColor, .font:UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!])
         tf.isSecureTextEntry = false
+        tf.keyboardType = .numberPad
+        tf.returnKeyType = .continue
         tf.addTarget(self, action: #selector(didChangeAuthNumberTextField), for: .editingChanged)
         return tf
     }()
+    
     private var timeLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
         label.text = "02:55"
@@ -112,7 +117,7 @@ class SignUpNumberViewController: BaseViewController {
         let button = UIButton(type: .system)
         button.setAttributedTitle(NSMutableAttributedString(string: "인증확인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
         button.tintColor = .mainTextColor
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 16
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(hex: 0xD8D8D8).cgColor
         button.addTarget(self, action: #selector(didTapCheckNumber), for: .touchUpInside)
@@ -157,6 +162,8 @@ class SignUpNumberViewController: BaseViewController {
         self.dismissKeyboardWhenTappedAround()
 //        phoneNumberTextField.delegate = self
         phoneNumberTextField.becomeFirstResponder()
+        phoneNumberTextField.delegate = self
+        authNumberTextField.delegate = self
         
         
         configureUI()
@@ -175,16 +182,19 @@ class SignUpNumberViewController: BaseViewController {
         if let _ = regex?.firstMatch(in: phoneNumberTextField.text ?? "", options: [], range: NSRange(location: 0, length: phoneNumberTextField.text?.count ?? 0)) {
             
             if phoneNumberTextField.text?.count == 11 {
+                sendAuthNumberButton.layer.borderWidth = 0
                 sendAuthNumberButton.backgroundColor = .mainLightYellow
                 isCorrectPhoneNumber = true
                 sendAuthNumberButton.isUserInteractionEnabled = true
                 correctPhoneNumberLabel.isHidden = true
             } else {
+                sendAuthNumberButton.layer.borderWidth = 1
                 isCorrectPhoneNumber = false
                 sendAuthNumberButton.isUserInteractionEnabled = false
                 correctPhoneNumberLabel.isHidden = false
             }
         } else {
+            sendAuthNumberButton.layer.borderWidth = 1
             isCorrectPhoneNumber = false
             sendAuthNumberButton.isUserInteractionEnabled = false
             correctPhoneNumberLabel.isHidden = false
@@ -195,11 +205,13 @@ class SignUpNumberViewController: BaseViewController {
     @objc func didChangeAuthNumberTextField() {
         checkAuthNumberButton.backgroundColor = .white
         if authNumberTextField.text?.count == 4 {
+            checkAuthNumberButton.layer.borderWidth = 0
             checkAuthNumberButton.backgroundColor = .mainLightYellow
             isCorrectAuthNumber = true
             checkAuthNumberButton.isUserInteractionEnabled = true
             correctAuthNumberLabel.isHidden = true
         } else {
+            checkAuthNumberButton.layer.borderWidth = 1
             isCorrectAuthNumber = false
             checkAuthNumberButton.isUserInteractionEnabled = false
             correctAuthNumberLabel.isHidden = false
@@ -207,6 +219,7 @@ class SignUpNumberViewController: BaseViewController {
     }
     
     @objc func didTapSendNumber() {
+        
         checkUserDataManager.checkUser(CheckUserRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
     }
     
@@ -257,6 +270,7 @@ class SignUpNumberViewController: BaseViewController {
             make.top.equalTo(progressBar.snp.bottom).offset(24)
             make.left.equalTo(view).offset(20)
         }
+        
         phoneNumberLabel.snp.makeConstraints { make in
             make.top.equalTo(infoLabel.snp.bottom).offset(24)
             make.left.equalTo(view).offset(20)
@@ -266,6 +280,7 @@ class SignUpNumberViewController: BaseViewController {
             make.left.equalTo(view).offset(20)
             make.height.equalTo(20)
         }
+        
         phoneNumberLine.snp.makeConstraints { make in
             make.top.equalTo(phoneNumberTextField.snp.bottom).offset(8)
             make.left.equalTo(20)
@@ -277,6 +292,7 @@ class SignUpNumberViewController: BaseViewController {
             make.width.equalTo(92)
             make.height.equalTo(32)
         }
+        
         authNumberTextField.snp.makeConstraints { make in
             make.top.equalTo(phoneNumberLine.snp.bottom).offset(28)
             make.left.equalTo(view).offset(20)
@@ -317,22 +333,29 @@ class SignUpNumberViewController: BaseViewController {
 
 // 휴대폰 번호 형식 맞추기
 extension SignUpNumberViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//
+//        guard let text = textField.text else {
+//            return false
+//        }
+//        let characterSet = CharacterSet(charactersIn: string)
+//        if CharacterSet.decimalDigits.isSuperset(of: characterSet) == false {
+//            return false
+//        }
+//
+//        let formatter = DefaultTextInputFormatter(textPattern: "###-####-####")
+//        let result = formatter.formatInput(currentText: text, range: range, replacementString: string)
+//        textField.text = result.formattedText
+//        let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
+//        textField.selectedTextRange = textField.textRange(from: position, to: position)
+//        return false
+//    }
+}
 
-        guard let text = textField.text else {
-            return false
-        }
-        let characterSet = CharacterSet(charactersIn: string)
-        if CharacterSet.decimalDigits.isSuperset(of: characterSet) == false {
-            return false
-        }
-
-        let formatter = DefaultTextInputFormatter(textPattern: "###-####-####")
-        let result = formatter.formatInput(currentText: text, range: range, replacementString: string)
-        textField.text = result.formattedText
-        let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
-        textField.selectedTextRange = textField.textRange(from: position, to: position)
-        return false
+extension SignUpNumberViewController {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
@@ -350,6 +373,7 @@ extension SignUpNumberViewController {
     func didSuccessSendAuthNumber() {
         print("DEBUG: SENDED AUTH NUMBER")
        
+        sendAuthNumberButton.layer.borderWidth = 1
         sendAuthNumberButton.isUserInteractionEnabled = false
         sendAuthNumberButton.backgroundColor = .white
         authNumberTextField.isHidden = false

@@ -9,7 +9,7 @@ import Alamofire
 
 class PindergartenLikeDataManager {
 
-    func likePindergarten(pindergartenId: Int, delegate: LikePindergartenController) {
+    func likePindergarten(pindergartenId: Int, index: Int, delegate: LikePindergartenController) {
         AF.request("\(Constant.BASE_URL)/api/pindergartens/\(pindergartenId)/like", method: .post,headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: PindergartenLikeResponse.self) { response in
@@ -17,7 +17,7 @@ class PindergartenLikeDataManager {
                 case .success(let response):
                     // 성공했을 때
                     if response.isSuccess, let result = response.result {
-                        delegate.didSuccessLikePindergarten(result)
+                        delegate.didSuccessLikePindergarten(idx: index, result)
                     }
                     // 실패했을 때
                     else {
@@ -32,7 +32,7 @@ class PindergartenLikeDataManager {
             }
     }
     
-    func likePindergarten(pindergartenId: Int, delegate: ContentViewController) {
+    func likePindergarten(pindergartenId: Int, index: Int, delegate: ContentViewController) {
         AF.request("\(Constant.BASE_URL)/api/pindergartens/\(pindergartenId)/like", method: .post,headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: PindergartenLikeResponse.self) { response in
@@ -40,7 +40,7 @@ class PindergartenLikeDataManager {
                 case .success(let response):
                     // 성공했을 때
                     if response.isSuccess, let result = response.result {
-                        delegate.didSuccessLikePindergarten(result)
+                        delegate.didSuccessLikePindergarten(id: pindergartenId, idx: index, result)
                     }
                     // 실패했을 때
                     else {

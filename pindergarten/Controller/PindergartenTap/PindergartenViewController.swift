@@ -102,6 +102,7 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         
         tabBarController?.tabBar.isHidden = false
         
+        
     }
     //MARK: - Action
     @objc private func didTapHeartButton() {
@@ -294,4 +295,5 @@ extension PindergartenViewController {
         self.presentAlert(title: message)
     }
 }
+
 

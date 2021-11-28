@@ -54,10 +54,10 @@ class SignUpPasswordViewController: BaseViewController {
 
     private let nextButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("다음", for: .normal)
+        button.setAttributedTitle(NSMutableAttributedString(string: "다음", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 16)!]), for: .normal)
         button.backgroundColor = .white
         button.tintColor = .mainTextColor
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 25
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.mainLightYellow.cgColor
         button.isUserInteractionEnabled = false
@@ -99,9 +99,11 @@ class SignUpPasswordViewController: BaseViewController {
         if let password = passwordStack.textField.text, let checkPassword = checkPasswordStack.textField.text {
             if password == checkPassword && password.count >= 8 && password.count <= 16 {
                 correctPasswordLabel.isHidden = true
+                nextButton.layer.borderWidth = 0
                 nextButton.backgroundColor = .mainLightYellow
                 nextButton.isUserInteractionEnabled = true
             } else {
+                nextButton.layer.borderWidth = 1
                 nextButton.backgroundColor = .white
                 nextButton.isUserInteractionEnabled = false
                 correctPasswordLabel.isHidden = false
@@ -155,4 +157,11 @@ class SignUpPasswordViewController: BaseViewController {
         }
     }
     
+}
+
+extension SignUpPasswordViewController {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

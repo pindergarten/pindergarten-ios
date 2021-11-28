@@ -28,7 +28,7 @@ class PinterestLayout: UICollectionViewFlowLayout {
     }
     
     // 다시 레이아웃을 계산할 필요가 없도록 메모리에 저장
-    private var cache: [UICollectionViewLayoutAttributes] = []
+   var cache: [UICollectionViewLayoutAttributes] = []
     
     // 1. 콜렉션 뷰의 콘텐츠 사이즈를 지정
     override var collectionViewContentSize: CGSize {
@@ -37,7 +37,7 @@ class PinterestLayout: UICollectionViewFlowLayout {
     
     // 2. 콜렉션 뷰가 처음 초기화되거나 뷰가 변경될 떄 실행됩니다. 이 메서드에서 레이아웃을 미리 계산하여 메모리에 적재하고, 필요할 때마다 효율적으로 접근할 수 있도록 구현해야 합니다.
     override func prepare() {
-        guard let collectionView = collectionView, cache.isEmpty else { return }
+        guard let collectionView = collectionView else { return }
         
         let numberOfColumns: Int = 2
         let cellPadding: CGFloat = 8
