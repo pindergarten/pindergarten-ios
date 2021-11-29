@@ -72,13 +72,14 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
     let contentVC = ContentViewController()
     let image = NMFOverlayImage(name: "marker")
     let selectedImage = NMFOverlayImage(name: "selectedMarker")
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
                 
         naverMapView.mapView.touchDelegate = self
 
-        getAllPindergartenDataManager.getLikePindergarten(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0, delegate: self)
+       
         enableLocationServices()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         configureUI()
@@ -97,18 +98,20 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         naverMapView.mapView.logoAlign = .leftTop
         naverMapView.mapView.addCameraDelegate(delegate: self)
         
+        getAllPindergartenDataManager.getLikePindergarten(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON, delegate: self)
+     
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = false
+        
         if let clickedLat = clickedLat, let clickedLon = clickedLon {
             getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: clickedLat, lon: clickedLon, delegate: self)
-        } else if let lat = locationManager.location?.coordinate.latitude, let lon = locationManager.location?.coordinate.longitude{
-            print(lat)
-            print(lon)
-            getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: lat, lon: lon, delegate: self)
+        } else {
+
+//            getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON, delegate: self)
         }
         
         
@@ -124,6 +127,24 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         navigationController?.pushViewController(searchPindergartenVC, animated: true)
     }
     //MARK: - Helpers
+    func setAuthAlertAction() {
+        let authAlertController: UIAlertController
+        authAlertController = UIAlertController(title: "위치 권한 요청", message: "위치 권한이 거부 상태입니다.\n환경설정으로 이동하시겠습니까?", preferredStyle: .alert)
+        
+        let getAuthAction: UIAlertAction
+        getAuthAction = UIAlertAction(title: "예", style: .default, handler: { _ in
+            if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "아니요", style: .cancel, handler: nil)
+        authAlertController.addAction(getAuthAction)
+        authAlertController.addAction(cancelAction)
+        
+        self.present(authAlertController, animated: true, completion: nil)
+    }
+    
     private func setFloatingPanel() {
         fpc = FloatingPanelController()
         fpc.delegate = self
@@ -250,8 +271,11 @@ extension PindergartenViewController: CLLocationManagerDelegate {
         case .notDetermined:
             print("DEBUG: Not determined.")
             locationManager.requestWhenInUseAuthorization()
+            
         case .restricted, .denied:
-            break
+            
+            setAuthAlertAction()
+            
         case .authorizedAlways:
             print("DEBUG: Auth always.")
      
@@ -301,6 +325,7 @@ extension PindergartenViewController {
     
     func failedToGetAllPindergarten(message: String) {
         self.presentAlert(title: message)
+        print("전체?")
     }
     
     func didSuccessGetNearPindergarten(_ result: [GetAllPindergartenResult]) {
@@ -310,6 +335,7 @@ extension PindergartenViewController {
     
     func failedToGetNearPindergarten(message: String) {
         self.presentAlert(title: message)
+        print("주위?")
     }
 }
 

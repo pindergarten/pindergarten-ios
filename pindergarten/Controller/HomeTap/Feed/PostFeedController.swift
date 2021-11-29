@@ -231,6 +231,23 @@ class PostFeedController: BaseViewController {
         imageCollectionView.reloadData()
     }
     //MARK: - Helpers
+    func setAuthAlertAction() {
+        let authAlertController: UIAlertController
+        authAlertController = UIAlertController(title: "사진첩 권한 요청", message: "사진첩 권한을 허용해야만 게시물을 등록하실 수 있습니다.\n환경설정으로 이동하시겠습니까?", preferredStyle: .alert)
+        
+        let getAuthAction: UIAlertAction
+        getAuthAction = UIAlertAction(title: "예", style: .default, handler: { _ in
+            if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "아니요", style: .cancel, handler: nil)
+        authAlertController.addAction(getAuthAction)
+        authAlertController.addAction(cancelAction)
+        
+        self.present(authAlertController, animated: true, completion: nil)
+    }
     private func getAlbum() {
         let imagePicker = ImagePickerController()
         imagePicker.settings.selection.max = 10 - selectedAssets.count
@@ -269,6 +286,9 @@ class PostFeedController: BaseViewController {
                 }
             case .denied:
                 print("Album: 권한 거부")
+                DispatchQueue.main.async {
+                    self.setAuthAlertAction()
+                }
             case .restricted, .notDetermined:
                 print("Album: 선택하지 않음")
             default:

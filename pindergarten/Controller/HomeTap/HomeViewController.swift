@@ -36,7 +36,7 @@ class HomeViewController: BaseViewController {
         var paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1.5
         label.attributedText = NSAttributedString(
-            string: "펫 유치원, 이제 핀더가든 \n앱으로 편리하게 보내세요",
+            string: "반려견의 하루,\n핀더가든에서 보내세요",
             attributes: [.font : UIFont(name: "AppleSDGothicNeoEB00", size: 18)!, .paragraphStyle : paragraphStyle])
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
