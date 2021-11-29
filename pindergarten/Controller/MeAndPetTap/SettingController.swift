@@ -155,6 +155,7 @@ class SettingController: BaseViewController {
             self?.withdrawalDataManager.withdrawal(userId: JwtToken.userId, delegate: self!)
             UserDefaults.standard.removeObject(forKey: "token")
             UserDefaults.standard.removeObject(forKey: "userId")
+            UserDefaults.standard.setValue(false, forKey: "onboarding")
         }
 
         let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in

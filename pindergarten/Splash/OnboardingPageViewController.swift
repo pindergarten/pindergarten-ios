@@ -75,13 +75,15 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDa
         
         pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
 
-//        let page1 = OnboardingController(titleName: "다양한 반려견들과의 소통", script: "게시물과 하트, 댓글로 다양한\n반려견들과의 소통을 해보세요!\n귀여움과 재미가 동시에!", imageName: "onboarding-1")
+//        let page1 = OnboardingController(titleName: "다양한 반려견들과의 소통", script: "게시물과 하트, 댓글로 다양한\n반려견들과의 소통을 해보세요!", imageName: "onboarding-1")
+//
 //        let page2 = OnboardingController(titleName: "내 주변 펫 유치원", script: "나와 가까운 펫 유치원을 찾고,\n그에 맞는 상세정보까지 한번에!", imageName: "onboarding-2")
+//
 //        let page3 = OnboardingController(titleName: "소중한 반려견 등록", script: "나의 소중한 반려견들을 등록하고,\n내가 올린 게시물을 한 눈에 기록해보세요!", imageName: "onboarding-3", last: true)
 //
-        let page1 = OnboardingController(titleImage: "11", imageName: "onboarding-1")
-        let page2 = OnboardingController(titleImage: "12", imageName: "onboarding-2")
-        let page3 = OnboardingController(titleImage: "13", imageName: "onboarding-3", last: true)
+        let page1 = OnboardingController(imageName: "30")
+        let page2 = OnboardingController(imageName: "31")
+        let page3 = OnboardingController(imageName: "32", last: true)
         
         pages.append(page1)
         pages.append(page2)

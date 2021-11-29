@@ -126,7 +126,7 @@ class MeAndPetViewController: BaseViewController {
     
     private lazy var registerPetButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setAttributedTitle(NSAttributedString(string: "펫을 등록 해주세요", attributes: [NSAttributedString.Key.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)!]), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: "반려견을 등록해 주세요", attributes: [NSAttributedString.Key.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)!]), for: .normal)
         button.tintColor = UIColor(hex: 0x545454)
 
         button.layer.cornerRadius = 15
@@ -159,7 +159,7 @@ class MeAndPetViewController: BaseViewController {
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInset = UIEdgeInsets(top: 20, left: 12, bottom: 40, right: 12)
+        collectionView.contentInset = UIEdgeInsets(top: 17, left: 12, bottom: 40, right: 12)
         return collectionView
     }()
     

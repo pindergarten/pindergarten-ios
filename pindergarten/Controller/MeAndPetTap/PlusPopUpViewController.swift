@@ -34,7 +34,7 @@ class PlusPopUpViewController: UIViewController {
     
     private lazy var registerPetButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setAttributedTitle(NSAttributedString(string: "펫 추가하기", attributes: [NSAttributedString.Key.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 18)!, .foregroundColor : UIColor(hex: 0x9F5D1F)]), for: .normal)
+        button.setAttributedTitle(NSAttributedString(string: "반려견 추가하기", attributes: [NSAttributedString.Key.font : UIFont(name: "AppleSDGothicNeo-Bold", size: 18)!, .foregroundColor : UIColor(hex: 0x9F5D1F)]), for: .normal)
         button.addTarget(self, action: #selector(didTapRegisterPetButton), for: .touchUpInside)
         return button
     }()

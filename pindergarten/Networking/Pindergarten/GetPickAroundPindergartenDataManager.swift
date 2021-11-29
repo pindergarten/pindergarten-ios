@@ -32,6 +32,8 @@ class GetPickAroundPindergartenDataManager {
 //    }
     
     func getPickAroundPindergarten(lat: Double, lon: Double ,delegate: PindergartenViewController) {
+        print(lat)
+        print(lon)
         AF.request("\(Constant.BASE_URL)/api/near/pindergartens?latitude=\(lat)&longitude=\(lon)", method: .get, headers: Constant.AROUNDHEADERS)
             .validate()
             .responseDecodable(of: GetPickAroundPindergartenResponse.self) { response in

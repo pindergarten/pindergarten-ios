@@ -221,6 +221,8 @@ class SignUpNumberViewController: BaseViewController {
     @objc func didTapSendNumber() {
         
         checkUserDataManager.checkUser(CheckUserRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
+
+  
     }
     
     @objc func didTapCheckNumber() {
@@ -235,7 +237,7 @@ class SignUpNumberViewController: BaseViewController {
     private func configureUI() {
 
         authNumberTextField.isHidden = true
-        timeLabel.isHidden = true
+//        timeLabel.isHidden = true
         authNumberLine.isHidden = true
         checkAuthNumberButton.isHidden = true
         correctPhoneNumberLabel.isHidden = true
@@ -249,7 +251,7 @@ class SignUpNumberViewController: BaseViewController {
         view.addSubview(phoneNumberLine)
         view.addSubview(sendAuthNumberButton)
         view.addSubview(authNumberTextField)
-        view.addSubview(timeLabel)
+//        view.addSubview(timeLabel)
         view.addSubview(authNumberLine)
         view.addSubview(checkAuthNumberButton)
         view.addSubview(correctPhoneNumberLabel)
@@ -297,15 +299,18 @@ class SignUpNumberViewController: BaseViewController {
             make.top.equalTo(phoneNumberLine.snp.bottom).offset(28)
             make.left.equalTo(view).offset(20)
         }
-        timeLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(authNumberTextField)
-            make.right.equalTo(authNumberLine.snp.right).offset(-5)
-        }
+        
+//        timeLabel.snp.makeConstraints { make in
+//            make.centerY.equalTo(authNumberTextField)
+//            make.right.equalTo(authNumberLine.snp.right).offset(-5)
+//        }
+        
         authNumberLine.snp.makeConstraints { make in
             make.top.equalTo(authNumberTextField.snp.bottom).offset(8)
             make.left.equalTo(20)
             make.width.equalTo(234)
         }
+        
         checkAuthNumberButton.snp.makeConstraints { make in
             make.bottom.equalTo(authNumberLine.snp.bottom)
             make.left.equalTo(authNumberLine.snp.right).offset(9)
@@ -322,6 +327,7 @@ class SignUpNumberViewController: BaseViewController {
             make.top.equalTo(authNumberLine.snp.bottom).offset(8)
             make.left.equalTo(view).offset(20)
         }
+        
 //        nextButton.snp.makeConstraints { make in
 //            make.bottom.equalTo(view).offset(-74)
 //            make.left.equalTo(view).offset(20)
@@ -377,27 +383,27 @@ extension SignUpNumberViewController {
         sendAuthNumberButton.isUserInteractionEnabled = false
         sendAuthNumberButton.backgroundColor = .white
         authNumberTextField.isHidden = false
-        timeLabel.isHidden = false
+//        timeLabel.isHidden = false
         authNumberLine.isHidden = false
         checkAuthNumberButton.isHidden = false
         
-        var remainTime: Int = 175
+//        var remainTime: Int = 175
 
-        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-            DispatchQueue.global().async {
-                remainTime -= 1
-                if remainTime == 0 {
-                    DispatchQueue.main.async {
-                        self?.checkAuthNumberButton.backgroundColor = .white
-                        self?.checkAuthNumberButton.isUserInteractionEnabled = false
-                    }
-                    timer.invalidate()
-                }
-                DispatchQueue.main.async {
-                    self?.timeLabel.text = "\(String(format: "%02d", remainTime / 60)):\(String(format: "%02d", remainTime % 60))"
-                }
-            }
-        }
+//        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+//            DispatchQueue.global().async {
+//                remainTime -= 1
+//                if remainTime == 0 {
+//                    DispatchQueue.main.async {
+//                        self?.checkAuthNumberButton.backgroundColor = .white
+//                        self?.checkAuthNumberButton.isUserInteractionEnabled = false
+//                    }
+//                    timer.invalidate()
+//                }
+//                DispatchQueue.main.async {
+//                    self?.timeLabel.text = "\(String(format: "%02d", remainTime / 60)):\(String(format: "%02d", remainTime % 60))"
+//                }
+//            }
+//        }
         
     }
     
@@ -406,7 +412,7 @@ extension SignUpNumberViewController {
             인증 되었습니다
             회원가입을 완료해주세요
             """) { [weak self] _ in
-            self?.timeLabel.text = "02:55"
+//            self?.timeLabel.text = "02:55"
             let passwordVC = SignUpPasswordViewController()
             passwordVC.phoneNumber = self?.phoneNumberTextField.text
             self?.navigationController?.pushViewController(passwordVC, animated: true)

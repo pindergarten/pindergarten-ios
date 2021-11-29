@@ -79,12 +79,10 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
                 
         naverMapView.mapView.touchDelegate = self
 
-       
-        enableLocationServices()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        enableLocationServices()
+        
         configureUI()
-
-       
         setFloatingPanel()
         
         naverMapView.mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
@@ -98,7 +96,8 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         naverMapView.mapView.logoAlign = .leftTop
         naverMapView.mapView.addCameraDelegate(delegate: self)
         
-        getAllPindergartenDataManager.getLikePindergarten(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON, delegate: self)
+        getAllPindergarten()
+      
      
     }
     
@@ -110,8 +109,8 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         if let clickedLat = clickedLat, let clickedLon = clickedLon {
             getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: clickedLat, lon: clickedLon, delegate: self)
         } else {
-
-//            getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON, delegate: self)
+            print("클릭한 마커 없음")
+//            getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0, delegate: self)
         }
         
         
@@ -127,6 +126,10 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         navigationController?.pushViewController(searchPindergartenVC, animated: true)
     }
     //MARK: - Helpers
+    func getAllPindergarten() {
+        getAllPindergartenDataManager.getAllPindergarten(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON, delegate: self)
+    }
+    
     func setAuthAlertAction() {
         let authAlertController: UIAlertController
         authAlertController = UIAlertController(title: "위치 권한 요청", message: "위치 권한이 거부 상태입니다.\n환경설정으로 이동하시겠습니까?", preferredStyle: .alert)
@@ -270,16 +273,19 @@ extension PindergartenViewController: CLLocationManagerDelegate {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             print("DEBUG: Not determined.")
+         
             locationManager.requestWhenInUseAuthorization()
             
         case .restricted, .denied:
             
             setAuthAlertAction()
             
+            
         case .authorizedAlways:
             print("DEBUG: Auth always.")
      
             scrollToPosition(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON)
+            
           
         case .authorizedWhenInUse:
             print("DEBUG: Auth when in use.")

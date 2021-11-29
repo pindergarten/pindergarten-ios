@@ -211,11 +211,11 @@ class FindPasswordViewController: BaseViewController {
     
     @objc func didTapSendNumber() {
         checkUserDataManager.checkUser(CheckUserRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
-
     }
     
     @objc func didTapCheckNumber() {
         checkAuthNumberDataManager.checkAuthNumber(CheckAuthNumberRequest(phone: phoneNumberTextField.text ?? "", verifyCode: authNumberTextField.text ?? ""), delegate: self)
+      
     }
     
     @objc func didTapNextButton() {
@@ -225,7 +225,7 @@ class FindPasswordViewController: BaseViewController {
     private func configureUI() {
 
         authNumberTextField.isHidden = true
-        timeLabel.isHidden = true
+//        timeLabel.isHidden = true
         authNumberLine.isHidden = true
         checkAuthNumberButton.isHidden = true
         correctPhoneNumberLabel.isHidden = true
@@ -239,7 +239,7 @@ class FindPasswordViewController: BaseViewController {
         view.addSubview(phoneNumberLine)
         view.addSubview(sendAuthNumberButton)
         view.addSubview(authNumberTextField)
-        view.addSubview(timeLabel)
+//        view.addSubview(timeLabel)
         view.addSubview(authNumberLine)
         view.addSubview(checkAuthNumberButton)
         view.addSubview(correctPhoneNumberLabel)
@@ -284,10 +284,10 @@ class FindPasswordViewController: BaseViewController {
             make.top.equalTo(phoneNumberLine.snp.bottom).offset(28)
             make.left.equalTo(view).offset(20)
         }
-        timeLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(authNumberTextField)
-            make.right.equalTo(authNumberLine.snp.right).offset(-5)
-        }
+//        timeLabel.snp.makeConstraints { make in
+//            make.centerY.equalTo(authNumberTextField)
+//            make.right.equalTo(authNumberLine.snp.right).offset(-5)
+//        }
         authNumberLine.snp.makeConstraints { make in
             make.top.equalTo(authNumberTextField.snp.bottom).offset(8)
             make.left.equalTo(20)
@@ -332,36 +332,41 @@ extension FindPasswordViewController {
         print("DEBUG: SENDED AUTH NUMBER")
        
         sendAuthNumberButton.isUserInteractionEnabled = false
+        sendAuthNumberButton.layer.borderWidth = 1
         sendAuthNumberButton.backgroundColor = .white
-        phoneNumberTextField.isUserInteractionEnabled = false
         authNumberTextField.isHidden = false
-        timeLabel.isHidden = false
+//        timeLabel.isHidden = false
         authNumberLine.isHidden = false
         checkAuthNumberButton.isHidden = false
         
-        var remainTime: Int = 175
-
-        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-            DispatchQueue.global().async {
-                remainTime -= 1
-                DispatchQueue.main.async {
-                    if remainTime <= 0 {
-                        self?.checkAuthNumberButton.backgroundColor = .white
-                        self?.checkAuthNumberButton.isUserInteractionEnabled = false
-                        timer.invalidate()
-                    }
-                    self?.timeLabel.text = "\(String(format: "%02d", remainTime / 60)):\(String(format: "%02d", remainTime % 60))"
-                }
-            }
-        }
+//        var remainTime: Int = 175
+//
+//        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+//            DispatchQueue.global().async {
+//                remainTime -= 1
+//                DispatchQueue.main.async {
+//                    if remainTime <= 0 {
+//                        self?.checkAuthNumberButton.backgroundColor = .white
+//                        self?.checkAuthNumberButton.isUserInteractionEnabled = false
+//                        timer.invalidate()
+//                    }
+//                    self?.timeLabel.text = "\(String(format: "%02d", remainTime / 60)):\(String(format: "%02d", remainTime % 60))"
+//                }
+//            }
+//        }
         
     }
 
     
     func didSuccessCheckAuthNumber() {
         self.presentAlert(title: "인증 되었습니다.") { [weak self] _ in
+     
+            self?.checkAuthNumberButton.backgroundColor = .white
+            self?.checkAuthNumberButton.layer.borderWidth = 1
             self?.nextButton.isUserInteractionEnabled = true
-            self?.nextButton.backgroundColor = .mainLightYellow
+            self?.nextButton.backgroundColor = .white
+          
+            
         }
     }
     

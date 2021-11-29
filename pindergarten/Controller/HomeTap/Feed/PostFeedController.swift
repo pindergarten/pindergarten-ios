@@ -206,6 +206,8 @@ class PostFeedController: BaseViewController {
         if selectedAssets.count < 1 {
             self.presentAlert(title: "게시물 등록시 1개 이상의\n사진이 필요합니다.")
         } else {
+            finishButton.isUserInteractionEnabled = false
+            finishButton.tintColor = UIColor(hex: 0xABABAB)
             postFeedDataManager.postFeed(images: photoArray, content: textView.text ?? "", delegate: self) { _ in
                 
             }
@@ -491,6 +493,8 @@ extension PostFeedController {
     }
     
     func failedToPostFeed(message: String) {
+        finishButton.isUserInteractionEnabled = true
+        finishButton.tintColor = UIColor.mainBrown
         self.presentAlert(title: message)
     }
 }

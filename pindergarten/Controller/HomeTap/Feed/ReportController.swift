@@ -314,7 +314,7 @@ class ReportController: BaseViewController {
         }
         
         textView.snp.makeConstraints { make in
-            make.top.equalTo(reportTitleSeparateLine.snp.bottom).offset(14)
+            make.top.equalTo(reportTitleSeparateLine.snp.bottom).offset(5)
             make.left.equalTo(view).offset(20)
             make.right.equalTo(view).offset(-20)
             make.bottom.equalTo(view.snp.bottomMargin)

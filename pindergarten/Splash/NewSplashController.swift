@@ -217,6 +217,7 @@ extension NewSplashController {
         
         UserDefaults.standard.set(result.jwt, forKey: "token")
         UserDefaults.standard.set(result.userId, forKey: "userId")
+        UserDefaults.standard.set(true, forKey: "onboarding")
         
         changeRootViewController(HomeTabBarController())
 

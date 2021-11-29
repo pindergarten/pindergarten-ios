@@ -20,29 +20,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
         window?.rootViewController = SplashViewController()
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
-//            AF.request("\(Constant.BASE_URL)/api/users/auto-signin", method: .get, headers: Constant.HEADERS)
-//                .validate()
-//                .responseDecodable(of: DefaultResponse.self) { response in
-//                    switch response.result {
-//                    case .success(let response):
-//                        // 성공했을 때
-//                        if response.isSuccess {
-//                            self.window?.rootViewController = HomeTabBarController()
-//                        }
-//                        // 실패했을 때
-//                        else {
-//                            self.window?.rootViewController = OnboardingPageViewController()
-//                        }
-//                    case .failure(let error):
-//                        print(error.localizedDescription)
-//                        self.window?.rootViewController = OnboardingPageViewController()
-//                    }
-//                }
-//            }
+
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+            AF.request("\(Constant.BASE_URL)/api/users/auto-signin", method: .get, headers: Constant.HEADERS)
+                .validate()
+                .responseDecodable(of: DefaultResponse.self) { response in
+                    switch response.result {
+                    case .success(let response):
+                        // 성공했을 때
+                        if response.isSuccess {
+                            self.window?.rootViewController = HomeTabBarController()
+                        }
+                        // 실패했을 때
+                        else {
+                            if UserDefaults.standard.bool(forKey: "onboarding") == true {
+                                self.window?.rootViewController = UINavigationController(rootViewController: NewSplashController())
+                            } else {
+                                self.window?.rootViewController = OnboardingPageViewController()
+                            }
+
+                        }
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                        self.window?.rootViewController = OnboardingPageViewController()
+                    }
+                }
+            }
 
 
-        window?.rootViewController = OnboardingPageViewController()
+//        window?.rootViewController = OnboardingPageViewController()
         window?.makeKeyAndVisible()
         window?.windowScene = windowScene
     }

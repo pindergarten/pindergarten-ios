@@ -47,7 +47,7 @@ class PetRegisterController: BaseViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 17)
-        label.text = "펫 추가하기"
+        label.text = "반려견 추가하기"
         label.textColor = .mainTextColor
         return label
     }()
@@ -449,6 +449,9 @@ extension PetRegisterController {
     }
     
     func failedToRegisterPet(message: String) {
+        finishButton.isUserInteractionEnabled = true
+        finishButton.tintColor = .mainBrown
         self.presentAlert(title: message)
+        
     }
 }

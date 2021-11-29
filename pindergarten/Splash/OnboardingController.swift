@@ -9,45 +9,49 @@ import UIKit
 
 class OnboardingController: UIViewController {
     //MARK: - Properties
-//    let titleLabel: UILabel = {
-//        let label = UILabel()
-//        label.sizeToFit()
-//        return label
-//    }()
-//
-//    let scriptLabel: UILabel = {
-//        let label = UILabel()
-//        label.numberOfLines = 0
-//        return label
-//    }()
-//
-//    lazy var labelStack: UIStackView = {
-//        let stack = UIStackView(arrangedSubviews: [titleLabel, scriptLabel])
-//        stack.axis = .vertical
-//        stack.spacing = 15
-//        return stack
-//    }()
-    
-    let titleImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
-        iv.setHeight(100)
-        return iv
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.sizeToFit()
+        return label
     }()
+
+    let scriptLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.sizeToFit()
+        return label
+    }()
+
+    lazy var labelStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [titleLabel, scriptLabel])
+        stack.axis = .vertical
+        stack.spacing = 10
+        stack.setHeight(80)
+        return stack
+    }()
+    
+//    let titleImageView: UIImageView = {
+//        let iv = UIImageView()
+//        iv.contentMode = .scaleAspectFit
+//        iv.setHeight(100)
+//        return iv
+//    }()
     
     
     
     let imageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
         return iv
     }()
     
     lazy var stack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [titleImageView, imageView])
+        let stack = UIStackView(arrangedSubviews: [labelStack, imageView])
         stack.axis = .vertical
-        stack.spacing = 40
-        
+        stack.alignment = .fill
+        stack.spacing = 30
+        stack.sizeToFit()
         return stack
     }()
     
@@ -72,7 +76,27 @@ class OnboardingController: UIViewController {
         view.backgroundColor = .mainLightYellow
     }
     
-    init(titleImage: String, imageName: String, last: Bool = false) {
+    init(titleName: String, script: String, imageName: String, last: Bool = false) {
+        super.init(nibName: nil, bundle: nil)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        let scriptParagraphStyle = NSMutableParagraphStyle()
+        scriptParagraphStyle.lineSpacing = 3
+        paragraphStyle.alignment = .center
+        scriptParagraphStyle.alignment = .center
+        
+        self.titleLabel.attributedText = NSAttributedString(string: titleName, attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle, .font : UIFont(name: "Roboto-Black", size: 25)!, .foregroundColor : UIColor.mainBrown])
+
+        self.scriptLabel.attributedText = NSAttributedString(string: script, attributes: [NSAttributedString.Key.paragraphStyle : scriptParagraphStyle, .font : UIFont(name: "Roboto-Medium", size: 15)!, .foregroundColor : UIColor.mainBrown])
+        
+//        self.titleImageView.image = UIImage(named: titleImage)
+        self.imageView.image = UIImage(named: imageName)
+        self.startButton.isHidden = !last
+
+    }
+    
+    
+    init(imageName: String, last: Bool = false) {
         super.init(nibName: nil, bundle: nil)
         
         let paragraphStyle = NSMutableParagraphStyle()
@@ -85,7 +109,7 @@ class OnboardingController: UIViewController {
 //
 //        self.scriptLabel.attributedText = NSAttributedString(string: script, attributes: [NSAttributedString.Key.paragraphStyle : scriptParagraphStyle, .font : UIFont(name: "Roboto-Medium", size: 15)!, .foregroundColor : UIColor.mainBrown])
         
-        self.titleImageView.image = UIImage(named: titleImage)
+//        self.titleImageView.image = UIImage(named: titleImage)
         self.imageView.image = UIImage(named: imageName)
         self.startButton.isHidden = !last
 
@@ -104,8 +128,8 @@ class OnboardingController: UIViewController {
 //        view.addSubview(titleLabel)
 //        view.addSubview(scriptLabel)
 //        view.addSubview(titleImageView)
-        view.addSubview(stack)
-//        view.addSubview(imageView)
+//        view.addSubview(stack)
+        view.addSubview(imageView)
         view.addSubview(startButton)
        
 
@@ -133,22 +157,28 @@ class OnboardingController: UIViewController {
 //            make.centerX.equalTo(view)
 //            make.height.equalTo(110)
 //        }
-//        imageView.snp.makeConstraints { make in
-//            make.top.equalTo(titleImageView.snp.bottom).offset(16)
-//            make.left.right.equalTo(view).inset(30)
-//            make.bottom.equalTo(view)
-////            make.height.equalTo(570/812*view.frame.size.height)
-//        }
         
-        stack.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(60)
-            make.left.right.equalTo(view).inset(40)
-            make.bottom.equalTo(view)
+        imageView.snp.makeConstraints { make in
+//            make.edges.equalTo(view)
+            make.left.right.bottom.equalTo(view)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(50)
+//            make.height.equalTo(570/812*view.frame.size.height)
         }
+        
+//        stack.snp.makeConstraints { make in
+//            make.top.equalTo(view.safeAreaLayoutGuide).offset(60)
+//            make.left.right.equalTo(view).inset(40)
+//            make.bottom.equalTo(view)
+//        }
         
         startButton.snp.makeConstraints { make in
             make.left.right.bottom.equalTo(view)
-            make.height.equalTo(60)
+            if Device.isNotch {
+                make.height.equalTo(66)
+            } else {
+                make.height.equalTo(60)
+            }
+           
         }
     }
 }

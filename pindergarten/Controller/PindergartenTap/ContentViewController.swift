@@ -22,6 +22,7 @@ class ContentViewController: BaseViewController {
     
     var contentPindergarten: [GetAllPindergartenResult] = [] {
         didSet {
+            print("contentPindergarten reload")
             tableView.reloadData()
         }
     }

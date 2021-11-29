@@ -37,7 +37,7 @@ class MyFeedCell: UICollectionViewCell {
     
     //MARK: - Helpers
     private func setUpRoundShadow() {
-        layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.3, x: 0, y: 5, blur: 15)
+        layer.applyShadow(color: UIColor(hex: 0xCBC6BB), alpha: 0.5, x: 0, y: 5, blur: 12)
         clipsToBounds = true
         layer.masksToBounds = false
         layer.cornerRadius = 10

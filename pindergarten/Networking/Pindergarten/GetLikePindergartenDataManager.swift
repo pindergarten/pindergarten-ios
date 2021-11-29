@@ -16,7 +16,7 @@ class GetLikePindergartenDataManager {
                 switch response.result {
                 case .success(let response):
                     // 성공했을 때
-                    if response.isSuccess, var result = response.likedPindergartens {
+                    if response.isSuccess, let result = response.likedPindergartens {
                         delegate.didSuccessGetLikePindergarten(result)
                     }
                     // 실패했을 때

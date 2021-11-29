@@ -233,6 +233,7 @@ extension LoginViewController {
         JwtToken.userId = result.userId
    
         UserDefaults.standard.set(result.jwt, forKey: "token")
+        UserDefaults.standard.set(true, forKey: "onboarding")
 
         print("DEBUG: Enable to Login")
     }

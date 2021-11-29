@@ -160,7 +160,7 @@ extension ResetPasswordViewController {
             변경완료되었습니다.
             로그인 화면으로 이동합니다.
             """) { [weak self] _ in
-            self?.changeRootViewController(NewSplashController())
+            self?.changeRootViewController(UINavigationController(rootViewController: NewSplashController()))
         }
     }
     

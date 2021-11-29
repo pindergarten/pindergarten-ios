@@ -144,7 +144,6 @@ class HomeViewController: BaseViewController {
 //MARK: - Extenseion
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return feed.count
     }

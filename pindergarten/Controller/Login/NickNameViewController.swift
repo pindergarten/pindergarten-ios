@@ -241,7 +241,7 @@ extension NickNameViewController {
             회원가입이 완료 되었습니다!
             로그인 화면으로 이동합니다.
             """) { [weak self] _ in
-            self?.changeRootViewController(NewSplashController())
+            self?.changeRootViewController(UINavigationController(rootViewController: NewSplashController()))
         }
         
     }
@@ -254,6 +254,7 @@ extension NickNameViewController {
         self.presentAlert(title: "사용하실 수 있는 계정 이름입니다.") { [weak self] _ in
             self?.checkNickNameButton.setAttributedTitle(NSMutableAttributedString(string: "중복확인 완료", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
             self?.checkNickNameButton.backgroundColor = .white
+            self?.checkNickNameButton.layer.borderWidth = 1
             self?.checkNickNameButton.isUserInteractionEnabled = false
             self?.finishButton.backgroundColor = .mainLightYellow
             self?.finishButton.isUserInteractionEnabled = true
