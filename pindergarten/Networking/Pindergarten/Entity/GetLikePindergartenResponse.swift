@@ -21,6 +21,7 @@ struct GetLikePindergartenResult: Decodable {
     var thumbnail: String
     var rating: Double
     var distance: Double
+    var isLiked: Int? = 1
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -29,6 +30,7 @@ struct GetLikePindergartenResult: Decodable {
         case thumbnail
         case rating
         case distance
+        case isLiked
     }
 
 

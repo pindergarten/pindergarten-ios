@@ -163,7 +163,12 @@ extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource
         cell.scoreLabel.text = "\(Int(likeResult[indexPath.item].rating))/5"
         cell.starView.rating = Double(likeResult[indexPath.item].rating)
         
-        cell.heartButton.setImage(UIImage(named: "pcellFilledHeart"), for: .normal)
+        if likeResult[indexPath.item].isLiked == 1 || likeResult[indexPath.item].isLiked == nil {
+            cell.heartButton.setImage(UIImage(named: "pcellFilledHeart"), for: .normal)
+        } else {
+            cell.heartButton.setImage(UIImage(named: "pcellHeart"), for: .normal)
+        }
+        
         cell.heartButton.tag = likeResult[indexPath.item].id
         cell.index = indexPath.item
     
@@ -183,7 +188,10 @@ extension LikePindergartenController: UITableViewDelegate, UITableViewDataSource
 // 네트워크 함수
 extension LikePindergartenController {
     func didSuccessGetLikePindergarten(_ result: [GetLikePindergartenResult]) {
+        
         likeResult = result
+    
+        print(likeResult)
     }
     
     func failedToGetAllPindergarten(message: String) {
@@ -192,6 +200,7 @@ extension LikePindergartenController {
     
     func didSuccessLikePindergarten(idx: Int, _ result: PindergartenLikeResult) {
         
+        likeResult[idx].isLiked = result.isSet
     }
     
     func failedToLikePindergarten(message: String) {
