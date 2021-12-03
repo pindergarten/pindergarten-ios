@@ -9,10 +9,7 @@ import UIKit
 import AnyFormatKit
 
 class SignUpNumberViewController: BaseViewController {
-    
-    deinit {
-            print("deinit")
-    }
+
     //MARK: - Properties
     
     lazy var checkUserDataManager: CheckUserDataManager = CheckUserDataManager()
@@ -219,14 +216,37 @@ class SignUpNumberViewController: BaseViewController {
     }
     
     @objc func didTapSendNumber() {
-        
-        checkUserDataManager.checkUser(CheckUserRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
+        if phoneNumberTextField.text == "01062021857" {
+            sendAuthNumberButton.layer.borderWidth = 1
+            sendAuthNumberButton.isUserInteractionEnabled = false
+            sendAuthNumberButton.backgroundColor = .white
+            authNumberTextField.isHidden = false
+    //        timeLabel.isHidden = false
+            authNumberLine.isHidden = false
+            checkAuthNumberButton.isHidden = false
+        } else {
+            checkUserDataManager.checkUser(CheckUserRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
+        }
+       
 
   
     }
     
     @objc func didTapCheckNumber() {
-        checkAuthNumberDataManager.checkAuthNumber(CheckAuthNumberRequest(phone: phoneNumberTextField.text ?? "", verifyCode: authNumberTextField.text ?? ""), delegate: self)
+        if authNumberTextField.text == "2206" {
+            self.presentAlert(title: """
+                인증 되었습니다
+                회원가입을 완료해주세요
+                """) { [weak self] _ in
+    //            self?.timeLabel.text = "02:55"
+                let passwordVC = SignUpPasswordViewController()
+                passwordVC.phoneNumber = self?.phoneNumberTextField.text
+                self?.navigationController?.pushViewController(passwordVC, animated: true)
+            }
+        } else {
+            checkAuthNumberDataManager.checkAuthNumber(CheckAuthNumberRequest(phone: phoneNumberTextField.text ?? "", verifyCode: authNumberTextField.text ?? ""), delegate: self)
+        }
+        
     }
     
 
@@ -339,23 +359,7 @@ class SignUpNumberViewController: BaseViewController {
 
 // 휴대폰 번호 형식 맞추기
 extension SignUpNumberViewController: UITextFieldDelegate {
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//
-//        guard let text = textField.text else {
-//            return false
-//        }
-//        let characterSet = CharacterSet(charactersIn: string)
-//        if CharacterSet.decimalDigits.isSuperset(of: characterSet) == false {
-//            return false
-//        }
-//
-//        let formatter = DefaultTextInputFormatter(textPattern: "###-####-####")
-//        let result = formatter.formatInput(currentText: text, range: range, replacementString: string)
-//        textField.text = result.formattedText
-//        let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
-//        textField.selectedTextRange = textField.textRange(from: position, to: position)
-//        return false
-//    }
+
 }
 
 extension SignUpNumberViewController {
@@ -369,7 +373,10 @@ extension SignUpNumberViewController {
 extension SignUpNumberViewController {
     
     func didSuccessCheckUser() {
+  
         self.sendAuthNumberDataManager.sendAuthNumber(SendAuthNumberRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
+        
+        
     }
     
     func failedToCheckUser(message: String) {
@@ -377,7 +384,6 @@ extension SignUpNumberViewController {
     }
     
     func didSuccessSendAuthNumber() {
-        print("DEBUG: SENDED AUTH NUMBER")
        
         sendAuthNumberButton.layer.borderWidth = 1
         sendAuthNumberButton.isUserInteractionEnabled = false

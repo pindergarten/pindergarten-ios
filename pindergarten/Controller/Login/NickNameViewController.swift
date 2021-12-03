@@ -8,9 +8,7 @@
 import UIKit
 
 class NickNameViewController: BaseViewController {
-    deinit {
-            print("deinit")
-    }
+
     //MARK: - Properties
     lazy var checkNickNameDataManager: CheckNickNameDataManager = CheckNickNameDataManager()
     lazy var registerUserDataManager: RegisterUserDataManager = RegisterUserDataManager()

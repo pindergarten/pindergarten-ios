@@ -8,9 +8,7 @@
 import UIKit
 
 class SearchPindergartenController: BaseViewController {
-    deinit {
-            print("deinit")
-    }
+
     //MARK: - Properties
     lazy var getSearchPindergartenDataManager: GetSearchPindergartenDataManager = GetSearchPindergartenDataManager()
     var searchResult: [GetSearchPindergartenResult] = [] {
@@ -65,6 +63,7 @@ class SearchPindergartenController: BaseViewController {
         super.viewDidLoad()
         
         searchTextField.delegate = self
+        searchTextField.becomeFirstResponder()
         setUpTableView()
         configureUI()
     }

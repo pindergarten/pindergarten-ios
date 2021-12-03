@@ -9,9 +9,7 @@ import UIKit
 import Kingfisher
 
 class DetailEventController: BaseViewController {
-    deinit {
-            print("deinit")
-    }
+
     //MARK: - Properties
     
     var id: Int = 0
@@ -240,18 +238,15 @@ extension DetailEventController {
         
         result.isLiked == 0 ? headerView.heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal) : headerView.heartButton.setImage(#imageLiteral(resourceName: "feedFilledHeartImage"), for: .normal)
         headerView.heartLabel.text = "\(result.likeCount)"
-        print(result.commentCount)
         headerView.commentLabel.text = "\(result.commentCount)"
 
     }
 
     func failedToGetDetailEvent(message: String) {
         self.presentAlert(title: message)
-        print("DEBUG: FAILED TO GET DETAIL EVENT")
     }
 
     func didSuccessLikeEvent(_ result: EventLikeResult) {
-        print("DEBUG: LIKE EVENT")
         if result.isSet == 0 {
             headerView.heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal)
             headerView.heartLabel.text = "\(Int(headerView.heartLabel.text!)!-1)"
@@ -264,7 +259,6 @@ extension DetailEventController {
     
     func failedToLikeEvent(message: String) {
         self.presentAlert(title: message)
-        print("DEBUG: FAILED TO LIKE EVENT")
     }
     
     func didSuccessGetEventComment(_ result: [GetEventCommentResult]) {

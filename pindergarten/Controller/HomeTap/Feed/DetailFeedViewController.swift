@@ -8,17 +8,14 @@
 import UIKit
 import ImageSlideshow
 import Kingfisher
-import FlexiblePageControl
+
 
 protocol DetailVCDelegate: AnyObject {
     func deleteCache()
 }
 
 class DetailFeedViewController: BaseViewController {
-    
-    deinit {
-            print("deinit")
-    }
+
     //MARK: - Properties
     weak var delegate: DetailVCDelegate?
     lazy var getDetailFeedDataManager: GetDetailFeedDataManager = GetDetailFeedDataManager()
@@ -252,14 +249,12 @@ class DetailFeedViewController: BaseViewController {
     
     @objc func didTapHeartButton(isSet: Int) {
         likeDataManager.like(postId: postId, delegate: self)
-        print("DEBUG: TAPPED HEART BUTTON")
     }
     
     @objc func didTapCommentButton() {
         let commentVC = CommentController()
         commentVC.postId = postId
         navigationController?.pushViewController(commentVC, animated: true)
-        print("DEBUG: TAPPED COMMENT BUTTON")
     }
     
     //MARK: - Helpers
@@ -406,18 +401,14 @@ extension DetailFeedViewController {
             }
 
         }
-        print("DEBUG: GET DETAIL FEED")
+
     }
     
     func failedToGetDetailFeed(message: String) {
         self.presentAlert(title: message)
-        print("DEBUG: FAILED TO GET DETAIL FEED")
     }
     
     func didSuccessLike(_ result: LikeResult) {
-        
-        print("DEBUG: Like DETAIL FEED")
-        print(result.isSet)
         
         if result.isSet == 0 {
             heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal)
@@ -432,7 +423,6 @@ extension DetailFeedViewController {
     
     func failedToLike(message: String) {
         self.presentAlert(title: message)
-        print("DEBUG: FAILED TO Like DETAIL FEED")
     }
     
     func didSuccessDeleteFeed() {
@@ -446,7 +436,6 @@ extension DetailFeedViewController {
     
     func failedToDeleteFeed(message: String) {
         self.presentAlert(title: message)
-        print("DEBUG: FAILED TO DELETE FEED")
     }
 }
 

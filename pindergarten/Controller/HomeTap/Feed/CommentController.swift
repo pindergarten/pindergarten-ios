@@ -9,7 +9,7 @@ import UIKit
 
 class CommentController: BaseViewController {
     deinit {
-        print("deinit")
+     
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -121,7 +121,6 @@ class CommentController: BaseViewController {
         registerButton.tintColor = UIColor(hex: 0x4E5261)
         registerButton.isUserInteractionEnabled = false
         self.view.endEditing(false)
-        print("DEBUG: TAPPED REGISTER BUTTON")
     }
     
     @objc func keyboardWillShow(_ sender: Notification) {
@@ -256,8 +255,7 @@ extension CommentController: CommentDelegate {
 extension CommentController: CommentCellDelegate {
 
     func didLongPressComment(commentId: Int, userId: Int) {
-        print(commentId)
-        print(userId)
+
         if JwtToken.userId == userId {
              let actionDelete = UIAlertAction(title: "댓글 삭제하기", style: .destructive) { action in
                 self.deleteCommentDataManager.deleteComment(postId: self.postId, commentId: commentId, delegate: self)

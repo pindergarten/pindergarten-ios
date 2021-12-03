@@ -163,7 +163,6 @@ class UserProfileController: BaseViewController {
     }
     //MARK: - Action
     @objc private func didTapChangePasswordButton() {
-        print("123")
     }
     
     @objc private func didTapWithdrawalButton() {
@@ -186,12 +185,10 @@ class UserProfileController: BaseViewController {
     @objc private func didTapLogoutButton() {
         let actionLogout = UIAlertAction(title: "로그아웃", style: .destructive) { [weak self] action in
             self?.logoutDataManager.logout(delegate: self!)
-            print(UserDefaults.standard.string(forKey: "token") ?? "")
-            print(UserDefaults.standard.integer(forKey: "userId"))
+            
             UserDefaults.standard.removeObject(forKey: "token")
             UserDefaults.standard.removeObject(forKey: "userId")
-            print(UserDefaults.standard.string(forKey: "token") ?? "")
-            print(UserDefaults.standard.integer(forKey: "userId"))
+        
         }
 
         let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in

@@ -8,9 +8,7 @@
 import UIKit
 
 class AllEventHeaderView: UICollectionReusableView {
-    deinit {
-            print("deinit")
-    }
+
     //MARK: - Properties
     static let identifier = "AllEventHeaderView"
     
@@ -242,13 +240,11 @@ extension EventViewController: UICollectionViewDelegateFlowLayout {
 // 네트워크 함수
 extension EventViewController {
     func didSuccessGetAllEvent(_ result: [GetAllEventResult]) {
-        print(result)
         self.event = result
 
     }
     
     func failedToGetAllEvent(message: String) {
         self.presentAlert(title: message)
-        print("DEBUG: FAILED TO GET ALL FEED")
     }
 }

@@ -9,9 +9,6 @@ import UIKit
 import CoreLocation
 
 class ContentViewController: BaseViewController {
-    deinit {
-            print("deinit")
-    }
     
     //MARK: - Properties
 //    private lazy var locationManager = CLLocationManager()
@@ -22,7 +19,6 @@ class ContentViewController: BaseViewController {
     
     var contentPindergarten: [GetAllPindergartenResult] = [] {
         didSet {
-            print("contentPindergarten reload")
             tableView.reloadData()
         }
     }
@@ -119,7 +115,6 @@ extension ContentViewController: UITableViewDelegate, UITableViewDataSource {
         let detailVC = DetailPindergartenController()
         detailVC.pindergartenID = contentPindergarten[indexPath.item].id
         navigationController?.pushViewController(detailVC, animated: true)
-        print(indexPath.item)
     }
 }
 

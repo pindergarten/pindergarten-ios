@@ -9,8 +9,6 @@ import Alamofire
 
 class GetAllPindergartenDataManager {
     func getAllPindergarten(lat: Double, lon: Double ,delegate: PindergartenViewController) {
-        print(lat)
-        print(lon)
         AF.request("\(Constant.BASE_URL)/api/pindergartens?latitude=\(lat)&longitude=\(lon)", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetAllPindergartenResponse.self) { response in

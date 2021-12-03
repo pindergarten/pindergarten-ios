@@ -48,7 +48,6 @@ class ImageCell: UICollectionViewCell {
 class PostFeedController: BaseViewController {
     
     deinit {
-            print("deinit")
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -224,7 +223,6 @@ class PostFeedController: BaseViewController {
     }
     
     @objc private func didTapDeleteBtn(_ sender: UIButton) {
-        print(sender.tag)
 //        myImages.remove(at: sender.tag)
         photoArray.remove(at: sender.tag)
         selectedAssets.remove(at: sender.tag)

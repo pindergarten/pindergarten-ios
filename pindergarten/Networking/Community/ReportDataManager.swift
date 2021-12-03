@@ -10,6 +10,10 @@ import Alamofire
 class ReportDataManager {
     
     func reportFeed(postId: Int, type: Int, _ parameters: ReportRequest, delegate: ReportController) {
+        print(postId)
+        print(type)
+        print(parameters)
+        print(Constant.HEADERS)
         AF.request("\(Constant.BASE_URL)/api/posts/\(postId)/declaration?type=\(type)", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: ReportResponse.self) { response in

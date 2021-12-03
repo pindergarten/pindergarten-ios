@@ -13,10 +13,7 @@ var imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(reso
 
 
 class HomeViewController: BaseViewController {
-    deinit {
-            print("deinit")
-    }
-    
+
     //MARK: - Properties
     lazy var getAllFeedDataManager: GetAllFeedDataManager = GetAllFeedDataManager()
     lazy var likeDataManager: LikeDataManager = LikeDataManager()
@@ -24,8 +21,11 @@ class HomeViewController: BaseViewController {
     var postId: Int = 0
     private var feed: [GetAllFeedResult] = [] {
         didSet {
-            collectionView.reloadData()
-          
+            collectionView.refreshControl?.endRefreshing()
+            collectionView.performBatchUpdates({
+                self.collectionView.reloadSections(IndexSet(integer: 0))
+            }, completion: nil)
+            
         }
     }
     
@@ -86,6 +86,11 @@ class HomeViewController: BaseViewController {
         if let layout = collectionView.collectionViewLayout as? PinterestLayout {
           layout.delegate = self
         }
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .mainLightYellow
+        collectionView.refreshControl = refreshControl
+        collectionView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,6 +101,13 @@ class HomeViewController: BaseViewController {
     }
     
     //MARK: - Action
+    @objc func didPullToRefresh() {
+        // re-fetch data
+        print("refetch")
+        getAllFeedDataManager.getAllFeed(delegate: self)
+        
+    }
+    
     @objc func didTapPlusButton() {
         navigationController?.pushViewController(PostFeedController(), animated: true)
     }
@@ -239,18 +251,17 @@ extension HomeViewController: DetailVCDelegate {
 extension HomeViewController {
    
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
-        print("DEBUG: GET ALL FEED")
+
         feed = result
     }
     
     func failedToGetAllFeed(message: String) {
         self.presentAlert(title: message)
-        print("DEBUG: FAILED TO GET ALL FEED")
+
     }
     
     func didSuccessLike(idx: Int, _ result: LikeResult) {
-        print("DEBUG: Like DETAIL FEED")
-        print(result.isSet)
+
         feed[idx].isLiked = result.isSet
 //        if feed[idx].isLiked == 0 {
 //            feed[idx].isLiked = 1
@@ -264,7 +275,6 @@ extension HomeViewController {
     
     func failedToLike(message: String) {
         self.presentAlert(title: message)
-        print("DEBUG: FAILED TO Like DETAIL FEED")
     }
 }
 

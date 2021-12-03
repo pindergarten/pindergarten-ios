@@ -49,7 +49,6 @@ class PlusPopUpViewController: UIViewController {
   
     //MARK: - Action
     @objc func didTapRegisterFeedButton() {
-        print("feed")
         self.dismiss(animated: true) {
             let postFeedVC = PostFeedController()
             
@@ -66,7 +65,7 @@ class PlusPopUpViewController: UIViewController {
        
     
     @objc func didTapRegisterPetButton() {
-        print("pet")
+
         self.dismiss(animated: true) {
             let registerPetVC = PetRegisterController()
             

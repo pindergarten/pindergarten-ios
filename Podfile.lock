@@ -8,7 +8,6 @@ PODS:
   - BSImagePicker (3.3.1)
   - Cosmos (23.0.0)
   - DropDown (2.3.13)
-  - FlexiblePageControl (1.0.8)
   - FloatingPanel (2.5.0)
   - ImageSlideshow (1.9.2):
     - ImageSlideshow/Core (= 1.9.2)
@@ -16,7 +15,6 @@ PODS:
     - AlamofireImage (~> 4.0)
     - ImageSlideshow/Core
   - ImageSlideshow/Core (1.9.2)
-  - IQKeyboardManagerSwift (6.5.8)
   - Kingfisher (6.3.0)
   - NMapsMap (3.14.0)
   - SnapKit (5.0.1)
@@ -28,11 +26,9 @@ DEPENDENCIES:
   - BSImagePicker (~> 3.1)
   - Cosmos (~> 23.0)
   - DropDown
-  - FlexiblePageControl
   - FloatingPanel
   - ImageSlideshow (~> 1.9.0)
   - ImageSlideshow/Alamofire
-  - IQKeyboardManagerSwift
   - Kingfisher
   - NMapsMap
   - SnapKit (~> 5.0.0)
@@ -46,10 +42,8 @@ SPEC REPOS:
     - BSImagePicker
     - Cosmos
     - DropDown
-    - FlexiblePageControl
     - FloatingPanel
     - ImageSlideshow
-    - IQKeyboardManagerSwift
     - Kingfisher
     - NMapsMap
     - SnapKit
@@ -62,14 +56,12 @@ SPEC CHECKSUMS:
   BSImagePicker: 0fe04b574d4d6b81093785d2af6c26227efc8428
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
-  FlexiblePageControl: 07f7765054f16b3f0bc3f14dfd95ab5f45817ea4
   FloatingPanel: ddb1c8cbbacd164cfee651c449febe867a28e2cb
   ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
-  IQKeyboardManagerSwift: 8139150a3c90a915a413d72a8a3e8634c2d3278b
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   NMapsMap: 61c2abfc409bbcdc91583ccc455a5b6f64c7414e
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 094480f625a4f589233a052940e3b1dade06d26b
+PODFILE CHECKSUM: a405b7436f4ef123b466ece44e6b795d42cec0e5
 
 COCOAPODS: 1.10.1

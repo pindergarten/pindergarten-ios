@@ -10,7 +10,6 @@ import Photos
 
 class PetRegisterController: BaseViewController {
     deinit {
-        print("deinit")
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -182,7 +181,6 @@ class PetRegisterController: BaseViewController {
     
     @objc private func didTapDoneBtn() {
         if let datePicker = birthInput.textField.inputView as? UIDatePicker {
-            print(datePicker.date)
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             birthInput.textField.text = dateFormatter.string(from: datePicker.date)
@@ -441,7 +439,6 @@ extension PetRegisterController: ButtonChoiceDelegate {
 // 네트워크 함수
 extension PetRegisterController {
     func didSuccessRegisterPet() {
-        print("success")
         self.presentAlert(title: "성공적으로 등록되었습니다.") { [weak self] _ in
             self?.navigationController?.popViewController(animated: true)
         }

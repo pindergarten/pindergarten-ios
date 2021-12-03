@@ -10,9 +10,6 @@ import UIKit
 class HomeTabBarController: UITabBarController {
 
     //MARK: - Properties
-//    private let containerView = UIView()
-//    private let innerView = UIView()
-
    
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -82,7 +79,6 @@ class HomeTabBarController: UITabBarController {
     func templeteNavigationController(title: String, unselectedImage: UIImage, selectedImage: UIImage, rootViewController: UIViewController) -> UINavigationController {
         let nav = UINavigationController(rootViewController: rootViewController)
         nav.tabBarItem.image = unselectedImage
-//        nav.tabBarItem.selectedImage = selectedImage
         nav.tabBarItem.title = title
         
         nav.tabBarItem.imageInsets = UIEdgeInsets(top: -7, left: 0, bottom: 0, right: 0)

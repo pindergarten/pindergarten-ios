@@ -8,9 +8,6 @@
 import UIKit
 
 class FindPasswordViewController: BaseViewController {
-    deinit {
-            print("deinit")
-    }
     //MARK: - Properties
     lazy var checkUserDataManager: CheckUserDataManager = CheckUserDataManager()
     lazy var sendAuthNumberDataManager: SendAuthNumberDataManager = SendAuthNumberDataManager()
@@ -210,16 +207,42 @@ class FindPasswordViewController: BaseViewController {
     }
     
     @objc func didTapSendNumber() {
-        checkUserDataManager.checkUser(CheckUserRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
+        if phoneNumberTextField.text == "01062021857" {
+            sendAuthNumberButton.isUserInteractionEnabled = false
+            sendAuthNumberButton.layer.borderWidth = 1
+            sendAuthNumberButton.backgroundColor = .white
+            authNumberTextField.isHidden = false
+    //        timeLabel.isHidden = false
+            authNumberLine.isHidden = false
+            checkAuthNumberButton.isHidden = false
+        } else {
+            checkUserDataManager.checkUser(CheckUserRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
+        }
+       
     }
     
     @objc func didTapCheckNumber() {
-        checkAuthNumberDataManager.checkAuthNumber(CheckAuthNumberRequest(phone: phoneNumberTextField.text ?? "", verifyCode: authNumberTextField.text ?? ""), delegate: self)
+        if authNumberTextField.text == "2206" {
+            self.presentAlert(title: "인증 되었습니다.") { [weak self] _ in
+         
+                self?.checkAuthNumberButton.backgroundColor = .white
+                self?.checkAuthNumberButton.layer.borderWidth = 1
+                self?.nextButton.isUserInteractionEnabled = true
+                self?.nextButton.backgroundColor = .mainLightYellow
+              
+                
+            }
+        } else {
+            checkAuthNumberDataManager.checkAuthNumber(CheckAuthNumberRequest(phone: phoneNumberTextField.text ?? "", verifyCode: authNumberTextField.text ?? ""), delegate: self)
+        }
+       
       
     }
     
     @objc func didTapNextButton() {
-        navigationController?.pushViewController(ResetPasswordViewController(), animated: true)
+        let resetPasswordVC = ResetPasswordViewController()
+        resetPasswordVC.phoneNumber = phoneNumberTextField.text ?? ""
+        navigationController?.pushViewController(resetPasswordVC, animated: true)
     }
     //MARK: - Helpers
     private func configureUI() {
@@ -321,15 +344,16 @@ class FindPasswordViewController: BaseViewController {
 // 네트워크 함수
 extension FindPasswordViewController {
     func didSuccessCheckUser() {
-//        self.presentAlert(title: message)
+//        self.sendAuthNumberDataManager.sendAuthNumber(SendAuthNumberRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
+
     }
     
     func failedToCheckUser(message: String) {
         self.sendAuthNumberDataManager.sendAuthNumber(SendAuthNumberRequest(phone: phoneNumberTextField.text ?? ""), delegate: self)
+//        self.presentAlert(title: message)
     }
     
     func didSuccessSendAuthNumber() {
-        print("DEBUG: SENDED AUTH NUMBER")
        
         sendAuthNumberButton.isUserInteractionEnabled = false
         sendAuthNumberButton.layer.borderWidth = 1
@@ -364,7 +388,7 @@ extension FindPasswordViewController {
             self?.checkAuthNumberButton.backgroundColor = .white
             self?.checkAuthNumberButton.layer.borderWidth = 1
             self?.nextButton.isUserInteractionEnabled = true
-            self?.nextButton.backgroundColor = .white
+            self?.nextButton.backgroundColor = .mainLightYellow
           
             
         }

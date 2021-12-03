@@ -9,7 +9,6 @@ import UIKit
 
 class EventCommentController: BaseViewController {
     deinit {
-        print("deinit")
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -129,7 +128,6 @@ class EventCommentController: BaseViewController {
         registerButton.tintColor = UIColor(hex: 0x4E5261)
         registerButton.isUserInteractionEnabled = false
         self.view.endEditing(false)
-        print("DEBUG: TAPPED REGISTER BUTTON")
     }
 
     @objc func keyboardWillShow(_ sender: Notification) {
@@ -291,7 +289,6 @@ extension EventCommentController: CommentCellDelegate  {
 extension EventCommentController {
     
     func didSuccessGetEventComment(_ result: [GetEventCommentResult]) {
-        print("DEBUG: GET EVENT COMMENT")
         
         eventComment = result
         commentTableView.reloadData()

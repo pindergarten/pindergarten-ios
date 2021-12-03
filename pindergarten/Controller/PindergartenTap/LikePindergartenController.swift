@@ -10,9 +10,7 @@ import CoreLocation
 import Kingfisher
 
 class LikePindergartenController: BaseViewController {
-    deinit {
-            print("deinit")
-    }
+
     //MARK: - Properties
     lazy var getLikePindergartenDataManager: GetLikePindergartenDataManager = GetLikePindergartenDataManager()
     lazy var pindergartenLikeDataManager: PindergartenLikeDataManager = PindergartenLikeDataManager()
@@ -138,9 +136,7 @@ extension LikePindergartenController: PindergartenCellDelegate {
    
     
     func didTapCellHeartButton(id: Int, index: Int) {
-        print("DEBUG: TAPPED HEART BUTTON")
         pindergartenLikeDataManager.likePindergarten(pindergartenId: id, index: index, delegate: self)
-        
     }
 }
 
@@ -190,8 +186,6 @@ extension LikePindergartenController {
     func didSuccessGetLikePindergarten(_ result: [GetLikePindergartenResult]) {
         
         likeResult = result
-    
-        print(likeResult)
     }
     
     func failedToGetAllPindergarten(message: String) {

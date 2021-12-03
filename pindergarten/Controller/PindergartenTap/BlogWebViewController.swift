@@ -9,10 +9,7 @@ import UIKit
 import WebKit
 
 class BlogWebViewController: BaseViewController {
-    
-    deinit {
-            print("deinit")
-    }
+
     //MARK: - Properties
     var blogUrl: String = ""
     

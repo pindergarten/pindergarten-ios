@@ -18,9 +18,6 @@ target 'pindergarten' do
 	pod 'NMapsMap'
 	pod 'Cosmos', '~> 23.0'
 	pod "BSImagePicker", "~> 3.1"
-	pod 'IQKeyboardManagerSwift'
-	pod "FlexiblePageControl"
-
 
   target 'pindergartenTests' do
     inherit! :search_paths

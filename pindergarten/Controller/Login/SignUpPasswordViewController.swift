@@ -8,10 +8,7 @@
 import UIKit
 
 class SignUpPasswordViewController: BaseViewController {
-    
-    deinit {
-            print("deinit")
-    }
+
     //MARK: - Properties
     var phoneNumber: String?
     
@@ -86,7 +83,6 @@ class SignUpPasswordViewController: BaseViewController {
     }
     
     @objc func didTapNextButton() {
-        print("DEBUG: CHECKED PASSWORD")
         let nickNameVC = NickNameViewController()
         nickNameVC.phoneNumber = phoneNumber
         nickNameVC.password = passwordStack.textField.text

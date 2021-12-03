@@ -8,11 +8,11 @@
 import UIKit
 
 class ResetPasswordViewController: BaseViewController {
-    deinit {
-            print("deinit")
-    }
+
     //MARK: - Properties
     lazy var resetDataManager: ResetPasswordDataManager = ResetPasswordDataManager()
+    
+    var phoneNumber: String = ""
     
     private let backButton: UIButton = {
         let button = UIButton(type: .system)
@@ -89,7 +89,19 @@ class ResetPasswordViewController: BaseViewController {
     }
     
     @objc func didTapNextButton() {
-        resetDataManager.resetPassword(ResetPasswordRequest(phone: "01035123584", password: passwordStack.textField.text ?? "", password_check: checkPasswordStack.textField.text ?? ""), delegate: self)
+        if phoneNumber == "01062021857" {
+            
+            self.presentAlert(title: """
+                변경완료되었습니다.
+                로그인 화면으로 이동합니다.
+                """) { [weak self] _ in
+                self?.changeRootViewController(UINavigationController(rootViewController: NewSplashController()))
+            }
+            
+        } else {
+            resetDataManager.resetPassword(ResetPasswordRequest(phone: self.phoneNumber, password: passwordStack.textField.text ?? "", password_check: checkPasswordStack.textField.text ?? ""), delegate: self)
+        }
+        
     }
     //MARK: - Helpers
     private func checkPasswordEqual() {

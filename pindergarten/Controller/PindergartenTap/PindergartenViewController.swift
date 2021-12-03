@@ -109,7 +109,7 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         if let clickedLat = clickedLat, let clickedLon = clickedLon {
             getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: clickedLat, lon: clickedLon, delegate: self)
         } else {
-            print("클릭한 마커 없음")
+            
 //            getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: locationManager.location?.coordinate.latitude ?? 0, lon: locationManager.location?.coordinate.longitude ?? 0, delegate: self)
         }
         
@@ -331,7 +331,6 @@ extension PindergartenViewController {
     
     func failedToGetAllPindergarten(message: String) {
         self.presentAlert(title: message)
-        print("전체?")
     }
     
     func didSuccessGetNearPindergarten(_ result: [GetAllPindergartenResult]) {
@@ -341,7 +340,6 @@ extension PindergartenViewController {
     
     func failedToGetNearPindergarten(message: String) {
         self.presentAlert(title: message)
-        print("주위?")
     }
 }
 

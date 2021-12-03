@@ -10,7 +10,7 @@ import DropDown
 
 class ReportController: BaseViewController {
     deinit {
-        print("deinit")
+    
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -167,8 +167,6 @@ class ReportController: BaseViewController {
     }
     
     @objc private func didTapReportButton(type: Int) {
-        print("DEBUG: TAPPED REPORT BUTTON")
-        print("\(Constant.BASE_URL)/api/posts/\(postId)/declaration?type=\(self.type)")
         reportDataManager.reportFeed(postId: postId, type: self.type, ReportRequest(title: reportTitleTextFeild.text ?? "", content: textView.text ?? ""), delegate: self)
     }
     
@@ -205,7 +203,6 @@ class ReportController: BaseViewController {
         
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.type = index + 1
-            print(self.type)
             reportTypeButton.setAttributedTitle(NSAttributedString(string: item, attributes: [.font : UIFont(name: "AppleSDGothicNeo-Regular", size: 14)!, .foregroundColor : UIColor(hex: 0x3D3D3D)]), for: .normal)
             
             if textView.text.count >= 10 && reportTitleTextFeild.text?.count ?? 0 > 0 {

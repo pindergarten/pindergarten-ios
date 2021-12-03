@@ -203,7 +203,6 @@ class MeAndPetViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("APPEAR")
         tabBarController?.tabBar.isHidden = false
 //        getAllMyPetsDataManager.getAllMyPet(delegate: self)
         getMyPageDataManager.getMyPage(delegate: self)

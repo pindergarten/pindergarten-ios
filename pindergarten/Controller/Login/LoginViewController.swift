@@ -9,9 +9,6 @@ import UIKit
 import AnyFormatKit
 
 class LoginViewController: BaseViewController {
-    deinit {
-            print("deinit")
-    }
     //MARK: - Properties
 //
 //    private let backButton: UIButton = {
@@ -234,12 +231,9 @@ extension LoginViewController {
    
         UserDefaults.standard.set(result.jwt, forKey: "token")
         UserDefaults.standard.set(true, forKey: "onboarding")
-
-        print("DEBUG: Enable to Login")
     }
     
     func failedToLogin(message: String) {
         self.presentAlert(title: message)
-        print("DEBUG: FAILED LOGIN")
     }
 }

@@ -18,9 +18,6 @@ class CustomTapGesture: UITapGestureRecognizer {
 
 class DetailPindergartenController: BaseViewController {
 
-    deinit {
-            print("deinit")
-    }
     //MARK: - Properties
   
     lazy var getDetailPindergartenDataManager: GetDetailPindergartenDataManager = GetDetailPindergartenDataManager()
@@ -154,7 +151,6 @@ class DetailPindergartenController: BaseViewController {
     }
     
     @objc func didTapHomepageLabel(sender: CustomTapGesture) {
-        print(123)
         
         guard let url = URL(string: sender.urlString ?? "") else { return }
 
@@ -203,7 +199,7 @@ class DetailPindergartenController: BaseViewController {
 
 extension DetailPindergartenController: BasicInfoCellDelegate {
     func didTapPhonLabel() {
-        print("DEBUG: TAPPED PHONE LABEL")
+        
     }
     
 //    func didTapWebsiteLabel() {
@@ -217,7 +213,6 @@ extension DetailPindergartenController: DetailPindergartenHeaderCellDelegate {
     func didTapCallButton() {
         
         let number = Int(num.replacingOccurrences(of: "-", with: "") ) ?? 0
-        print(number)
         if let url = NSURL(string: num.first == "0" ? "tel://0\(number)" : "tel://\(number)"),
            //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
            UIApplication.shared.canOpenURL(url as URL) {
@@ -344,7 +339,6 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
             
             if cell.websiteStack.arrangedSubviews.count != webSiteArr.count {
                 for website in webSiteArr {
-                    print(website)
                     let homepageLabel = UILabel()
                     homepageLabel.text = website
                     homepageLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 14)
@@ -380,8 +374,6 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            print(indexPath.item)
-
             
             let webView = BlogWebViewController()
             
@@ -444,15 +436,11 @@ extension DetailPindergartenController {
     
     func didSuccessGetDetailPindergarten(_ result: GetDetailPindergartenResult) {
         detailResult = result
-        print(result)
-       
         
         webSiteArr = result.website?.components(separatedBy: "\n") ?? []
         if webSiteArr == [""] {
             webSiteArr = ["-"]
         }
-        
-        print(webSiteArr)
         
         if result.imgUrls?.count == 0 {
             imageInput = [ImageSource(image: UIImage(named: "1")!)]
@@ -479,7 +467,6 @@ extension DetailPindergartenController {
     }
     
     func didSuccessLikePindergarten(_ result: PindergartenLikeResult) {
-        print(result.isSet)
         detailResult?.isLiked = result.isSet
     }
     
