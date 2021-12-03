@@ -22,7 +22,7 @@ class HomeCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "1")
+//        imageView.image = UIImage(named: "1")
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
         imageView.layer.cornerRadius = 10
@@ -77,7 +77,8 @@ class HomeCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        profileImageView.setDimensions(height: 20, width: 20)
+//        profileImageView.setDimensions(height: 20, width: 20)
+    
     }
     
     //MARK: - Action

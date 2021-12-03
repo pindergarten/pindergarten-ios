@@ -21,11 +21,7 @@ class HomeViewController: BaseViewController {
     var postId: Int = 0
     private var feed: [GetAllFeedResult] = [] {
         didSet {
-            collectionView.refreshControl?.endRefreshing()
-            collectionView.performBatchUpdates({
-                self.collectionView.reloadSections(IndexSet(integer: 0))
-            }, completion: nil)
-            
+            collectionView.reloadData()
         }
     }
     
@@ -103,7 +99,6 @@ class HomeViewController: BaseViewController {
     //MARK: - Action
     @objc func didPullToRefresh() {
         // re-fetch data
-        print("refetch")
         getAllFeedDataManager.getAllFeed(delegate: self)
         
     }
@@ -252,7 +247,12 @@ extension HomeViewController {
    
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
 
-        feed = result
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            self.feed = result
+            self.collectionView.refreshControl?.endRefreshing()
+        }
+        
     }
     
     func failedToGetAllFeed(message: String) {
