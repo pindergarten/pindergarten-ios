@@ -62,6 +62,13 @@ class NickNameViewController: BaseViewController {
         return tf
     }()
     
+    private let alertImageView: UIImageView = {
+        let iv = UIImageView(image: UIImage(systemName: "exclamationmark.circle"))
+        iv.tintColor = UIColor(hex: 0xCF0E1E)
+        iv.setDimensions(height: 17, width: 17)
+        return iv
+    }()
+    
     private let checkNickNameButton: UIButton = {
         let button = UIButton(type: .system)
         button.setAttributedTitle(NSMutableAttributedString(string: "중복확인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
@@ -144,34 +151,54 @@ class NickNameViewController: BaseViewController {
             if let _ = regex?.firstMatch(in: nickName, options: [], range: NSRange(location: 0, length: nickName.count)) {
                 checkNickNameButton.setAttributedTitle(NSMutableAttributedString(string: "중복확인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
                 correctNickNameLabel.isHidden = true
+                correctNickNameLabel.textColor = .mainBrown
                 checkNickNameButton.layer.borderWidth = 0
                 checkNickNameButton.backgroundColor = .mainLightYellow
                 checkNickNameButton.isUserInteractionEnabled = true
-            } else if nickName.count < 2 && nickName.count > 0 {
+                alertImageView.isHidden = true
+                
+            } else if nickName.count == 0 {
                 checkNickNameButton.setAttributedTitle(NSMutableAttributedString(string: "중복확인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
-                correctNickNameLabel.text = "2자이상 입력해주세요."
+                correctNickNameLabel.text = "*계정 이름에는 영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다."
                 correctNickNameLabel.isHidden = false
+                correctNickNameLabel.textColor = .mainBrown
                 checkNickNameButton.layer.borderWidth = 1
                 checkNickNameButton.backgroundColor = .white
                 checkNickNameButton.isUserInteractionEnabled = false
+                alertImageView.isHidden = true
+            
+            } else if nickName.count < 2 && nickName.count > 0 {
+                checkNickNameButton.setAttributedTitle(NSMutableAttributedString(string: "중복확인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
+                correctNickNameLabel.text = "*2자이상 입력해주세요."
+                correctNickNameLabel.isHidden = false
+                correctNickNameLabel.textColor = UIColor(hex: 0xCF0E1E)
+                checkNickNameButton.layer.borderWidth = 1
+                checkNickNameButton.backgroundColor = .white
+                checkNickNameButton.isUserInteractionEnabled = false
+                alertImageView.isHidden = false
             } else {
                 checkNickNameButton.setAttributedTitle(NSMutableAttributedString(string: "중복확인", attributes: [.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!]), for: .normal)
                 correctNickNameLabel.text = "*계정 이름에는 영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다."
                 correctNickNameLabel.isHidden = false
+                correctNickNameLabel.textColor = UIColor(hex: 0xCF0E1E)
                 checkNickNameButton.layer.borderWidth = 1
                 checkNickNameButton.backgroundColor = .white
                 checkNickNameButton.isUserInteractionEnabled = false
+                alertImageView.isHidden = false
             }
         }
     }
     
     private func configureUI() {
 
+        alertImageView.isHidden = true
+        
         view.addSubview(backButton)
         view.addSubview(progressBar)
         view.addSubview(infoLabel)
         view.addSubview(nickNameLabel)
         view.addSubview(nickNameTextField)
+        view.addSubview(alertImageView)
         view.addSubview(checkNickNameButton)
         view.addSubview(nickNameLine)
         view.addSubview(correctNickNameLabel)
@@ -199,8 +226,15 @@ class NickNameViewController: BaseViewController {
         nickNameTextField.snp.makeConstraints { make in
             make.top.equalTo(nickNameLabel.snp.bottom).offset(20)
             make.left.equalTo(view).offset(20)
+            make.right.equalTo(alertImageView.snp.left)
             make.height.equalTo(20)
         }
+        
+        alertImageView.snp.makeConstraints { make in
+            make.centerY.equalTo(nickNameTextField)
+            make.right.equalTo(nickNameLine)
+        }
+        
         nickNameLine.snp.makeConstraints { make in
             make.top.equalTo(nickNameTextField.snp.bottom).offset(8)
             make.left.equalTo(20)

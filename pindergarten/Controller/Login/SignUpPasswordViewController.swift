@@ -98,11 +98,19 @@ class SignUpPasswordViewController: BaseViewController {
                 nextButton.layer.borderWidth = 0
                 nextButton.backgroundColor = .mainLightYellow
                 nextButton.isUserInteractionEnabled = true
-            } else {
+            } else if password.count < 8 || password.count > 16 {
                 nextButton.layer.borderWidth = 1
                 nextButton.backgroundColor = .white
                 nextButton.isUserInteractionEnabled = false
                 correctPasswordLabel.isHidden = false
+                correctPasswordLabel.text = "*8~16자 이내의 비밀번호를 입력해주세요"
+            }
+            else {
+                nextButton.layer.borderWidth = 1
+                nextButton.backgroundColor = .white
+                nextButton.isUserInteractionEnabled = false
+                correctPasswordLabel.isHidden = false
+                correctPasswordLabel.text = "*비밀번호가 일치하지 않습니다."
             }
         }
     }

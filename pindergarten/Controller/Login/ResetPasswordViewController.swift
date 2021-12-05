@@ -110,10 +110,17 @@ class ResetPasswordViewController: BaseViewController {
                 correctPasswordLabel.isHidden = true
                 nextButton.backgroundColor = .mainLightYellow
                 nextButton.isUserInteractionEnabled = true
-            } else {
+            } else if password.count < 8 || password.count > 16 {
                 nextButton.backgroundColor = .white
                 nextButton.isUserInteractionEnabled = false
                 correctPasswordLabel.isHidden = false
+                correctPasswordLabel.text = "*8~16자 이내의 비밀번호를 입력해주세요"
+            }
+            else {
+                nextButton.backgroundColor = .white
+                nextButton.isUserInteractionEnabled = false
+                correctPasswordLabel.isHidden = false
+                correctPasswordLabel.text = "*비밀번호가 일치하지 않습니다."
             }
         }
     }

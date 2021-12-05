@@ -49,7 +49,7 @@ class DetailPetController: BaseViewController {
         return label
     }()
     
-    private lazy var deleteButton: UIButton = {
+    lazy var deleteButton: UIButton = {
         let button = UIButton(type: .system)
         button.setAttributedTitle(NSAttributedString(string: "삭제", attributes: [.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)!]), for: .normal)
         button.tintColor = UIColor.red

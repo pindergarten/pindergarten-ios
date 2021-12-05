@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 
-class UserProfileController: BaseViewController {
+class MyProfileController: BaseViewController {
     //MARK: - Properties
     
     lazy var logoutDataManager: LogoutDataManager = LogoutDataManager()
@@ -76,7 +76,7 @@ class UserProfileController: BaseViewController {
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 17)
         label.textColor = UIColor(hex: 0x3F3F3F)
         label.textAlignment = .center
-        label.text = "goni_11_11 님,"
+        label.text = "님,"
         return label
     }()
     
@@ -390,7 +390,7 @@ class UserProfileController: BaseViewController {
 }
 
 //MARK: - Extension
-extension UserProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension MyProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -411,7 +411,7 @@ extension UserProfileController: UIImagePickerControllerDelegate, UINavigationCo
 }
 
 // 네트워크 함수
-extension UserProfileController {
+extension MyProfileController {
     func didSuccessLogout() {
         self.presentAlert(title: "로그아웃에 성공하였습니다.") {[weak self] _ in
             self?.changeRootViewController(UINavigationController(rootViewController: NewSplashController()))
@@ -441,10 +441,13 @@ extension UserProfileController {
     }
     
     func failedToGetMyProfile(message: String) {
-        self.presentAlert(title: message)
+        self.presentAlert(title: message) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
     
     func didSuccessChangeProfile() {
+        self.presentAlert(title: "수정되었습니다.")
     }
     
     func failedToChangeProfile(message: String) {

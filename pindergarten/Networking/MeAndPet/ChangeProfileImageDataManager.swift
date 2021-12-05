@@ -12,7 +12,7 @@ class ChangeProfileImageDataManager {
     func changeProfile(
         userId: Int,
         profileImage: UIImage?,
-        delegate: UserProfileController,
+        delegate: MyProfileController,
         completion: @escaping (Bool) -> Void
     ) {
         let URL = "\(Constant.BASE_URL)/api/users/\(userId)"

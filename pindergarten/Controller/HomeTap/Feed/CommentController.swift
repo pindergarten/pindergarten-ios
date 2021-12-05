@@ -110,7 +110,14 @@ class CommentController: BaseViewController {
         configureUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = true
+    }
+    
     //MARK: - Action
+    
     @objc private func didTapBackButton() {
         navigationController?.popViewController(animated: true)
     }
@@ -252,7 +259,14 @@ extension CommentController: CommentDelegate {
         navigationController?.pushViewController(commentVC, animated: true)
     }
 }
+
 extension CommentController: CommentCellDelegate {
+    func didTapUserProfile(userId: Int) {
+        let userVC = UserPageController()
+        userVC.userId = userId
+        navigationController?.pushViewController(userVC, animated: true)
+    }
+    
 
     func didLongPressComment(commentId: Int, userId: Int) {
 

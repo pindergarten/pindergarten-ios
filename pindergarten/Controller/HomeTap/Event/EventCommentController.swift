@@ -117,6 +117,11 @@ class EventCommentController: BaseViewController {
         configureUI()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = true
+    }
     //MARK: - Action
     @objc private func didTapBackButton() {
         navigationController?.popViewController(animated: true)
@@ -265,6 +270,13 @@ extension EventCommentController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension EventCommentController: CommentCellDelegate  {
+    func didTapUserProfile(userId: Int) {
+        print("tap \(userId)")
+        let userVC = UserPageController()
+        userVC.userId = userId
+        navigationController?.pushViewController(userVC, animated: true)
+    }
+    
     func didLongPressComment(commentId: Int, userId: Int) {
 
         if JwtToken.userId == userId {

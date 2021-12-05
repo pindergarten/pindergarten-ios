@@ -15,6 +15,12 @@
 		240B8D85273268C900078404 /* GetDetailFeedDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D84273268C900078404 /* GetDetailFeedDataManager.swift */; };
 		240B8D8D273269E700078404 /* AllFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D8C273269E700078404 /* AllFeedResponse.swift */; };
 		240B8D9427326D6E00078404 /* DetailFeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240B8D9327326D6E00078404 /* DetailFeedResponse.swift */; };
+		241B0A4F275BCBF7004672F3 /* GetMyProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A4E275BCBF7004672F3 /* GetMyProfileResponse.swift */; };
+		241B0A51275BDF12004672F3 /* UserPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A50275BDF12004672F3 /* UserPageController.swift */; };
+		241B0A53275BE3AC004672F3 /* GetUserPetsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A52275BE3AC004672F3 /* GetUserPetsDataManager.swift */; };
+		241B0A55275BE40D004672F3 /* GetUserPetsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A54275BE40D004672F3 /* GetUserPetsResponse.swift */; };
+		241B0A57275BE563004672F3 /* GetUserPostsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A56275BE563004672F3 /* GetUserPostsDataManager.swift */; };
+		241B0A59275BE5F6004672F3 /* GetUserPostsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A58275BE5F6004672F3 /* GetUserPostsResponse.swift */; };
 		24595AE2273123E1008B5194 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE1273123E1008B5194 /* EventCell.swift */; };
 		24595AE42732730A008B5194 /* DetailFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE32732730A008B5194 /* DetailFeedCell.swift */; };
 		247B84312733068500591CC4 /* LikeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247B84302733068500591CC4 /* LikeDataManager.swift */; };
@@ -96,7 +102,7 @@
 		24994E21274E474F005A604B /* DeleteMyPetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E20274E474F005A604B /* DeleteMyPetResponse.swift */; };
 		24994E23274E530E005A604B /* NewSplashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E22274E530E005A604B /* NewSplashController.swift */; };
 		24994E25274E958B005A604B /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E24274E958B005A604B /* SettingController.swift */; };
-		24994E27274E9B48005A604B /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E26274E9B47005A604B /* UserProfileController.swift */; };
+		24994E27274E9B48005A604B /* MyProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E26274E9B47005A604B /* MyProfileController.swift */; };
 		24994E29274EA9BB005A604B /* LogoutDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E28274EA9BB005A604B /* LogoutDataManager.swift */; };
 		24994E2B274EA9D9005A604B /* WithdrawalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E2A274EA9D9005A604B /* WithdrawalDataManager.swift */; };
 		24994E2D274EAA2C005A604B /* DefaultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24994E2C274EAA2C005A604B /* DefaultResponse.swift */; };
@@ -197,6 +203,12 @@
 		240B8D84273268C900078404 /* GetDetailFeedDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDetailFeedDataManager.swift; sourceTree = "<group>"; };
 		240B8D8C273269E700078404 /* AllFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFeedResponse.swift; sourceTree = "<group>"; };
 		240B8D9327326D6E00078404 /* DetailFeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedResponse.swift; sourceTree = "<group>"; };
+		241B0A4E275BCBF7004672F3 /* GetMyProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyProfileResponse.swift; sourceTree = "<group>"; };
+		241B0A50275BDF12004672F3 /* UserPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPageController.swift; sourceTree = "<group>"; };
+		241B0A52275BE3AC004672F3 /* GetUserPetsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserPetsDataManager.swift; sourceTree = "<group>"; };
+		241B0A54275BE40D004672F3 /* GetUserPetsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserPetsResponse.swift; sourceTree = "<group>"; };
+		241B0A56275BE563004672F3 /* GetUserPostsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserPostsDataManager.swift; sourceTree = "<group>"; };
+		241B0A58275BE5F6004672F3 /* GetUserPostsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserPostsResponse.swift; sourceTree = "<group>"; };
 		24595AE1273123E1008B5194 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		24595AE32732730A008B5194 /* DetailFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedCell.swift; sourceTree = "<group>"; };
 		247B84302733068500591CC4 /* LikeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDataManager.swift; sourceTree = "<group>"; };
@@ -278,7 +290,7 @@
 		24994E20274E474F005A604B /* DeleteMyPetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteMyPetResponse.swift; sourceTree = "<group>"; };
 		24994E22274E530E005A604B /* NewSplashController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSplashController.swift; sourceTree = "<group>"; };
 		24994E24274E958B005A604B /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
-		24994E26274E9B47005A604B /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
+		24994E26274E9B47005A604B /* MyProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileController.swift; sourceTree = "<group>"; };
 		24994E28274EA9BB005A604B /* LogoutDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutDataManager.swift; sourceTree = "<group>"; };
 		24994E2A274EA9D9005A604B /* WithdrawalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalDataManager.swift; sourceTree = "<group>"; };
 		24994E2C274EAA2C005A604B /* DefaultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultResponse.swift; sourceTree = "<group>"; };
@@ -524,7 +536,8 @@
 				24994E18274D68CA005A604B /* DetailPetController.swift */,
 				24994E24274E958B005A604B /* SettingController.swift */,
 				24994E36274FEBCD005A604B /* ServiceTermViewController.swift */,
-				24994E26274E9B47005A604B /* UserProfileController.swift */,
+				24994E26274E9B47005A604B /* MyProfileController.swift */,
+				241B0A50275BDF12004672F3 /* UserPageController.swift */,
 				24994E34274FC549005A604B /* PlusPopUpViewController.swift */,
 			);
 			path = MeAndPetTap;
@@ -535,6 +548,8 @@
 			children = (
 				24994E0A274CF5E5005A604B /* PostMyPetDataManager.swift */,
 				24994E0C274D020A005A604B /* GetAllMyPetsDataManager.swift */,
+				241B0A52275BE3AC004672F3 /* GetUserPetsDataManager.swift */,
+				241B0A56275BE563004672F3 /* GetUserPostsDataManager.swift */,
 				24994E10274D3EE5005A604B /* GetDetailPetDataManager.swift */,
 				24994E1A274E1838005A604B /* GetMyPageDataManager.swift */,
 				24994E1E274E4741005A604B /* DeleteMyPetDataManager.swift */,
@@ -555,7 +570,10 @@
 				24994E08274CF44C005A604B /* PostMyPetResponse.swift */,
 				24994E0E274D0215005A604B /* GetAllMyPetsResponse.swift */,
 				24994E12274D3EF7005A604B /* GetDetailPetResponse.swift */,
+				241B0A54275BE40D004672F3 /* GetUserPetsResponse.swift */,
+				241B0A58275BE5F6004672F3 /* GetUserPostsResponse.swift */,
 				24994E1C274E1956005A604B /* GetMyPageResponse.swift */,
+				241B0A4E275BCBF7004672F3 /* GetMyProfileResponse.swift */,
 				24994E20274E474F005A604B /* DeleteMyPetResponse.swift */,
 				24994E2C274EAA2C005A604B /* DefaultResponse.swift */,
 			);
@@ -1112,6 +1130,7 @@
 				24994DED2743D308005A604B /* PostFeedController.swift in Sources */,
 				24C4D6AA2725423A00FD519D /* AppDelegate.swift in Sources */,
 				247B84492735026C00591CC4 /* ReportController.swift in Sources */,
+				241B0A59275BE5F6004672F3 /* GetUserPostsResponse.swift in Sources */,
 				24994DF9274A8AA1005A604B /* PetRegisterController.swift in Sources */,
 				24994E35274FC54A005A604B /* PlusPopUpViewController.swift in Sources */,
 				240B8D83273268B300078404 /* GetAllFeedDataManager.swift in Sources */,
@@ -1133,11 +1152,13 @@
 				24F74312272D02B400238E20 /* CheckNickNameRequest.swift in Sources */,
 				247B843B2733FE1A00591CC4 /* EventCommentController.swift in Sources */,
 				240B8D85273268C900078404 /* GetDetailFeedDataManager.swift in Sources */,
+				241B0A4F275BCBF7004672F3 /* GetMyProfileResponse.swift in Sources */,
 				24994D9527398674005A604B /* EventLikeResponse.swift in Sources */,
 				247B8443273433CA00591CC4 /* PostCommentRequest.swift in Sources */,
 				24994DD727416061005A604B /* DetailPindergartenInfoCell.swift in Sources */,
 				24994E29274EA9BB005A604B /* LogoutDataManager.swift in Sources */,
 				24F74318272D0A9C00238E20 /* CheckUserRequest.swift in Sources */,
+				241B0A57275BE563004672F3 /* GetUserPostsDataManager.swift in Sources */,
 				24994DBA27409973005A604B /* SearchPindergartenController.swift in Sources */,
 				24994DB6273EB75B005A604B /* PindergartenCell.swift in Sources */,
 				24994DC82740CFA4005A604B /* GetLikePindergartenResponse.swift in Sources */,
@@ -1156,8 +1177,9 @@
 				240B8D762731685800078404 /* DetailEventController.swift in Sources */,
 				24C4D7062728044E00FD519D /* SignUpNumberViewController.swift in Sources */,
 				24F7431C272D11B700238E20 /* ResetPasswordDataManager.swift in Sources */,
-				24994E27274E9B48005A604B /* UserProfileController.swift in Sources */,
+				24994E27274E9B48005A604B /* MyProfileController.swift in Sources */,
 				24994E0B274CF5E5005A604B /* PostMyPetDataManager.swift in Sources */,
+				241B0A53275BE3AC004672F3 /* GetUserPetsDataManager.swift in Sources */,
 				24994DAF273DACA5005A604B /* EventFooterView.swift in Sources */,
 				24F743482730330F00238E20 /* HomeCell.swift in Sources */,
 				247B843F2734336600591CC4 /* PostCommentDataManager.swift in Sources */,
@@ -1166,6 +1188,7 @@
 				24F74326272D168800238E20 /* RegisterUserResponse.swift in Sources */,
 				24C4D6F02725982600FD519D /* Device.swift in Sources */,
 				24994E2D274EAA2C005A604B /* DefaultResponse.swift in Sources */,
+				241B0A51275BDF12004672F3 /* UserPageController.swift in Sources */,
 				24994DAB273ADA27005A604B /* ReportResponse.swift in Sources */,
 				24994E0D274D020A005A604B /* GetAllMyPetsDataManager.swift in Sources */,
 				24994E3B2750D86C005A604B /* DetailTimePindergartenInfoCell.swift in Sources */,
@@ -1183,6 +1206,7 @@
 				24994E11274D3EE5005A604B /* GetDetailPetDataManager.swift in Sources */,
 				24F74324272D168000238E20 /* RegisterUserRequest.swift in Sources */,
 				24994E19274D68CA005A604B /* DetailPetController.swift in Sources */,
+				241B0A55275BE40D004672F3 /* GetUserPetsResponse.swift in Sources */,
 				24994DFC274AA844005A604B /* CustomButtonChoiceView.swift in Sources */,
 				24C4D6EE272597FF00FD519D /* IndicatorView.swift in Sources */,
 				24994DEF2743DD0B005A604B /* BlogWebViewController.swift in Sources */,

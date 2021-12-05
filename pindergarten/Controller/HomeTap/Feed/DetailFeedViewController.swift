@@ -179,7 +179,7 @@ class DetailFeedViewController: BaseViewController {
       
         moreLabel.addGestureRecognizer(tapMoreLabelGestureRecognizer)
 
-        
+        putGesture()
         configureUI()
     }
     
@@ -257,7 +257,28 @@ class DetailFeedViewController: BaseViewController {
         navigationController?.pushViewController(commentVC, animated: true)
     }
     
+    @objc func didTapNameLabel(sender: UITapGestureRecognizer) {
+        let userVC = UserPageController()
+        userVC.userId = detailFeed?.userId ?? 0
+        navigationController?.pushViewController(userVC, animated: true)
+    }
+    
+    @objc func didTapProfileImage(sender: UITapGestureRecognizer) {
+        let userVC = UserPageController()
+        userVC.userId = detailFeed?.userId ?? 0
+        navigationController?.pushViewController(userVC, animated: true)
+    }
+    
     //MARK: - Helpers
+    private func putGesture() {
+        let tapNameGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapNameLabel(sender:)))
+        let tapProfileGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapProfileImage(sender:)))
+        nameLabel.isUserInteractionEnabled = true
+        profileImageView.isUserInteractionEnabled = true
+        nameLabel.addGestureRecognizer(tapNameGestureRecognizer)
+        profileImageView.addGestureRecognizer(tapProfileGestureRecognizer)
+    }
+    
     private func configureUI() {
         
         view.addSubview(backButton)

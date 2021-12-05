@@ -9,6 +9,7 @@ import UIKit
 
 protocol CommentCellDelegate: AnyObject {
     func didLongPressComment(commentId: Int, userId: Int)
+    func didTapUserProfile(userId: Int)
 }
 
 class CommentCell: UITableViewCell {
@@ -80,16 +81,25 @@ class CommentCell: UITableViewCell {
     }
     
     //MARK: - Action
+  
+    @objc func didTapProfileImage(sender: UITapGestureRecognizer) {
+        delegate?.didTapUserProfile(userId: self.userId)
+    }
+    
     @objc private func didLongPressComment(_ gesture: UILongPressGestureRecognizer) {
-        print("DEBUG: LONG PRESS")
         delegate?.didLongPressComment(commentId: self.commentId, userId: self.userId)
     }
     //MARK: - Helpers
+    
     private func putGesture() {
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressComment(_:)))
         gestureRecognizer.numberOfTouchesRequired = 1
         gestureRecognizer.numberOfTapsRequired = 0
         addGestureRecognizer(gestureRecognizer)
+        
+        let tapProfileGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapProfileImage(sender:)))
+        profileImage.isUserInteractionEnabled = true
+        profileImage.addGestureRecognizer(tapProfileGestureRecognizer)
     }
     
     private func configureUI() {

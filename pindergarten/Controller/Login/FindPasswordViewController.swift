@@ -290,6 +290,7 @@ class FindPasswordViewController: BaseViewController {
         phoneNumberTextField.snp.makeConstraints { make in
             make.top.equalTo(phoneNumberLabel.snp.bottom).offset(20)
             make.left.equalTo(view).offset(20)
+            make.right.equalTo(phoneNumberLine)
             make.height.equalTo(20)
         }
         phoneNumberLine.snp.makeConstraints { make in
@@ -305,6 +306,7 @@ class FindPasswordViewController: BaseViewController {
         }
         authNumberTextField.snp.makeConstraints { make in
             make.top.equalTo(phoneNumberLine.snp.bottom).offset(28)
+            make.right.equalTo(authNumberLine)
             make.left.equalTo(view).offset(20)
         }
 //        timeLabel.snp.makeConstraints { make in

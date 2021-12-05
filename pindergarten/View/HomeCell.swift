@@ -22,7 +22,6 @@ class HomeCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.image = UIImage(named: "1")
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
         imageView.layer.cornerRadius = 10
@@ -77,19 +76,14 @@ class HomeCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-//        profileImageView.setDimensions(height: 20, width: 20)
+
     
     }
     
     //MARK: - Action
     @objc func didTapHeartButton() {
         delegate?.didTapHeartButton(tag: heartButton.tag, index: feedIndex)
-        print("DEBUG: TAPPED HEART BUTTON")
-//        if heartButton.currentImage == UIImage(named: "heartButton") {
-//            heartButton.setImage(UIImage(named: "filledHeartButton"), for: .normal)
-//        } else {
-//            heartButton.setImage(UIImage(named: "heartButton"), for: .normal)
-//        }
+        
     }
     //MARK: - Helpers
     private func setUpRoundShadow() {

@@ -108,13 +108,13 @@ class DetailEventController: BaseViewController {
         commentTableView.delegate = self
         commentTableView.dataSource = self
         commentTableView.register(CommentCell.self, forCellReuseIdentifier: CommentCell.identifier)
- 
+        
         configureUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        tabBarController?.tabBar.isHidden = true
         getDetailEventDataManager.getADetailEvent(eventId: id, delegate: self)
         getEventCommentDataManager.getEventComment(eventId: id, delegate: self)
     }
@@ -187,6 +187,7 @@ extension DetailEventController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
         cell.selectionStyle = .none
+        cell.delegate = self
 
         cell.profileImage.kf.setImage(with: URL(string: eventComment[indexPath.item].profileimg))
 
@@ -271,3 +272,14 @@ extension DetailEventController {
     }
 }
 
+extension DetailEventController: CommentCellDelegate {
+    func didLongPressComment(commentId: Int, userId: Int) {
+        
+    }
+
+    func didTapUserProfile(userId: Int) {
+        let userVC = UserPageController()
+        userVC.userId = userId
+        navigationController?.pushViewController(userVC, animated: true)
+    }
+}

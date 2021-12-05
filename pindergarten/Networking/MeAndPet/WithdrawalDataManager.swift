@@ -8,7 +8,7 @@
 import Alamofire
 
 class WithdrawalDataManager {
-    func withdrawal(userId: Int, delegate: UserProfileController) {
+    func withdrawal(userId: Int, delegate: MyProfileController) {
         AF.request("\(Constant.BASE_URL)/api/users/\(userId)/status", method: .patch, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: DefaultResponse.self) { response in

@@ -8,7 +8,7 @@
 import Alamofire
 
 class LogoutDataManager {
-    func logout(delegate: UserProfileController) {
+    func logout(delegate: MyProfileController) {
         AF.request("\(Constant.BASE_URL)/api/users/sign-out", method: .patch, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: DefaultResponse.self) { response in

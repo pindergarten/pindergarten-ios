@@ -218,11 +218,11 @@ class MeAndPetViewController: BaseViewController {
     }
     
     @objc func didTapNameLabel(sender: UITapGestureRecognizer) {
-        navigationController?.pushViewController(UserProfileController(), animated: true)
+        navigationController?.pushViewController(MyProfileController(), animated: true)
     }
     
     @objc func didTapProfileImage(sender: UITapGestureRecognizer) {
-        navigationController?.pushViewController(UserProfileController(), animated: true)
+        navigationController?.pushViewController(MyProfileController(), animated: true)
     }
     
     @objc private func didTapRegisterPetButton() {
