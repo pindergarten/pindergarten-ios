@@ -148,13 +148,13 @@ class EventCommentController: BaseViewController {
             remake.bottom.equalTo(view.snp.bottom).offset(-10-keyboardHeight)
             remake.height.equalTo(40)
         }
-    
-        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut) {
-            self.view.layoutIfNeeded()
-        } completion: {  _ in
+        
+//        UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut) {
+//            self.view.layoutIfNeeded()
+//        } completion: { _ in
 //            let indexPath = IndexPath(item: (self?.eventComment.count ?? 1) - 1 , section: 0)
 //            self?.commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        }
+//        }
 
        
         
@@ -284,13 +284,25 @@ extension EventCommentController: CommentCellDelegate  {
                 self.deleteEventCommentDataManager.deleteComment(eventId: self.eventId, commentId: commentId, delegate: self)
              }
 
-             let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+             let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
              }
 
              self.presentAlert(
                  preferredStyle: .actionSheet,
                  with: actionDelete, actionCancel
              )
+        } else {
+            let actionDelete = UIAlertAction(title: "신고하기", style: .destructive) { action in
+             
+            }
+
+            let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+            }
+
+            self.presentAlert(
+                preferredStyle: .actionSheet,
+                with: actionDelete, actionCancel
+            )
         }
     }
 }
@@ -304,8 +316,11 @@ extension EventCommentController {
         
         eventComment = result
         commentTableView.reloadData()
-//        let indexPath = IndexPath(item: eventComment.count - 1 , section: 0)
-//        commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        if eventComment.count > 0 {
+            let indexPath = IndexPath(item: eventComment.count - 1 , section: 0)
+            commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+      
         
     }
     

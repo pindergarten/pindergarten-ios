@@ -19,7 +19,6 @@ class EventCell: UICollectionViewCell {
         imageView.isUserInteractionEnabled = true
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
-        imageView.image = #imageLiteral(resourceName: "2")
         return imageView
     }()
     

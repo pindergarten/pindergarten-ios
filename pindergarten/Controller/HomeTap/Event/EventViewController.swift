@@ -171,6 +171,7 @@ class EventViewController: BaseViewController {
 extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return event.count
+    
     }
     
     
@@ -187,8 +188,8 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
         } else {
             cell.dDayLabel.text = "D-\(days(to: event[index].expiredAt))"
         }
-       
-        
+
+
         return cell
     }
     

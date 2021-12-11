@@ -58,7 +58,7 @@ class PostFeedController: BaseViewController {
     var allPhotos:PHFetchResult<PHAsset>? = nil
     var keyboardHeight: CGFloat = 0
     
-    var imagePicker: ImagePickerController?
+//    var imagePicker: UIImagePickerController?
     
     lazy var postFeedDataManager: PostFeedDataManager = PostFeedDataManager()
     
@@ -250,6 +250,12 @@ class PostFeedController: BaseViewController {
     }
     private func getAlbum() {
         let imagePicker = ImagePickerController()
+        let options = imagePicker.settings.fetch.album.options
+              imagePicker.settings.fetch.album.fetchResults = [
+                  PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: options),
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots , options: options)
+              ]
         imagePicker.settings.selection.max = 10 - selectedAssets.count
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
 
@@ -307,8 +313,9 @@ class PostFeedController: BaseViewController {
         let manager = PHImageManager.default()
         let option = PHImageRequestOptions()
         option.isSynchronous = true
-        option.deliveryMode = .opportunistic
-           
+//        option.deliveryMode = .highQualityFormat
+//        option.resizeMode = .exact
+       
         manager.requestImage(for: asset, targetSize: CGSize(width: view.frame.size.width, height: view.frame.size.width), contentMode: .aspectFill, options: option, resultHandler: {(result, info)->Void in
            image = result!
         })
@@ -334,6 +341,10 @@ class PostFeedController: BaseViewController {
                 }
                 
                 DispatchQueue.main.async {
+                    for i in self.photoArray {
+                        print("높이: \(i.size.height), 가로: \(i.size.width)")
+                    }
+                    
                     self.imageCollectionView.reloadData()
                 }
             }

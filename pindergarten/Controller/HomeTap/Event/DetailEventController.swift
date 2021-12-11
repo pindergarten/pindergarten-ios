@@ -276,6 +276,8 @@ extension DetailEventController: CommentCellDelegate {
     func didLongPressComment(commentId: Int, userId: Int) {
         
     }
+        
+    
 
     func didTapUserProfile(userId: Int) {
         let userVC = UserPageController()

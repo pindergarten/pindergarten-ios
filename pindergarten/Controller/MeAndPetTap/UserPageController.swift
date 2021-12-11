@@ -44,6 +44,19 @@ class UserPageController: BaseViewController {
         return label
     }()
     
+    private lazy var defaultUserPetButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setAttributedTitle(NSAttributedString(string: "아직 등록된 반려견이 없어요 :(", attributes: [NSAttributedString.Key.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)!]), for: .normal)
+        button.tintColor = UIColor(hex: 0x545454)
+
+        button.layer.cornerRadius = 15
+        button.layer.masksToBounds = true
+        button.layer.borderColor = UIColor.mainLightYellow.cgColor
+        button.layer.borderWidth = 3
+        button.isUserInteractionEnabled = false
+        return button
+    }()
+    
     private let myPetCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -130,6 +143,7 @@ class UserPageController: BaseViewController {
 
         view.addSubview(backButton)
         view.addSubview(titleLabel)
+        view.addSubview(defaultUserPetButton)
         view.addSubview(myPetCollectionView)
         view.addSubview(separateLine)
         view.addSubview(userFeedCollectionView)
@@ -146,6 +160,13 @@ class UserPageController: BaseViewController {
             make.centerX.equalTo(view)
         }
         
+        defaultUserPetButton.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(30)
+            make.left.right.equalTo(view).inset(20)
+            make.height.equalTo(50)
+        }
+        
+        
         myPetCollectionView.snp.makeConstraints { make in
             make.top.equalTo(backButton.snp.bottom)
             make.left.right.equalTo(view)
@@ -154,9 +175,10 @@ class UserPageController: BaseViewController {
         
         separateLine.snp.makeConstraints { make in
             make.left.right.equalTo(view)
-            make.top.equalTo(backButton.snp.bottom).offset(90)
+            make.top.equalTo(defaultUserPetButton.snp.bottom).offset(20)
             make.height.equalTo(2)
         }
+        
         
         userFeedCollectionView.snp.makeConstraints { make in
             make.top.equalTo(separateLine.snp.bottom)
@@ -297,6 +319,13 @@ extension UserPageController {
     
     func didSuccessGetAllUserPets(_ result: [GetUserPetResult]) {
         userPets = result
+        if userPets.count == 0 {
+            myPetCollectionView.isHidden = true
+            defaultUserPetButton.isHidden = false
+        } else {
+            myPetCollectionView.isHidden = false
+            defaultUserPetButton.isHidden = true
+        }
     }
     
     func failedToGetUserPets(message: String) {

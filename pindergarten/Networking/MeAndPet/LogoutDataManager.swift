@@ -44,7 +44,7 @@ class LogoutDataManager {
                     // 실패했을 때
                     else {
                         switch response.code {
-                        default: delegate.failedToLogout(message: "로그아웃에 실패하였습니다")
+                        default: delegate.failedToLogout(message: response.message)
                         }
                     }
                 case .failure(let error):

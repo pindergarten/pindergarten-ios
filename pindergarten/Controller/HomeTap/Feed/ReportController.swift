@@ -381,7 +381,8 @@ extension ReportController: UITextViewDelegate {
 extension ReportController {
     func didSuccessReportFeed() {
         self.presentAlert(title: "신고접수 되었습니다.") { [weak self] _ in
-            self?.navigationController?.popViewController(animated: true)
+//            self?.navigationController?.popViewController(animated: true)
+            self?.navigationController?.popToRootViewController(animated: true)
         }
         
     }

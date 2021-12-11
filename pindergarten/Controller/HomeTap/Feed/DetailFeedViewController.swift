@@ -404,7 +404,7 @@ extension DetailFeedViewController {
         detailFeed = result
         
         if let detailFeed = detailFeed {
-            profileImageView.kf.setImage(with: URL(string: detailFeed.profileimg ))
+            profileImageView.kf.setImage(with: URL(string: detailFeed.profileimg))
             nameLabel.text = detailFeed.nickname
             heartLabel.text = "\(detailFeed.likeCount)"
             commentLabel.text = "\(detailFeed.commentCount)"
@@ -414,6 +414,7 @@ extension DetailFeedViewController {
                 imageInputs.append(AlamofireSource(urlString: imageURL.postImageUrl)!)
             }
             imageSlide.setImageInputs(imageInputs)
+            
             
             if detailFeed.isLiked == 0 {
                 heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal)

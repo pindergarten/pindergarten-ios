@@ -21,7 +21,6 @@ struct GetUserResult: Decodable {
     var phone: String
     var profileImage: String
 
-    
     enum CodingKeys: String, CodingKey {
         case id
         case nickname

@@ -418,7 +418,7 @@ extension PetRegisterController: UIImagePickerControllerDelegate, UINavigationCo
         }
         
         self.profileImageView.image = newImage // 받아온 이미지를 update
-        let imageData = newImage?.jpegData(compressionQuality: 0.4)
+        let imageData = newImage?.jpegData(compressionQuality: 1)
         myPet.profileImage = imageData!
         picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
         

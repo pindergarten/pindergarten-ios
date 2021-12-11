@@ -84,7 +84,7 @@ class CommentController: BaseViewController {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
-        tableView.keyboardDismissMode = .onDrag
+//        tableView.keyboardDismissMode = .onDrag
         return tableView
     }()
     
@@ -275,13 +275,25 @@ extension CommentController: CommentCellDelegate {
                 self.deleteCommentDataManager.deleteComment(postId: self.postId, commentId: commentId, delegate: self)
              }
 
-             let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+             let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
              }
 
              self.presentAlert(
                  preferredStyle: .actionSheet,
                  with: actionDelete, actionCancel
              )
+        } else {
+            let actionDelete = UIAlertAction(title: "신고하기", style: .destructive) { action in
+              
+            }
+
+            let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+            }
+
+            self.presentAlert(
+                preferredStyle: .actionSheet,
+                with: actionDelete, actionCancel
+            )
         }
     }
 }
@@ -291,6 +303,10 @@ extension CommentController {
     func didSuccessGetComment(_ result: [GetCommentResult]) {
         comments = result
         commentTableView.reloadData()
+        if comments.count > 0 {
+            let indexPath = IndexPath(item: comments.count - 1 , section: 0)
+            commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
     }
     
     func failedToGetComment(message: String) {

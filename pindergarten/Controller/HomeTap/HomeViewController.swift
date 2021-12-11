@@ -8,9 +8,6 @@
 import UIKit
 import Kingfisher
 
-var imageList: [UIImage] = [#imageLiteral(resourceName: "5"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "backgroundImage"), #imageLiteral(resourceName: "2"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "1"), #imageLiteral(resourceName: "2"), #imageLiteral(resourceName: "3"), #imageLiteral(resourceName: "5")]
-
-
 
 class HomeViewController: BaseViewController {
 
@@ -57,13 +54,17 @@ class HomeViewController: BaseViewController {
     private let collectionView: UICollectionView = {
         let pinterestLayout = PinterestLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: pinterestLayout)
+       
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 12, bottom: 40, right: 12)
+        
         return collectionView
     }()
-
+    
+    var imageList = [CGFloat]()
+    var isHomeVC: Bool = true
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,9 +74,9 @@ class HomeViewController: BaseViewController {
         configureUI()
         collectionView.delegate = self
         collectionView.dataSource = self
+        self.tabBarController?.delegate = self
         
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: HomeCell.identifier)
-        
         
         
         // Set the PinterestLayout delegate
@@ -86,12 +87,13 @@ class HomeViewController: BaseViewController {
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .mainLightYellow
         collectionView.refreshControl = refreshControl
+        // refreshcontrol 위치
+        collectionView.backgroundView = refreshControl
         collectionView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         tabBarController?.tabBar.isHidden = false
         getAllFeedDataManager.getAllFeed(delegate: self)
     }
@@ -145,6 +147,7 @@ class HomeViewController: BaseViewController {
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.left.right.bottom.equalTo(view)
         }
+        
     }
 }
 
@@ -169,7 +172,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.scriptionLabel.text = feed[indexPath.item].content
         cell.heartButton.tag = feed[indexPath.item].id
         cell.feedIndex = indexPath.item
-
 
         if feed[indexPath.item].isLiked == 0 {
             cell.heartButton.setImage(UIImage(named: "heartButton"), for: .normal)
@@ -206,22 +208,22 @@ extension HomeViewController: HomeCellDelegate {
 
 extension HomeViewController: PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-
+        
         let cellWidth: CGFloat = (view.bounds.width - 60) / 2 // 셀 가로 크기
         var imageHeight: CGFloat = 0
         var imageWidth: CGFloat = 0
 
-
         if indexPath.item % 4 == 0 || indexPath.item % 4 == 3 {
             imageHeight = 150
-            imageWidth = Device.width / 2 - 60
+
         } else {
             imageHeight = 200
-            imageWidth = Device.width / 2 - 60
         }
-
         
-//        let imageHeight = imageList[indexPath.item].size.height
+        imageWidth = Device.width / 2 - 60
+        
+     
+//        imageHeight = imageList[indexPath.item]
 //        let imageWidth = imageList[indexPath.item].size.width
         
         let imageRatio = imageHeight/imageWidth
@@ -234,22 +236,34 @@ extension HomeViewController: PinterestLayoutDelegate {
 extension HomeViewController: DetailVCDelegate {
     func deleteCache() {
         
-        if let layout = collectionView.collectionViewLayout as? PinterestLayout {
-          
-        }
     }
     
     
+}
+
+extension HomeViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+
+        if tabBarController.selectedIndex == 0 && isHomeVC == true {
+            collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        } else {
+            isHomeVC = false
+        }
+        
+        if tabBarController.selectedIndex == 0 {
+            isHomeVC = true
+        }
+    }
 }
 
 // 네트워크 함수
 extension HomeViewController {
    
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
-
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             self.feed = result
+            
             self.collectionView.refreshControl?.endRefreshing()
         }
         
@@ -263,14 +277,7 @@ extension HomeViewController {
     func didSuccessLike(idx: Int, _ result: LikeResult) {
 
         feed[idx].isLiked = result.isSet
-//        if feed[idx].isLiked == 0 {
-//            feed[idx].isLiked = 1
-//        } else {
-//            feed[idx].isLiked = 0
-//        }
-        
-        // 고치기
-//        getAllFeedDataManager.getAllFeed(delegate: self)
+
     }
     
     func failedToLike(message: String) {
@@ -278,34 +285,3 @@ extension HomeViewController {
     }
 }
 
-//#if DEBUG
-//import SwiftUI
-//struct PindergartenViewControllerRepresentable: UIViewControllerRepresentable {
-//
-//func updateUIViewController(_ uiView: UIViewController,context: Context) {
-//        // leave this empty
-//}
-//@available(iOS 13.0.0, *)
-//func makeUIViewController(context: Context) -> UIViewController{
-//    PindergartenViewController()
-//    }
-//}
-//@available(iOS 13.0, *)
-//struct ViewControllerRepresentable_PreviewProvider: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            if #available(iOS 14.0, *) {
-//                PindergartenViewControllerRepresentable()
-//                    .ignoresSafeArea()
-//                    .previewDisplayName(/*@START_MENU_TOKEN@*/"Preview"/*@END_MENU_TOKEN@*/)
-//                    .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
-//            } else {
-//                PindergartenViewControllerRepresentable()
-////                    .ignoresSafeArea()
-//                    .previewDisplayName(/*@START_MENU_TOKEN@*/"Preview"/*@END_MENU_TOKEN@*/)
-//                    .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
-//            }
-//        }
-//
-//    }
-//} #endif

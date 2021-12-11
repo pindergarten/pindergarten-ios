@@ -10,10 +10,6 @@ import Alamofire
 class ReportDataManager {
     
     func reportFeed(postId: Int, type: Int, _ parameters: ReportRequest, delegate: ReportController) {
-        print(postId)
-        print(type)
-        print(parameters)
-        print(Constant.HEADERS)
         AF.request("\(Constant.BASE_URL)/api/posts/\(postId)/declaration?type=\(type)", method: .post, parameters: parameters, encoder: JSONParameterEncoder(), headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: ReportResponse.self) { response in
@@ -26,7 +22,7 @@ class ReportDataManager {
                     // 실패했을 때
                     else {
                         switch response.code {
-                        default: delegate.failedToReportFeed(message: "신고하기에 실패하였습니다")
+                        default: delegate.failedToReportFeed(message: response.message)
                         }
                     }
                 case .failure(let error):

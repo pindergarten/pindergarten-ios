@@ -95,8 +95,8 @@ class SplashViewController: UIViewController {
         
         navigationController?.navigationBar.isHidden = true
         
-
     }
+    
     //MARK: - Action
     @objc func didTapLoginButton() {
         navigationController?.pushViewController(LoginViewController(), animated: true)
@@ -105,6 +105,7 @@ class SplashViewController: UIViewController {
     @objc func didTapSignUpButton() {
         navigationController?.pushViewController(SignUpNumberViewController(), animated: true)
     }
+    
     //MARK: - Helpers
     private func configureUI() {
         view.backgroundColor = .white

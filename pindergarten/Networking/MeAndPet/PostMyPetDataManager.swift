@@ -52,7 +52,6 @@ class PostMyPetDataManager {
                     switch response.code {
                     default:
                         delegate.failedToRegisterPet(message: "나의 펫 등록에 실패하였습니다")
-                    print("나의 펫 등록에 실패하였습니다")
                     }
                 }
             case .failure(let error):

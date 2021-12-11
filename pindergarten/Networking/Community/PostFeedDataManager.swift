@@ -29,7 +29,7 @@ class PostFeedDataManager {
             if let imageArray = images {
                      
                      for image in imageArray {
-                        if let image = image.jpegData(compressionQuality: 1) {
+                        if let image = image.jpegData(compressionQuality: 1.0) {
                              multipartFormData.append(image,
                                                       withName: "images",
                                                       fileName: "\(image).jpeg",
