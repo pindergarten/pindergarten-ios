@@ -38,10 +38,12 @@ class HomeCell: UICollectionViewCell {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
+     
         imageView.tintColor = .gray
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
+   
         return imageView
     }()
     

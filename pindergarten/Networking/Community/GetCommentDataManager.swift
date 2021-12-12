@@ -8,8 +8,7 @@
 import Alamofire
 
 class GetCommentDataManager {
-    
-    func getComment(postId: Int, delegate: CommentController) {
+    func getComment( postId: Int, delegate: CommentController) {
         AF.request("\(Constant.BASE_URL)/api/posts/\(postId)/comments", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetCommentResponse.self) { response in
@@ -17,6 +16,7 @@ class GetCommentDataManager {
                 case .success(let response):
                     // 성공했을 때
                     if response.isSuccess, let result = response.comments {
+                       
                         delegate.didSuccessGetComment(result)
                     }
                     // 실패했을 때

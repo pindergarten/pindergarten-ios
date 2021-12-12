@@ -235,7 +235,7 @@ extension DetailEventController {
     func didSuccessGetDetailEvent(_ result: GetDetailEventResult) {
         headerView.eventNameLabel.text = result.title
         headerView.eventImage.kf.indicatorType = .activity
-        headerView.eventImage.kf.setImage(with: URL(string: result.image), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+        headerView.eventImage.kf.setImage(with: URL(string: result.image), placeholder: nil, options: [.loadDiskFileSynchronously], progressBlock: nil)
         
         result.isLiked == 0 ? headerView.heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal) : headerView.heartButton.setImage(#imageLiteral(resourceName: "feedFilledHeartImage"), for: .normal)
         headerView.heartLabel.text = "\(result.likeCount)"

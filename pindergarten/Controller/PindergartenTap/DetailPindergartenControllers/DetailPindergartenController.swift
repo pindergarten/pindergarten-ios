@@ -267,6 +267,7 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
         }
         
         if indexPath == [0,0] {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenHeaderCell.identifier, for: indexPath) as! DetailPindergartenHeaderCell
             cell.selectionStyle = .none
             cell.delegate = self

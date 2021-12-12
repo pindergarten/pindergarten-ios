@@ -210,7 +210,7 @@ extension UserPageController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == userFeedCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyFeedCell.identifier, for: indexPath) as! MyFeedCell
             cell.imageView.kf.indicatorType = .activity
-            cell.imageView.kf.setImage(with: URL(string: userPosts[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+            cell.imageView.kf.setImage(with: URL(string: userPosts[indexPath.item].thumbnail), placeholder: nil, options: [.loadDiskFileSynchronously], progressBlock: nil)
             
             return cell
         } else {
@@ -221,7 +221,7 @@ extension UserPageController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.separateLine.isHidden = false
             }
             cell.imageView.kf.indicatorType = .activity
-            cell.imageView.kf.setImage(with: URL(string: userPets[indexPath.item].profileImage), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+            cell.imageView.kf.setImage(with: URL(string: userPets[indexPath.item].profileImage), placeholder: nil, options: [.loadDiskFileSynchronously], progressBlock: nil)
           
             cell.nameLabel.text = userPets[indexPath.item].name
             return cell

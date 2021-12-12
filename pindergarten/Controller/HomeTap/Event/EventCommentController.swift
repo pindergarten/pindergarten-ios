@@ -22,7 +22,8 @@ class EventCommentController: BaseViewController {
     var eventId: Int = 0
     var eventComment: [GetEventCommentResult] = []
     var keyboardHeight: CGFloat = 0
-
+    var isPaginating: Bool = false
+    private var lastContentOffset: CGFloat = 0
     
 
     private lazy var backButton: UIButton = {
@@ -132,7 +133,7 @@ class EventCommentController: BaseViewController {
         commentTextField.text = ""
         registerButton.tintColor = UIColor(hex: 0x4E5261)
         registerButton.isUserInteractionEnabled = false
-        self.view.endEditing(false)
+//        self.view.endEditing(false)
     }
 
     @objc func keyboardWillShow(_ sender: Notification) {
@@ -266,7 +267,31 @@ extension EventCommentController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+//    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+//        let currentOffset = scrollView.contentOffset.y // frame영역의 origin에 비교했을때의 content view의 현재 origin 위치
+//        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height // 화면에는 frame만큼 가득 찰 수 있기때문에 frame의 height를 빼준 것
+//
+//        // 스크롤 할 수 있는 영역보다 더 스크롤된 경우 (하단에서 스크롤이 더 된 경우)
+//        if maximumOffset < currentOffset - 50 {
+//            // viewModel.loadNextPage()
+//            isPaginating = true
+//            print(10)
+//            self.commentTableView.tableFooterView = createSpinnerFooter()
+//            getEventCommentDataManager.getEventComment(eventId: eventId, delegate: self)
+//        }
+//    }
 
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print(self.lastContentOffset - scrollView.contentOffset.y)
+//        if (self.lastContentOffset - scrollView.contentOffset.y > 0) {
+//            self.view.endEditing(false)
+//
+//        }
+//        // update the new position acquired
+//        self.lastContentOffset = scrollView.contentOffset.y
+//    }
+    
 }
 
 extension EventCommentController: CommentCellDelegate  {
@@ -313,12 +338,12 @@ extension EventCommentController: CommentCellDelegate  {
 extension EventCommentController {
     
     func didSuccessGetEventComment(_ result: [GetEventCommentResult]) {
-        
+        self.commentTableView.tableFooterView = nil
         eventComment = result
         commentTableView.reloadData()
-        if eventComment.count > 0 {
+        if eventComment.count > 0 && !isPaginating {
             let indexPath = IndexPath(item: eventComment.count - 1 , section: 0)
-            commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            commentTableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
       
         
@@ -329,6 +354,7 @@ extension EventCommentController {
     }
     
     func didSuccessRegisterComment() {
+        isPaginating = false
         getEventCommentDataManager.getEventComment(eventId: eventId, delegate: self)
         
     }
@@ -338,6 +364,7 @@ extension EventCommentController {
     }
     
     func didSuccessDeleteComment() {
+        isPaginating = true
         getEventCommentDataManager.getEventComment(eventId: eventId, delegate: self)
     }
     

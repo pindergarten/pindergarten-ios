@@ -250,6 +250,13 @@ class PostFeedController: BaseViewController {
     }
     private func getAlbum() {
         let imagePicker = ImagePickerController()
+        imagePicker.settings.theme.selectionStyle = .numbered
+       
+        imagePicker.settings.theme.selectionFillColor = .mainYellow
+//        imagePicker.cancelButton.tintColor = .mainBrown
+//        imagePicker.doneButton.tintColor = .mainBrown
+//        imagePicker.albumButton.tintColor = .mainBrown
+        
         let options = imagePicker.settings.fetch.album.options
               imagePicker.settings.fetch.album.fetchResults = [
                   PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
@@ -314,13 +321,20 @@ class PostFeedController: BaseViewController {
         let option = PHImageRequestOptions()
         option.isSynchronous = true
 //        option.deliveryMode = .highQualityFormat
-//        option.resizeMode = .exact
+        option.resizeMode = .exact
        
-        manager.requestImage(for: asset, targetSize: CGSize(width: view.frame.size.width, height: view.frame.size.width), contentMode: .aspectFill, options: option, resultHandler: {(result, info)->Void in
-           image = result!
+        manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+            
+            let isDegraded = (info?[PHImageResultIsDegradedKey] as? Bool) ?? false
+            if isDegraded {
+                return
+            } else {
+                image = result!
+            }
         })
-           return image
-        }
+     
+        return image
+    }
     
     private func convertAssetToImages() {
 
@@ -331,20 +345,19 @@ class PostFeedController: BaseViewController {
 
                 for i in 0..<selectedAssets.count {
 
-
                     let fetchOptions = PHFetchOptions()
+    
                     allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
                     let image = assetToImage(asset: selectedAssets[i])
  
-
                     self.photoArray.append(image)
                 }
                 
                 DispatchQueue.main.async {
-                    for i in self.photoArray {
-                        print("높이: \(i.size.height), 가로: \(i.size.width)")
-                    }
-                    
+//                    for i in self.photoArray {
+//                        print("높이: \(i.size.height), 가로: \(i.size.width)")
+//                    }
+                  
                     self.imageCollectionView.reloadData()
                 }
             }
@@ -413,6 +426,7 @@ class PostFeedController: BaseViewController {
             make.height.equalTo(1)
         }
         
+        
         textView.snp.makeConstraints { make in
             make.top.equalTo(separateImageLine.snp.bottom).offset(5)
             make.left.equalTo(view).offset(20)
@@ -456,7 +470,6 @@ extension PostFeedController: UITextViewDelegate {
             textView.text = nil
             textView.textColor = UIColor(hex: 0x3D3D3D)
         }
-        
     }
     // TextView Place Holder
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -464,7 +477,6 @@ extension PostFeedController: UITextViewDelegate {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = 2
             textView.attributedText = NSMutableAttributedString(string: "내용은 최소 1자 이상, 사진은 최소 1장 이상 등록해주세요:)\n(본문 최대 2,000자까지, 사진 최대 10장까지)", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle, .font : UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!, .foregroundColor : UIColor(hex: 0xC6C6C6)])
-
         }
     }
     
@@ -487,10 +499,8 @@ extension PostFeedController: UITextViewDelegate {
         if text.count >= 2000 && range.length == 0 && range.location < 2000 {
             return false
         }
-        
         return true
     }
-
 }
 
 // 네트워크 함수

@@ -60,13 +60,13 @@ class HomeTabBarController: UITabBarController {
     func configureViewControllers() {
 
         let pindergarten = templeteNavigationController(title: "홈", unselectedImage: #imageLiteral(resourceName: "homeTabButton"),
-                                                selectedImage: #imageLiteral(resourceName: "selectedHomeTabButton"),
+                                                selectedImage: #imageLiteral(resourceName: "homeTabButton"),
                                                 rootViewController: HomeViewController())
         let search = templeteNavigationController(title: "핀더가든", unselectedImage: #imageLiteral(resourceName: "pindergartenTabButton"),
-                                                  selectedImage: #imageLiteral(resourceName: "selectedPindergartenTabButton"),
+                                                  selectedImage: #imageLiteral(resourceName: "pindergartenTabButton"),
                                                   rootViewController: PindergartenViewController())
         let meAndPet = templeteNavigationController(title: "나와 펫", unselectedImage: #imageLiteral(resourceName: "meAndPetTabButton"),
-                                                         selectedImage: #imageLiteral(resourceName: "selectedMeAndPetTabButton"),
+                                                         selectedImage: #imageLiteral(resourceName: "meAndPetTabButton"),
                                                          rootViewController: MeAndPetViewController())
         
         viewControllers = [pindergarten, search, meAndPet]

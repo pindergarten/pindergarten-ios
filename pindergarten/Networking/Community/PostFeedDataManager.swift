@@ -27,17 +27,15 @@ class PostFeedDataManager {
             }
             
             if let imageArray = images {
-                     
-                     for image in imageArray {
-                        if let image = image.jpegData(compressionQuality: 1.0) {
-                             multipartFormData.append(image,
-                                                      withName: "images",
-                                                      fileName: "\(image).jpeg",
-                                                      mimeType: "image/jpeg")
-                        }
-                     }
+                 for image in imageArray {
+                    if let image = image.jpegData(compressionQuality: 1.0) {
+                         multipartFormData.append(image,
+                                                  withName: "images",
+                                                  fileName: "\(image).jpeg",
+                                                  mimeType: "image/jpeg")
+                    }
                  }
-         
+             }
         }, to: URL, usingThreshold: UInt64.init(), method: .post, headers: header)
         .validate()
         .responseDecodable(of: PostMyPetResponse.self) { response in

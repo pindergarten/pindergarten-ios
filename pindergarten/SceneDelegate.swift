@@ -19,9 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
-        window?.rootViewController = SplashViewController()
+//        window?.rootViewController = NewSplashController()
 
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()) {
             AF.request("\(Constant.BASE_URL)/api/users/auto-signin", method: .get, headers: Constant.HEADERS)
                 .validate()
                 .responseDecodable(of: DefaultResponse.self) { response in

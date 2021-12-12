@@ -25,7 +25,6 @@ class PindergartenCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 20
-        imageView.image = #imageLiteral(resourceName: "1")
         return imageView
     }()
     

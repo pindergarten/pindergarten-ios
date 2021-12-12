@@ -11,6 +11,7 @@ import Alamofire
 class GetEventCommentDataManager {
     
     func getEventComment(eventId: Int, delegate: DetailEventController) {
+        
         AF.request("\(Constant.BASE_URL)/api/events/\(eventId)/comments", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetEventCommentResponse.self) { response in
@@ -18,6 +19,7 @@ class GetEventCommentDataManager {
                 case .success(let response):
                     // 성공했을 때
                     if response.isSuccess, let result = response.comments {
+                        
                         delegate.didSuccessGetEventComment(result)
                     }
                     // 실패했을 때
@@ -34,6 +36,7 @@ class GetEventCommentDataManager {
     }
     
     func getEventComment(eventId: Int, delegate: EventCommentController) {
+     
         AF.request("\(Constant.BASE_URL)/api/events/\(eventId)/comments", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetEventCommentResponse.self) { response in
@@ -41,6 +44,7 @@ class GetEventCommentDataManager {
                 case .success(let response):
                     // 성공했을 때
                     if response.isSuccess, let result = response.comments {
+                       
                         delegate.didSuccessGetEventComment(result)
                     }
                     // 실패했을 때

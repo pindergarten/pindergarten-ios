@@ -101,6 +101,17 @@ extension UIViewController {
             }
         )
     }
+    func createSpinnerFooter() -> UIView {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 100))
+        let spinner = UIActivityIndicatorView()
+        spinner.color = .mainLightYellow
+        spinner.style = .medium
+        spinner.center = footerView.center
+        footerView.addSubview(spinner)
+        spinner.startAnimating()
+        
+        return footerView
+    }
     
     // MARK: 인디케이터 표시
     func showIndicator() {

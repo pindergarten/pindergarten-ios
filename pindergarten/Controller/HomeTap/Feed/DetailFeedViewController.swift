@@ -55,7 +55,6 @@ class DetailFeedViewController: BaseViewController {
 
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "4")
         imageView.layer.cornerRadius = 15
         imageView.clipsToBounds = true
         return imageView
@@ -65,7 +64,6 @@ class DetailFeedViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 15)
         label.textColor = .mainTextColor
-        label.text = "oneoneni"
         return label
     }()
     
@@ -116,7 +114,6 @@ class DetailFeedViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 13)
         label.textColor = UIColor(hex: 0x858585)
-        label.text = "2021-10-12"
         return label
     }()
     
@@ -128,7 +125,7 @@ class DetailFeedViewController: BaseViewController {
 
         var paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 2
-        label.attributedText = NSMutableAttributedString(string: "잔디에 누워서 한컷~!\n오전에 추워서 긴팔입고 나갔더니 덥네요 ㅜㅜ", attributes: [.font: UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!, .paragraphStyle: paragraphStyle])
+        label.attributedText = NSMutableAttributedString(string: "ㅎ", attributes: [.font: UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!, .paragraphStyle: paragraphStyle])
         return label
     }()
     
@@ -143,17 +140,19 @@ class DetailFeedViewController: BaseViewController {
         let label = UILabel()
         label.attributedText = NSAttributedString(string: "더보기", attributes: [.font :  UIFont(name: "AppleSDGothicNeo-Regular", size: 11)!])
         label.textColor = UIColor(hex: 0x858585, alpha: 0.5)
+        label.isHidden = true
         return label
     }()
     
     let pageIndicator = UIPageControl()
     //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         pageIndicator.currentPageIndicatorTintColor = UIColor.mainLightYellow
         pageIndicator.pageIndicatorTintColor = UIColor(hex: 0xC4C4C4)
-
+        
 //        // size
 //        let config = FlexiblePageControl.Config(
 //            displayCount: 7,
@@ -270,6 +269,7 @@ class DetailFeedViewController: BaseViewController {
     }
     
     //MARK: - Helpers
+
     private func putGesture() {
         let tapNameGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapNameLabel(sender:)))
         let tapProfileGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapProfileImage(sender:)))
@@ -410,6 +410,10 @@ extension DetailFeedViewController {
             commentLabel.text = "\(detailFeed.commentCount)"
             dateLabel.text = detailFeed.date
             contentLabel.text = detailFeed.content
+            if contentLabel.countCurrentLines() > 2 {
+                moreLabel.isHidden = false
+            }
+            
             for imageURL in detailFeed.imgUrls! {
                 imageInputs.append(AlamofireSource(urlString: imageURL.postImageUrl)!)
             }

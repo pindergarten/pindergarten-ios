@@ -403,6 +403,11 @@ extension PetRegisterController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
 //      self.activeTextField = nil
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 

@@ -8,6 +8,32 @@
 import UIKit
 import Kingfisher
 
+//class LoadingFooterView: UICollectionViewCell {
+//
+//    //MARK: - Properties
+//    static let identifier = "LoadingFooterView"
+//    var indicator : UIActivityIndicatorView = {
+//        let view = UIActivityIndicatorView()
+//        view.style = .medium
+//        view.color = .mainLightYellow
+//        return view
+//    }()
+//    //MARK: - Lifecycle
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//
+//        contentView.addSubview(indicator)
+//        indicator.snp.makeConstraints { make in
+//            make.center.equalTo(self)
+//        }
+//        indicator.startAnimating()
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//
+//}
 
 class HomeViewController: BaseViewController {
 
@@ -69,14 +95,13 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        getAllFeedDataManager.getAllFeed(delegate: self)
-        
         configureUI()
         collectionView.delegate = self
         collectionView.dataSource = self
         self.tabBarController?.delegate = self
         
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: HomeCell.identifier)
+//        collectionView.register(LoadingFooterView.self, forCellWithReuseIdentifier: LoadingFooterView.identifier)
         
         
         // Set the PinterestLayout delegate
@@ -118,6 +143,7 @@ class HomeViewController: BaseViewController {
 //    }
     
     //MARK: - Helpers
+
     func configureUI() {
         view.addSubview(titleLabel)
         view.addSubview(plusButton)
@@ -161,13 +187,12 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
         cell.delegate = self
-        
-        
-        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"))
-//        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: UIImage())
+
+        cell.profileImageView.kf.indicatorType = .activity
+        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"), options: [.loadDiskFileSynchronously])
 
         cell.imageView.kf.indicatorType = .activity
-        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)),.loadDiskFileSynchronously], progressBlock: nil)
         cell.nameLabel.text = feed[indexPath.item].nickname
         cell.scriptionLabel.text = feed[indexPath.item].content
         cell.heartButton.tag = feed[indexPath.item].id
@@ -178,13 +203,22 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         } else if feed[indexPath.item].isLiked == 1 {
             cell.heartButton.setImage(UIImage(named: "filledHeartButton"), for: .normal)
         }
-        
-//        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail))
-//        cell.profileImageView.image = UIImage(systemName: "person")
-//
+
         
         return cell
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        if kind == UICollectionView.elementKindSectionFooter {
+//            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoadingFooterView.identifier, for: indexPath) as! LoadingFooterView
+////            loadingView = footerView
+////            loadingView?.backgroundColor = UIColor.clear
+//            return footerView
+//        } else {
+//            return UICollectionReusableView()
+//        }
+//    }
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailFeedViewController()
@@ -193,10 +227,18 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         detailVC.index = indexPath
         navigationController?.pushViewController(detailVC, animated: true)
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    }
+//
+//    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+//        let currentOffset = scrollView.contentOffset.y // frame영역의 origin에 비교했을때의 content view의 현재 origin 위치
+//        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height // 화면에는 frame만큼 가득 찰 수 있기때문에 frame의 height를 빼준 것
+//
+//        // 스크롤 할 수 있는 영역보다 더 스크롤된 경우 (하단에서 스크롤이 더 된 경우)
+//        if maximumOffset < currentOffset {
+//            // viewModel.loadNextPage()
+//            print("10")
+//
+//        }
+//    }
     
 }
 
@@ -260,7 +302,6 @@ extension HomeViewController: UITabBarControllerDelegate {
 extension HomeViewController {
    
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
-        
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             self.feed = result
             

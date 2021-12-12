@@ -132,7 +132,6 @@
 		24C4D6EE272597FF00FD519D /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6ED272597FF00FD519D /* IndicatorView.swift */; };
 		24C4D6F02725982600FD519D /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6EF2725982600FD519D /* Device.swift */; };
 		24C4D6F3272599DF00FD519D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6F2272599DF00FD519D /* BaseViewController.swift */; };
-		24C4D6F627259B1800FD519D /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6F527259B1800FD519D /* SplashViewController.swift */; };
 		24C4D6FC2727D6B300FD519D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6FB2727D6B300FD519D /* LoginViewController.swift */; };
 		24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D6FF2727DE9300FD519D /* CustomTextField.swift */; };
 		24C4D7022727DFA500FD519D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C4D7012727DFA500FD519D /* UIView.swift */; };
@@ -326,7 +325,6 @@
 		24C4D6ED272597FF00FD519D /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
 		24C4D6EF2725982600FD519D /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		24C4D6F2272599DF00FD519D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		24C4D6F527259B1800FD519D /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		24C4D6FB2727D6B300FD519D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		24C4D6FF2727DE9300FD519D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		24C4D7012727DFA500FD519D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -704,7 +702,6 @@
 		24C4D6F427259B0A00FD519D /* Splash */ = {
 			isa = PBXGroup;
 			children = (
-				24C4D6F527259B1800FD519D /* SplashViewController.swift */,
 				24994E3C27514E43005A604B /* OnboardingPageViewController.swift */,
 				24994E3E275152A1005A604B /* OnboardingController.swift */,
 				24994E22274E530E005A604B /* NewSplashController.swift */,
@@ -1193,7 +1190,6 @@
 				24994E0D274D020A005A604B /* GetAllMyPetsDataManager.swift in Sources */,
 				24994E3B2750D86C005A604B /* DetailTimePindergartenInfoCell.swift in Sources */,
 				24994DE72742A1B2005A604B /* BlogReviewController.swift in Sources */,
-				24C4D6F627259B1800FD519D /* SplashViewController.swift in Sources */,
 				24994E3F275152A1005A604B /* OnboardingController.swift in Sources */,
 				24C4D6DD2725929800FD519D /* Constant.swift in Sources */,
 				24F74303272CEBD800238E20 /* SendAuthNumberDataManager.swift in Sources */,

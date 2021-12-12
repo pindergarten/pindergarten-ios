@@ -325,7 +325,7 @@ extension MeAndPetViewController: UICollectionViewDelegate, UICollectionViewData
         if collectionView == myFeedCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyFeedCell.identifier, for: indexPath) as! MyFeedCell
             cell.imageView.kf.indicatorType = .activity
-            cell.imageView.kf.setImage(with: URL(string: myPosts[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+            cell.imageView.kf.setImage(with: URL(string: myPosts[indexPath.item].thumbnail), placeholder: nil, options: [.loadDiskFileSynchronously], progressBlock: nil)
             
             return cell
         } else {
@@ -336,7 +336,7 @@ extension MeAndPetViewController: UICollectionViewDelegate, UICollectionViewData
                 cell.separateLine.isHidden = false
             }
             cell.imageView.kf.indicatorType = .activity
-            cell.imageView.kf.setImage(with: URL(string: allMyPets[indexPath.item].profileImage), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+            cell.imageView.kf.setImage(with: URL(string: allMyPets[indexPath.item].profileImage), placeholder: nil, options: [.loadDiskFileSynchronously], progressBlock: nil)
           
             cell.nameLabel.text = allMyPets[indexPath.item].name
             return cell
@@ -421,7 +421,7 @@ extension MeAndPetViewController {
         if let user = user {
             nameLabel.text = user.nickname
             profileImage.kf.indicatorType = .activity
-            profileImage.kf.setImage(with: URL(string: user.profileImage), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+            profileImage.kf.setImage(with: URL(string: user.profileImage), placeholder: nil, options: [.loadDiskFileSynchronously], progressBlock: nil)
         }
         getAllMyPetsDataManager.getAllMyPet(delegate: self)
 

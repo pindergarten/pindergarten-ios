@@ -180,7 +180,7 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let index = indexPath.item
         
         cell.eventImage.kf.indicatorType = .activity
-        cell.eventImage.kf.setImage(with: URL(string: event[index].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)), .loadDiskFileSynchronously], progressBlock: nil)
+        cell.eventImage.kf.setImage(with: URL(string: event[index].thumbnail), placeholder: nil, options: [.loadDiskFileSynchronously], progressBlock: nil)
         cell.eventLabel.text = event[index].title
         cell.id = event[index].id
         if days(to: event[index].expiredAt) == 0 {

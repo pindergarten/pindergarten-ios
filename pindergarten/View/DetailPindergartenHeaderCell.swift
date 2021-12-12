@@ -58,7 +58,7 @@ class DetailPindergartenHeaderCell: UITableViewCell {
     
     lazy var imageSlide: ImageSlideshow = {
         let image = ImageSlideshow()
-        image.backgroundColor = UIColor(hex: 0xDCDCDC)
+        image.backgroundColor = .white
         image.contentScaleMode = .scaleAspectFill
         image.circular = false
         image.pageIndicator = labelPageIndicator
@@ -131,6 +131,9 @@ class DetailPindergartenHeaderCell: UITableViewCell {
         return view
     }()
 
+    private var imageViewHeight = NSLayoutConstraint()
+    private var imageViewBottom = NSLayoutConstraint()
+    private var containerViewHeight = NSLayoutConstraint()
     //MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -255,5 +258,6 @@ class DetailPindergartenHeaderCell: UITableViewCell {
             make.bottom.equalTo(contentView)
         }
     }
+
 }
 

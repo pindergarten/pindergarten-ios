@@ -22,7 +22,6 @@ class CommentCell: UITableViewCell {
     
     let profileImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "4")
         imageView.layer.cornerRadius = 17
         imageView.clipsToBounds = true
         return imageView
@@ -32,7 +31,6 @@ class CommentCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 14)
         label.textColor = UIColor(hex: 0x2D2D2D, alpha: 0.85)
-        label.text = "oneoneni"
         return label
     }()
 

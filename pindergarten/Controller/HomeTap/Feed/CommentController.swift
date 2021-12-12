@@ -20,6 +20,8 @@ class CommentController: BaseViewController {
     lazy var deleteCommentDataManager: DeleteCommentDataManager = DeleteCommentDataManager()
     
     var postId: Int = 0
+    var isPaginating: Bool = false
+    
     private var comments: [GetCommentResult] = []
     
     private lazy var backButton: UIButton = {
@@ -127,7 +129,7 @@ class CommentController: BaseViewController {
         commentTextFeild.text = ""
         registerButton.tintColor = UIColor(hex: 0x4E5261)
         registerButton.isUserInteractionEnabled = false
-        self.view.endEditing(false)
+//        self.view.endEditing(false)
     }
     
     @objc func keyboardWillShow(_ sender: Notification) {
@@ -200,7 +202,7 @@ class CommentController: BaseViewController {
         commentTableView.snp.makeConstraints { make in
             make.top.equalTo(seperateLine.snp.bottom)
             make.left.right.equalTo(view)
-            make.bottom.equalTo(commentSeperateLine)
+            make.bottom.equalTo(commentSeperateLine).inset(20)
         }
         
         commentSeperateLine.snp.makeConstraints { make in
@@ -249,6 +251,23 @@ extension CommentController: UITableViewDelegate, UITableViewDataSource {
 
         return cell
     }
+    
+//    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+//        let currentOffset = scrollView.contentOffset.y // frame영역의 origin에 비교했을때의 content view의 현재 origin 위치
+//        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height // 화면에는 frame만큼 가득 찰 수 있기때문에 frame의 height를 빼준 것
+//
+//        // 스크롤 할 수 있는 영역보다 더 스크롤된 경우 (하단에서 스크롤이 더 된 경우)
+//        if maximumOffset < currentOffset {
+//            // viewModel.loadNextPage()
+//
+//            print(10)
+//            isPaginating = true
+//            self.commentTableView.tableFooterView = createSpinnerFooter()
+//            getCommentDataManager.getComment(postId: postId, delegate: self)
+//
+//        }
+//    }
+    
 
 }
 
@@ -301,11 +320,12 @@ extension CommentController: CommentCellDelegate {
 // 네트워크 함수
 extension CommentController {
     func didSuccessGetComment(_ result: [GetCommentResult]) {
+        self.commentTableView.tableFooterView = nil
         comments = result
         commentTableView.reloadData()
-        if comments.count > 0 {
-            let indexPath = IndexPath(item: comments.count - 1 , section: 0)
-            commentTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        if comments.count > 0 && !isPaginating{
+            let indexPath = IndexPath(item: comments.count - 1, section: 0)
+            commentTableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
     
@@ -314,6 +334,7 @@ extension CommentController {
     }
     
     func didSuccessRegisterComment() {
+        isPaginating = false
         getCommentDataManager.getComment(postId: postId, delegate: self)
     }
     
@@ -322,6 +343,7 @@ extension CommentController {
     }
     
     func didSuccessDeleteComment() {
+        isPaginating = true
         getCommentDataManager.getComment(postId: postId, delegate: self)
     }
     
