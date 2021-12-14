@@ -172,7 +172,7 @@ class MyProfileController: BaseViewController {
             UserDefaults.standard.removeObject(forKey: "userId")
         }
 
-        let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+        let actionCancel = UIAlertAction(title: "취소", style: .cancel) { action in
         }
 
         self.presentAlert(
@@ -191,7 +191,7 @@ class MyProfileController: BaseViewController {
         
         }
 
-        let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+        let actionCancel = UIAlertAction(title: "취소", style: .cancel) { action in
         }
 
         self.presentAlert(
@@ -214,7 +214,7 @@ class MyProfileController: BaseViewController {
             self?.finishButton.isUserInteractionEnabled = false
         }
 
-        let actionCancel = UIAlertAction(title: "취소하기", style: .default) { action in
+        let actionCancel = UIAlertAction(title: "취소", style: .default) { action in
         }
 
         self.presentAlert(

@@ -14,8 +14,9 @@ class UserPageController: BaseViewController {
     lazy var getUserPetsDataManager: GetUserPetsDataManager = GetUserPetsDataManager()
     lazy var getUserFeedDataManager: GetUserPostsDataManager = GetUserPostsDataManager()
     lazy var getUserProfileDataManager: GetMyProfileDataManager = GetMyProfileDataManager()
+    lazy var blockUserDataManager: BlockUserDataManager = BlockUserDataManager()
     
-    var userId: Int = 3
+    var userId: Int = 0
     var userPets: [GetUserPetResult] = [] {
         didSet {
             myPetCollectionView.reloadData()
@@ -42,6 +43,13 @@ class UserPageController: BaseViewController {
         label.textColor = .mainTextColor
         label.text = "goni"
         return label
+    }()
+    
+    lazy var menuButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "menuImage"), for: .normal)
+        button.addTarget(self, action: #selector(didTapMenuButton), for: .touchUpInside)
+        return button
     }()
     
     private lazy var defaultUserPetButton: UIButton = {
@@ -94,10 +102,11 @@ class UserPageController: BaseViewController {
         }
         return view
     }()
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         getUserProfileDataManager.getMyProfile(userId: userId, delegate: self)
         getUserPetsDataManager.getUserPet(userId: userId, delegate: self)
         getUserFeedDataManager.getUserPosts(userId: userId, delegate: self)
@@ -136,7 +145,36 @@ class UserPageController: BaseViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc private func didTapMenuButton() {
+        
+        let actionReport = UIAlertAction(title: "신고하기", style: .destructive) { [weak self] action in
+            
+            let userReportVC = UserReportController()
+            userReportVC.userId = self?.userId ?? 0
+            self?.navigationController?.pushViewController(userReportVC, animated: true)
+            
+        }
+   
+        let actionBlock = UIAlertAction(title: "차단하기", style: .destructive) { [weak self] action in
+            let blockAction = UIAlertAction(title: "확인", style: .destructive) { _ in
+                self?.blockUserDataManager.blockUser(userId: self!.userId, delegate: self!)
+            }
+            let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
+            
+            self?.presentAlert(title: "차단하시겠습니까?", with: blockAction, cancelAction)
+            
+        }
+        
+        let actionCancel = UIAlertAction(title: "취소", style: .cancel) { action in
+        }
+        
+        
+          self.presentAlert(
+              preferredStyle: .actionSheet,
+              with: actionReport, actionBlock, actionCancel
+          )
     
+    }
     //MARK: - Helpers
     
     private func configureUI() {
@@ -159,6 +197,16 @@ class UserPageController: BaseViewController {
             make.centerY.equalTo(backButton).offset(2)
             make.centerX.equalTo(view)
         }
+        
+        if JwtToken.userId != self.userId {
+            view.addSubview(menuButton)
+            menuButton.snp.makeConstraints { make in
+                make.centerY.equalTo(titleLabel)
+                make.right.equalTo(view).inset(20)
+                make.height.width.equalTo(30)
+            }
+        }
+       
         
         defaultUserPetButton.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(30)
@@ -329,6 +377,16 @@ extension UserPageController {
     }
     
     func failedToGetUserPets(message: String) {
+        self.presentAlert(title: message)
+    }
+    
+    func didSuccessBlockUser() {
+        self.presentAlert(title: "차단되었습니다.") { [weak self] _ in
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
+    func failedToBlockUser(message: String) {
         self.presentAlert(title: message)
     }
         

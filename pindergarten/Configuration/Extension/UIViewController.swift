@@ -45,6 +45,7 @@ extension UIViewController {
         self.dismissIndicator()
         let alert = UIAlertController(title: title, message: message, preferredStyle: style)
         actions.forEach { alert.addAction($0) }
+        alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = .white
         if isCancelActionIncluded {
             let actionCancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
             alert.addAction(actionCancel)

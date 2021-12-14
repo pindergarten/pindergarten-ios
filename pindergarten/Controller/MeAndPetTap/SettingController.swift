@@ -106,6 +106,21 @@ class SettingController: BaseViewController {
         return view
     }()
     
+    private lazy var blockedUserButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setAttributedTitle(NSAttributedString(string: "차단된 계정", attributes: [NSAttributedString.Key.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!, .foregroundColor : UIColor(hex: 0x5A5A5A)]), for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(didTapBlockedUserButton), for: .touchUpInside)
+        return button
+    }()
+    
+    private let blockedUserLine: UIView = {
+        let view = UIView()
+        view.setHeight(1)
+        view.backgroundColor = .mainlineColor
+        return view
+    }()
+    
     private lazy var logoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.setAttributedTitle(NSAttributedString(string: "로그아웃", attributes: [NSAttributedString.Key.font : UIFont(name: "AppleSDGothicNeo-Medium", size: 14)!, .foregroundColor : UIColor(hex: 0x5A5A5A)]), for: .normal)
@@ -149,6 +164,10 @@ class SettingController: BaseViewController {
     }
     
     //MARK: - Action
+    @objc private func didTapBlockedUserButton() {
+        let blockedUserVC = BlockUserController()
+        navigationController?.pushViewController(blockedUserVC, animated: true)
+    }
     
     @objc private func didTapWithdrawalButton() {
         let actionWithdrawal = UIAlertAction(title: "회원탈퇴", style: .destructive) { [weak self] action in
@@ -158,7 +177,7 @@ class SettingController: BaseViewController {
             UserDefaults.standard.setValue(false, forKey: "onboarding")
         }
 
-        let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+        let actionCancel = UIAlertAction(title: "취소", style: .cancel) { action in
         }
 
         self.presentAlert(
@@ -177,7 +196,7 @@ class SettingController: BaseViewController {
     
         }
 
-        let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+        let actionCancel = UIAlertAction(title: "취소", style: .cancel) { action in
         }
 
         self.presentAlert(
@@ -217,6 +236,8 @@ class SettingController: BaseViewController {
         view.addSubview(privacyButton)
 //        view.addSubview(privacyLine)
         view.addSubview(sectionLine2)
+        view.addSubview(blockedUserButton)
+        view.addSubview(blockedUserLine)
         view.addSubview(logoutButton)
         view.addSubview(logoutLine)
         view.addSubview(withdrawalButton)
@@ -281,8 +302,19 @@ class SettingController: BaseViewController {
             make.height.equalTo(7)
         }
         
-        logoutButton.snp.makeConstraints { make in
+        blockedUserButton.snp.makeConstraints { make in
             make.top.equalTo(sectionLine2.snp.bottom)
+            make.left.right.equalTo(view).inset(20)
+            make.height.equalTo(60)
+        }
+        
+        blockedUserLine.snp.makeConstraints { make in
+            make.top.equalTo(blockedUserButton.snp.bottom)
+            make.left.right.equalTo(view).inset(20)
+        }
+        
+        logoutButton.snp.makeConstraints { make in
+            make.top.equalTo(blockedUserLine.snp.bottom)
             make.left.right.equalTo(view).inset(20)
             make.height.equalTo(60)
         }

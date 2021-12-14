@@ -309,7 +309,7 @@ extension EventCommentController: CommentCellDelegate  {
                 self.deleteEventCommentDataManager.deleteComment(eventId: self.eventId, commentId: commentId, delegate: self)
              }
 
-             let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+             let actionCancel = UIAlertAction(title: "취소", style: .cancel) { action in
              }
 
              self.presentAlert(
@@ -321,7 +321,7 @@ extension EventCommentController: CommentCellDelegate  {
              
             }
 
-            let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+            let actionCancel = UIAlertAction(title: "취소", style: .cancel) { action in
             }
 
             self.presentAlert(

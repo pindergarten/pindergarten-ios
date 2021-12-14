@@ -10,7 +10,7 @@ import Alamofire
 class PindergartenLikeDataManager {
 
     func likePindergarten(pindergartenId: Int, index: Int, delegate: LikePindergartenController) {
-        AF.request("\(Constant.BASE_URL)/api/pindergartens/\(pindergartenId)/like", method: .post,headers: Constant.HEADERS)
+        AF.request("\(Constant.BASE_URL)/api/pindergartens/\(pindergartenId)/like", method: .post, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: PindergartenLikeResponse.self) { response in
                 switch response.result {

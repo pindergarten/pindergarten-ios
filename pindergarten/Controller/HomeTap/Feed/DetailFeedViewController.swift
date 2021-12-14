@@ -198,7 +198,7 @@ class DetailFeedViewController: BaseViewController {
                 self?.deleteFeedDataManager.deleteFeed(postId: self!.postId, delegate: self ?? DetailFeedViewController())
             }
             
-            let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+            let actionCancel = UIAlertAction(title: "취소", style: .cancel) { action in
             }
             
               self.presentAlert(
@@ -207,13 +207,13 @@ class DetailFeedViewController: BaseViewController {
               )
             
         } else {
-            let actionReport = UIAlertAction(title: "신고하기", style: .destructive) { [weak self] action in
+            let actionReport = UIAlertAction(title: "게시물 신고하기", style: .destructive) { [weak self] action in
                 let reportVC = ReportController()
                 reportVC.postId = self?.postId ?? 0
                 self?.navigationController?.pushViewController(reportVC, animated: true)
             }
             
-            let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+            let actionCancel = UIAlertAction(title: "취소", style: .cancel) { action in
             }
             
             

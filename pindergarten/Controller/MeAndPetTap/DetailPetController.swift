@@ -122,7 +122,7 @@ class DetailPetController: BaseViewController {
      
         }
 
-        let actionCancel = UIAlertAction(title: "취소하기", style: .cancel) { action in
+        let actionCancel = UIAlertAction(title: "취소", style: .cancel) { action in
         }
 
         self.presentAlert(

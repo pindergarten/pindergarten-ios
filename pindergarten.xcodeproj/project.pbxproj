@@ -21,6 +21,14 @@
 		241B0A55275BE40D004672F3 /* GetUserPetsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A54275BE40D004672F3 /* GetUserPetsResponse.swift */; };
 		241B0A57275BE563004672F3 /* GetUserPostsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A56275BE563004672F3 /* GetUserPostsDataManager.swift */; };
 		241B0A59275BE5F6004672F3 /* GetUserPostsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A58275BE5F6004672F3 /* GetUserPostsResponse.swift */; };
+		241B0A5B27674E1E004672F3 /* BlockUserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A5A27674E1E004672F3 /* BlockUserDataManager.swift */; };
+		241B0A61276781D3004672F3 /* GetBlockUserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A60276781D3004672F3 /* GetBlockUserDataManager.swift */; };
+		241B0A6327678226004672F3 /* GetBlockUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A6227678226004672F3 /* GetBlockUserResponse.swift */; };
+		241B0A65276783BC004672F3 /* BlockUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A64276783BC004672F3 /* BlockUserController.swift */; };
+		241B0A6727678735004672F3 /* UserReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A6627678735004672F3 /* UserReportController.swift */; };
+		241B0A6927678B1C004672F3 /* UserReportDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A6827678B1C004672F3 /* UserReportDataManager.swift */; };
+		241B0A6B27679E1C004672F3 /* UnblockUserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A6A27679E1C004672F3 /* UnblockUserDataManager.swift */; };
+		241B0A7A2767E2EB004672F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 241B0A7C2767E2EB004672F3 /* InfoPlist.strings */; };
 		24595AE2273123E1008B5194 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE1273123E1008B5194 /* EventCell.swift */; };
 		24595AE42732730A008B5194 /* DetailFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE32732730A008B5194 /* DetailFeedCell.swift */; };
 		247B84312733068500591CC4 /* LikeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247B84302733068500591CC4 /* LikeDataManager.swift */; };
@@ -208,6 +216,16 @@
 		241B0A54275BE40D004672F3 /* GetUserPetsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserPetsResponse.swift; sourceTree = "<group>"; };
 		241B0A56275BE563004672F3 /* GetUserPostsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserPostsDataManager.swift; sourceTree = "<group>"; };
 		241B0A58275BE5F6004672F3 /* GetUserPostsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserPostsResponse.swift; sourceTree = "<group>"; };
+		241B0A5A27674E1E004672F3 /* BlockUserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockUserDataManager.swift; sourceTree = "<group>"; };
+		241B0A60276781D3004672F3 /* GetBlockUserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockUserDataManager.swift; sourceTree = "<group>"; };
+		241B0A6227678226004672F3 /* GetBlockUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBlockUserResponse.swift; sourceTree = "<group>"; };
+		241B0A64276783BC004672F3 /* BlockUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockUserController.swift; sourceTree = "<group>"; };
+		241B0A6627678735004672F3 /* UserReportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReportController.swift; sourceTree = "<group>"; };
+		241B0A6827678B1C004672F3 /* UserReportDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReportDataManager.swift; sourceTree = "<group>"; };
+		241B0A6A27679E1C004672F3 /* UnblockUserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnblockUserDataManager.swift; sourceTree = "<group>"; };
+		241B0A7B2767E2EB004672F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		241B0A7E2767E386004672F3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		241B0A7F2767E386004672F3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		24595AE1273123E1008B5194 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		24595AE32732730A008B5194 /* DetailFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedCell.swift; sourceTree = "<group>"; };
 		247B84302733068500591CC4 /* LikeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDataManager.swift; sourceTree = "<group>"; };
@@ -537,6 +555,8 @@
 				24994E26274E9B47005A604B /* MyProfileController.swift */,
 				241B0A50275BDF12004672F3 /* UserPageController.swift */,
 				24994E34274FC549005A604B /* PlusPopUpViewController.swift */,
+				241B0A64276783BC004672F3 /* BlockUserController.swift */,
+				241B0A6627678735004672F3 /* UserReportController.swift */,
 			);
 			path = MeAndPetTap;
 			sourceTree = "<group>";
@@ -613,6 +633,7 @@
 				24C4D6B22725423B00FD519D /* Assets.xcassets */,
 				24C4D6B42725423B00FD519D /* LaunchScreen.storyboard */,
 				24C4D6B72725423B00FD519D /* Info.plist */,
+				241B0A7C2767E2EB004672F3 /* InfoPlist.strings */,
 			);
 			path = pindergarten;
 			sourceTree = "<group>";
@@ -782,6 +803,10 @@
 				24F7430F272D028F00238E20 /* CheckNickNameDataManager.swift */,
 				24F74321272D166200238E20 /* RegisterUserDataManager.swift */,
 				24F7431B272D11B700238E20 /* ResetPasswordDataManager.swift */,
+				241B0A5A27674E1E004672F3 /* BlockUserDataManager.swift */,
+				241B0A6A27679E1C004672F3 /* UnblockUserDataManager.swift */,
+				241B0A60276781D3004672F3 /* GetBlockUserDataManager.swift */,
+				241B0A6827678B1C004672F3 /* UserReportDataManager.swift */,
 				24F74304272CEC0D00238E20 /* Entity */,
 			);
 			path = User;
@@ -804,6 +829,7 @@
 				24F74319272D0AA900238E20 /* CheckUserResponse.swift */,
 				24F7431D272D11DC00238E20 /* ResetPasswordRequest.swift */,
 				24F7431F272D11E400238E20 /* ResetPasswordResponse.swift */,
+				241B0A6227678226004672F3 /* GetBlockUserResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -945,6 +971,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 24C4D69D2725423A00FD519D;
 			productRefGroup = 24C4D6A72725423A00FD519D /* Products */;
@@ -964,6 +991,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24C4D6B62725423B00FD519D /* LaunchScreen.storyboard in Resources */,
+				241B0A7A2767E2EB004672F3 /* InfoPlist.strings in Resources */,
 				24C4D7102728393500FD519D /* SDSwagger.otf in Resources */,
 				24994E422752708F005A604B /* Roboto-Medium.ttf in Resources */,
 				24C4D70F2728393500FD519D /* BMDOHYEON_otf.otf in Resources */,
@@ -1114,6 +1142,7 @@
 				24F7430C272CF55100238E20 /* CheckAuthNumberRequest.swift in Sources */,
 				24994DA1273AC69A005A604B /* PostEventCommentResponse.swift in Sources */,
 				24994DE12742873C005A604B /* GetDetailPindergartenResponse.swift in Sources */,
+				241B0A65276783BC004672F3 /* BlockUserController.swift in Sources */,
 				24F74322272D166200238E20 /* RegisterUserDataManager.swift in Sources */,
 				24994D9D273AC616005A604B /* PostEventCommentDataManager.swift in Sources */,
 				24994DBE2740B287005A604B /* DetailPindergartenController.swift in Sources */,
@@ -1136,6 +1165,7 @@
 				24994E09274CF44C005A604B /* PostMyPetResponse.swift in Sources */,
 				247B843D273426D300591CC4 /* DetailFeedViewController.swift in Sources */,
 				24994E3D27514E43005A604B /* OnboardingPageViewController.swift in Sources */,
+				241B0A6727678735004672F3 /* UserReportController.swift in Sources */,
 				247B84472734601100591CC4 /* DeleteFeedResponse.swift in Sources */,
 				24F74314272D02BA00238E20 /* CheckNickNameResponse.swift in Sources */,
 				24C4D6FC2727D6B300FD519D /* LoginViewController.swift in Sources */,
@@ -1146,6 +1176,7 @@
 				24994D99273A5B93005A604B /* GetEventCommentResponse.swift in Sources */,
 				24994D97273A5B18005A604B /* GetEventCommentDataManager.swift in Sources */,
 				24F74320272D11E400238E20 /* ResetPasswordResponse.swift in Sources */,
+				241B0A61276781D3004672F3 /* GetBlockUserDataManager.swift in Sources */,
 				24F74312272D02B400238E20 /* CheckNickNameRequest.swift in Sources */,
 				247B843B2733FE1A00591CC4 /* EventCommentController.swift in Sources */,
 				240B8D85273268C900078404 /* GetDetailFeedDataManager.swift in Sources */,
@@ -1204,6 +1235,7 @@
 				24994E19274D68CA005A604B /* DetailPetController.swift in Sources */,
 				241B0A55275BE40D004672F3 /* GetUserPetsResponse.swift in Sources */,
 				24994DFC274AA844005A604B /* CustomButtonChoiceView.swift in Sources */,
+				241B0A6B27679E1C004672F3 /* UnblockUserDataManager.swift in Sources */,
 				24C4D6EE272597FF00FD519D /* IndicatorView.swift in Sources */,
 				24994DEF2743DD0B005A604B /* BlogWebViewController.swift in Sources */,
 				24F7431E272D11DC00238E20 /* ResetPasswordRequest.swift in Sources */,
@@ -1233,14 +1265,17 @@
 				24994E1B274E1838005A604B /* GetMyPageDataManager.swift in Sources */,
 				240B8D8D273269E700078404 /* AllFeedResponse.swift in Sources */,
 				240B8D9427326D6E00078404 /* DetailFeedResponse.swift in Sources */,
+				241B0A5B27674E1E004672F3 /* BlockUserDataManager.swift in Sources */,
 				247B844D2735897900591CC4 /* DeleteCommentDataManager.swift in Sources */,
 				24595AE42732730A008B5194 /* DetailFeedCell.swift in Sources */,
 				24F74332272DB68700238E20 /* HomeViewController.swift in Sources */,
+				241B0A6327678226004672F3 /* GetBlockUserResponse.swift in Sources */,
 				24F74334272DB6AB00238E20 /* PindergartenViewController.swift in Sources */,
 				24994DD02740F949005A604B /* PindergartenLikeResponse.swift in Sources */,
 				247B8435273306CA00591CC4 /* LikeResponse.swift in Sources */,
 				24994D9127397CC2005A604B /* DetailEventResponse.swift in Sources */,
 				24994DAD273B00DE005A604B /* EventHeaderView.swift in Sources */,
+				241B0A6927678B1C004672F3 /* UserReportDataManager.swift in Sources */,
 				24994E37274FEBCD005A604B /* ServiceTermViewController.swift in Sources */,
 				24994DF32743ED51005A604B /* GetPickAroundPindergartenDataManager.swift in Sources */,
 				24C4D6E02725946C00FD519D /* JwtToken.swift in Sources */,
@@ -1288,10 +1323,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		241B0A7C2767E2EB004672F3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				241B0A7B2767E2EB004672F3 /* en */,
+				241B0A7F2767E386004672F3 /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		24C4D6B42725423B00FD519D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				24C4D6B52725423B00FD519D /* Base */,
+				241B0A7E2767E386004672F3 /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1303,6 +1348,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1364,6 +1410,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

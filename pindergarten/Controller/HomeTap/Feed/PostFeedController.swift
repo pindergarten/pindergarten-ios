@@ -261,7 +261,12 @@ class PostFeedController: BaseViewController {
               imagePicker.settings.fetch.album.fetchResults = [
                   PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
                 PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: options),
-                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots , options: options)
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded , options: options),
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits , options: options),
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumTimelapses , options: options),
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumScreenshots , options: options),
+                PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular , options: options)
+       
               ]
         imagePicker.settings.selection.max = 10 - selectedAssets.count
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]

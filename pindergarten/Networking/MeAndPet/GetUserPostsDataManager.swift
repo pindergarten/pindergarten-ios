@@ -11,7 +11,7 @@ class GetUserPostsDataManager {
     
     
     func getUserPosts(userId: Int, delegate: UserPageController) {
-        AF.request("\(Constant.BASE_URL)/api/users/\(userId)/post", method: .get, headers: nil)
+        AF.request("\(Constant.BASE_URL)/api/users/\(userId)/post", method: .get, headers: Constant.HEADERS)
             .validate()
             .responseDecodable(of: GetUserPostsResponse.self) { response in
                 switch response.result {

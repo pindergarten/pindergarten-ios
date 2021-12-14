@@ -192,6 +192,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"), options: [.loadDiskFileSynchronously])
 
         cell.imageView.kf.indicatorType = .activity
+
         cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)),.loadDiskFileSynchronously], progressBlock: nil)
         cell.nameLabel.text = feed[indexPath.item].nickname
         cell.scriptionLabel.text = feed[indexPath.item].content
