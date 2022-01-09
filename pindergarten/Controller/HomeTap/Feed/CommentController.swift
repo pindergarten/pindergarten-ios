@@ -114,7 +114,7 @@ class CommentController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         tabBarController?.tabBar.isHidden = true
     }
     
@@ -202,7 +202,7 @@ class CommentController: BaseViewController {
         commentTableView.snp.makeConstraints { make in
             make.top.equalTo(seperateLine.snp.bottom)
             make.left.right.equalTo(view)
-            make.bottom.equalTo(commentSeperateLine).inset(20)
+            make.bottom.equalTo(commentSeperateLine)
         }
         
         commentSeperateLine.snp.makeConstraints { make in

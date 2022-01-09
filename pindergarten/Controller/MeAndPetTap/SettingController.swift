@@ -45,7 +45,7 @@ class SettingController: BaseViewController {
     
     private let versionLabel: UILabel = {
         let label = UILabel()
-        label.text = "버전 정보 (V 1.0.0)"
+        label.text = "버전 정보 (V 1.0.1)"
         label.textColor = UIColor(hex: 0x5A5A5A)
         label.font = UIFont(name: "AppleSDGothicNeo-Medium", size: 14)
         return label

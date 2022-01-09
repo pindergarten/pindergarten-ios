@@ -37,7 +37,7 @@ class EventCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 15)
         label.textColor = UIColor(hex: 0x3D3D3D)
-        label.text = "D-23"
+        label.text = "D-Day"
         return label
     }()
     

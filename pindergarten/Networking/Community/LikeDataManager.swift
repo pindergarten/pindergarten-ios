@@ -40,6 +40,7 @@ class LikeDataManager {
                 case .success(let response):
                     // 성공했을 때
                     if response.isSuccess, let result = response.result {
+                        print("DEBUG: SUCCESS LIKED")
                         delegate.didSuccessLike(idx: index, result)
                     }
                     // 실패했을 때

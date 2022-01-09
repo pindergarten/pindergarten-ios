@@ -325,8 +325,6 @@ class PostFeedController: BaseViewController {
         let manager = PHImageManager.default()
         let option = PHImageRequestOptions()
         option.isSynchronous = true
-//        option.deliveryMode = .highQualityFormat
-        option.resizeMode = .exact
        
         manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
             
@@ -337,6 +335,8 @@ class PostFeedController: BaseViewController {
                 image = result!
             }
         })
+        
+        print(image)
      
         return image
     }

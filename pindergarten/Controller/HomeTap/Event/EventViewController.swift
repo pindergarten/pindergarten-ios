@@ -185,8 +185,10 @@ extension EventViewController: UICollectionViewDelegate, UICollectionViewDataSou
         cell.id = event[index].id
         if days(to: event[index].expiredAt) == 0 {
             cell.dDayLabel.text = "D-DAY"
-        } else {
+        } else if days(to: event[index].expiredAt) > 0 {
             cell.dDayLabel.text = "D-\(days(to: event[index].expiredAt))"
+        } else {
+            cell.dDayLabel.text = "D+\(Int(days(to: event[index].expiredAt)).magnitude)"
         }
 
 

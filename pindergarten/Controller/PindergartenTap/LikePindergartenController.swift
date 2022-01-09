@@ -42,7 +42,7 @@ class LikePindergartenController: BaseViewController {
     private lazy var heartButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "pindergartenFilledHeart"), for: .normal)
-//        button.addTarget(self, action: #selector(didTapHeartButton), for: .touchUpInside)
+        button.isUserInteractionEnabled = false
         return button
     }()
     

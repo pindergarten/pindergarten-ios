@@ -58,9 +58,9 @@ class DetailPindergartenController: BaseViewController {
         label.attributedText = NSAttributedString(string: "블로그 리뷰", attributes: [.font : UIFont(name: "AppleSDGothicNeo-SemiBold", size: 16)!, .foregroundColor : UIColor.mainTextColor])
         view.addSubview(label)
         label.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(28)
+            make.top.bottom.equalTo(view).offset(28)
             make.left.right.equalTo(view).inset(20)
-            make.bottom.equalTo(view).offset(0)
+            make.bottom.equalTo(view)
         }
         return view
     }()
@@ -125,7 +125,10 @@ class DetailPindergartenController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
- 
+        if #available(iOS 15, *) {
+            totalTableVeiw.sectionHeaderTopPadding = 0
+        }
+        
         getDetailPindergartenDataManager.getDetailPindergarten(pindergartenId: pindergartenID, delegate: self)
         getBlogReviewDataManager.getBlogReviewPindergarten(pindergartenId: pindergartenID, delegate: self)
         
@@ -356,6 +359,7 @@ extension DetailPindergartenController: UITableViewDelegate, UITableViewDataSour
         }
         
         if indexPath.section == 1 {
+
             let cell = tableView.dequeueReusableCell(withIdentifier: DetailPindergartenBlogReviewCell.identifier, for: indexPath) as! DetailPindergartenBlogReviewCell
             cell.selectionStyle = .none
             

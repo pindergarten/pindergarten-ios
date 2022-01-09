@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import Combine
 
 //class LoadingFooterView: UICollectionViewCell {
 //
@@ -18,6 +19,7 @@ import Kingfisher
 //        view.color = .mainLightYellow
 //        return view
 //    }()
+
 //    //MARK: - Lifecycle
 //    override init(frame: CGRect) {
 //        super.init(frame: frame)
@@ -47,6 +49,8 @@ class HomeViewController: BaseViewController {
             collectionView.reloadData()
         }
     }
+    
+    var throttleCheck: Bool = true
     
     
     private let titleLabel: UILabel = {
@@ -78,6 +82,8 @@ class HomeViewController: BaseViewController {
     }()
     
     private let collectionView: UICollectionView = {
+        ///
+//        let pinterestLayout = UICollectionViewFlowLayout()
         let pinterestLayout = PinterestLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: pinterestLayout)
        
@@ -91,10 +97,12 @@ class HomeViewController: BaseViewController {
     
     var imageList = [CGFloat]()
     var isHomeVC: Bool = true
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getAllFeedDataManager.getAllFeed(delegate: self)
         configureUI()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -109,6 +117,7 @@ class HomeViewController: BaseViewController {
           layout.delegate = self
         }
         
+        
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .mainLightYellow
         collectionView.refreshControl = refreshControl
@@ -120,7 +129,6 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
-        getAllFeedDataManager.getAllFeed(delegate: self)
     }
     
     //MARK: - Action
@@ -144,6 +152,34 @@ class HomeViewController: BaseViewController {
     
     //MARK: - Helpers
 
+    func downsample(imageAt imageURL: URL,
+                    to pointSize: CGSize,
+                    scale: CGFloat = UIScreen.main.scale) -> UIImage? {
+
+        // Create an CGImageSource that represent an image
+        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        guard let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions) else {
+            return nil
+        }
+        
+        // Calculate the desired dimension
+        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
+        
+        // Perform downsampling
+        let downsampleOptions = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceShouldCacheImmediately: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
+        ] as CFDictionary
+        guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions) else {
+            return nil
+        }
+        
+        // Return the downsampled image as UIImage
+        return UIImage(cgImage: downsampledImage)
+    }
+    
     func configureUI() {
         view.addSubview(titleLabel)
         view.addSubview(plusButton)
@@ -171,7 +207,9 @@ class HomeViewController: BaseViewController {
         
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.left.right.bottom.equalTo(view)
+            make.left.right.equalTo(view)
+            make.bottom.equalTo(view)
+
         }
         
     }
@@ -187,13 +225,22 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
         cell.delegate = self
-
+      
+        let scale = UIScreen.main.scale
+        
         cell.profileImageView.kf.indicatorType = .activity
-        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: UIImage(systemName: "person"), options: [.loadDiskFileSynchronously])
+        cell.profileImageView.kf.setImage(with: URL(string: feed[indexPath.item].profileimg), placeholder: nil, options: [.loadDiskFileSynchronously])
 
+        
         cell.imageView.kf.indicatorType = .activity
-
-        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: nil, options: [.transition(.fade(0.7)),.loadDiskFileSynchronously], progressBlock: nil)
+        cell.imageView.kf.setImage(with: URL(string: feed[indexPath.item].thumbnail), placeholder: nil, options: [
+            .loadDiskFileSynchronously,
+            .transition(.fade(0.7)),
+            .processor(ResizingImageProcessor(referenceSize: CGSize(width: Device.width / 2 - 60 * scale, height: 200 * scale), mode: .aspectFill)),
+            .scaleFactor(UIScreen.main.scale),
+            .cacheOriginalImage]
+        )
+        
         cell.nameLabel.text = feed[indexPath.item].nickname
         cell.scriptionLabel.text = feed[indexPath.item].content
         cell.heartButton.tag = feed[indexPath.item].id
@@ -205,7 +252,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.heartButton.setImage(UIImage(named: "filledHeartButton"), for: .normal)
         }
 
-        
         return cell
     }
     
@@ -228,7 +274,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         detailVC.index = indexPath
         navigationController?.pushViewController(detailVC, animated: true)
     }
-//
+
 //    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
 //        let currentOffset = scrollView.contentOffset.y // frame영역의 origin에 비교했을때의 content view의 현재 origin 위치
 //        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height // 화면에는 frame만큼 가득 찰 수 있기때문에 frame의 height를 빼준 것
@@ -243,9 +289,29 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
 }
 
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        if indexPath.item % 4 == 0 || indexPath.item % 4 == 3 {
+            return CGSize(width: Device.width / 2 - 20, height: 200)
+        } else {
+            return CGSize(width: Device.width / 2 - 20, height: 250)
+        }
+    }
+}
+
 extension HomeViewController: HomeCellDelegate {
     func didTapHeartButton(tag: Int, index: Int) {
-        likeDataManager.like(postId: tag, index: index, delegate: self)
+        if throttleCheck == true {
+            throttleCheck = false
+            
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+                self.likeDataManager.like(postId: tag, index: index, delegate: self)
+
+                self.throttleCheck = true
+            }
+            
+        }
     }
 }
 
@@ -265,12 +331,10 @@ extension HomeViewController: PinterestLayoutDelegate {
         
         imageWidth = Device.width / 2 - 60
         
-     
 //        imageHeight = imageList[indexPath.item]
 //        let imageWidth = imageList[indexPath.item].size.width
         
         let imageRatio = imageHeight/imageWidth
-
 
         return imageRatio * cellWidth
     }
@@ -288,9 +352,9 @@ extension HomeViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
 
         if tabBarController.selectedIndex == 0 && isHomeVC == true {
-            collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
         } else {
-            isHomeVC = false
+//            isHomeVC = false
         }
         
         if tabBarController.selectedIndex == 0 {
@@ -317,7 +381,6 @@ extension HomeViewController {
     }
     
     func didSuccessLike(idx: Int, _ result: LikeResult) {
-
         feed[idx].isLiked = result.isSet
 
     }

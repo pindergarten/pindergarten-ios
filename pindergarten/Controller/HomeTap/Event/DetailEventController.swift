@@ -73,16 +73,15 @@ class DetailEventController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    
-        
         commentTableView.tableFooterView = footerView
         
         if self.dday == 0 {
             headerView.dDayLabel.text = "D-DAY"
-        } else {
+        } else if self.dday > 0 {
             headerView.dDayLabel.text = "D-\(self.dday)"
+        } else {
+            headerView.dDayLabel.text = "D+\(self.dday.magnitude)"
         }
-        
         
         
         headerView.delegate = self

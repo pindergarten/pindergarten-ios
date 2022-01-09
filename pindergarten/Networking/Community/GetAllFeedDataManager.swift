@@ -21,7 +21,7 @@ class GetAllFeedDataManager {
                     // 실패했을 때
                     else {
                         switch response.code {
-                        default: delegate.failedToGetAllFeed(message: "피드 불러오기에 실패하였습니다")
+                        default: delegate.failedToGetAllFeed(message: response.message)
                         }
                     }
                 case .failure(let error):

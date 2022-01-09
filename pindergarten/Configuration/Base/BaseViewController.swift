@@ -7,18 +7,21 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     //MARK: - Properties
     
 
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        swipeRecognizer()
+    
+//        swipeRecognizer()
         dismissKeyboardWhenTappedAround()
         view.backgroundColor = .white
         navigationController?.isNavigationBarHidden = true
+        
+        // 스와이프백
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
 //        // 네비게이션바 밑줄, 배경색 없애기
 //        navigationController?.navigationBar.shadowImage = UIImage()
 //        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -41,6 +44,4 @@ class BaseViewController: UIViewController {
            }
        }
    }
-
-
 }

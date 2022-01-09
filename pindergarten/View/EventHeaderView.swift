@@ -64,6 +64,7 @@ class EventHeaderView: UIView  {
         stack.spacing = 8
         return stack
     }()
+    
     private let dDayView: UIView = {
         let view = UIView()
         view.backgroundColor = .white

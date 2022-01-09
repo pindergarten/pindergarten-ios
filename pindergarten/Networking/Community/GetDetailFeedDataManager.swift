@@ -21,7 +21,7 @@ class GetDetailFeedDataManager {
                     // 실패했을 때
                     else {
                         switch response.code {
-                        default: delegate.failedToGetDetailFeed(message: "")
+                        default: delegate.failedToGetDetailFeed(message: response.message)
                         }
                     }
                 case .failure(let error):

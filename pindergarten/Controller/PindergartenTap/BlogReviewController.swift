@@ -38,6 +38,8 @@ class BlogReviewController: BaseViewController {
     private let reviewTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
+        tableView.separatorStyle = .singleLine
+       
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.tableFooterView = UIView()
