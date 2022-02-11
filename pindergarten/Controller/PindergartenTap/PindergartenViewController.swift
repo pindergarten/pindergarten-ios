@@ -104,7 +104,7 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tabBarController?.tabBar.isHidden = false
+        
         
         if let clickedLat = clickedLat, let clickedLon = clickedLon {
             getPickAroundPindergartenDataManager.getPickAroundPindergarten(lat: clickedLat, lon: clickedLon, delegate: self)
@@ -114,6 +114,11 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         }
         
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     //MARK: - Action
     @objc private func didTapHeartButton() {

@@ -44,6 +44,7 @@ class HomeViewController: BaseViewController {
     lazy var likeDataManager: LikeDataManager = LikeDataManager()
     
     var postId: Int = 0
+    var currentCursor: Int = 0
     private var feed: [GetAllFeedResult] = [] {
         didSet {
             collectionView.reloadData()
@@ -51,7 +52,7 @@ class HomeViewController: BaseViewController {
     }
     
     var throttleCheck: Bool = true
-    
+    let pinterestLayout = PinterestLayout()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -81,10 +82,8 @@ class HomeViewController: BaseViewController {
         return button
     }()
     
-    private let collectionView: UICollectionView = {
-        ///
-//        let pinterestLayout = UICollectionViewFlowLayout()
-        let pinterestLayout = PinterestLayout()
+    private lazy var collectionView: UICollectionView = {
+
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: pinterestLayout)
        
         collectionView.backgroundColor = .white
@@ -102,7 +101,7 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getAllFeedDataManager.getAllFeed(delegate: self)
+//        getAllFeedDataManager.getFeed(pagination: false, cursor: 0, delegate: self)
         configureUI()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -126,8 +125,8 @@ class HomeViewController: BaseViewController {
         collectionView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         tabBarController?.tabBar.isHidden = false
     }
     
@@ -254,17 +253,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
         return cell
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        if kind == UICollectionView.elementKindSectionFooter {
-//            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoadingFooterView.identifier, for: indexPath) as! LoadingFooterView
-////            loadingView = footerView
-////            loadingView?.backgroundColor = UIColor.clear
-//            return footerView
-//        } else {
-//            return UICollectionReusableView()
-//        }
-//    }
+
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -274,43 +263,48 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         detailVC.index = indexPath
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (collectionView.contentSize.height - 100 - scrollView.frame.size.height) {
+            // fetch more data
+            guard !getAllFeedDataManager.isPaginating else { return }
+            
+            print("fetch more")
+            
+            getAllFeedDataManager.getFeed(pagination: true, cursor: currentCursor, delegate: self)
+            
+        }
+    }
 
-//    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-//        let currentOffset = scrollView.contentOffset.y // frame영역의 origin에 비교했을때의 content view의 현재 origin 위치
-//        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height // 화면에는 frame만큼 가득 찰 수 있기때문에 frame의 height를 빼준 것
-//
-//        // 스크롤 할 수 있는 영역보다 더 스크롤된 경우 (하단에서 스크롤이 더 된 경우)
-//        if maximumOffset < currentOffset {
-//            // viewModel.loadNextPage()
-//            print("10")
-//
-//        }
-//    }
+
     
 }
 
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        if indexPath.item % 4 == 0 || indexPath.item % 4 == 3 {
-            return CGSize(width: Device.width / 2 - 20, height: 200)
-        } else {
-            return CGSize(width: Device.width / 2 - 20, height: 250)
-        }
-    }
-}
+//extension HomeViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        if indexPath.item % 4 == 0 || indexPath.item % 4 == 3 {
+//            return CGSize(width: Device.width / 2 - 20, height: 200)
+//        } else {
+//            return CGSize(width: Device.width / 2 - 20, height: 250)
+//        }
+//    }
+//}
 
 extension HomeViewController: HomeCellDelegate {
+    
     func didTapHeartButton(tag: Int, index: Int) {
+        
         if throttleCheck == true {
+            
             throttleCheck = false
             
-            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
-                self.likeDataManager.like(postId: tag, index: index, delegate: self)
-
-                self.throttleCheck = true
-            }
+            likeDataManager.like(postId: tag, index: index, delegate: self)
             
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] timer in
+                self?.throttleCheck = true
+            }
         }
     }
 }
@@ -367,10 +361,33 @@ extension HomeViewController: UITabBarControllerDelegate {
 extension HomeViewController {
    
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
+        print(pinterestLayout.collectionViewContentSize)
+        currentCursor = result.last!.id
+        print(currentCursor)
+        
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             self.feed = result
-            
+            if self.getAllFeedDataManager.isPaginating {
+                self.getAllFeedDataManager.isPaginating = false
+            }
             self.collectionView.refreshControl?.endRefreshing()
+        }
+        
+        
+    }
+    
+    func didSuccessGetFeed(_ result: [GetAllFeedResult]) {
+        if let lastCursor = result.last {
+            currentCursor = lastCursor.id
+            print(currentCursor)
+            self.feed += result
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                if self.getAllFeedDataManager.isPaginating {
+                    self.getAllFeedDataManager.isPaginating = false
+                }
+                self.collectionView.refreshControl?.endRefreshing()
+            }
+            
         }
         
     }

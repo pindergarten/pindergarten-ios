@@ -17,7 +17,7 @@ class PinterestLayout: UICollectionViewFlowLayout {
     
     weak var delegate: PinterestLayoutDelegate?
     
-    private var contentHeight: CGFloat = 0
+    var contentHeight: CGFloat = 0
     
     private var contentWidth: CGFloat {
         guard let collectionView = collectionView else {
@@ -67,7 +67,8 @@ class PinterestLayout: UICollectionViewFlowLayout {
             cache.append(attributes)
             
             // 콜렉션 뷰의 contentHeight 를 다시 지정합니다.
-            contentHeight = max(contentHeight, frame.maxY)
+//            contentHeight = max(contentHeight, frame.maxY)
+            contentHeight = frame.maxY
             yOffSet[column] = yOffSet[column] + height
             
             // 다른 이미지 크기로 인해서, 한쪽 열에만 이미지가 추가되는 것을 방지합니다.

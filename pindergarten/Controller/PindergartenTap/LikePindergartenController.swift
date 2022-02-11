@@ -72,12 +72,12 @@ class LikePindergartenController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         tabBarController?.tabBar.isHidden = true
+        
         getLikePindergartenDataManager.getLikePindergarten(lat: locationManager.location?.coordinate.latitude ?? Constant.DEFAULT_LAT, lon: locationManager.location?.coordinate.longitude ?? Constant.DEFAULT_LON, delegate: self)
 
-    
     }
+    
     //MARK: - Action
     @objc private func didTapBackButton() {
         navigationController?.popViewController(animated: true)
