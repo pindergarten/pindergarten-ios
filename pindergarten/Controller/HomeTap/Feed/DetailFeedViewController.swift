@@ -10,14 +10,9 @@ import ImageSlideshow
 import Kingfisher
 
 
-protocol DetailVCDelegate: AnyObject {
-    func deleteCache()
-}
-
 class DetailFeedViewController: BaseViewController {
 
     //MARK: - Properties
-    weak var delegate: DetailVCDelegate?
     lazy var getDetailFeedDataManager: GetDetailFeedDataManager = GetDetailFeedDataManager()
     lazy var likeDataManager: LikeDataManager = LikeDataManager()
     lazy var deleteFeedDataManager: DeleteFeedDataManager = DeleteFeedDataManager()
@@ -454,7 +449,7 @@ extension DetailFeedViewController {
     }
     
     func didSuccessDeleteFeed() {
-        self.delegate?.deleteCache()
+       
         self.presentAlert(title: "게시물이 삭제되었습니다") { [weak self] alert in
             
             self?.navigationController?.popViewController(animated: true)

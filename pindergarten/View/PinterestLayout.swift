@@ -28,7 +28,7 @@ class PinterestLayout: UICollectionViewFlowLayout {
     }
     
     // 다시 레이아웃을 계산할 필요가 없도록 메모리에 저장
-   var cache: [UICollectionViewLayoutAttributes] = []
+    var cache: [UICollectionViewLayoutAttributes] = []
     
     // 1. 콜렉션 뷰의 콘텐츠 사이즈를 지정
     override var collectionViewContentSize: CGSize {
@@ -97,4 +97,5 @@ class PinterestLayout: UICollectionViewFlowLayout {
     -> UICollectionViewLayoutAttributes? {
         return cache[indexPath.item]
     }
+    
 }

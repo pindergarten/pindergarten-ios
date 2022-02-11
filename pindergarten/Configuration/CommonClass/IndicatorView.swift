@@ -19,6 +19,8 @@ open class IndicatorView {
         self.containerView.frame = window.frame
         self.containerView.center = window.center
         self.containerView.backgroundColor = .clear
+        self.activityIndicator.tintColor = .mainYellow
+        self.activityIndicator.color = .mainYellow
         
         self.containerView.addSubview(self.activityIndicator)
         UIApplication.shared.windows.first?.addSubview(self.containerView)
@@ -30,7 +32,7 @@ open class IndicatorView {
         
         self.activityIndicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         self.activityIndicator.style = .large
-        self.activityIndicator.color = UIColor(hex: 0x808080)
+        self.activityIndicator.color = .mainYellow
         self.activityIndicator.center = self.containerView.center
         
         self.activityIndicator.startAnimating()

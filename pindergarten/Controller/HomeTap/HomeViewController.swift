@@ -7,35 +7,7 @@
 
 import UIKit
 import Kingfisher
-import Combine
 
-//class LoadingFooterView: UICollectionViewCell {
-//
-//    //MARK: - Properties
-//    static let identifier = "LoadingFooterView"
-//    var indicator : UIActivityIndicatorView = {
-//        let view = UIActivityIndicatorView()
-//        view.style = .medium
-//        view.color = .mainLightYellow
-//        return view
-//    }()
-
-//    //MARK: - Lifecycle
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//
-//        contentView.addSubview(indicator)
-//        indicator.snp.makeConstraints { make in
-//            make.center.equalTo(self)
-//        }
-//        indicator.startAnimating()
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//
-//}
 
 class HomeViewController: BaseViewController {
 
@@ -45,6 +17,7 @@ class HomeViewController: BaseViewController {
     
     var postId: Int = 0
     var currentCursor: Int = 0
+    var isLoading = false
     private var feed: [GetAllFeedResult] = [] {
         didSet {
             collectionView.reloadData()
@@ -53,6 +26,8 @@ class HomeViewController: BaseViewController {
     
     var throttleCheck: Bool = true
     let pinterestLayout = PinterestLayout()
+    
+    var loadingView: HomeFooterCollectionResueableView?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -101,21 +76,25 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        getAllFeedDataManager.getFeed(pagination: false, cursor: 0, delegate: self)
         configureUI()
         collectionView.delegate = self
         collectionView.dataSource = self
+        pinterestLayout.delegate = self
         self.tabBarController?.delegate = self
         
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: HomeCell.identifier)
-//        collectionView.register(LoadingFooterView.self, forCellWithReuseIdentifier: LoadingFooterView.identifier)
+        collectionView.register(HomeFooterCollectionResueableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                withReuseIdentifier: HomeFooterCollectionResueableView.identifier)
+        
+
         
         
         // Set the PinterestLayout delegate
-        if let layout = collectionView.collectionViewLayout as? PinterestLayout {
-          layout.delegate = self
-        }
-        
+//        if let layout = collectionView.collectionViewLayout as? PinterestLayout {
+//            layout.delegate = self
+//        }
+//
         
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = .mainLightYellow
@@ -144,40 +123,9 @@ class HomeViewController: BaseViewController {
     @objc func didTapEventButton() {
         navigationController?.pushViewController(EventViewController(), animated: true)
     }
-    
-//    @objc func didTapHeartButton(sender: UIButton) {
-//        likeDataManager.like(postId: sender.tag, delegate: self)
-//    }
+
     
     //MARK: - Helpers
-
-    func downsample(imageAt imageURL: URL,
-                    to pointSize: CGSize,
-                    scale: CGFloat = UIScreen.main.scale) -> UIImage? {
-
-        // Create an CGImageSource that represent an image
-        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
-        guard let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions) else {
-            return nil
-        }
-        
-        // Calculate the desired dimension
-        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
-        
-        // Perform downsampling
-        let downsampleOptions = [
-            kCGImageSourceCreateThumbnailFromImageAlways: true,
-            kCGImageSourceShouldCacheImmediately: true,
-            kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
-        ] as CFDictionary
-        guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions) else {
-            return nil
-        }
-        
-        // Return the downsampled image as UIImage
-        return UIImage(cgImage: downsampledImage)
-    }
     
     func configureUI() {
         view.addSubview(titleLabel)
@@ -217,12 +165,16 @@ class HomeViewController: BaseViewController {
 //MARK: - Extenseion
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return feed.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as? HomeCell else { return UICollectionViewCell() }
         cell.delegate = self
       
         let scale = UIScreen.main.scale
@@ -253,15 +205,52 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
         return cell
     }
-
+    
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailFeedViewController()
-        detailVC.delegate = self
         detailVC.postId = feed[indexPath.item].id
         detailVC.index = indexPath
         navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: PinterestLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        
+            print(11)
+            if self.isLoading {
+                return CGSize.zero
+            }
+            return CGSize(width: collectionView.frame.size.width, height: 55)
+            
+        }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        print("10")
+        if kind == UICollectionView.elementKindSectionFooter {
+            guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeFooterCollectionResueableView.identifier, for: indexPath) as? HomeFooterCollectionResueableView else { return UICollectionReusableView() }
+            loadingView = footer
+//            loadingView?.backgroundColor = UIColor.clear
+            
+            return footer
+        }
+        
+        return UICollectionReusableView()
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        print(12)
+            if elementKind == UICollectionView.elementKindSectionFooter {
+                loadingView?.spinner.startAnimating()
+            }
+        }
+
+    func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
+        print(13)
+        if elementKind == UICollectionView.elementKindSectionFooter {
+            loadingView?.spinner.stopAnimating()
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -270,7 +259,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             // fetch more data
             guard !getAllFeedDataManager.isPaginating else { return }
             
-            print("fetch more")
+            showIndicator()
             
             getAllFeedDataManager.getFeed(pagination: true, cursor: currentCursor, delegate: self)
             
@@ -280,17 +269,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
     
 }
-
-//extension HomeViewController: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        if indexPath.item % 4 == 0 || indexPath.item % 4 == 3 {
-//            return CGSize(width: Device.width / 2 - 20, height: 200)
-//        } else {
-//            return CGSize(width: Device.width / 2 - 20, height: 250)
-//        }
-//    }
-//}
 
 extension HomeViewController: HomeCellDelegate {
     
@@ -333,14 +311,7 @@ extension HomeViewController: PinterestLayoutDelegate {
         return imageRatio * cellWidth
     }
 }
-
-extension HomeViewController: DetailVCDelegate {
-    func deleteCache() {
-        
-    }
     
-    
-}
 
 extension HomeViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
@@ -365,34 +336,43 @@ extension HomeViewController {
         currentCursor = result.last!.id
         print(currentCursor)
         
+       
+        self.feed = result
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            self.feed = result
             if self.getAllFeedDataManager.isPaginating {
                 self.getAllFeedDataManager.isPaginating = false
             }
             self.collectionView.refreshControl?.endRefreshing()
         }
-        
+    
         
     }
     
     func didSuccessGetFeed(_ result: [GetAllFeedResult]) {
+        if !self.isLoading {
+                self.isLoading = true
+        }
+        
         if let lastCursor = result.last {
             currentCursor = lastCursor.id
             print(currentCursor)
+            
+            
             self.feed += result
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-                if self.getAllFeedDataManager.isPaginating {
-                    self.getAllFeedDataManager.isPaginating = false
-                }
-                self.collectionView.refreshControl?.endRefreshing()
+            self.isLoading = false
+            dismissIndicator()
+            if self.getAllFeedDataManager.isPaginating {
+                self.getAllFeedDataManager.isPaginating = false
             }
+        
             
         }
+        dismissIndicator()
         
     }
     
     func failedToGetAllFeed(message: String) {
+        dismissIndicator()
         self.presentAlert(title: message)
 
     }
