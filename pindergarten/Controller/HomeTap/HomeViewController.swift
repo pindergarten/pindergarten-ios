@@ -217,7 +217,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: PinterestLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         
-            print(11)
             if self.isLoading {
                 return CGSize.zero
             }
@@ -226,7 +225,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        print("10")
         if kind == UICollectionView.elementKindSectionFooter {
             guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeFooterCollectionResueableView.identifier, for: indexPath) as? HomeFooterCollectionResueableView else { return UICollectionReusableView() }
             loadingView = footer
@@ -240,14 +238,12 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     
     func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        print(12)
             if elementKind == UICollectionView.elementKindSectionFooter {
                 loadingView?.spinner.startAnimating()
             }
         }
 
     func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
-        print(13)
         if elementKind == UICollectionView.elementKindSectionFooter {
             loadingView?.spinner.stopAnimating()
         }
@@ -332,11 +328,9 @@ extension HomeViewController: UITabBarControllerDelegate {
 extension HomeViewController {
    
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
-        print(pinterestLayout.collectionViewContentSize)
+
         currentCursor = result.last!.id
-        print(currentCursor)
         
-       
         self.feed = result
         DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
             if self.getAllFeedDataManager.isPaginating {
@@ -355,8 +349,6 @@ extension HomeViewController {
         
         if let lastCursor = result.last {
             currentCursor = lastCursor.id
-            print(currentCursor)
-            
             
             self.feed += result
             self.isLoading = false

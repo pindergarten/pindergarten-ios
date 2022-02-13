@@ -144,9 +144,9 @@ class DetailFeedViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hidesBottomBarWhenPushed = true
+//        self.hidesBottomBarWhenPushed = true
         
-        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
+//        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
         
         pageIndicator.currentPageIndicatorTintColor = UIColor.mainLightYellow
         pageIndicator.pageIndicatorTintColor = UIColor(hex: 0xC4C4C4)
@@ -183,8 +183,15 @@ class DetailFeedViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tabBarController?.tabBar.isHidden = true
         
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        getDetailFeedDataManager.getADetailFeed(postId: postId, delegate: self)
+
     }
     
     //MARK: - Action
