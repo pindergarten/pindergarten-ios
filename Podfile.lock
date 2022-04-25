@@ -17,6 +17,12 @@ PODS:
   - ImageSlideshow/Core (1.9.2)
   - Kingfisher (6.3.0)
   - NMapsMap (3.14.0)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
@@ -31,6 +37,8 @@ DEPENDENCIES:
   - ImageSlideshow/Alamofire
   - Kingfisher
   - NMapsMap
+  - RxCocoa (= 6.5.0)
+  - RxSwift (= 6.5.0)
   - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
@@ -46,6 +54,9 @@ SPEC REPOS:
     - ImageSlideshow
     - Kingfisher
     - NMapsMap
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SnapKit
 
 SPEC CHECKSUMS:
@@ -60,8 +71,11 @@ SPEC CHECKSUMS:
   ImageSlideshow: be305b54eaf2b2cfc7a7141c7c734605d44dc07d
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   NMapsMap: 61c2abfc409bbcdc91583ccc455a5b6f64c7414e
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: a405b7436f4ef123b466ece44e6b795d42cec0e5
+PODFILE CHECKSUM: e72e96986c048d8783d7c414518877e2f522a4f1
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

@@ -120,6 +120,7 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
         super.viewDidAppear(animated)
         tabBarController?.tabBar.isHidden = false
     }
+    
     //MARK: - Action
     @objc private func didTapHeartButton() {
         let likePindergartenVC = LikePindergartenController()

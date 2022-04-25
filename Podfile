@@ -18,6 +18,8 @@ target 'pindergarten' do
 	pod 'NMapsMap'
 	pod 'Cosmos', '~> 23.0'
 	pod "BSImagePicker", "~> 3.1"
+    	pod 'RxSwift', '6.5.0'
+    	pod 'RxCocoa', '6.5.0'
 
   target 'pindergartenTests' do
     inherit! :search_paths

@@ -21,7 +21,7 @@ class LoginDataManager {
                     // 실패했을 때
                     else {
                         switch response.code {
-        
+
                         default:  delegate.failedToLogin(message: response.message)
                         }
                     }

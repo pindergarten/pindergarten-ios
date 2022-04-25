@@ -9,6 +9,10 @@ import UIKit
 import ImageSlideshow
 import Kingfisher
 
+protocol ChangeLikeStateProtocol {
+    func changeLikeState()
+}
+
 
 class DetailFeedViewController: BaseViewController {
 
@@ -20,6 +24,7 @@ class DetailFeedViewController: BaseViewController {
     var postId: Int = 0
     var index: IndexPath = [0,0]
     
+    var delegate: ChangeLikeStateProtocol?
     private var detailFeed: GetDetailFeedResult?
     
     private lazy var scrollView: UIScrollView = {
@@ -120,7 +125,7 @@ class DetailFeedViewController: BaseViewController {
 
         var paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 2
-        label.attributedText = NSMutableAttributedString(string: "ㅎ", attributes: [.font: UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!, .paragraphStyle: paragraphStyle])
+        label.attributedText = NSMutableAttributedString(string: "", attributes: [.font: UIFont(name: "AppleSDGothicNeo-Medium", size: 13)!, .paragraphStyle: paragraphStyle])
         return label
     }()
     
@@ -439,6 +444,7 @@ extension DetailFeedViewController {
     }
     
     func didSuccessLike(_ result: LikeResult) {
+        delegate?.changeLikeState()
         
         if result.isSet == 0 {
             heartButton.setImage(#imageLiteral(resourceName: "feedHeartImage"), for: .normal)

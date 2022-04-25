@@ -30,15 +30,6 @@ class OnboardingController: UIViewController {
         return stack
     }()
     
-//    let titleImageView: UIImageView = {
-//        let iv = UIImageView()
-//        iv.contentMode = .scaleAspectFit
-//        iv.setHeight(100)
-//        return iv
-//    }()
-    
-    
-    
     let imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -89,7 +80,6 @@ class OnboardingController: UIViewController {
 
         self.scriptLabel.attributedText = NSAttributedString(string: script, attributes: [NSAttributedString.Key.paragraphStyle : scriptParagraphStyle, .font : UIFont(name: "Roboto-Medium", size: 15)!, .foregroundColor : UIColor.mainBrown])
         
-//        self.titleImageView.image = UIImage(named: titleImage)
         self.imageView.image = UIImage(named: imageName)
         self.startButton.isHidden = !last
 
@@ -105,14 +95,8 @@ class OnboardingController: UIViewController {
         paragraphStyle.alignment = .center
         scriptParagraphStyle.alignment = .center
         
-//        self.titleLabel.attributedText = NSAttributedString(string: titleName, attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle, .font : UIFont(name: "Roboto-Black", size: 25)!, .foregroundColor : UIColor.mainBrown])
-//
-//        self.scriptLabel.attributedText = NSAttributedString(string: script, attributes: [NSAttributedString.Key.paragraphStyle : scriptParagraphStyle, .font : UIFont(name: "Roboto-Medium", size: 15)!, .foregroundColor : UIColor.mainBrown])
-        
-//        self.titleImageView.image = UIImage(named: titleImage)
         self.imageView.image = UIImage(named: imageName)
         self.startButton.isHidden = !last
-
     }
     
     required init?(coder: NSCoder) {
@@ -125,10 +109,6 @@ class OnboardingController: UIViewController {
     }
     //MARK: - Helpers
     private func configureUI() {
-//        view.addSubview(titleLabel)
-//        view.addSubview(scriptLabel)
-//        view.addSubview(titleImageView)
-//        view.addSubview(stack)
         view.addSubview(imageView)
         view.addSubview(startButton)
        

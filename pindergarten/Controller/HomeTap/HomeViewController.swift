@@ -14,7 +14,8 @@ class HomeViewController: BaseViewController {
     //MARK: - Properties
     lazy var getAllFeedDataManager: GetAllFeedDataManager = GetAllFeedDataManager()
     lazy var likeDataManager: LikeDataManager = LikeDataManager()
-    
+
+    var isChangeLikeState: Bool = false
     var postId: Int = 0
     var currentCursor: Int = 0
     var isLoading = false
@@ -104,8 +105,17 @@ class HomeViewController: BaseViewController {
         collectionView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if isChangeLikeState {
+//            getAllFeedDataManager.getAllFeed(delegate: self)
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         tabBarController?.tabBar.isHidden = false
     }
     
@@ -212,6 +222,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let detailVC = DetailFeedViewController()
         detailVC.postId = feed[indexPath.item].id
         detailVC.index = indexPath
+        detailVC.delegate = self
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -324,11 +335,21 @@ extension HomeViewController: UITabBarControllerDelegate {
     }
 }
 
+// changeLikeState
+extension HomeViewController: ChangeLikeStateProtocol {
+    func changeLikeState() {
+        isChangeLikeState = true
+    }
+    
+    
+}
+
 // 네트워크 함수
 extension HomeViewController {
    
     func didSuccessGetAllFeed(_ result: [GetAllFeedResult]) {
 
+        self.isChangeLikeState = false
         currentCursor = result.last!.id
         
         self.feed = result

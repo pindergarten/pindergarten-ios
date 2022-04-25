@@ -6,19 +6,10 @@
 //
 
 import UIKit
-import AnyFormatKit
+//import AnyFormatKit
 
 class LoginViewController: BaseViewController {
     //MARK: - Properties
-//
-//    private let backButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setImage(UIImage(named: "backButton"), for: .normal)
-//        button.tintColor = .mainTextColor
-//        button.setDimensions(height: 30, width: 30)
-//        button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
-//        return button
-//    }()
     
     lazy var loginDataManager: LoginDataManager = LoginDataManager()
     
@@ -84,8 +75,7 @@ class LoginViewController: BaseViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        phoneNumberStack.textField.delegate = self
+
         phoneNumberStack.textField.becomeFirstResponder()
         
         phoneNumberStack.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -110,7 +100,6 @@ class LoginViewController: BaseViewController {
     
     @objc func didTapLoginButton() {
         changeRootViewController(HomeTabBarController())
-//        loginDataManager.login(LoginRequest(phone: phoneNumberStack.textField.text ?? "", password: passwordStack.textField.text ?? ""), delegate: self)
     }
     
     @objc func textFieldDidChange(_ sender: Any?) {
@@ -148,20 +137,14 @@ class LoginViewController: BaseViewController {
         findPasswordLabel.addGestureRecognizer(tapFindPasswordGestureRecognizer)
         goSignUpLabel.addGestureRecognizer(tapGoSignUpGestureRecognizer)
         
-//        view.addSubview(backButton)
         view.addSubview(titleLabel)
         view.addSubview(phoneNumberStack)
         view.addSubview(passwordStack)
         view.addSubview(loginButton)
-//        view.addSubview(labelStack)
         view.addSubview(findPasswordLabel)
         view.addSubview(seperatelineLabel)
         view.addSubview(goSignUpLabel)
         
-//        backButton.snp.makeConstraints { make in
-//            make.centerY.equalTo(titleLabel)
-//            make.left.equalTo(view).offset(8)
-//        }
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.snp.topMargin).offset(33)
             make.centerX.equalTo(view)
@@ -171,21 +154,20 @@ class LoginViewController: BaseViewController {
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-20)
         }
+        
         passwordStack.snp.makeConstraints { make in
             make.top.equalTo(phoneNumberStack.snp.bottom).offset(22)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-20)
         }
+        
         loginButton.snp.makeConstraints { make in
             make.top.equalTo(passwordStack.snp.bottom).offset(24)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(50)
         }
-//        labelStack.snp.makeConstraints { make in
-//            make.top.equalTo(loginButton.snp.bottom).offset(10)
-//            make.centerX.equalTo(view)
-//        }
+
         findPasswordLabel.snp.makeConstraints { make in
             make.top.equalTo(loginButton.snp.bottom).offset(10)
             make.right.equalTo(seperatelineLabel.snp.left).offset(-14)
@@ -202,25 +184,25 @@ class LoginViewController: BaseViewController {
     
 }
 
-extension LoginViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
-        guard let text = textField.text else {
-            return false
-        }
-        let characterSet = CharacterSet(charactersIn: string)
-        if CharacterSet.decimalDigits.isSuperset(of: characterSet) == false {
-            return false
-        }
-
-        let formatter = DefaultTextInputFormatter(textPattern: "###-####-####")
-        let result = formatter.formatInput(currentText: text, range: range, replacementString: string)
-        textField.text = result.formattedText
-        let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
-        textField.selectedTextRange = textField.textRange(from: position, to: position)
-        return false
-    }
-}
+//extension LoginViewController: UITextFieldDelegate {
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//
+//        guard let text = textField.text else {
+//            return false
+//        }
+//        let characterSet = CharacterSet(charactersIn: string)
+//        if CharacterSet.decimalDigits.isSuperset(of: characterSet) == false {
+//            return false
+//        }
+//
+//        let formatter = DefaultTextInputFormatter(textPattern: "###-####-####")
+//        let result = formatter.formatInput(currentText: text, range: range, replacementString: string)
+//        textField.text = result.formattedText
+//        let position = textField.position(from: textField.beginningOfDocument, offset: result.caretBeginOffset)!
+//        textField.selectedTextRange = textField.textRange(from: position, to: position)
+//        return false
+//    }
+//}
 
 // 네트워크 함수
 extension LoginViewController {
