@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class NewSplashController: BaseViewController {
     //MARK: - Properties
     lazy var loginDataManager: LoginDataManager = LoginDataManager()
+    private let loginViewModel = LoginViewModel()
+    private let disposeBag = DisposeBag()
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -88,10 +92,8 @@ class NewSplashController: BaseViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-//        phoneNumberStack.textField.becomeFirstResponder()
-        
-        phoneNumberStack.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        passwordStack.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        phoneNumberStack.textField.becomeFirstResponder()
+        bind()
         phoneNumberStack.textField.delegate = self
         passwordStack.textField.delegate = self
         configureUI()
@@ -107,35 +109,34 @@ class NewSplashController: BaseViewController {
     }
     
     @objc func didTapLoginButton() {
-//        changeRootViewController(HomeTabBarController())
         loginDataManager.login(LoginRequest(phone: phoneNumberStack.textField.text ?? "", password: passwordStack.textField.text ?? ""), delegate: self)
     }
     
-    @objc func textFieldDidChange(_ sender: Any?) {
-        checkLoginInfo()
-    }
-    
     //MARK: - Helpers
-    private func checkLoginInfo() {
-        if let password = passwordStack.textField.text, let phoneNumber = phoneNumberStack.textField.text {
-            let phoneNumberPattern = "^[0-9]{11}$"
-            let regex = try? NSRegularExpression(pattern: phoneNumberPattern)
-            
-            if let _ = regex?.firstMatch(in: phoneNumber, options: [], range: NSRange(location: 0, length: phoneNumber.count)) {
-                
-                if password.count >= 8 && password.count <= 16  {
-                    loginButton.isUserInteractionEnabled = true
-                    loginButton.backgroundColor = .mainLightYellow
-                } else {
-                    loginButton.isUserInteractionEnabled = false
-                    loginButton.backgroundColor = .white
-                }
-
-            } else {
-                loginButton.isUserInteractionEnabled = false
-                loginButton.backgroundColor = .white
+    private func bind() {
+        phoneNumberStack.textField.rx.text
+            .orEmpty
+            .bind(to: loginViewModel.phoneNumberTextObserver)
+            .disposed(by: disposeBag)
+        
+        passwordStack.textField.rx.text
+            .orEmpty
+            .bind(to: loginViewModel.passwordTextObserver)
+            .disposed(by: disposeBag)
+        
+        loginViewModel.isValid.bind(to: loginButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        loginViewModel.isValid
+            .map { $0 ? UIColor.mainLightYellow : UIColor.white}
+            .bind(to: loginButton.rx.backgroundColor)
+            .disposed(by: disposeBag)
+        
+        loginButton.rx.tap.subscribe(
+            onNext: { [weak self] _ in
+                self?.loginDataManager.login(LoginRequest(phone: (self?.loginViewModel.phoneNumberTextObserver.value)!, password: (self?.loginViewModel.passwordTextObserver.value)!), delegate: self!)
             }
-        }
+        ).disposed(by: disposeBag)
     }
     
     private func configureUI() {
@@ -220,13 +221,10 @@ extension NewSplashController {
         UserDefaults.standard.set(true, forKey: "onboarding")
         
         changeRootViewController(HomeTabBarController())
-
-        print("DEBUG: Enable to Login")
     }
     
     func failedToLogin(message: String) {
         self.presentAlert(title: message)
-        print("DEBUG: FAILED LOGIN")
     }
 }
 

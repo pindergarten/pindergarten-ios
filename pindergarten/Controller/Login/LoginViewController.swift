@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 //import AnyFormatKit
 
 class LoginViewController: BaseViewController {
     //MARK: - Properties
     
     lazy var loginDataManager: LoginDataManager = LoginDataManager()
+    private let loginViewModel = LoginViewModel()
+    private let disposeBag = DisposeBag()
     
     private let titleLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 45, height: 26))
@@ -22,7 +26,7 @@ class LoginViewController: BaseViewController {
         return label
     }()
     
-    private let phoneNumberStack = CustomInputView(title: "아이디", placeholder: "휴대폰 번호")
+    private let phoneNumberStack = CustomInputView(title: "휴대폰 번호", placeholder: "휴대폰 번호")
     
     private let passwordStack = CustomInputView(title: "비밀번호", placeholder: "8~16자 이내의 비밀번호", isSecure: true)
     
@@ -72,6 +76,7 @@ class LoginViewController: BaseViewController {
         stack.spacing = 14
         return stack
     }()
+    
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,6 +133,7 @@ class LoginViewController: BaseViewController {
             }
         }
     }
+    
     private func configureUI() {
 
         let tapFindPasswordGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapFindPasswordLabel(sender:)))
