@@ -62,8 +62,6 @@ class NewSplashController: BaseViewController {
         button.layer.borderColor = UIColor.mainLightYellow.cgColor
         button.layer.borderWidth = 3
         button.layer.applyShadow(color: .black, alpha: 0.05, x: 0, y: 4, blur: 20)
-        button.isUserInteractionEnabled = false
-        button.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
         return button
     }()
     
@@ -94,8 +92,6 @@ class NewSplashController: BaseViewController {
         super.viewDidLoad()
         phoneNumberStack.textField.becomeFirstResponder()
         bind()
-        phoneNumberStack.textField.delegate = self
-        passwordStack.textField.delegate = self
         configureUI()
     }
     //MARK: - Action
@@ -106,10 +102,6 @@ class NewSplashController: BaseViewController {
     
     @objc func didTapSignUpButton(sender: Any?) {
         navigationController?.pushViewController(SignUpNumberViewController(), animated: true)
-    }
-    
-    @objc func didTapLoginButton() {
-        loginDataManager.login(LoginRequest(phone: phoneNumberStack.textField.text ?? "", password: passwordStack.textField.text ?? ""), delegate: self)
     }
     
     //MARK: - Helpers
@@ -132,11 +124,12 @@ class NewSplashController: BaseViewController {
             .bind(to: loginButton.rx.backgroundColor)
             .disposed(by: disposeBag)
         
-        loginButton.rx.tap.subscribe(
-            onNext: { [weak self] _ in
+        loginButton.rx.tap
+            .throttle(.seconds(5), latest: false, scheduler: MainScheduler.instance)
+            .bind { [weak self] _ in
                 self?.loginDataManager.login(LoginRequest(phone: (self?.loginViewModel.phoneNumberTextObserver.value)!, password: (self?.loginViewModel.passwordTextObserver.value)!), delegate: self!)
             }
-        ).disposed(by: disposeBag)
+            .disposed(by: disposeBag)
     }
     
     private func configureUI() {
@@ -202,14 +195,7 @@ class NewSplashController: BaseViewController {
     }
 }
 
-extension NewSplashController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
-
-// 네트워크 함수
+//MARK: - Extension: 네트워크 함수
 extension NewSplashController {
     func didSuccessLogin(_ result: LoginResult) {
         

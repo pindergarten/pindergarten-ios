@@ -475,7 +475,6 @@
 			isa = PBXGroup;
 			children = (
 				244D43922819E6920034D5C7 /* Networking */,
-				244D43912819E68A0034D5C7 /* Model */,
 				244D43902819E6840034D5C7 /* View */,
 				244D438F2819E6790034D5C7 /* ViewModel */,
 			);
@@ -496,13 +495,6 @@
 				24994E22274E530E005A604B /* NewSplashController.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		244D43912819E68A0034D5C7 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		244D43922819E6920034D5C7 /* Networking */ = {
