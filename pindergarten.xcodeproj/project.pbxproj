@@ -29,6 +29,8 @@
 		241B0A6927678B1C004672F3 /* UserReportDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A6827678B1C004672F3 /* UserReportDataManager.swift */; };
 		241B0A6B27679E1C004672F3 /* UnblockUserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241B0A6A27679E1C004672F3 /* UnblockUserDataManager.swift */; };
 		241B0A7A2767E2EB004672F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 241B0A7C2767E2EB004672F3 /* InfoPlist.strings */; };
+		244D43952819E7F90034D5C7 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D43942819E7F90034D5C7 /* LoginViewModel.swift */; };
+		244D43982819EA830034D5C7 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D43972819EA830034D5C7 /* ViewModel.swift */; };
 		24595AE2273123E1008B5194 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE1273123E1008B5194 /* EventCell.swift */; };
 		24595AE42732730A008B5194 /* DetailFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE32732730A008B5194 /* DetailFeedCell.swift */; };
 		247B84312733068500591CC4 /* LikeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247B84302733068500591CC4 /* LikeDataManager.swift */; };
@@ -227,6 +229,8 @@
 		241B0A7B2767E2EB004672F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		241B0A7E2767E386004672F3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		241B0A7F2767E386004672F3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		244D43942819E7F90034D5C7 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		244D43972819EA830034D5C7 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		24595AE1273123E1008B5194 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		24595AE32732730A008B5194 /* DetailFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedCell.swift; sourceTree = "<group>"; };
 		247B84302733068500591CC4 /* LikeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDataManager.swift; sourceTree = "<group>"; };
@@ -467,6 +471,69 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
+		244D438E2819E6700034D5C7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				244D43922819E6920034D5C7 /* Networking */,
+				244D43902819E6840034D5C7 /* View */,
+				244D438F2819E6790034D5C7 /* ViewModel */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		244D438F2819E6790034D5C7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				244D43942819E7F90034D5C7 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		244D43902819E6840034D5C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				24994E22274E530E005A604B /* NewSplashController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		244D43922819E6920034D5C7 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				24F74327272D1D9900238E20 /* LoginDataManager.swift */,
+				244D43992819F03F0034D5C7 /* Entity */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		244D43932819E6DE0034D5C7 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				24C4D6FF2727DE9300FD519D /* CustomTextField.swift */,
+				24C4D71327287A6200FD519D /* CustomNavBar.swift */,
+				24C4D7152728839600FD519D /* CustomInputView.swift */,
+				24994DFB274AA844005A604B /* CustomButtonChoiceView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		244D43962819EA710034D5C7 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				244D43972819EA830034D5C7 /* ViewModel.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		244D43992819F03F0034D5C7 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				24F74329272D1E1100238E20 /* LoginRequest.swift */,
+				24F7432B272D1E1D00238E20 /* LoginResponse.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		24994D882739745E005A604B /* Event */ = {
 			isa = PBXGroup;
 			children = (
@@ -625,6 +692,9 @@
 		24C4D6A82725423A00FD519D /* pindergarten */ = {
 			isa = PBXGroup;
 			children = (
+				244D43962819EA710034D5C7 /* Protocol */,
+				244D43932819E6DE0034D5C7 /* CustomView */,
+				244D438E2819E6700034D5C7 /* Login */,
 				24C4D6DB2725928B00FD519D /* Configuration */,
 				24C4D6F427259B0A00FD519D /* Splash */,
 				24C4D6F927259C3100FD519D /* View */,
@@ -727,7 +797,6 @@
 			children = (
 				24994E3C27514E43005A604B /* OnboardingPageViewController.swift */,
 				24994E3E275152A1005A604B /* OnboardingController.swift */,
-				24994E22274E530E005A604B /* NewSplashController.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -747,11 +816,7 @@
 		24C4D6F927259C3100FD519D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				24C4D6FF2727DE9300FD519D /* CustomTextField.swift */,
 				24A5DFE527B6C17E008C8150 /* HomeFooterCollectionResueableView.swift */,
-				24C4D71327287A6200FD519D /* CustomNavBar.swift */,
-				24C4D7152728839600FD519D /* CustomInputView.swift */,
-				24994DFB274AA844005A604B /* CustomButtonChoiceView.swift */,
 				24F743472730330F00238E20 /* HomeCell.swift */,
 				24595AE1273123E1008B5194 /* EventCell.swift */,
 				24994DAC273B00DE005A604B /* EventHeaderView.swift */,
@@ -799,7 +864,6 @@
 		24F74301272CEBAB00238E20 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				24F74327272D1D9900238E20 /* LoginDataManager.swift */,
 				24F74315272D0A5E00238E20 /* CheckUserDataManager.swift */,
 				24F74302272CEBD800238E20 /* SendAuthNumberDataManager.swift */,
 				24F74309272CF53800238E20 /* CheckAuthNumberDataManager.swift */,
@@ -818,8 +882,6 @@
 		24F74304272CEC0D00238E20 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				24F74329272D1E1100238E20 /* LoginRequest.swift */,
-				24F7432B272D1E1D00238E20 /* LoginResponse.swift */,
 				24F74307272CECCD00238E20 /* SendAuthNumberRequest.swift */,
 				24F74305272CEC2700238E20 /* SendAuthNumberResponse.swift */,
 				24F7430B272CF55100238E20 /* CheckAuthNumberRequest.swift */,
@@ -1180,6 +1242,7 @@
 				24994D97273A5B18005A604B /* GetEventCommentDataManager.swift in Sources */,
 				24F74320272D11E400238E20 /* ResetPasswordResponse.swift in Sources */,
 				241B0A61276781D3004672F3 /* GetBlockUserDataManager.swift in Sources */,
+				244D43982819EA830034D5C7 /* ViewModel.swift in Sources */,
 				24A5DFE627B6C17E008C8150 /* HomeFooterCollectionResueableView.swift in Sources */,
 				24F74312272D02B400238E20 /* CheckNickNameRequest.swift in Sources */,
 				247B843B2733FE1A00591CC4 /* EventCommentController.swift in Sources */,
@@ -1196,6 +1259,7 @@
 				24994DC82740CFA4005A604B /* GetLikePindergartenResponse.swift in Sources */,
 				24994DA3273AC7D2005A604B /* DeleteEventCommentDataManager.swift in Sources */,
 				24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */,
+				244D43952819E7F90034D5C7 /* LoginViewModel.swift in Sources */,
 				24994E13274D3EF7005A604B /* GetDetailPetResponse.swift in Sources */,
 				24994D8B27397481005A604B /* GetAllEventDataManager.swift in Sources */,
 				24C4D6E62725953400FD519D /* Date.swift in Sources */,
