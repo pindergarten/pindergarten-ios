@@ -72,7 +72,6 @@ class NewSplashController: BaseViewController {
         button.tintColor = .mainTextColor
         button.layer.cornerRadius = 25
         button.layer.applyShadow(color: .black, alpha: 0.05, x: 0, y: 4, blur: 20)
-        button.addTarget(self, action: #selector(didTapFindPasswordButton), for: .touchUpInside)
         return button
     }()
     
@@ -83,25 +82,16 @@ class NewSplashController: BaseViewController {
         button.tintColor = .mainTextColor
         button.layer.cornerRadius = 25
         button.layer.applyShadow(color: .black, alpha: 0.05, x: 0, y: 4, blur: 20)
-        button.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
         return button
     }()
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         phoneNumberStack.textField.becomeFirstResponder()
         bind()
         configureUI()
-    }
-    //MARK: - Action
-    
-    @objc func didTapFindPasswordButton(sender: Any?) {
-        navigationController?.pushViewController(FindPasswordViewController(), animated: true)
-    }
-    
-    @objc func didTapSignUpButton(sender: Any?) {
-        navigationController?.pushViewController(SignUpNumberViewController(), animated: true)
     }
     
     //MARK: - Helpers
@@ -128,6 +118,20 @@ class NewSplashController: BaseViewController {
             .throttle(.seconds(5), latest: false, scheduler: MainScheduler.instance)
             .bind { [weak self] _ in
                 self?.loginDataManager.login(LoginRequest(phone: (self?.loginViewModel.phoneNumberTextObserver.value)!, password: (self?.loginViewModel.passwordTextObserver.value)!), delegate: self!)
+            }
+            .disposed(by: disposeBag)
+        
+        findPasswordButton.rx.tap
+            .throttle(.seconds(5), latest: false, scheduler: MainScheduler.instance)
+            .bind { [weak self] _ in
+                self?.navigationController?.pushViewController(FindPasswordViewController(), animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        signUpButton.rx.tap
+            .throttle(.seconds(5), latest: false, scheduler: MainScheduler.instance)
+            .bind { [weak self] _ in
+                self?.navigationController?.pushViewController(SignUpNumberViewController(), animated: true)
             }
             .disposed(by: disposeBag)
     }
