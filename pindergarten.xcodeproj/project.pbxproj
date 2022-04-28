@@ -31,6 +31,7 @@
 		241B0A7A2767E2EB004672F3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 241B0A7C2767E2EB004672F3 /* InfoPlist.strings */; };
 		244D43952819E7F90034D5C7 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D43942819E7F90034D5C7 /* LoginViewModel.swift */; };
 		244D43982819EA830034D5C7 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D43972819EA830034D5C7 /* ViewModel.swift */; };
+		244D43AA281A84280034D5C7 /* PindergartenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D43A9281A84280034D5C7 /* PindergartenViewModel.swift */; };
 		24595AE2273123E1008B5194 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE1273123E1008B5194 /* EventCell.swift */; };
 		24595AE42732730A008B5194 /* DetailFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24595AE32732730A008B5194 /* DetailFeedCell.swift */; };
 		247B84312733068500591CC4 /* LikeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247B84302733068500591CC4 /* LikeDataManager.swift */; };
@@ -231,6 +232,7 @@
 		241B0A7F2767E386004672F3 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		244D43942819E7F90034D5C7 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		244D43972819EA830034D5C7 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		244D43A9281A84280034D5C7 /* PindergartenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PindergartenViewModel.swift; sourceTree = "<group>"; };
 		24595AE1273123E1008B5194 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		24595AE32732730A008B5194 /* DetailFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFeedCell.swift; sourceTree = "<group>"; };
 		247B84302733068500591CC4 /* LikeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeDataManager.swift; sourceTree = "<group>"; };
@@ -471,14 +473,14 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
-		244D438E2819E6700034D5C7 /* Login */ = {
+		244D438E2819E6700034D5C7 /* LoginScene */ = {
 			isa = PBXGroup;
 			children = (
 				244D43922819E6920034D5C7 /* Networking */,
 				244D43902819E6840034D5C7 /* View */,
 				244D438F2819E6790034D5C7 /* ViewModel */,
 			);
-			path = Login;
+			path = LoginScene;
 			sourceTree = "<group>";
 		};
 		244D438F2819E6790034D5C7 /* ViewModel */ = {
@@ -534,6 +536,59 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		244D43A3281A83400034D5C7 /* PindergartenScene */ = {
+			isa = PBXGroup;
+			children = (
+				244D43A6281A83AC0034D5C7 /* Networking */,
+				244D43A8281A83B90034D5C7 /* Model */,
+				244D43A5281A83A80034D5C7 /* View */,
+				244D43A4281A83A30034D5C7 /* ViewModel */,
+			);
+			path = PindergartenScene;
+			sourceTree = "<group>";
+		};
+		244D43A4281A83A30034D5C7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				244D43A9281A84280034D5C7 /* PindergartenViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		244D43A5281A83A80034D5C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				24F74333272DB6AB00238E20 /* PindergartenViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		244D43A6281A83AC0034D5C7 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				24994DC92740D214005A604B /* GetAllPindergartenDataManager.swift */,
+				24994DF22743ED51005A604B /* GetPickAroundPindergartenDataManager.swift */,
+				244D43A7281A83B00034D5C7 /* Entity */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		244D43A7281A83B00034D5C7 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				24994DCB2740D299005A604B /* GetAllPindergartenResponse.swift */,
+				24994DF42743ED9E005A604B /* GetPickAroundPindergartenResponse.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		244D43A8281A83B90034D5C7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		24994D882739745E005A604B /* Event */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,7 +621,6 @@
 			isa = PBXGroup;
 			children = (
 				24994DD527415CAD005A604B /* DetailPindergartenControllers */,
-				24F74333272DB6AB00238E20 /* PindergartenViewController.swift */,
 				24994DB3273EB5CD005A604B /* ContentViewController.swift */,
 				24994DB7273EF5FD005A604B /* LikePindergartenController.swift */,
 				24994DB927409973005A604B /* SearchPindergartenController.swift */,
@@ -579,13 +633,11 @@
 		24994DC32740CF31005A604B /* Pindergarten */ = {
 			isa = PBXGroup;
 			children = (
-				24994DC92740D214005A604B /* GetAllPindergartenDataManager.swift */,
 				24994DDE27428694005A604B /* GetDetailPindergartenDataManager.swift */,
 				24994DC52740CF4F005A604B /* GetLikePindergartenDataManager.swift */,
 				24994DCD2740F8E0005A604B /* PindergartenLikeDataManager.swift */,
 				24994DE227428B43005A604B /* GetBlogReviewDataManager.swift */,
 				24994DE8274390BF005A604B /* GetSearchPindergartenDataManager.swift */,
-				24994DF22743ED51005A604B /* GetPickAroundPindergartenDataManager.swift */,
 				24994DC42740CF3C005A604B /* Entity */,
 			);
 			path = Pindergarten;
@@ -594,13 +646,11 @@
 		24994DC42740CF3C005A604B /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				24994DCB2740D299005A604B /* GetAllPindergartenResponse.swift */,
 				24994DE02742873C005A604B /* GetDetailPindergartenResponse.swift */,
 				24994DC72740CFA4005A604B /* GetLikePindergartenResponse.swift */,
 				24994DCF2740F949005A604B /* PindergartenLikeResponse.swift */,
 				24994DE427428C7A005A604B /* GetBlogReviewResponse.swift */,
 				24994DEA274391AB005A604B /* GetSearchPindergartenResponse.swift */,
-				24994DF42743ED9E005A604B /* GetPickAroundPindergartenResponse.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -694,7 +744,8 @@
 			children = (
 				244D43962819EA710034D5C7 /* Protocol */,
 				244D43932819E6DE0034D5C7 /* CustomView */,
-				244D438E2819E6700034D5C7 /* Login */,
+				244D438E2819E6700034D5C7 /* LoginScene */,
+				244D43A3281A83400034D5C7 /* PindergartenScene */,
 				24C4D6DB2725928B00FD519D /* Configuration */,
 				24C4D6F427259B0A00FD519D /* Splash */,
 				24C4D6F927259C3100FD519D /* View */,
@@ -1260,6 +1311,7 @@
 				24994DA3273AC7D2005A604B /* DeleteEventCommentDataManager.swift in Sources */,
 				24C4D7002727DE9300FD519D /* CustomTextField.swift in Sources */,
 				244D43952819E7F90034D5C7 /* LoginViewModel.swift in Sources */,
+				244D43AA281A84280034D5C7 /* PindergartenViewModel.swift in Sources */,
 				24994E13274D3EF7005A604B /* GetDetailPetResponse.swift in Sources */,
 				24994D8B27397481005A604B /* GetAllEventDataManager.swift in Sources */,
 				24C4D6E62725953400FD519D /* Date.swift in Sources */,

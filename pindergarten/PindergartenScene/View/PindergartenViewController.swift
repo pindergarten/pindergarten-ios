@@ -9,6 +9,8 @@ import UIKit
 import CoreLocation
 import NMapsMap
 import FloatingPanel
+import RxSwift
+import RxCocoa
 
 class MyFloatingPanelLayout: FloatingPanelLayout {
 
@@ -34,7 +36,9 @@ class PindergartenViewController: BaseViewController, FloatingPanelControllerDel
     //MARK: - Properties
     
     private lazy var locationManager = CLLocationManager()
-
+    private let pindergartenViewModel = PindergartenViewModel()
+    private let disposeBag = DisposeBag()
+    
     lazy var getAllPindergartenDataManager: GetAllPindergartenDataManager = GetAllPindergartenDataManager()
     lazy var getPickAroundPindergartenDataManager: GetPickAroundPindergartenDataManager = GetPickAroundPindergartenDataManager()
     
