@@ -63,3 +63,5 @@ __위치를 기반으로__ 반려견 유치원들을 소개해주고 상세 정�
 ### 이미지 메모리 사용량/로딩 시간 줄이기
 
 ### Custom CollectionViewFlowLayout
+
+### multipart/form-data로 이미지 업로드
