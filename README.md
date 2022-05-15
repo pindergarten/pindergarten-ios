@@ -10,12 +10,11 @@ __위치를 기반으로__ 반려견 유치원들을 소개해주고 상세 정�
 <br>
 
 ## 개발환경 및 주요 라이브러리
-![Badge](https://img.shields.io/badge/swift-5-orange.svg?)
+![Badge](https://img.shields.io/badge/swift-5.0-orange.svg?)
 ![Badge](https://img.shields.io/badge/Xcode-12.5-blue.svg?)
 ![Badge](https://img.shields.io/badge/Snapkit-5.0.1-yellowgreen.svg?)
 ![Badge](https://img.shields.io/badge/Alamofire-5.4.3-orange.svg?)
 ![Badge](https://img.shields.io/badge/Kingfisher-6.3.0-yellow.svg?)
-![Badge](https://img.shields.io/badge/RxSwift-6.5-green.svg?)
 
 <br>
 
