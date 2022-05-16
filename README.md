@@ -60,7 +60,7 @@ __위치를 기반으로__ 반려견 유치원들을 소개해주고 상세 정�
 ## Trouble Shooting
 ### MVC 아키텍쳐 -> MVVM 아키텍쳐
 
-### 이미지 down sampling을 통한 메모리 최적화와 caching, prefetch, pagination을 통한 scroll 시 효율적인 이미지 로드
+### 이미지 down sampling을 통한 메모리 최적화와 caching, pagination을 통한 scroll 시 효율적인 이미지 로드
 
 ### CollectionViewFlowLayout을 subclassing한 Custom Layout을 통해 고정된 width와 유동적인 height를 가지는 cell을 일정한 간격으로 띄운 UI 구현
 
