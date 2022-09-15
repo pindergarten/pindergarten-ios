@@ -62,4 +62,14 @@ __위치를 기반으로__ 반려견 유치원들을 소개해주고 상세 정�
 
 ### 이미지 down sampling을 통한 메모리 최적화와 caching, pagination을 통한 scroll 시 효율적인 이미지 로드
 
+- 커뮤니티 기능에서 게시물의 사진들이 많아지면서 이미지 로딩이 느려지는 이슈
+
+- WWDC 영상(****[Image and Graphics Best Practices](https://developer.apple.com/videos/play/wwdc2018/219/?time=877))**을 통해  iOS에서 이미지가 화면에 보여지는 과정에 대해 이해도를 높이고 해당 과정에 필요한 라이브러리(**Kingfisher**)를 선택해 Kingfisher의 기능들과 메서드들을 알아보고 이미지 down sampling과 caching을 적용
+
+- UIScrollViewDelegate의 scrollViewDidScroll(_ scrollView: UIScrollView) 함수를 활용해 화면의 특정 위치에서 새로운 데이터를 불러오며 pagination 적용
+
 ### CollectionViewFlowLayout을 subclassing한 Custom Layout을 통해 고정된 width와 유동적인 height를 가지는 cell을 일정한 간격으로 띄운 UI 구현
+
+- UIKit의 collectionview에 기본적으로 사용되는 UICollectionViewFlowLayout은 특정 라인에 따라서 가장 큰 Cell 을 기준으로 다른 Cell 이 중앙 정렬을 하게 되는 것이 원인으로 홈 피드에서 서로 다른 크기의 cell이 위로 정렬이 되지 않고 가운데 정렬이 되는 이슈
+
+- UIKit에서 기본적으로 제공해주는 UICollectionViewFlowLayout의 구현을 코드 레벨에서 확인하고 메서드와 프로퍼티를 override하여 Custom Layout을 구성
