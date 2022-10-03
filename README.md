@@ -64,7 +64,7 @@ __위치를 기반으로__ 반려견 유치원들을 소개해주고 상세 정�
 
 - 커뮤니티 기능에서 게시물의 사진들이 많아지면서 이미지 로딩이 느려지는 이슈
 
-- WWDC 영상(****[Image and Graphics Best Practices](https://developer.apple.com/videos/play/wwdc2018/219/?time=877))**을 통해  iOS에서 이미지가 화면에 보여지는 과정에 대해 이해도를 높이고 해당 과정에 필요한 라이브러리(**Kingfisher**)를 선택해 Kingfisher의 기능들과 메서드들을 알아보고 이미지 down sampling과 caching을 적용
+- WWDC 영상([Image and Graphics Best Practices](https://developer.apple.com/videos/play/wwdc2018/219/?time=877))을 통해  iOS에서 이미지가 화면에 보여지는 과정에 대해 이해도를 높이고 해당 과정에 필요한 라이브러리(**Kingfisher**)를 선택해 Kingfisher의 기능들과 메서드들을 알아보고 이미지 down sampling과 caching을 적용
 
 - UIScrollViewDelegate의 scrollViewDidScroll(_ scrollView: UIScrollView) 함수를 활용해 화면의 특정 위치에서 새로운 데이터를 불러오며 pagination 적용
 
